@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLotScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan parked in front of another vehicle" .
+
+:roadObject1 a :RoadObject ;
+    :description "Red puddle on road surface" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to parked vehicle blocking view of other vehicles or pedestrians" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road condition due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to limited visibility and parked vehicle" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to parked vehicle blocking view of other vehicles or pedestrians
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Slippery road condition due to wet surface
+Severity Score: 0.55
+
+**Risk 3:**
+Description: Potential rear-end collision risk due to limited visibility and parked vehicle
+Severity Score: 0.70
+
+---
+The scene was classified as a **StateAnomaly** due to the static but potentially hazardous conditions (parked vehicle, wet surface, and nighttime). The risks identified include occlusion risk from the parked vehicle, road condition risk from the wet surface, and collision risk due to limited visibility. Severity scores were assigned based on the potential impact and likelihood of each risk occurring.

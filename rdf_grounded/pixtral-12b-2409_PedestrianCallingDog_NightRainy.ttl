@@ -1,0 +1,241 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Road with Dogs Crossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running across road from left side" .
+:actor2 a :Pedestrian ;
+    :description "Dog running across road from right side" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:weather1 a :NightCondition ;
+    :description "Dark urban street with artificial lighting" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dogs' movement suggests dynamic obstacle crossing" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dogs crossing road in front of vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Low visibility due to nighttime and wet road reflections" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Dogs crossing road in front of vehicle (unexpected pedestrian-like behavior).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Low visibility due to nighttime and wet road reflections (occlusion risk).
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Slippery road conditions due to wet surface (reduced traction).
+- **Severity Score:** 0.60
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - **BehaviorAnomaly** (dogs running unpredictably across the road, behaving like pedestrians).
+
+2. **Entities Identified:**
+   - **Actors:** Two dogs (modeled as `Pedestrian` due to their crossing behavior).
+   - **Obstacle:** Wet road surface (`RoadObject`).
+   - **WeatherCondition:** `NightCondition` (low light, artificial lighting).
+   - **EvidenceIndicator:** `RollingBallIndicator` (dynamic movement of dogs).
+
+3. **Risks:**
+   - **Highest Priority:** `PedestrianCollisionRisk` (dogs crossing).
+   - **Secondary:** `OcclusionRisk` (nighttime + reflections).
+   - **Tertiary:** `RoadConditionRisk` (wet road).
+
+4. **Severity Justification:**
+   - Dogs crossing at night (high risk).
+   - Reduced visibility (moderate risk).
+   - Wet road (lower but still significant risk). Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreetAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Dog running across the street" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with street lighting" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction due to unexpected animal crossing" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Dog's motion suggests sudden appearance in road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Dog running into vehicle path
+- **Severity Score:** 0.95
+- **Type:** PedestrianCollisionRisk
+- **Evidence:** FallingObjectIndicator (dog's sudden appearance in road)
+
+**Risk 2:**
+- **Description:** Driver distraction due to unexpected animal crossing
+- **Severity Score:** 0.80
+- **Type:** DistractionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Dog (modeled as a `Cyclist` since it is moving across the road like a cyclist would, though technically it is an animal; the ontology does not have a "Pet" class, so `Cyclist` is the closest fit).
+   - **WeatherCondition:** `NightCondition` (due to darkness and street lighting).
+   - **EvidenceIndicator:** `FallingObjectIndicator` (dog's sudden appearance in the road suggests an unexpected obstacle).
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The dog's sudden appearance in the road is an unexpected state of the environment (not a behavior anomaly or evidence-based anomaly).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the dog's unpredictable movement and potential collision with vehicles.
+   - **DistractionRisk:** Moderate severity due to the driver's potential distraction from the unexpected animal crossing.
+
+4. **Severity Scores:**
+   - PedestrianCollisionRisk: 0.95 (very high due to immediate threat).
+   - DistractionRisk: 0.80 (high but slightly mitigated by the driver's ability to react). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Unknown spherical object on road" .
+
+:weather1 a :RainyCondition ;
+    :description "Wet road surface with reflections" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Poor visibility due to wet road reflections" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision with unknown road object" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road surface due to rain
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Poor visibility due to wet road reflections
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential collision with unknown road object
+Severity Score: 0.85
+
+---
+**Justification:**
+1. The scene contains no actors (pedestrians, cyclists, or vehicles) in motion, so no `Actor` instances are included.
+2. The corner case is classified as `:EvidenceBasedAnomaly` because the rolling object (evidence) on the road is the primary indicator of risk.
+3. The `:RollingBallIndicator` is used to represent the spherical object on the road, which is classified as a `:RoadObject`.
+4. The `:RainyCondition` is inferred from the wet road surface and reflections.
+5. Three risks are identified:
+   - **RoadConditionRisk** due to slippery conditions.
+   - **OcclusionRisk** due to poor visibility from reflections.
+   - **CollisionRisk** due to the unknown object on the road.
+6. Severity scores are assigned based on the potential impact of each risk in a nighttime, rainy scenario.

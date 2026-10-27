@@ -1,0 +1,117 @@
+### **Analysis of the Provided Scene**
+
+#### **1. Identified Main Entities**
+- **Vehicles**: A large truck (white) with a trailer, a smaller vehicle (partially visible) behind it.
+- **Pedestrians**: One pedestrian (yellow shirt) standing near the truck’s rear.
+- **Obstacles**:
+  - A cylindrical object (possibly a barrel) rolling onto the road.
+  - A rectangular object (possibly a crate or box) with a biohazard symbol, rolling toward the road.
+- **Road Infrastructure**:
+  - Road markings (white dashed lines).
+  - Sidewalk with palm trees and streetlights.
+- **Weather Conditions**: Heavy fog or dust storm, severely reducing visibility.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **pedestrian** is **standing near** the **truck’s rear**.
+- The **cylindrical object** is **rolling toward** the **road** from the sidewalk.
+- The **rectangular object** is **rolling toward** the **road** from the sidewalk.
+- The **truck** is **blocking** the **pedestrian’s** view of the **road**.
+- The **fog/dust** is **occluding** visibility of the **road ahead**.
+- The **smaller vehicle** is **following** the **truck** but may not be visible due to the **fog**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:HeavyFog ;
+    ex:hasRoadMarking ex:WhiteDashedLine ;
+    ex:hasObstacle ex:RollingCylinder, ex:RollingCrate .
+
+ex:HeavyFog a ex:WeatherCondition ;
+    ex:reducesVisibility "true"^^xsd:boolean .
+
+ex:WhiteDashedLine a ex:RoadMarking ;
+    ex:location ex:RoadCenter .
+
+ex:RollingCylinder a ex:Obstacle ;
+    ex:shape "cylindrical" ;
+    ex:material "metal" ;
+    ex:position ex:Sidewalk ;
+    ex:motion ex:RollingTowardRoad .
+
+ex:RollingCrate a ex:Obstacle ;
+    ex:shape "rectangular" ;
+    ex:material "wood/metal" ;
+    ex:label "biohazard" ;
+    ex:position ex:Sidewalk ;
+    ex:motion ex:RollingTowardRoad .
+
+ex:Truck1 a ex:Vehicle ;
+    ex:type "large" ;
+    ex:color "white" ;
+    ex:position ex:Road ;
+    ex:hasPedestrianNear ex:Pedestrian1 .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:clothing "yellow shirt" ;
+    ex:position ex:TruckRear ;
+    ex:action ex:Standing .
+
+ex:FollowingVehicle a ex:Vehicle ;
+    ex:type "small" ;
+    ex:position ex:BehindTruck ;
+    ex:visibility "occluded"^^xsd:boolean .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **rolling cylindrical object** may **enter the road**, posing a collision risk to the **following vehicle** (or any vehicle approaching from the opposite direction). The **fog** further reduces reaction time.
+
+**Severity Score:** **0.85** (High risk due to visibility and object motion)
+
+#### **Risk 2:**
+**Description:**
+The **pedestrian** standing near the **truck’s rear** could be **unaware of the rolling objects** and may **step into the road**, leading to a collision with the **truck or following vehicle**.
+
+**Severity Score:** **0.75** (Moderate-high risk due to pedestrian proximity and object motion)
+
+#### **Risk 3:**
+**Description:**
+The **rectangular object (biohazard crate)** rolling onto the road could **damage infrastructure** (e.g., road signs, traffic lights) or **injure pedestrians** if it hits them.
+
+**Severity Score:** **0.65** (Moderate risk due to potential secondary hazards)
+
+#### **Risk 4:**
+**Description:**
+The **following vehicle** may **not detect the truck or obstacles** due to **fog**, leading to a **rear-end collision** or **failure to yield**.
+
+**Severity Score:** **0.80** (High risk due to visibility impairment)
+
+#### **Risk 5:**
+**Description:**
+The **truck’s blind spot** (due to its size and the pedestrian’s position) increases the risk of **pedestrian-vehicle collision** if the pedestrian moves unexpectedly.
+
+**Severity Score:** **0.70** (Moderate-high risk due to blind spot and pedestrian movement)
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Severity (0-1)** | **Primary Concern** |
+|----------|-------------------|---------------------|
+| Rolling cylindrical object on road | 0.85 | Collision with following vehicles |
+| Pedestrian near truck rear | 0.75 | Pedestrian-vehicle collision |
+| Following vehicle in fog | 0.80 | Rear-end collision |
+| Biohazard crate on road | 0.65 | Infrastructure damage |
+| Truck blind spot risk | 0.70 | Pedestrian collision |
+
+This scene presents **multiple high-severity risks** due to **reduced visibility, rolling obstacles, and pedestrian proximity**. An autonomous vehicle must **prioritize obstacle detection, pedestrian tracking, and adaptive speed control** to mitigate these hazards.

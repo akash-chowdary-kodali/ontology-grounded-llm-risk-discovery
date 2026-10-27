@@ -1,0 +1,51 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (observed from the hood).
+*   **Road Infrastructure:** Multi-lane road with lane markings, overhead traffic light, street lamps, a billboard, and a brick wall.
+*   **Weather Conditions:** Heavy rain and thick fog (extremely low visibility).
+*   **Objects:** Bus stop shelter on the right.
+
+### 2. Relationships
+*   **Ego-Vehicle** is positioned at an intersection/crosswalk.
+*   **Traffic light** is located above the road, directly in the path of the ego-vehicle.
+*   **Bus stop** is located on the right curb, potentially occluding pedestrians.
+*   **Road surface** is wet and reflective due to precipitation.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:color "red" ;
+    ex:position "intersection" .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:visibility "low" ;
+    ex:precipitation "heavy" ;
+    ex:surfaceState "wet" .
+
+ex:TrafficLight rdf:type ex:Infrastructure ;
+    ex:state "unknown/low-visibility" ;
+    ex:isAbove ex:Road .
+
+ex:BusStop rdf:type ex:Infrastructure ;
+    ex:location "right_side" ;
+    ex:potentialOccluder "true" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Severely reduced visibility due to heavy fog and rain, making it difficult to detect hazards, pedestrians, or traffic signal states at a distance.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Wet and slick road surface leading to reduced tire traction, increasing the braking distance of the ego-vehicle.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** Potential pedestrian occlusion at the bus stop on the right side; reduced visibility prevents timely detection of pedestrians stepping into the roadway.
+*   **Severity Score:** 0.85
+
+**Risk 4:**
+*   **Description:** Ambiguous traffic light signal status due to environmental interference, increasing the risk of signal violation.
+*   **Severity Score:** 0.75

@@ -1,0 +1,66 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear ;
+    ex:hasRoadMarking ex:DoubleWhiteLine .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:isPositionedAt ex:Intersection ;
+    ex:hasFieldOfView ex:LimitedByDarkness ;
+    ex:hasHeadlight ex:On .
+
+ex:RoadInfrastructure1 a ex:Road ;
+    ex:hasFeature ex:StreetLight ;
+    ex:hasFeature ex:Signage ;
+    ex:hasFeature ex:Sidewalk .
+
+ex:Signage1 a ex:TrafficSign ;
+    ex:hasText "WAS SOME STUFF" ;
+    ex:isPositionedAt ex:RightSide .
+
+ex:StreetLight1 a ex:LightSource ;
+    ex:isPositionedAt ex:Intersection ;
+    ex:isIlluminating ex:Road .
+
+ex:Intersection1 a ex:RoadIntersection ;
+    ex:hasType ex:TIntersection ;
+    ex:hasVisibility ex:ReducedDueToDarkness .
+
+ex:Obstacle1 a ex:PotentialObstacle ;
+    ex:isType ex:Unknown ;
+    ex:isPositionedAt ex:FarRightSide .
+
+ex:Vehicle1 ex:hasRisk ex:Risk1 .
+ex:Vehicle1 ex:hasRisk ex:Risk2 .
+ex:Vehicle1 ex:hasRisk ex:Risk3 .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: Limited visibility due to low lighting conditions, potentially leading to missed detection of obstacles or pedestrians.
+Severity Score: 0.8
+
+**Risk 2:**
+Description: Potential presence of an unknown obstacle on the far right side of the intersection, which could be a pedestrian, cyclist, or stationary object.
+Severity Score: 0.7
+
+**Risk 3:**
+Description: Reduced visibility of traffic signage due to darkness, which may result in misinterpretation or failure to notice important traffic instructions.
+Severity Score: 0.6
+
+---
+The scene presents several safety risks primarily due to low lighting conditions and the potential for undetected obstacles. The autonomous vehicle's ability to accurately perceive its environment is compromised, increasing the likelihood of accidents or near-misses.

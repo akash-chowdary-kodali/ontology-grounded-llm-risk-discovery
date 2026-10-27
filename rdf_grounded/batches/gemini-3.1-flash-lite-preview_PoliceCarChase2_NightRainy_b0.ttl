@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WrongWayDrivingAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle driving in the wrong lane against traffic flow" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle detected in the ego-vehicle's lane moving in opposite direction" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle detected in the ego-vehicle's lane moving in opposite direction
+Severity Score: 0.95

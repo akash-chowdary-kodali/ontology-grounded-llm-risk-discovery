@@ -1,0 +1,62 @@
+Based on the provided image, here is the semantic interpretation grounded in the given ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeEmptyRoadWithPoorLighting" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Poor visibility and lighting conditions on an empty road at night" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to poor lighting and nighttime conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential road surface conditions not clearly visible due to lighting" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Limited visibility due to poor lighting and nighttime conditions
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential road surface conditions not clearly visible due to lighting
+Severity Score: 0.60
+
+---
+**Explanation:**
+1. **Entities in the Scene:**
+   - The scene is classified as a `NightCondition` under `WeatherCondition`.
+   - No actors (Cyclist, Pedestrian, Vehicle), traffic signs, traffic lights, or billboards are visible in the image.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `StateAnomaly` because the poor lighting and nighttime conditions inherently create a state of reduced visibility, which is not due to any specific behavior or evidence-based anomaly.
+
+3. **RDF Triples:**
+   - The triples describe the scene, its weather condition, and the associated risks.
+
+4. **Potential Safety Risks:**
+   - **OcclusionRisk:** Due to the poor lighting and nighttime conditions, the risk of occlusion (objects not being visible) is high.
+   - **RoadConditionRisk:** The road surface conditions are not clearly visible, posing a risk for potential hazards like potholes or debris.
+
+5. **Severity Scores:**
+   - The `OcclusionRisk` is assigned a severity score of 0.75, indicating a significant risk.
+   - The `RoadConditionRisk` is assigned a severity score of 0.60, indicating a moderate risk.

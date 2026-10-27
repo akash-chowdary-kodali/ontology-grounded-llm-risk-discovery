@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Night scene with a rolling object" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling object on the road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Driver distraction due to unexpected rolling object" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Driver distraction due to unexpected rolling object
+Severity Score: 0.70

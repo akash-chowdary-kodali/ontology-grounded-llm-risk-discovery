@@ -1,0 +1,97 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ns#>
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:NighttimeDrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear .
+
+ex:Road1 a ex:Road ;
+    ex:hasLaneMarking ex:DoubleSolidWhiteLane ;
+    ex:hasCurve ex:GentleCurve ;
+    ex:hasSurfaceCondition ex:Dry .
+
+ex:Billboard1 a ex:Billboard ;
+    ex:hasText "To FUNI" ;
+    ex:hasLocation ex:AboveRoad ;
+    ex:hasLighting ex:Illuminated .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:isDrivingOn ex:Road1 ;
+    ex:hasPosition ex:FrontOfScene ;
+    ex:hasSpeed ex:LowSpeed .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isPositioned ex:LeftSideOfRoad ;
+    ex:hasLightingState ex:On .
+
+ex:PalmTree1 a ex:Vegetation ;
+    ex:isPositioned ex:RightSideOfRoad ;
+    ex:hasHeight ex:Tall .
+
+ex:Building1 a ex:Building ;
+    ex:isPositioned ex:RightSideOfRoad ;
+    ex:hasLighting ex:Minimal .
+
+ex:Obstacle1 a ex:PotentialObstacle ;
+    ex:isType ex:UnknownObjectInDistance ;
+    ex:isPositioned ex:AheadOnRoad ;
+    ex:isVisible ex:PartiallyVisible .
+
+ex:Vehicle1 ex:hasFieldOfView ex:LimitedByDarkness .
+ex:Vehicle1 ex:hasPotentialOcclusion ex:Billboard1 .
+ex:UnknownObjectInDistance ex:isOccludedBy ex:Billboard1 .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The autonomous vehicle's field of view is limited by low lighting conditions, which may obscure potential obstacles or objects on the road ahead, especially those partially occluded by the illuminated billboard.
+
+Severity Score: 0.7
+
+---
+
+**Risk 2:**
+Description:
+The gentle curve in the road combined with low lighting conditions increases the risk of missing unseen objects or pedestrians, potentially leading to a collision.
+
+Severity Score: 0.6
+
+---
+
+**Risk 3:**
+Description:
+The partially visible unknown object in the distance could be a pedestrian, cyclist, or another vehicle, posing a risk of collision if not detected in time due to the limited visibility.
+
+Severity Score: 0.8
+
+---
+
+**Risk 4:**
+Description:
+The minimal lighting from the streetlight and building on the right side of the road may not be sufficient to illuminate the entire roadway, increasing the risk of not detecting obstacles or changes in road conditions.
+
+Severity Score: 0.6
+
+---
+
+**Risk 5:**
+Description:
+The autonomous vehicle's sensors might struggle to accurately detect and classify objects in low-light conditions, leading to potential misidentification or missed detection of obstacles.
+
+Severity Score: 0.75
+
+---
+These risks highlight the importance of robust sensor fusion, advanced lighting systems, and reliable object detection algorithms in autonomous vehicles to handle low-light scenarios safely.

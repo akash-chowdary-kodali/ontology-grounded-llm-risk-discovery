@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RainyUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced visibility and traction due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rain droplets and spray obstructing forward visibility" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Reduced visibility and traction due to heavy rain
+- **Severity Score:** 0.90
+- **Risk Type:** `RoadConditionRisk`
+
+**Risk 2:**
+- **Description:** Rain droplets and spray obstructing forward visibility
+- **Severity Score:** 0.85
+- **Risk Type:** `OcclusionRisk`
+
+---
+
+### **Explanation of Ontology Application**
+1. **Scene Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the primary concern arises from observable evidence (rain, spray, and reduced visibility) rather than an actor's behavior or state.
+
+2. **Weather Condition:**
+   - The scene is explicitly marked as **RainyCondition** due to the heavy rain and spray visible in the images.
+
+3. **Evidence Indicator:**
+   - The **RollingBallIndicator** is used to represent the rain droplets and spray obstructing visibility, which directly indicates potential risks.
+
+4. **Risks Identified:**
+   - **RoadConditionRisk:** Heavy rain reduces traction and visibility, increasing the likelihood of skidding or loss of control.
+   - **OcclusionRisk:** Rain droplets and spray obstruct the vehicle's forward-facing cameras/sensors, reducing situational awareness.
+
+5. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.90 and 0.85) due to the immediate and critical impact on autonomous driving safety in such conditions.

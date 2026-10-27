@@ -1,0 +1,109 @@
+### **Analysis of the Tunnel Scene**
+
+#### **1. Identified Entities in the Scene**
+- **Vehicles**:
+  - A vehicle (likely the ego vehicle) in the foreground (red bounding box).
+  - A distant vehicle (headlights visible) in the tunnel.
+- **Road Infrastructure**:
+  - Tunnel walls (brick/concrete).
+  - Tunnel ceiling (with lighting fixtures).
+  - Wet road surface (reflective, indicating recent rain).
+  - Road markings (faint white lines).
+- **Weather Conditions**:
+  - Low visibility (darkness).
+  - Wet road (possible rain or moisture).
+- **Obstacles**:
+  - None directly visible, but poor lighting and reflections may obscure objects.
+- **Pedestrians/Cyclists**:
+  - None visible in the provided images.
+
+---
+
+#### **2. Relationships Between Entities**
+- The **ego vehicle** is **traveling inside a tunnel** with **limited visibility**.
+- The **distant vehicle** is **ahead** and **approaching** the ego vehicle.
+- The **wet road surface** suggests **reduced traction** and **increased braking distance**.
+- The **tunnel lighting** is **insufficient**, causing **occlusion of distant objects**.
+- The **reflections on the wet road** may **distort perception** of other vehicles or obstacles.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasEnvironment ex:TunnelEnvironment ;
+    ex:hasWeatherCondition ex:WetRoad, ex:LowVisibility .
+
+ex:TunnelEnvironment a ex:RoadInfrastructure ;
+    ex:hasFeature ex:TunnelWalls, ex:TunnelCeiling, ex:RoadMarkings ;
+    ex:hasLighting ex:InsufficientLighting .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:isLocatedIn ex:Scene1 ;
+    ex:hasRelationship ex:TravelingInside, ex:FollowingDistantVehicle ;
+    ex:hasPerceptionIssue ex:DistortedPerceptionDueToReflections .
+
+ex:DistantVehicle a ex:Vehicle ;
+    ex:isLocatedIn ex:Scene1 ;
+    ex:hasPosition ex:AheadOfEgoVehicle ;
+    ex:hasVisibilityIssue ex:OccludedDueToLighting .
+
+ex:WetRoad a ex:WeatherCondition ;
+    ex:affects ex:EgoVehicle, ex:DistantVehicle ;
+    ex:increasesRisk ex:ReducedTraction, ex:IncreasedBrakingDistance .
+
+ex:LowVisibility a ex:WeatherCondition ;
+    ex:affects ex:EgoVehicle ;
+    ex:increasesRisk ex:ObjectDetectionFailure, ex:MisinterpretationOfEnvironment .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+**Insufficient lighting in the tunnel causes poor visibility of distant vehicles and potential obstacles, increasing the risk of collision or misperception of the environment.**
+**Severity Score:** **0.9**
+*(High risk due to limited visibility and reliance on headlights for detection.)*
+
+#### **Risk 2:**
+**Description:**
+**Wet road conditions reduce tire traction, increasing braking distance and the risk of skidding or hydroplaning.**
+**Severity Score:** **0.8**
+*(Moderate to high risk, especially if sudden braking is required.)*
+
+#### **Risk 3:**
+**Description:**
+**Reflections on the wet road may distort the perception of other vehicles or obstacles, leading to false detections or missed objects.**
+**Severity Score:** **0.7**
+*(Moderate risk, as reflections can interfere with sensor readings.)*
+
+#### **Risk 4:**
+**Description:**
+**The tunnel’s confined space may amplify the effects of sensor occlusion, making it difficult for the ego vehicle to accurately detect and classify objects.**
+**Severity Score:** **0.85**
+*(High risk due to limited field of view and potential sensor limitations.)*
+
+#### **Risk 5:**
+**Description:**
+**The distant vehicle’s headlights may cause glare, temporarily blinding the ego vehicle’s sensors or driver (if any), leading to delayed reaction times.**
+**Severity Score:** **0.75**
+*(Moderate to high risk, particularly if the ego vehicle relies on visual or LiDAR detection.)*
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Severity (0-1)** | **Primary Cause** |
+|----------|-------------------|------------------|
+| Poor visibility in tunnel | 0.9 | Insufficient lighting |
+| Reduced traction (wet road) | 0.8 | Wet surface conditions |
+| Sensor distortion (reflections) | 0.7 | Wet road reflections |
+| Sensor occlusion (tunnel walls) | 0.85 | Confined space |
+| Glare from distant vehicle | 0.75 | Headlight reflections |
+
+This scene presents a **high-risk corner case** for autonomous driving due to **combined environmental and infrastructure challenges**. Proper **adaptive lighting, radar/LiDAR redundancy, and conservative speed control** would be critical mitigation strategies.

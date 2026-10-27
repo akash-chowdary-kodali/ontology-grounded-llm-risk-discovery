@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainFallingObjectScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasWeatherCondition :rainyCondition1 ;
+    :hasRisk :roadConditionRisk1, :collisionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:rainyCondition1 a :RainyCondition .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling object on road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road conditions due to heavy rain
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision risk due to falling object on road
+Severity Score: 0.80
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - **WeatherCondition**: `:rainyCondition1` (RainyCondition)
+   - **EvidenceIndicator**: `:fallingObjectIndicator1` (FallingObjectIndicator)
+   - **CornerCase**: `:cc1` (EvidenceBasedAnomaly) due to the presence of a falling object in adverse weather.
+
+2. **Corner Case Classification**:
+   - `:cc1` is classified as an **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (falling object) rather than an actor's behavior or state.
+
+3. **Risks Identified**:
+   - **RoadConditionRisk**: Due to heavy rain causing slippery roads.
+   - **CollisionRisk**: Due to the falling object potentially causing a collision.
+
+4. **Severity Scores**:
+   - Road conditions (0.75) and collision risk (0.80) are both high due to the hazardous combination of rain and a falling object.

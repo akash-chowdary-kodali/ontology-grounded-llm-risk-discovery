@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling sandbag on road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Sandbag rolling into vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling road object" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with falling road object (sandbag)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of road ahead
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Sandbag (classified as `:RoadObject`).
+   - **Weather Condition:** Fog (classified as `:FoggyCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting in this scene, so no `:Actor` subclass is used.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the primary issue is the **evidence of a falling object** (sandbag) and its potential impact on safety.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the sandbag falling directly into the vehicle's path.
+   - **OcclusionRisk:** High severity due to fog reducing visibility, which could exacerbate the collision risk.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a higher score (0.90) because the sandbag is an immediate hazard.
+   - Occlusion risk is slightly lower (0.80) but still critical due to the foggy conditions.

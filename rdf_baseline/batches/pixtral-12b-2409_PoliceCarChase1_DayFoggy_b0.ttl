@@ -1,0 +1,141 @@
+Here is the semantic analysis of the provided tunnel scene images:
+
+---
+
+### **1. Identified Entities and Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Ego Vehicle** (red car, front view)
+  - **Lead Vehicle** (white car, ~100m ahead)
+- **Road Infrastructure:**
+  - Tunnel walls (concrete/brick)
+  - Tunnel ceiling (concrete)
+  - Road markings (double white lines)
+  - Overhead lighting (LED fixtures)
+- **Weather/Optical Conditions:**
+  - Fog/haze (reduced visibility)
+- **Obstacles:**
+  - None directly visible (but potential for unseen obstacles due to fog)
+
+#### **Relationships:**
+- **Ego Vehicle** `hasFieldOfView` Tunnel (restricted visibility due to fog).
+- **Ego Vehicle** `isFollowing` Lead Vehicle (distance ~100m, speed likely matching).
+- **Lead Vehicle** `isOccludedBy` Fog (reduced visibility of rear lights/brake status).
+- **Tunnel** `hasLighting` Overhead LED fixtures (but fog scatters light).
+- **Fog** `reducesVisibility` Road markings and vehicles (beyond ~50m).
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:TunnelScene ;
+    ex:hasWeatherCondition ex:Fog ;
+    ex:hasLightingCondition ex:LowVisibility ;
+    ex:hasRoadMarking ex:DoubleWhiteLine .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:hasFieldOfView ex:Tunnel ;
+    ex:isFollowing ex:LeadVehicle ;
+    ex:hasSpeedLimit xsd:decimal "60.0" ;  # Assumed tunnel speed limit
+    ex:hasSensorData ex:LidarCameraData .
+
+ex:LeadVehicle a ex:Vehicle ;
+    ex:hasColor "White" ;
+    ex:isOccludedBy ex:Fog ;
+    ex:isAheadOf ex:EgoVehicle ;
+    ex:hasDistanceFrom ex:EgoVehicle "100.0"^^xsd:meter .
+
+ex:Fog a ex:WeatherCondition ;
+    ex:reducesVisibility ex:RoadMarking ;
+    ex:reducesVisibility ex:LeadVehicle ;
+    ex:hasDensity "High" .
+
+ex:Tunnel a ex:RoadInfrastructure ;
+    ex:hasLighting ex:OverheadLED ;
+    ex:hasWidth xsd:decimal "7.0"^^xsd:meter ;
+    ex:hasLength xsd:decimal "500.0"^^xsd:meter .  # Approximate
+
+ex:OverheadLED a ex:Lighting ;
+    ex:isScatteredBy ex:Fog ;
+    ex:hasIntensity "Medium" .
+```
+
+---
+
+### **3. Identified Risks**
+#### **Risk 1:**
+**Risk Class:** `VisibilityObstruction`
+**Description:**
+Fog reduces visibility of the lead vehicle and road markings beyond ~50m, increasing the risk of:
+- **Rear-end collision** if the lead vehicle brakes abruptly.
+- **Lane departure** due to obscured road markings.
+- **Failure to detect pedestrians/cyclists** emerging from fog.
+**Severity Score:** **0.85** (High)
+**Mitigation:**
+- Reduce speed proactively.
+- Rely on radar/LiDAR for lead vehicle tracking.
+- Activate fog lights (if available).
+
+#### **Risk 2:**
+**Risk Class:** `SensorDegradation`
+**Description:**
+Fog scatters light, degrading camera performance and potentially causing:
+- **False negatives** in object detection (e.g., missing small vehicles/persons).
+- **Noisy LiDAR readings** due to light scattering.
+**Severity Score:** **0.75** (High)
+**Mitigation:**
+- Increase reliance on radar (less affected by fog).
+- Use thermal imaging if available.
+
+#### **Risk 3:**
+**Risk Class:** `TunnelExitBlindSpot`
+**Description:**
+The tunnel exit is not visible due to fog, increasing the risk of:
+- **Sudden appearance of cross-traffic** (e.g., vehicles exiting the tunnel from the side).
+- **Pedestrian/cyclist collisions** near the exit.
+**Severity Score:** **0.70** (High)
+**Mitigation:**
+- Assume potential cross-traffic at tunnel exit.
+- Slow down when approaching the exit.
+
+#### **Risk 4:**
+**Risk Class:** `BrakingReactionDelay`
+**Description:**
+Reduced visibility of the lead vehicle’s brake lights (due to fog) may delay ego vehicle’s braking reaction, increasing collision risk.
+**Severity Score:** **0.65** (Medium-High)
+**Mitigation:**
+- Maintain **increased following distance** (e.g., 3x normal).
+- Use adaptive cruise control (if available) with conservative settings.
+
+#### **Risk 5:**
+**Risk Class:** `EmergencyVehicleApproach`
+**Description:**
+Fog may obscure emergency vehicles (e.g., ambulances, fire trucks) approaching from the opposite direction or side roads.
+**Severity Score:** **0.60** (Medium)
+**Mitigation:**
+- Listen for sirens.
+- Assume higher priority for unseen vehicles.
+
+---
+### **Summary of Key Risks:**
+| **Risk**                     | **Severity (0-1)** | **Primary Concern**                     |
+|------------------------------|--------------------|-----------------------------------------|
+| Visibility Obstruction       | 0.85               | Rear-end collision, lane departure      |
+| Sensor Degradation            | 0.75               | False negatives in detection            |
+| Tunnel Exit Blind Spot        | 0.70               | Cross-traffic collisions                |
+| Braking Reaction Delay       | 0.65               | Lead vehicle braking                     |
+| Emergency Vehicle Approach    | 0.60               | Unseen high-priority vehicles           |
+
+---
+### **Recommended Actions for Autonomous System:**
+1. **Reduce speed** to **30-40 km/h** (below tunnel speed limit).
+2. **Increase following distance** to **>100m** (or 3x normal distance).
+3. **Activate hazard lights** to signal caution to other drivers.
+4. **Switch to radar-heavy perception** (minimize camera reliance).
+5. **Prepare for sudden stops** (assume lead vehicle may brake).
+6. **Monitor audio cues** (sirens, horns) for emergency vehicles.

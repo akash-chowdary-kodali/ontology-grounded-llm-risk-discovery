@@ -1,0 +1,102 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+:egoVehicle a :Vehicle ;
+    :hasFieldOfView :front ;
+    :isNear :pedestrian1, :pedestrian2, :constructionBarrier .
+
+:pedestrian1 a :Pedestrian ;
+    :hasAction :pushingBarrier ;
+    :isLocatedOn :roadShoulder ;
+    :isWearing :highVisibilityClothing .
+
+:pedestrian2 a :Pedestrian ;
+    :hasAction :crossingRoad ;
+    :isLocatedOn :road ;
+    :isWearing :highVisibilityClothing .
+
+:constructionBarrier a :Obstacle ;
+    :isType :barrier ;
+    :isLocatedOn :roadShoulder ;
+    :isMarkedBy :orangeCones .
+
+:orangeCones a :TrafficMarker ;
+    :indicates :constructionZone .
+
+:vehicleRight a :Vehicle ;
+    :isType :van ;
+    :isFollowing :egoVehicle ;
+    :isNear :pedestrian2 .
+
+# Relationships
+:egoVehicle :hasRisk :pedestrianCollisionRisk .
+:egoVehicle :hasRisk :constructionZoneObstacleRisk .
+:pedestrian2 :hasRisk :unpredictableCrossingRisk .
+
+# Environmental Conditions
+:weatherCondition a :Weather ;
+    :condition :clear .
+
+# Road Infrastructure
+:road a :Road ;
+    :hasLaneMarkings :solidWhite ;
+    :hasTrafficSigns :noneVisible ;
+    :hasTrafficControl :none .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1: Pedestrian Collision Risk**
+**Description:**
+The ego vehicle is approaching two pedestrians in high-visibility clothing. One pedestrian is actively pushing a large barrier on the road shoulder, while the other is crossing the road unexpectedly. The van following the ego vehicle may also pose a risk if it reacts abruptly to the crossing pedestrian.
+
+**Severity Score:** **0.85**
+*(High risk due to unpredictable pedestrian movement and proximity to the ego vehicle.)*
+
+---
+
+#### **Risk 2: Construction Zone Obstacle Risk**
+**Description:**
+The presence of a large barrier and orange cones on the road shoulder indicates an active construction zone. The ego vehicle may need to navigate around these obstacles, which could lead to sudden lane changes or reduced visibility of other road users.
+
+**Severity Score:** **0.65**
+*(Moderate risk due to potential obstruction and need for careful maneuvering.)*
+
+---
+
+#### **Risk 3: Unpredictable Pedestrian Crossing Risk**
+**Description:**
+The pedestrian crossing the road appears to be moving at an irregular pace and may not follow standard traffic rules. The ego vehicle must detect and react to this behavior quickly to avoid collision.
+
+**Severity Score:** **0.90**
+*(Very high risk due to sudden crossing and lack of clear right-of-way indicators.)*
+
+---
+
+#### **Risk 4: Following Vehicle Reaction Risk**
+**Description:**
+The van following the ego vehicle may not have sufficient reaction time if the ego vehicle brakes suddenly due to the crossing pedestrian. This could lead to a rear-end collision.
+
+**Severity Score:** **0.70**
+*(High risk due to close proximity and potential chain-reaction collision.)*
+
+---
+
+### **Summary of Key Observations**
+1. **Pedestrian Behavior:** Both pedestrians are wearing high-visibility clothing but exhibit unpredictable movements (pushing barriers, crossing roads).
+2. **Construction Zone:** The presence of barriers and cones suggests a need for careful navigation.
+3. **Following Vehicle:** The van behind the ego vehicle increases collision risk if sudden braking occurs.
+4. **Environmental Conditions:** Clear weather reduces visibility risks but does not mitigate pedestrian unpredictability.
+
+This analysis highlights the need for **advanced pedestrian detection**, **obstacle avoidance algorithms**, and **predictive collision warning systems** in autonomous vehicles for such scenarios.

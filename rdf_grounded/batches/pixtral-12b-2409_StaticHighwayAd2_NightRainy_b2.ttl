@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WetRoadNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Wet road surface with reflective sheen indicating recent rain" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective water patches on road indicating wet conditions" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Poor visibility due to nighttime and wet road reflections" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced traction due to wet road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Poor visibility due to nighttime and wet road reflections
+Severity Score: 0.65
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - No explicit Actors, TrafficSigns, TrafficLights, or Billboards were visible in the scene.
+   - The primary observable entity is the **WeatherCondition** (`RainyCondition`) inferred from the wet road surface and reflections.
+
+2. **Corner Case Classification:**
+   - Classified as `:EvidenceBasedAnomaly` due to the presence of observable evidence (reflective water patches) indicating wet conditions.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** due to reduced traction from wet surfaces.
+   - **OcclusionRisk** due to poor visibility from nighttime and reflective road surfaces.
+
+4. **Severity Scores:**
+   - RoadConditionRisk (0.75): High due to potential loss of vehicle control.
+   - OcclusionRisk (0.65): Moderate due to reduced visibility but no immediate obstacles.

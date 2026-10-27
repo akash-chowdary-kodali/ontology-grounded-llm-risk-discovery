@@ -1,0 +1,76 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:timeStamp "2023-10-05T23:45:00"^^xsd:dateTime ;
+    ex:location "Urban Area" ;
+    ex:weatherCondition ex:Night .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:position "OnRoad" ;
+    ex:hasCamera ex:FrontCamera ;
+    ex:hasObstacleInView ex:Obstacle1 .
+
+ex:Obstacle1 a ex:UnknownObject ;
+    ex:location "OnRoad" ;
+    ex:distanceFromVehicle "Close" ;
+    ex:occludedBy ex:Person1 ;
+    ex:position "CenterOfRoad" .
+
+ex:Person1 a ex:Pedestrian ;
+    ex:action "Crossing" ;
+    ex:location "NearVehicle" ;
+    ex:carrying ex:Object2 .
+
+ex:Object2 a ex:Object ;
+    ex:type "Unknown" ;
+    ex:size "Large" .
+
+ex:RoadInfrastructure1 a ex:Road ;
+    ex:type "UrbanStreet" ;
+    ex:hasLaneMarkings ex:YellowLines ;
+    ex:hasBuildings ex:Building1 .
+
+ex:Building1 a ex:Building ;
+    ex:location "LeftSideOfRoad" .
+
+ex:LightingCondition a ex:Lighting ;
+    ex:type "LowLight" ;
+    ex:source "StreetLights" .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The autonomous vehicle's camera view is partially occluded by a pedestrian carrying a large object, which could obstruct the detection of potential obstacles on the road.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The presence of an unknown object on the road in low-light conditions increases the risk of collision due to poor visibility and detection challenges.
+Severity Score: 0.80
+
+**Risk 3:**
+Description: The pedestrian crossing the road in low-light conditions poses a risk of not being detected in time by the autonomous vehicle, leading to a potential collision.
+Severity Score: 0.75
+
+**Risk 4:**
+Description: The autonomous vehicle's sensors might fail to accurately identify the nature of the large object being carried by the pedestrian, leading to misinterpretation of the scene.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: The urban street environment with limited lighting and potential for other unseen obstacles increases the overall risk of encountering an unexpected scenario.
+Severity Score: 0.65
+
+---
+The severity scores are based on the potential impact and likelihood of each risk occurring in the given scenario. The scores are subjective and should be adjusted based on additional data and context.

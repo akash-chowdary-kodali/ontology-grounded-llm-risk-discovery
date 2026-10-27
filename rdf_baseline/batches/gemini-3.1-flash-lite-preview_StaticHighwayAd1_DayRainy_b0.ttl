@@ -1,0 +1,40 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:TrafficLight rdf:type ex:Infrastructure ;
+                ex:state "Red" .
+ex:Environment rdf:type ex:WeatherCondition ;
+               ex:type "Heavy Rain" ;
+               ex:visibility "Low" .
+ex:BusStop rdf:type ex:Infrastructure .
+ex:RoadSurface rdf:type ex:Infrastructure ;
+               ex:condition "Wet" .
+
+ex:EgoVehicle ex:near ex:RoadSurface .
+ex:TrafficLight ex:facing ex:EgoVehicle .
+ex:BusStop ex:locatedAt ex:RightRoadside .
+ex:Environment ex:affects ex:Visibility .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Severe reduction in visibility and degraded sensor performance due to heavy rain and fog. This impairs the ego vehicle's ability to detect distant obstacles, traffic control devices, or vulnerable road users.
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** Hazardous road surface condition. The wet asphalt significantly increases braking distances and creates a high risk of hydroplaning or loss of vehicle control during maneuvers.
+**Severity Score:** 0.80
+
+**Risk 3:**
+**Description:** Potential presence of occluded entities. The bus stop area on the right provides visual obstruction where pedestrians could be waiting or preparing to cross the street, invisible to the driver due to limited sightlines.
+**Severity Score:** 0.65
+
+**Risk 4:**
+**Description:** Traffic control compliance risk. The traffic light is set to red, requiring an immediate and controlled stop on a slick, wet road, which increases the likelihood of rear-end collisions or sliding past the stop line.
+**Severity Score:** 0.70

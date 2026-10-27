@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 ;
+    :hasWeatherCondition :weather1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling rectangular object on road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to falling object obstructing view" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation or fog" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision with falling object on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Risk of occlusion due to falling object obstructing view
+Severity Score: 0.7
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The falling object is classified as a `:RoadObject` under `:Obstacle`.
+   - The weather is classified as `:ClearCondition` under `:WeatherCondition`.
+   - The evidence of the falling object is classified as `:FallingObjectIndicator` under `:EvidenceIndicator`.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the anomaly is identified through observable evidence (the falling object) rather than inferred behavior or state.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the object being directly on the roadway, posing an immediate threat to vehicles.
+   - **OcclusionRisk:** Moderate severity as the object may obstruct the view of other actors (e.g., pedestrians, cyclists, or other vehicles) in the scene.

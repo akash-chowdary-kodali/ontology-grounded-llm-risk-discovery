@@ -1,0 +1,55 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanCrosswalkPedestrianScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Pedestrian ;
+    :description "Child crossing crosswalk" .
+:actor2 a :Pedestrian ;
+    :description "Adult crossing crosswalk" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing without clear awareness of surroundings" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to pedestrians' unexpected movement" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear day with good visibility" .
+
+:scene1 :hasWeatherCondition :weather1 .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrians crossing without clear awareness of surroundings (children and adult crossing crosswalk unexpectedly)
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential distraction due to pedestrians' unexpected movement
+Severity Score: 0.60
+
+---
+**Additional Notes:**
+- The corner case is classified as a **BehaviorAnomaly** due to the pedestrians' unexpected crossing behavior.
+- The scene is under **DayCondition** with clear visibility.
+- No traffic signs, traffic lights, billboards, or obstacles were identified as relevant to the corner case in this specific scenario.
+- The severity scores reflect the potential collision risk and distraction risk based on the observed behavior of the pedestrians.

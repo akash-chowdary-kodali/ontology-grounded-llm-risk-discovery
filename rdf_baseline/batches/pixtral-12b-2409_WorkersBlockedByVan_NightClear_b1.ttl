@@ -1,0 +1,115 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+---
+
+### **1. Identified Main Entities**
+- **Vehicles**:
+  - Autonomous vehicle (ego vehicle, red car in the foreground).
+- **Pedestrians**:
+  - One pedestrian (wearing a yellow shirt and blue jeans) crossing the road.
+- **Road Infrastructure**:
+  - Road markings (white dashed lines).
+  - Traffic cones (orange, placed on the road).
+  - Sidewalk (right side).
+  - Streetlights (illuminating the scene).
+  - Buildings (residential/commercial structures on both sides).
+- **Obstacles**:
+  - Traffic cones (potential temporary obstacles).
+- **Weather Conditions**:
+  - Nighttime (low visibility, artificial lighting).
+
+---
+
+### **2. Identified Relationships Between Entities**
+- The **pedestrian** is **crossing** the road from the right sidewalk toward the left side of the road.
+- The **ego vehicle** is **approaching** the pedestrian at a close distance.
+- The **traffic cones** are **placed** on the road, possibly indicating a temporary hazard or construction zone.
+- The **streetlights** are **illuminating** the scene, but visibility may still be limited due to nighttime conditions.
+- The **pedestrian** is **not in a designated crosswalk** and appears to be in the path of the ego vehicle.
+
+---
+
+### **3. RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+:EgoVehicle a :Vehicle ;
+    :hasPosition [ :x 0 ; :y 0 ; :z 0 ] ;
+    :hasSpeed 10 ;
+    :hasDirection "forward" ;
+    :hasLighting "headlights_on" .
+
+:Pedestrian1 a :Pedestrian ;
+    :hasPosition [ :x 5 ; :y 2 ; :z 0 ] ;
+    :hasDirection "crossing" ;
+    :hasAction "walking" ;
+    :hasClothing "yellow_shirt_blue_jeans" .
+
+:TrafficCone1 a :Obstacle ;
+    :hasPosition [ :x 3 ; :y 0 ; :z 0 ] ;
+    :hasType "orange_cone" .
+
+:TrafficCone2 a :Obstacle ;
+    :hasPosition [ :x 7 ; :y 0 ; :z 0 ] ;
+    :hasType "orange_cone" .
+
+:Streetlight1 a :Infrastructure ;
+    :hasPosition [ :x 10 ; :y 5 ; :z 0 ] ;
+    :hasState "on" .
+
+:Road a :RoadInfrastructure ;
+    :hasMarkings "dashed_white_lines" ;
+    :hasSurface "asphalt" .
+
+# Relationships
+:EgoVehicle :approaching :Pedestrian1 .
+:Pedestrian1 :crossing :Road .
+:TrafficCone1 :placedOn :Road .
+:TrafficCone2 :placedOn :Road .
+:Streetlight1 :illuminates :Road .
+:Pedestrian1 :near :TrafficCone2 .
+
+# Environmental Conditions
+:Scene a :Environment ;
+    :hasWeather "night" ;
+    :hasLighting "artificial" ;
+    :hasVisibility "moderate" .
+```
+
+---
+
+### **4. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Unprotected Pedestrian Crossing**
+- **Description**:
+  The pedestrian is crossing the road outside a designated crosswalk, increasing the risk of collision with the ego vehicle. The nighttime conditions further reduce visibility, making detection and reaction more challenging.
+- **Severity Score**: **0.95** (High risk due to lack of crosswalk and low visibility).
+
+#### **Risk 2: Temporary Obstacles on Road**
+- **Description**:
+  The presence of traffic cones on the road may indicate a construction zone or hazard. The ego vehicle must navigate around them, and the pedestrian’s path intersects with these cones, increasing the risk of misjudgment in trajectory planning.
+- **Severity Score**: **0.7** (Moderate risk due to potential confusion in path planning).
+
+#### **Risk 3: Low Visibility Due to Nighttime**
+- **Description**:
+  The scene is set at night, with artificial lighting providing limited visibility. This may impair the ego vehicle’s ability to detect the pedestrian early, increasing the likelihood of a late reaction.
+- **Severity Score**: **0.8** (High risk due to reduced sensor performance in low light).
+
+#### **Risk 4: Pedestrian in Blind Spot or Late Detection**
+- **Description**:
+  The pedestrian may be detected late by the ego vehicle’s sensors (e.g., cameras, LiDAR) due to their position relative to the vehicle’s field of view, especially if they emerge suddenly.
+- **Severity Score**: **0.85** (High risk due to potential late braking or avoidance maneuvers).
+
+---
+
+### **Summary of Risks**
+| **Risk Class**                     | **Severity Score (0-1)** |
+|------------------------------------|--------------------------|
+| Unprotected Pedestrian Crossing    | 0.95                     |
+| Temporary Obstacles on Road        | 0.70                     |
+| Low Visibility Due to Nighttime     | 0.80                     |
+| Pedestrian in Blind Spot/Late Detection | 0.85           |
+
+This scene represents a **high-risk corner case** for autonomous driving, particularly due to the pedestrian’s unexpected crossing and the challenging environmental conditions. Proper sensor fusion, early pedestrian detection, and adaptive speed control are critical to mitigating these risks.

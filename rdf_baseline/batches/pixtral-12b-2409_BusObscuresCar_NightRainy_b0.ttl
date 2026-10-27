@@ -1,0 +1,92 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :UrbanNightScene ;
+    :hasWeatherCondition :WetRoad ;
+    :hasLightingCondition :LowLighting ;
+    :hasRoadSurfaceCondition :Flooded .
+
+:Vehicle1 a :AutonomousVehicle ;
+    :hasPosition :Lane1 ;
+    :hasSpeed 0 ;
+    :hasSensorOcclusion :High .
+
+:Vehicle2 a :TaxiVehicle ;
+    :hasPosition :Lane2 ;
+    :hasDirection :Approaching ;
+    :hasSpeed 10 .
+
+:Vehicle3 a :ParkedVehicle ;
+    :hasPosition :RightSide ;
+    :hasObstruction :Partial .
+
+:Pedestrian1 a :Pedestrian ;
+    :hasVisibility :Low ;
+    :hasLocation :Sidewalk .
+
+:TrafficLight1 a :TrafficLight ;
+    :hasState :Red ;
+    :hasVisibility :Occluded .
+
+:Risk1 a :SensorOcclusionRisk ;
+    :hasSeverity 0.9 ;
+    :hasDescription "Heavy rain and vehicle proximity occlude sensors." .
+
+:Risk2 a :PedestrianDetectionRisk ;
+    :hasSeverity 0.8 ;
+    :hasDescription "Low-visibility pedestrian near flooded area." .
+
+:Risk3 a :HydroplaningRisk ;
+    :hasSeverity 0.85 ;
+    :hasDescription "Flooded road increases risk of loss of vehicle control." .
+
+:Risk4 a :TrafficLightMisinterpretationRisk ;
+    :hasSeverity 0.7 ;
+    :hasDescription "Occluded traffic light may lead to incorrect AV decision." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1: Sensor Occlusion Risk**
+- **Description:** Heavy rain and the proximity of other vehicles (e.g., the taxi and parked vehicles) occlude the autonomous vehicle’s sensors (cameras, LiDAR, radar), reducing detection accuracy.
+- **Severity Score:** **0.9**
+  *(High due to potential complete sensor failure in extreme conditions.)*
+
+#### **Risk 2: Pedestrian Detection Risk**
+- **Description:** A pedestrian (or cyclist) may be present near the sidewalk, but visibility is severely reduced due to low lighting and rain. The AV may fail to detect them in time.
+- **Severity Score:** **0.8**
+  *(High due to potential collision with vulnerable road users.)*
+
+#### **Risk 3: Hydroplaning Risk**
+- **Description:** The flooded road surface increases the risk of hydroplaning, where the AV loses traction and control, especially at higher speeds.
+- **Severity Score:** **0.85**
+  *(High due to loss of vehicle stability and potential multi-vehicle accidents.)*
+
+#### **Risk 4: Traffic Light Misinterpretation Risk**
+- **Description:** The traffic light is partially occluded by rain and vehicle positioning, increasing the chance of the AV misinterpreting its state (e.g., red vs. green).
+- **Severity Score:** **0.7**
+  *(Moderate-high due to potential violation of traffic rules and collisions at intersections.)*
+
+#### **Risk 5: Reduced Braking Efficiency Risk**
+- **Description:** Wet roads reduce tire grip, increasing braking distances. If the AV must react to an obstacle (e.g., the taxi or pedestrian), braking may be less effective.
+- **Severity Score:** **0.75**
+  *(Moderate-high due to delayed reaction times in emergency stops.)*
+
+---
+### **Summary of Key Observations**
+1. **Environmental Conditions:** Wet roads, low lighting, and heavy rain create hazardous conditions.
+2. **Sensor Limitations:** Occlusions from rain and nearby vehicles degrade perception.
+3. **Dynamic Risks:** Pedestrians, traffic lights, and other vehicles introduce uncertainty.
+4. **Vehicle Control Risks:** Hydroplaning and reduced braking efficiency threaten stability.
+
+This analysis highlights the need for **adaptive sensor fusion**, **conservative speed control**, and **enhanced pedestrian detection algorithms** in such scenarios.

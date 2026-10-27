@@ -1,0 +1,199 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyNightIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :vehicle1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Reduced visibility due to fog" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to < 50m" .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle ahead in right lane" .
+
+:risk1 a :OcclusionRisk ;
+    :description "High occlusion risk due to fog, potential unseen pedestrians or vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "High rear-end collision risk due to reduced visibility and vehicle braking" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High occlusion risk due to fog, potential unseen pedestrians or vehicles
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** High rear-end collision risk due to reduced visibility and vehicle braking
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility)
+   - **Obstacle:** Vehicle (ahead in the right lane)
+   - **EvidenceIndicator:** FallingObjectIndicator (representing reduced visibility due to fog)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The scene is classified as an evidence-based anomaly because the fog (evidence) directly impacts visibility and safety risks.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the fog obscuring potential pedestrians or vehicles.
+   - **RearEndCollisionRisk:** Due to the reduced visibility and the vehicle ahead potentially braking.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.92 and 0.88) due to the critical nature of fog-related driving hazards. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeFoggyRoadWithVehicleBraking" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle braking sharply on a foggy road" .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to < 20 meters" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Wheel lockup and skid marks visible on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog increases risk of collision with unseen obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Ego vehicle braking sharply may cause rear-end collision with following vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog increases risk of collision with unseen obstacles (OcclusionRisk)
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Ego vehicle braking sharply may cause rear-end collision with following vehicles (RearEndCollisionRisk)
+- **Severity Score:** 0.88
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene depicts a **StateAnomaly** because the ego vehicle is in an unexpected state (braking sharply) due to environmental conditions (fog), rather than an intentional behavior anomaly or evidence-based anomaly.
+
+2. **Entities Identified:**
+   - **Actor:** The ego vehicle (`:vehicle1`) is the primary actor in this scenario.
+   - **WeatherCondition:** Heavy fog (`:foggyCondition`) is the dominant environmental factor.
+   - **EvidenceIndicator:** Rolling ball indicator (`:evidence1`) due to wheel lockup and skid marks.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to fog reducing visibility.
+   - **RearEndCollisionRisk:** High severity due to the ego vehicle's abrupt braking.
+
+4. **Severity Scores:**
+   Both risks are assigned high severity scores (0.92 and 0.88) due to the hazardous combination of fog and sudden braking. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeLowVisibilityDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Nighttime driving with reduced visibility due to fog or low light conditions" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions with potential fog" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility of road and surrounding environment due to nighttime conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential wet or slippery road conditions due to nighttime driving" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction risk due to low visibility and reliance on headlights" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility of road and surrounding environment due to nighttime conditions.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential wet or slippery road conditions due to nighttime driving.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Driver distraction risk due to low visibility and reliance on headlights.
+Severity Score: 0.55
+
+---
+The scene shows a nighttime driving scenario with low visibility, which is classified as a **StateAnomaly** due to the inherent conditions of the environment rather than any specific behavior or evidence-based anomaly. The identified risks include **OcclusionRisk** due to poor visibility, **RoadConditionRisk** due to potential wet or slippery roads, and **DistractionRisk** due to reliance on headlights in low-light conditions. Severity scores were assigned based on the potential impact of each risk in this scenario.

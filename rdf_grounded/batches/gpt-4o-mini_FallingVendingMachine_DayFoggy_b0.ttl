@@ -1,0 +1,28 @@
+Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "Obstacle in Fog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:obstacle1 a :Billboard .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Billboard blocking the lane in foggy conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Billboard blocking the lane in foggy conditions
+Severity Score: 0.75

@@ -1,0 +1,128 @@
+### **Scene Analysis: Semantic Interpretation of Urban Driving Scenario**
+
+---
+
+### **1. Identified Entities in the Scene**
+#### **Vehicles:**
+- **Yellow taxi (CARLA)** – Leading vehicle, partially occluding the ego vehicle’s view.
+- **Ego vehicle (red/yellow overlay)** – Following the yellow taxi.
+- **Red vehicle** – Visible in the distance, approaching from the opposite direction.
+- **Other distant vehicles** – Partially visible on the right side of the road.
+
+#### **Road Infrastructure:**
+- **Multi-lane urban road** – Two lanes in each direction.
+- **Sidewalk** – On both sides of the road.
+- **Traffic lights** – Visible in the distance (not active in this frame).
+- **Streetlights** – Multiple poles with lights.
+- **Buildings** – High-rise structures on both sides.
+- **Pedestrian crossing** – Marked but no pedestrians visible.
+
+#### **Obstacles:**
+- **Yellow taxi** – Acts as a moving obstacle due to its position and potential braking.
+- **Red vehicle** – Potential conflict if the ego vehicle misjudges its speed.
+
+#### **Weather Conditions:**
+- **Clear weather** – No rain, fog, or adverse conditions visible.
+
+#### **Pedestrians/Cyclists:**
+- **None visible** in the immediate scene.
+
+---
+
+### **2. Relationships Between Entities**
+- **Ego vehicle** `following` **yellow taxi** (close proximity, potential collision risk if taxi brakes suddenly).
+- **Yellow taxi** `occluding` **distant vehicles** (reduces visibility of traffic ahead).
+- **Red vehicle** `approaching` **ego vehicle** (from opposite direction, potential head-on risk if ego vehicle misjudges speed).
+- **Ego vehicle** `near` **sidewalk** (safe lateral distance maintained).
+- **Traffic lights** `inactive` (no immediate control over traffic flow).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:UrbanDrivingScenario ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasRoadType ex:MultiLaneRoad ;
+    ex:hasTrafficLight ex:TrafficLight1 .
+
+ex:EgoVehicle a ex:AutonomousVehicle ;
+    ex:hasColor "Red/Yellow" ;
+    ex:isFollowing ex:YellowTaxi ;
+    ex:hasSpeed "Moderate" ;
+    ex:hasPosition ex:Lane2 .
+
+ex:YellowTaxi a ex:Vehicle ;
+    ex:hasColor "Yellow" ;
+    ex:hasLicensePlate "CARLA" ;
+    ex:isLeading ex:EgoVehicle ;
+    ex:hasSpeed "Slow" ;
+    ex:occludes ex:DistantVehicles .
+
+ex:RedVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:hasDirection "Opposite" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isActive "False" .
+
+ex:Sidewalk1 a ex:RoadInfrastructure ;
+    ex:isAdjacentTo ex:EgoVehicle .
+
+ex:DistantVehicles a ex:VehicleGroup ;
+    ex:isOccludedBy ex:YellowTaxi .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Rear-End Collision**
+**Description:**
+The ego vehicle is following the yellow taxi at a close distance. If the taxi brakes suddenly (e.g., due to traffic ahead or a pedestrian crossing), the ego vehicle may not have enough reaction time to avoid a collision.
+**Severity Score:** **0.85** (High risk due to proximity and potential sudden braking).
+
+#### **Risk 2: Misjudgment of Opposing Traffic**
+**Description:**
+The red vehicle approaching from the opposite direction may not be fully visible due to the yellow taxi’s occlusion. If the ego vehicle misjudges the red vehicle’s speed or assumes it will yield, a head-on collision could occur.
+**Severity Score:** **0.75** (Moderate-high risk due to limited visibility and potential speed misjudgment).
+
+#### **Risk 3: Occlusion-Induced Blind Spot**
+**Description:**
+The yellow taxi partially blocks the ego vehicle’s view of traffic ahead, including the red vehicle and other potential obstacles. This increases the risk of missing critical cues (e.g., pedestrians, cyclists, or sudden lane changes).
+**Severity Score:** **0.70** (Moderate risk due to reduced situational awareness).
+
+#### **Risk 4: Sudden Pedestrian/Cyclist Appearance**
+**Description:**
+While no pedestrians or cyclists are visible, the scenario is an urban environment where they may suddenly appear (e.g., from behind the yellow taxi or between vehicles). The ego vehicle’s sensors may not detect them in time if they emerge from an occluded area.
+**Severity Score:** **0.60** (Moderate risk due to potential hidden actors).
+
+#### **Risk 5: Traffic Light Violation by Other Vehicles**
+**Description:**
+The traffic lights are inactive, and other vehicles (e.g., the red vehicle) may run a red light or stop unexpectedly. The ego vehicle must rely on correct interpretation of other drivers' intentions, which is unreliable in such scenarios.
+**Severity Score:** **0.55** (Moderate risk due to lack of traffic control).
+
+---
+
+### **Summary of Key Risks**
+| **Risk Class**               | **Severity Score (0-1)** | **Primary Concern**                          |
+|------------------------------|--------------------------|---------------------------------------------|
+| Rear-End Collision           | 0.85                     | Close following of yellow taxi              |
+| Misjudgment of Opposing Traffic | 0.75                   | Occlusion of red vehicle                    |
+| Occlusion-Induced Blind Spot  | 0.70                     | Limited visibility of traffic ahead         |
+| Sudden Pedestrian/Cyclist    | 0.60                     | Hidden actors in urban environment          |
+| Traffic Light Violation       | 0.55                     | Unpredictable behavior of other drivers      |
+
+---
+### **Recommendations for Autonomous System:**
+1. **Increase following distance** from the yellow taxi to mitigate rear-end collision risk.
+2. **Enhance sensor fusion** (e.g., radar + camera) to detect occluded vehicles (red car) and pedestrians.
+3. **Improve predictive modeling** for sudden braking or lane changes by the yellow taxi.
+4. **Use high-definition maps** to anticipate traffic light states and other vehicle behaviors.
+5. **Deploy emergency braking** if the yellow taxi decelerates abruptly.
+
+This scenario highlights the challenges of **occlusion, proximity-based risks, and unpredictable human-driven behavior** in autonomous driving.

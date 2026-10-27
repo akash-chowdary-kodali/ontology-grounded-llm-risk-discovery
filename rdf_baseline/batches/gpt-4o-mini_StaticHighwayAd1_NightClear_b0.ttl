@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasVehicle ex:Vehicle1 ;
+    ex:hasBillboard ex:Billboard1 ;
+    ex:hasTrafficLight ex:TrafficLight1 ;
+    ex:hasBusStop ex:BusStop1 ;
+    ex:hasRoad ex:Road1 ;
+    ex:hasWeatherCondition ex:WeatherNight .
+
+ex:Vehicle1 a ex:Car ;
+    ex:position ex:Front ;
+
+ex:Billboard1 a ex:Advertisement ;
+    ex:displayText "IT'S A GO FOR SALE" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:lightColor "Red" .
+
+ex:BusStop1 a ex:BusStop ;
+    ex:hasShelter "Yes" .
+
+ex:Road1 a ex:Road ;
+    ex:numLanes "3" ;
+    ex:laneMarking "Solid" .
+
+ex:WeatherNight a ex:WeatherCondition ;
+    ex:visibility "Low" .
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Low visibility at night can impair the driver's ability to see pedestrians or other vehicles.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Traffic light is red, which could lead to the potential of running a red light if the vehicle is not aware or vigilant.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Nearby billboards may distract the driver, contributing to potential inattentiveness.
+- **Severity Score:** 0.4
+
+**Risk 4:**
+- **Description:** The presence of solid lane markings can lead to incorrect lane changes if not adhered to, assuming a lack of traffic.
+- **Severity Score:** 0.5

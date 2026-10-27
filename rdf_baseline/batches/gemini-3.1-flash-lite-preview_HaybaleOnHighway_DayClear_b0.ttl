@@ -1,0 +1,48 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera view), one leading purple sedan.
+*   **Obstacles:** Large hay bale (airborne/in-motion, potentially falling), one stationary hay bale on the roadside.
+*   **Infrastructure:** Multi-lane road with lane markings, traffic lights, overhead structural supports (rail/bridge), street lights, signage (keep right).
+*   **Weather/Environment:** Clear sky, daylight, dry road surface.
+
+### 2. Relationships
+*   **Ego-vehicle** is following the **purple sedan**.
+*   **Hay bale (airborne)** is positioned between the ego-vehicle and the purple sedan.
+*   **Hay bale (stationary)** is located near the right-hand curb/sidewalk.
+*   **Purple sedan** is occupying the forward lane.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:PurpleSedan a ex:Vehicle ;
+    ex:isAheadOf ex:EgoVehicle .
+
+ex:AirborneHayBale a ex:Obstacle ;
+    ex:isDynamic "true"^^xsd:boolean ;
+    ex:locatedBetween ex:EgoVehicle ;
+    ex:near ex:PurpleSedan .
+
+ex:StationaryHayBale a ex:Obstacle ;
+    ex:isDynamic "false"^^xsd:boolean ;
+    ex:locatedNear ex:Roadside .
+
+ex:RoadEnvironment a ex:Infrastructure ;
+    ex:hasWeatherCondition "Clear" ;
+    ex:hasLighting "Daylight" .
+```
+
+### 4. Identified Risks
+
+**Risk 1: Dynamic Obstacle Collision**
+*   **Description:** A large hay bale is airborne/in-motion directly in the ego-vehicle's path. This presents an immediate collision hazard and an unpredictable trajectory that could cause the ego-vehicle to swerve or lose control.
+*   **Severity Score:** 0.95
+
+**Risk 2: Multi-Vehicle Interaction Disruption**
+*   **Description:** The airborne object is in close proximity to the leading vehicle. Evasive maneuvers taken by the purple sedan to avoid the object could lead to a secondary collision if the ego-vehicle does not maintain a sufficient safety gap or if the leading vehicle stops abruptly.
+*   **Severity Score:** 0.75
+
+**Risk 3: Distraction / Vision Occlusion**
+*   **Description:** The presence of moving, non-standard objects on the road creates an unexpected perceptual scenario that may interfere with the object detection system's classification accuracy.
+*   **Severity Score:** 0.60

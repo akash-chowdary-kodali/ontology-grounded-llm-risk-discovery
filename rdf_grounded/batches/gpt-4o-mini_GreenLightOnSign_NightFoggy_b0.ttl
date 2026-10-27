@@ -1,0 +1,28 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NightSceneWithBillboards" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Low visibility scenario poses collision risk due to night conditions." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Low visibility scenario poses collision risk due to night conditions.
+Severity Score: 0.7

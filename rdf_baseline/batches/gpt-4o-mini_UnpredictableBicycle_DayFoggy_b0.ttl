@@ -1,0 +1,52 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:contains ex:Vehicle1, ex:Pedestrian1, ex:RoadInfrastructure1, ex:WeatherCondition1 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:isPositionedAt ex:Position1 .
+
+ex:Pedestrian1 a ex:Cyclist ;
+    ex:hasType "Bicycle" ;
+    ex:isPositionedAt ex:Position2 ;
+    ex:isMoving "Near" .
+
+ex:RoadInfrastructure1 a ex:Road ;
+    ex:hasCondition "Foggy" ;
+    ex:hasLaneMarking "Visible" .
+
+ex:WeatherCondition1 a ex:Weather ;
+    ex:hasVisibility "Poor" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1: Reduced Visibility
+- **Description:** The scene is foggy, significantly reducing visibility for all road users, including both the vehicle and cyclist.
+- **Severity Score:** 0.8
+
+#### Risk 2: Cyclist Proximity
+- **Description:** The cyclist is positioned very close to the vehicle while potentially moving in the same direction, creating a risk of collision if not properly monitored.
+- **Severity Score:** 0.7
+
+#### Risk 3: Lane Confusion
+- **Description:** The lane markings may not be clearly visible due to fog, leading to confusion for both the driver and the cyclist about their positions on the road.
+- **Severity Score:** 0.6
+
+### Summary of Risks
+
+1. **Risk 1:** Reduced Visibility
+   - Description: The scene is foggy, significantly reducing visibility for all road users, including both the vehicle and cyclist.
+   - Severity Score: 0.8
+
+2. **Risk 2:** Cyclist Proximity
+   - Description: The cyclist is positioned very close to the vehicle while potentially moving in the same direction, creating a risk of collision if not properly monitored.
+   - Severity Score: 0.7
+
+3. **Risk 3:** Lane Confusion
+   - Description: The lane markings may not be clearly visible due to fog, leading to confusion for both the driver and the cyclist about their positions on the road.
+   - Severity Score: 0.6

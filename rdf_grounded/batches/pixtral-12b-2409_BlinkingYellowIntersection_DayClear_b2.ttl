@@ -1,0 +1,73 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithStationaryVehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle partially blocking intersection" .
+
+:vehicle2 a :Vehicle ;
+    :description "Yellow vehicle moving forward in intersection" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather, daylight" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential rear-end collision due to stationary red vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Yellow vehicle intruding into intersection" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Red vehicle causing occlusion of other vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to stationary red vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Yellow vehicle intruding into intersection
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Red vehicle causing occlusion of other vehicles
+Severity Score: 0.55
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - Two `Vehicle` instances (red stationary vehicle and yellow moving vehicle).
+   - `ClearCondition` for weather (daytime, no adverse conditions).
+   - No `TrafficLight`, `TrafficSign`, `Billboard`, `Pedestrian`, or `Cyclist` detected in this frame.
+
+2. **Corner Case Classification:**
+   - `:StateAnomaly` due to the stationary red vehicle creating an unexpected obstruction in the intersection.
+
+3. **Risks Identified:**
+   - **CollisionRisk (Rear-End):** Highest severity due to the red vehicle blocking the intersection.
+   - **LaneIntrusionRisk:** Yellow vehicle entering the intersection while the red vehicle is stationary.
+   - **OcclusionRisk:** The red vehicle partially obscures visibility of other vehicles in the scene.

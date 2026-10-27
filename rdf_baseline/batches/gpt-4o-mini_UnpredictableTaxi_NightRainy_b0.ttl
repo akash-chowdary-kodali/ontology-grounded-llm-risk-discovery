@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:YellowTaxi, ex:RedTruck, ex:Road, ex:StreetLight, ex:RainyWeather ;
+    ex:hasRelationship ex:TaxiFollowingRedTruck, ex:TaxiNearInfrastructure .
+
+ex:YellowTaxi a ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:type "taxi" .
+
+ex:RedTruck a ex:Vehicle ;
+    ex:color "red" ;
+    ex:type "truck" .
+
+ex:Road a ex:Infrastructure ;
+    ex:type "road" ;
+    ex:condition "wet" .
+
+ex:StreetLight a ex:Infrastructure ;
+    ex:state "on" .
+
+ex:RainyWeather a ex:WeatherCondition ;
+    ex:visibility "low" .
+    
+ex:TaxiFollowingRedTruck a ex:Relationship ;
+    ex:entity1 ex:YellowTaxi ;
+    ex:entity2 ex:RedTruck ;
+    ex:type "following" .
+
+ex:TaxiNearInfrastructure a ex:Relationship ;
+    ex:entity1 ex:YellowTaxi ;
+    ex:entity2 ex:Road ;
+    ex:type "near" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Wet road conditions could lead to reduced traction, increasing the likelihood of a vehicle skidding or losing control.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Poor visibility due to rain could result in delayed detection of other vehicles or pedestrians, increasing the risk of a collision.  
+**Severity Score:** 0.8
+
+#### Risk 3:
+**Description:** The proximity of the following taxi to the red truck may create a risk of rear-end collision if the truck suddenly stops or slows down.  
+**Severity Score:** 0.6

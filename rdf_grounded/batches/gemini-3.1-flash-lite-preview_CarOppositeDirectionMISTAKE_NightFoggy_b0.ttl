@@ -1,0 +1,27 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "IntersectionCrossTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+:night1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle performing an unexpected intersection crossing maneuver" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle performing an unexpected intersection crossing maneuver, potentially causing a collision by intruding into the ego-vehicle's path.
+Severity Score: 0.75

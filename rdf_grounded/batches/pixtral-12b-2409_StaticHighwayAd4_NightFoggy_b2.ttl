@@ -1,0 +1,59 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard with 'TO FUNI' text" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Potential distraction due to illuminated billboard in low-light conditions" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Potential occlusion risk due to limited visibility of surroundings at night" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential distraction due to illuminated billboard in low-light conditions
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Potential occlusion risk due to limited visibility of surroundings at night
+Severity Score: 0.45
+
+---
+**Analysis Explanation:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (with "TO FUNI" text) and is under **NightCondition**.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue arises from the environmental state (nighttime) and the presence of an illuminated billboard, which does not involve anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The illuminated billboard could distract the driver, especially in low-light conditions.
+   - **OcclusionRisk:** The darkness and lack of visible actors/vehicles create a risk of occlusion, where potential obstacles or actors might not be detected in time.
+
+4. **Severity Scores:**
+   - The **DistractionRisk** is assigned a **0.35** severity score, indicating a moderate risk due to the potential for distraction but not an immediate hazard.
+   - The **OcclusionRisk** is assigned a **0.45** severity score, reflecting a higher concern due to the inherent difficulty of detecting obstacles in low-visibility conditions.

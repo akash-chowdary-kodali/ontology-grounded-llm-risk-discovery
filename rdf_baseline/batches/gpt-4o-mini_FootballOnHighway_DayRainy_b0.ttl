@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasWeatherCondition ex:HeavyRain ;
+    ex:hasRoadInfrastructure ex:WetRoads ;
+    ex:hasVisibility ex:PoorVisibility ;
+    ex:hasInfrastructureType ex:Streetlights ;
+    ex:hasEntities ex:Vehicle , ex:Road ;
+
+ex:Vehicle a ex:Entity ;
+    ex:entityType ex:Car ;
+    ex:status ex:Stationary .
+
+ex:WetRoads a ex:RoadInfrastructure ;
+    ex:condition ex:Wet .
+
+ex:HeavyRain a ex:WeatherCondition ;
+    ex:intensity ex:Heavy .
+
+ex:PoorVisibility a ex:Visibility ;
+    ex:level ex:Low .
+
+ex:Streetlights a ex:InfrastructureType ;
+    ex:status ex:Functional .
+
+ex:Road a ex:Infrastructure ;
+    ex:type ex:Urban .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Reduced traction due to wet road conditions, increasing the likelihood of skidding or hydroplaning.
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Poor visibility due to heavy rain, which can impede the ability of drivers to see other vehicles, pedestrians, or road signs.
+**Severity Score:** 0.8
+
+#### Risk 3:
+**Description:** Potential risk of accidents from stationary vehicles in a heavy rain scenario, as they may not be easily visible to approaching vehicles.
+**Severity Score:** 0.6

@@ -1,0 +1,47 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :collisionRisk1, :occlusionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Falling object (potentially debris) on road" .
+
+:foggyCondition1 a :FoggyCondition .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Risk of collision with falling object on road" ;
+    :hasSeverityScore :severityScore1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Risk of occlusion due to fog reducing visibility" ;
+    :hasSeverityScore :severityScore2 .
+
+:severityScore1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:severityScore2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision with falling object on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Risk of occlusion due to fog reducing visibility
+Severity Score: 0.8

@@ -1,0 +1,57 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScenario ;
+    ex:hasEntity ex:Vehicle1, ex:Pedestrian1, ex:Pedestrian2, ex:TrafficCone1, ex:TrafficCone2, ex:Road1 ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasRoadInfrastructure ex:Building1, ex:Building2 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasPosition ex:FrontView .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition ex:NearTrafficcones ;
+    ex:action ex:Walking .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:hasPosition ex:NearTrafficcones ;
+    ex:action ex:Walking .
+
+ex:TrafficCone1 a ex:TrafficCone ;
+    ex:hasPosition ex:OnRoad .
+
+ex:TrafficCone2 a ex:TrafficCone ;
+    ex:hasPosition ex:OnRoad .
+
+ex:ClearWeather a ex:WeatherCondition ;
+    ex:description "Clear and sunny with no obstructions." .
+
+ex:Building1 a ex:Building ;
+    ex:hasPosition ex:LeftSideOfRoad .
+
+ex:Building2 a ex:Building ;
+    ex:hasPosition ex:RightSideOfRoad .
+
+ex:Road1 a ex:Road ;
+    ex:hasCondition ex:ClearSurface .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Pedestrian near traffic cones while crossing the road could lead to potential vehicle-Pedestrian collisions.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Construction obstacles (traffic cones) limit vehicle maneuverability and may increase likelihood of accidents.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** Pedestrians moving on the road increase risk of accidents, especially if vehicles are approaching.  
+**Severity Score:** 0.8
+
+#### Risk 4:
+**Description:** Clear weather conditions might lead to higher speeds, increasing potential accidents in crowded areas.  
+**Severity Score:** 0.5

@@ -1,0 +1,44 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene123 a ex:TrafficScene ;
+    ex:contains ex:Vehicle1, ex:Vehicle2, ex:Building1, ex:Building2, ex:RoadInfrastructure1 ;
+    ex:hasWeather ex:Clear ;
+    ex:hasTimeOfDay ex:Night .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasColor ex:Black ;
+    ex:isMoving ex:True ;
+    ex:hasDirection ex:Left ;
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasColor ex:Red ;
+    ex:isMoving ex:False ;
+    ex:hasDirection ex:Right ;
+
+ex:Building1 a ex:Building ;
+    ex:hasCondition ex:Damaged .
+
+ex:Building2 a ex:Building ;
+    ex:hasCondition ex:Good .
+
+ex:RoadInfrastructure1 a ex:Road ;
+    ex:hasType ex:Intersection ;
+    ex:hasLane ex:Empty .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Potential collision between Vehicle1 (Black car, moving) and Vehicle2 (Red car, stationary) at the intersection.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Reduced visibility due to night conditions which may affect the perception of both vehicles and pedestrians.  
+**Severity Score:** 0.5
+
+#### Risk 3:
+**Description:** Presence of damaged buildings which might pose a danger in case of debris falling into the roadway.  
+**Severity Score:** 0.4

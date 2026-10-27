@@ -1,0 +1,201 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyFogWithTrafficCone" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasObstacle :trafficCone ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 .
+
+:foggyCondition a :FoggyCondition .
+
+:trafficCone a :RoadObject ;
+    :description "Orange traffic cone on right side of road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Fog reduces visibility beyond 10 meters" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Heavy fog obscures road ahead, increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to fog and potential moisture" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Heavy fog obscures road ahead, increasing collision risk (OcclusionRisk)
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to fog and potential moisture (RoadConditionRisk)
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Traffic cone (`:trafficCone` as `:RoadObject`)
+   - **WeatherCondition:** Foggy condition (`:foggyCondition` as `:FoggyCondition`)
+   - **EvidenceIndicator:** Rolling ball indicator (`:evidence1` as `:RollingBallIndicator`) representing reduced visibility.
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to fog reducing visibility and the presence of a traffic cone as evidence of an anomalous situation).
+
+3. **Risks Identified:**
+   - **OcclusionRisk** (high severity due to near-zero visibility).
+   - **RoadConditionRisk** (moderate severity due to potential slippery roads).
+
+4. **Severity Scores:**
+   - OcclusionRisk: **0.92** (very high due to immediate danger of collision).
+   - RoadConditionRisk: **0.80** (high due to reduced traction). Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction crane bucket obstructing road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Crane bucket swinging into road path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Imminent collision risk with construction equipment" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy fog obscuring visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Imminent collision risk with construction equipment (crane bucket swinging into road path)
+- **Severity Score:** 0.95
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Heavy fog obscuring visibility of road ahead
+- **Severity Score:** 0.80
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Construction crane bucket (`RoadObject` subclass of `Obstacle`)
+   - **Weather Condition:** Heavy fog (`FoggyCondition` subclass of `WeatherCondition`)
+
+2. **Corner Case Classification:**
+   - **Type:** `StateAnomaly` (The crane bucket is in an abnormal state of being in the roadway, posing a direct hazard)
+
+3. **Evidence Indicator:**
+   - `FallingObjectIndicator` (The swinging crane bucket indicates a potential falling object risk)
+
+4. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate threat of the crane bucket obstructing the road.
+   - **OcclusionRisk:** High severity due to reduced visibility from fog, exacerbating the hazard.
+
+The scene depicts a critical corner case where construction equipment has encroached onto the road, combined with poor visibility from fog, creating a high-risk scenario for autonomous vehicles. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Excavator bucket lowered into roadway" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with lowered excavator bucket obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Excavator bucket intruding into driving lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Fog reducing visibility of excavator bucket" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with lowered excavator bucket obstructing road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Excavator bucket intruding into driving lane
+Severity Score: 0.90
+
+**Risk 3:**
+Description: Fog reducing visibility of excavator bucket
+Severity Score: 0.80

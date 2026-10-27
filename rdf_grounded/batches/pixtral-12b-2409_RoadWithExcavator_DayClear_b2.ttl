@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Heavy machinery bucket protruding into roadway" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with heavy machinery bucket obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Lane intrusion due to machinery bucket occupying driving path" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with heavy machinery bucket obstructing road
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Lane intrusion due to machinery bucket occupying driving path
+Severity Score: 0.88
+
+---
+### Analysis:
+1. **Entities Identified**:
+   - **Obstacle**: Heavy machinery bucket (`RoadObject` subclass of `Obstacle`)
+   - **WeatherCondition**: Clear and Day (`ClearCondition`, `DayCondition`)
+
+2. **Corner Case Classification**:
+   - **StateAnomaly**: The machinery bucket is in an unexpected state (protruding into the roadway), which is a static state anomaly rather than a behavioral or evidence-based one.
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity due to the machinery bucket obstructing the road.
+   - **LaneIntrusionRisk**: High severity due to the machinery occupying the driving path, forcing vehicles to maneuver around it.
+
+4. **Severity Scores**:
+   - Collision risk is rated **0.92** (very high) due to the immediate danger of contact with the machinery.
+   - Lane intrusion risk is rated **0.88** (high) due to the disruption of normal traffic flow and potential for evasive maneuvers.

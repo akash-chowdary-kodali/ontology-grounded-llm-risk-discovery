@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "IntersectionObstacleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Other vehicle cutting across the intersection path" .
+
+:rainy1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with vehicle performing erratic maneuver in intersection during rain" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision with vehicle performing erratic maneuver in intersection during rain
+Severity Score: 0.75

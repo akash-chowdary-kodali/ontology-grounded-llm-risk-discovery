@@ -1,0 +1,72 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Infrastructure1 ;
+    ex:hasRelationship ex:Relationship1, ex:Relationship2, ex:Relationship3, ex:Relationship4, ex:Relationship5 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:location ex:Position1 ;
+    ex:status "stationary" .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:vehicleType "SUV" ;
+    ex:location ex:Position2 ;
+    ex:status "approaching" .
+
+ex:Infrastructure1 a ex:Infrastructure ;
+    ex:infrastructureType "Tunnel" ;
+    ex:condition "well-lit" .
+
+ex:Position1 a ex:Position ;
+    ex:x "0" ;
+    ex:y "0" ;
+    ex:description "Near the end of the tunnel" .
+
+ex:Position2 a ex:Position ;
+    ex:x "10" ;
+    ex:y "0" ;
+    ex:description "Approaching from the opposite direction" .
+
+ex:Relationship1 a ex:Relationship ;
+    ex:entity1 ex:Vehicle1 ;
+    ex:entity2 ex:Vehicle2 ;
+    ex:relationshipType "near" .
+
+ex:Relationship2 a ex:Relationship ;
+    ex:entity1 ex:Vehicle2 ;
+    ex:entity2 ex:Infrastructure1 ;
+    ex:relationshipType "in" .
+
+ex:Relationship3 a ex:Relationship ;
+    ex:entity1 ex:Vehicle1 ;
+    ex:entity2 ex:Infrastructure1 ;
+    ex:relationshipType "in" .
+
+ex:Relationship4 a ex:Relationship ;
+    ex:entity1 ex:Vehicle1 ;
+    ex:entity2 ex:Vehicle2 ;
+    ex:relationshipType "occluding" .
+
+ex:Relationship5 a ex:Relationship ;
+    ex:entity1 ex:Vehicle2 ;
+    ex:entity2 ex:Vehicle1 ;
+    ex:relationshipType "crossing" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Collision risk due to occlusion and crossing behavior between vehicles in a confined tunnel space.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** Limited visibility may contribute to driver confusion or misinterpretation of other vehicle's actions.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** Potential for the following vehicle to react inappropriately due to sudden changes in the lead vehicle’s behavior.  
+**Severity Score:** 0.7

@@ -1,0 +1,55 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeLowVisibilityDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Nighttime driving with reduced visibility due to fog or low light conditions" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions with potential fog" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility of road and surrounding environment due to nighttime conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential wet or slippery road conditions due to nighttime driving" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction risk due to low visibility and reliance on headlights" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility of road and surrounding environment due to nighttime conditions.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential wet or slippery road conditions due to nighttime driving.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Driver distraction risk due to low visibility and reliance on headlights.
+Severity Score: 0.55
+
+---
+The scene shows a nighttime driving scenario with low visibility, which is classified as a **StateAnomaly** due to the inherent conditions of the environment rather than any specific behavior or evidence-based anomaly. The identified risks include **OcclusionRisk** due to poor visibility, **RoadConditionRisk** due to potential wet or slippery roads, and **DistractionRisk** due to reliance on headlights in low-light conditions. Severity scores were assigned based on the potential impact of each risk in this scenario.

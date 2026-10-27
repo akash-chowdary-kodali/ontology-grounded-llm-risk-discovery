@@ -1,0 +1,215 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Construction Zone with Traffic Cone" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cone on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Traffic cone indicates potential lane obstruction" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in tunnel/underpass" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Traffic cone obstructing lane, potential collision with vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and tunnel structure" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Type:** LaneIntrusionRisk
+- **Description:** Traffic cone obstructing lane, potential collision with vehicle
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Type:** OcclusionRisk
+- **Description:** Limited visibility due to nighttime and tunnel structure
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Traffic cone (`RoadObject` subclass of `Obstacle`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the scene.
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The traffic cone serves as evidence of an anomalous situation (lane obstruction) that requires attention.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High due to the traffic cone's placement in the lane.
+   - **OcclusionRisk:** Moderate due to low-light conditions and tunnel structure reducing visibility.
+
+4. **Severity Scores:**
+   - Lane intrusion is scored higher (0.75) because it directly impacts vehicle movement.
+   - Occlusion is scored lower (0.60) but still significant due to reduced situational awareness. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction excavator bucket protruding into roadway" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Excavator bucket partially blocking lane, indicating potential falling debris risk" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in tunnel/indoor construction area" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with excavator bucket obstructing roadway" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Excavator bucket obstructing visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with excavator bucket obstructing roadway
+- **Severity Score:** 0.95
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Excavator bucket obstructing visibility of road ahead
+- **Severity Score:** 0.80
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** The excavator bucket is classified as a `RoadObject` (subclass of `Obstacle`).
+   - **Evidence Indicator:** The bucket's position indicates a `FallingObjectIndicator` (potential debris risk).
+   - **Weather Condition:** The scene is under `NightCondition` (low-light environment).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the excavator bucket is in an unexpected state (protruding into the roadway), which is not typical for normal driving conditions.
+
+3. **Risks Identified:**
+   - **CollisionRisk (0.95):** High severity due to the immediate obstruction of the roadway.
+   - **OcclusionRisk (0.80):** Medium-high severity due to reduced visibility caused by the bucket.
+
+4. **Severity Scores:**
+   - The scores reflect the urgency of the situation, with the collision risk being the most critical due to the physical obstruction. The occlusion risk is slightly lower but still significant in low-light conditions. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction excavator bucket protruding into road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with excavator bucket obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of roadway due to construction equipment" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Unsafe road condition due to protruding construction equipment" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with excavator bucket obstructing road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Occlusion of roadway due to construction equipment
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Unsafe road condition due to protruding construction equipment
+Severity Score: 0.90
+
+---
+**Explanation:**
+1. The excavator bucket is classified as a **RoadObject** under the **Obstacle** class.
+2. The scene is classified as a **StateAnomaly** because the excavator bucket is in an unexpected state (protruding into the roadway).
+3. The **NightCondition** is identified as the weather condition.
+4. Three risks are identified:
+   - **CollisionRisk** due to the bucket obstructing the road.
+   - **OcclusionRisk** due to the limited visibility of the roadway.
+   - **RoadConditionRisk** due to the unsafe road condition caused by the equipment.
+5. Severity scores are assigned based on the criticality of the risks in this scenario. The collision risk is the highest due to the immediate danger of a vehicle striking the bucket.

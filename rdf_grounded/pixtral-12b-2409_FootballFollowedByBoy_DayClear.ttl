@@ -1,0 +1,201 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "SmallAnimalOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Small animal (dog) crossing road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Animal detected in path of ego vehicle" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small animal obstructing road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with small animal on road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential collision with small animal on road
+Severity Score: 0.75
+Risk Type: CollisionRisk (subtype of Risk)
+
+---
+### Analysis:
+1. **Entities Identified**:
+   - **Actor**: Small animal (dog) crossing the road → Typed as `:Pedestrian` (since animals crossing roads are treated similarly to pedestrians in autonomous driving contexts).
+   - **Obstacle**: The animal itself → Typed as `:RoadObject` (since it obstructs the road).
+   - **WeatherCondition**: Clear daytime → Typed as `:DayCondition`.
+   - **EvidenceIndicator**: The animal's presence in the path → Typed as `:FallingObjectIndicator` (since it is an unexpected object in the roadway).
+
+2. **Corner Case Classification**:
+   - The scenario is classified as `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (the animal crossing the road) rather than an anomalous state or behavior.
+
+3. **Risk Identification**:
+   - The primary risk is `:CollisionRisk` due to the animal's presence in the vehicle's path. This is assigned a severity score of **0.75** (moderate-high risk, as small animals can cause accidents if not avoided in time).
+
+4. **Additional Notes**:
+   - No traffic signs, traffic lights, or billboards are visible in the scene.
+   - The weather is clear, so no `:WeatherRisk` is applicable.
+   - The ego vehicle's perspective suggests the animal is in its immediate path, justifying the `:FallingObjectIndicator`. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "BallOnRoadwayScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Ball rolling unpredictably on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Ball detected in vehicle path" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion of pedestrian or cyclist by rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to unexpected object on road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential occlusion of pedestrian or cyclist by rolling ball
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Driver distraction risk due to unexpected object on road
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** A rolling ball (modeled as a `Pedestrian` subclass since it behaves like an unpredictable moving object in the roadway).
+   - **WeatherCondition:** `DayCondition` (clear daytime).
+   - **EvidenceIndicator:** `RollingBallIndicator` (evidence of the anomaly).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (the anomaly is detected based on evidence of a rolling ball, which is an unexpected object on the road).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The ball may obscure pedestrians or cyclists from view.
+   - **DistractionRisk:** The unexpected object may distract the driver.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.75): High due to potential for missing vulnerable road users.
+   - DistractionRisk (0.60): Moderate due to driver distraction potential. ```
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "StreetSceneWithPedestrianAndBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person running towards ball on street" .
+:actor2 a :Vehicle ;
+    :description "Red vehicle approaching from behind" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball rolling on road" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :OpenDoorIndicator ;
+    :description "Potential door opening anomaly from parked vehicle" ;
+    :indicatesPotentialRisk :risk3 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with daylight" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian may enter vehicle path due to ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Risk of collision with vehicle behind due to sudden stop" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion from parked vehicle door" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian may enter vehicle path due to ball
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of collision with vehicle behind due to sudden stop
+Severity Score: 0.60
+
+Risk 3:
+Description: Potential lane intrusion from parked vehicle door
+Severity Score: 0.45
+```

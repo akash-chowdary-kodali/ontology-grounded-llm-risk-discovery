@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLotScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red car in motion" .
+
+:roadObject1 a :RoadObject ;
+    :description "Black rectangular object on road, possibly a fallen or misplaced parking lot marker" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to the black rectangular object on the road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Road condition risk due to the presence of an unexpected object on the road" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk with the object if the vehicle continues on its current path" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to the black rectangular object on the road.
+Severity Score: 0.7
+
+**Risk 2:**
+Description: Road condition risk due to the presence of an unexpected object on the road.
+Severity Score: 0.6
+
+**Risk 3:**
+Description: Potential collision risk with the object if the vehicle continues on its current path.
+Severity Score: 0.8

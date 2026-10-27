@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreetInRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running into street" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into street with oncoming vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy rain reducing visibility of dog and other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain droplets creating visual occlusion" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Dog running into street with oncoming vehicles
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Heavy rain reducing visibility of dog and other vehicles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** Dog (modeled as a `Pedestrian` since it is an unexpected road user).
+   - **WeatherCondition:** `RainyCondition` (due to heavy rain and reduced visibility).
+   - **EvidenceIndicator:** `FallingObjectIndicator` (representing rain droplets causing occlusion).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the dog's unexpected behavior (running into the street) deviates from typical pedestrian/actor behavior.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the dog's unpredictable movement and proximity to vehicles.
+   - **OcclusionRisk:** Moderate severity due to heavy rain reducing visibility of the dog and other road users.
+
+4. **Severity Scores:**
+   - The `PedestrianCollisionRisk` has a high severity score (0.95) due to the immediate threat of collision.
+   - The `OcclusionRisk` has a slightly lower severity score (0.80) but still significant due to impaired visibility.

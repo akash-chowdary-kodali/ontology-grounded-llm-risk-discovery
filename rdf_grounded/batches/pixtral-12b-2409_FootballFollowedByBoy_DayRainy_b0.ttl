@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball rolling on wet road" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling ball on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling ball on road
+- **Severity Score:** 0.90
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.85
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Obstacle:** A soccer ball rolling on the wet road (`:obstacle1` as `:RoadObject`).
+   - **Weather Condition:** Heavy rain (`:weather1` as `:RainyCondition`).
+   - **Evidence Indicator:** Rolling ball (`:evidence1` as `:RollingBallIndicator`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the rolling ball (evidence) directly indicates a potential risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the ball rolling unpredictably on a wet road.
+   - **OcclusionRisk:** High severity due to heavy rain reducing visibility.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a severity of **0.90** (very high).
+   - Occlusion risk is assigned a severity of **0.85** (high).

@@ -1,0 +1,50 @@
+### 1. Scene Entities
+*   **Vehicles:** Ego-vehicle (red), Overturned/crashed vehicle (red, front right), Additional crashed/stationary vehicle (dark grey, left).
+*   **Animals (Anomalous Entities):** Large primate (Gorilla-like creature, center of road), Large mammal (Elephant-like creature, right side), Deer-like animal (left).
+*   **Road Infrastructure:** Asphalt road, sidewalk, street lighting pole.
+*   **Environment:** Residential area with houses and surrounding vegetation (hedges, trees).
+*   **Weather:** Clear sky, bright daylight.
+
+### 2. Entity Relationships
+*   **Ego-vehicle:** Approaching the center-road primate.
+*   **Primate:** Located in the center of the road, blocking the path.
+*   **Elephant-like creature:** Positioned on the right, partially interacting/occluding the view of the crashed red vehicle.
+*   **Crashed Vehicles:** Obstructing traffic flow and indicating a previous collision event.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isApproaching ex:Primate .
+
+ex:Primate rdf:type ex:Obstacle ;
+    ex:isLocatedIn ex:RoadCenter .
+
+ex:CrashedVehicleRight rdf:type ex:Obstacle ;
+    ex:isNear ex:ElephantEntity .
+
+ex:ElephantEntity rdf:type ex:Obstacle .
+
+ex:CrashedVehicleLeft rdf:type ex:Obstacle ;
+    ex:isLocatedOn ex:RoadSide .
+
+ex:Scenario rdf:type ex:CornerCase ;
+    ex:hasWeather ex:ClearDaylight .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Obstruction of the roadway by large, unpredictable non-human entities (primates and elephants) which poses an immediate collision risk.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Presence of multiple crashed vehicles indicating a high-risk area with compromised road safety or hazardous conditions that caused the previous accidents.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Potential for sudden, erratic movement from wildlife/anomalous entities currently positioned within close proximity to the ego-vehicle's trajectory.
+*   **Severity Score:** 0.80

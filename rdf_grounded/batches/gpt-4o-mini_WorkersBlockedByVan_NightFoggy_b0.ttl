@@ -1,0 +1,48 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Construction site with pedestrians at night" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian in a yellow shirt walking towards the vehicle" .
+
+:actor2 a :Pedestrian ;
+    :description "Construction worker sitting on the obstacle" .
+
+:weather1 a :FoggyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Road obstacle with cones" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking in front of the vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrian entering the roadway without warning" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian walking in front of the vehicle
+- **Severity Score:** 0.80
+
+**Risk 2:**
+- **Description:** Pedestrian entering the roadway without warning
+- **Severity Score:** 0.70

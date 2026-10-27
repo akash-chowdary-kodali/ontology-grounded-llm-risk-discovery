@@ -1,0 +1,52 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 
+    a ex:TrafficScene ;
+    ex:hasEntity ex:Pedestrian1, ex:Pedestrian2, ex:Vehicle1, ex:TrafficLight1, ex:Road1 ;
+    ex:hasRelationship ex:Pedestrian1 ex:isCrossing ex:Road1 ;
+    ex:hasRelationship ex:Pedestrian2 ex:isCrossing ex:Road1 ;
+    ex:hasRelationship ex:Pedestrian1 ex:isNear ex:Vehicle1 ;
+    ex:hasRelationship ex:Pedestrian2 ex:isNear ex:Vehicle1 ;
+    ex:hasRelationship ex:Vehicle1 ex:isApproaching ex:TrafficLight1 ;
+    ex:hasRelationship ex:TrafficLight1 ex:isRed true ;
+    ex:hasWeatherCondition ex:Night ;
+    ex:hasObstruction ex:None .
+    
+ex:Pedestrian1 
+    a ex:Pedestrian ;
+    ex:hasPosition ex:PositionNearCrosswalk .
+
+ex:Pedestrian2 
+    a ex:Pedestrian ;
+    ex:hasPosition ex:PositionNearCrosswalk .
+
+ex:Vehicle1 
+    a ex:Vehicle ;
+    ex:hasType ex:Bus ;
+    ex:hasDirection ex:Approaching .
+
+ex:TrafficLight1 
+    a ex:TrafficLight ;
+    ex:hasState ex:StateRed .
+
+ex:Road1 
+    a ex:Road ;
+    ex:hasLane ex:TwoLanes .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+- **Description**: Pedestrians crossing the road in the presence of an approaching vehicle (bus) while the traffic light is red.
+- **Severity Score**: 0.8
+
+#### Risk 2:
+- **Description**: Potential for collisions due to reduced visibility at night with pedestrians near an operational roadway.
+- **Severity Score**: 0.7
+
+#### Risk 3:
+- **Description**: Confusion for drivers due to pedestrians crossing unexpectedly despite a red traffic signal.
+- **Severity Score**: 0.6

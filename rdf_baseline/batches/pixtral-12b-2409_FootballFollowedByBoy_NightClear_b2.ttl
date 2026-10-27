@@ -1,0 +1,100 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:timestamp "2023-10-15T23:45:00"^^xsd:dateTime ;
+    ex:location ex:UrbanStreet .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:position "Center of the image" ;
+    ex:direction "Forward" ;
+    ex:speed "0 km/h"^^xsd:float .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:position "Right side of the road, near the curb" ;
+    ex:direction "Moving towards the camera" ;
+    ex:action "Running" .
+
+ex:SoccerBall1 a ex:Obstacle ;
+    ex:position "Left side of the road" ;
+    ex:distanceFromVehicle "10 meters"^^xsd:float .
+
+ex:Road1 a ex:Road ;
+    ex:type "UrbanStreet" ;
+    ex:surfaceCondition "Dry" ;
+    ex:lightingCondition "LowLight" .
+
+ex:RoadMarking1 a ex:RoadInfrastructure ;
+    ex:type "Curb" ;
+    ex:position "Right side of the road" .
+
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:Pedestrian1 .
+ex:Scene1 ex:contains ex:SoccerBall1 .
+ex:Scene1 ex:contains ex:Road1 .
+ex:Scene1 ex:contains ex:RoadMarking1 .
+
+ex:Vehicle1 ex:approaching ex:Pedestrian1 .
+ex:Vehicle1 ex:near ex:SoccerBall1 .
+ex:Pedestrian1 ex:crossing ex:Road1 .
+ex:SoccerBall1 ex:on ex:Road1 .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The pedestrian is running across the road in low-light conditions, which may not be immediately visible to the autonomous vehicle due to poor visibility.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The soccer ball on the road could be mistaken for an obstacle or a smaller pedestrian, leading to an incorrect reaction from the autonomous vehicle.
+Severity Score: 0.7
+
+**Risk 3:**
+Description: The low-light condition increases the risk of the autonomous vehicle failing to detect the pedestrian or other obstacles in time.
+Severity Score: 0.8
+
+**Risk 4:**
+Description: The pedestrian’s unpredictable movement (running) could lead to sudden changes in trajectory, increasing the risk of collision.
+Severity Score: 0.85
+
+**Risk 5:**
+Description: The autonomous vehicle's sensors might not be calibrated to detect small objects like a soccer ball accurately in low-light conditions.
+Severity Score: 0.65
+
+```plaintext
+Risk Classifications:
+```
+
+```turtle
+@prefix risk: <http://example.org/risk#> .
+
+ex:Risk1 a risk:PedestrianDetectionRisk ;
+    risk:description "Pedestrian running across road in low-light conditions" ;
+    risk:severity "0.85"^^xsd:float .
+
+ex:Risk2 a risk:ObstacleMisidentificationRisk ;
+    risk:description "Soccer ball mistaken for an obstacle or smaller pedestrian" ;
+    risk:severity "0.7"^^xsd:float .
+
+ex:Risk3 a risk:LowLightConditionRisk ;
+    risk:description "Increased risk of failing to detect obstacles in low-light conditions" ;
+    risk:severity "0.8"^^xsd:float .
+
+ex:Risk4 a risk:UnpredictableMovementRisk ;
+    risk:description "Sudden changes in pedestrian trajectory" ;
+    risk:severity "0.85"^^xsd:float .
+
+ex:Risk5 a risk:SensorCalibrationRisk ;
+    risk:description "Sensors not calibrated to detect small objects accurately in low-light conditions" ;
+    risk:severity "0.65"^^xsd:float .
+```

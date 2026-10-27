@@ -1,0 +1,193 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+**Scene Analysis:**
+The images show a vehicle approaching an intersection with traffic lights (red) and a large spherical object (likely a watermelon) rolling into the road from the sidewalk. This creates a potential obstacle scenario.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RollingObjectIntoRoadIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large spherical object rolling into road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rolling object may obscure visibility of pedestrians or cyclists" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling object in vehicle path
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Rolling object may obscure visibility of pedestrians or cyclists
+- **Severity Score:** 0.75
+- **Type:** OcclusionRisk
+
+---
+### Key Observations:
+1. **Corner Case Classification:** The rolling object is classified as an **EvidenceBasedAnomaly** because it is detected through visual evidence (the rolling ball indicator) rather than an actor's behavior or state anomaly.
+2. **Risks Identified:**
+   - **CollisionRisk** due to the object's trajectory intersecting with the vehicle's path.
+   - **OcclusionRisk** because the object may block visibility of other actors (e.g., pedestrians or cyclists) near the intersection.
+3. **Severity Scores:**
+   - CollisionRisk is high (0.90) due to immediate danger.
+   - OcclusionRisk is moderate (0.75) as it may affect situational awareness but is less immediate. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RollingBarrelOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Barrel rolling into the road from the sidewalk" .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling barrel in the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling barrel" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling barrel
+- **Severity Score:** 0.92
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Evidence:** FallingObjectIndicator (barrel rolling into the road)
+- **Corner Case Type:** EvidenceBasedAnomaly (detected via evidence of a rolling object)
+
+---
+
+### Explanation:
+1. **Entities in the scene:**
+   - **Obstacle:** Rolling barrel (`:obstacle1` as `:RoadObject`)
+   - **Evidence:** Falling object (`:evidence1` as `:FallingObjectIndicator`)
+   - **Weather:** Daytime, clear (`:weather1` as `:DayCondition`)
+
+2. **Corner Case Classification:**
+   - `:cc1` is classified as `:EvidenceBasedAnomaly` because the anomaly is detected via observable evidence (the rolling barrel).
+
+3. **Risk Identification:**
+   - The primary risk is `:CollisionRisk` due to the barrel rolling into the path of vehicles.
+
+4. **Severity Score:**
+   - The severity is high (`0.92`) because the barrel is directly in the path of the vehicle, posing an immediate collision risk. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 ;
+    :hasWeatherCondition :weather1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling rectangular object on road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to falling object obstructing view" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation or fog" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision with falling object on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Risk of occlusion due to falling object obstructing view
+Severity Score: 0.7
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The falling object is classified as a `:RoadObject` under `:Obstacle`.
+   - The weather is classified as `:ClearCondition` under `:WeatherCondition`.
+   - The evidence of the falling object is classified as `:FallingObjectIndicator` under `:EvidenceIndicator`.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the anomaly is identified through observable evidence (the falling object) rather than inferred behavior or state.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the object being directly on the roadway, posing an immediate threat to vehicles.
+   - **OcclusionRisk:** Moderate severity as the object may obstruct the view of other actors (e.g., pedestrians, cyclists, or other vehicles) in the scene.

@@ -1,0 +1,59 @@
+Based on the provided images, here's the semantic interpretation and RDF output:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Tunnel Exit with Poor Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime conditions with limited visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility at tunnel exit creates occlusion risk for vehicles exiting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Sudden brightness change at tunnel exit may distract drivers" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Light reflections on wet pavement suggest recent rain or moisture" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.78"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Reduced visibility at tunnel exit creates occlusion risk for vehicles exiting
+Severity Score: 0.92
+Risk Type: OcclusionRisk
+
+Risk 2:
+Description: Sudden brightness change at tunnel exit may distract drivers
+Severity Score: 0.78
+Risk Type: DistractionRisk
+
+Analysis:
+1. The scene shows a nighttime tunnel exit with significant visibility challenges
+2. The corner case is classified as a StateAnomaly because it represents an abnormal environmental state (dark tunnel exit)
+3. Two primary risks are identified:
+   - OcclusionRisk due to the sudden transition from dark tunnel to brighter outside
+   - DistractionRisk from the brightness change affecting driver attention
+4. The rolling ball indicator (light reflections) suggests potential wet conditions that could exacerbate visibility issues
+5. The high severity score for occlusion risk reflects the critical nature of visibility at tunnel exits
+6. The scene lacks clear actors (pedestrians/vehicles) in the immediate frame, focusing instead on environmental conditions

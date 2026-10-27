@@ -1,0 +1,47 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy Intersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to fog" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy Intersection" ;
+    :hasCornerCaseType :cc2 .
+
+:cc2 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk2 .
+
+:obstacle1 a :Billboard .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction from nearby billboards" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+```
+
+Identified Risks for each risk class  
+Risk 1:  
+Description: Reduced visibility due to fog  
+Severity Score: 0.70  
+
+Risk 2:  
+Description: Potential distraction from nearby billboards  
+Severity Score: 0.40  

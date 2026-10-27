@@ -1,0 +1,59 @@
+### 1. Scene Interpretation
+
+**Main Entities:**
+*   **Ego-Vehicle:** The perspective vehicle traveling on the road.
+*   **White Van:** A stationary commercial vehicle parked on the right side of the road.
+*   **Pedestrian:** An individual (human worker) standing near the van.
+*   **Obstacles:** Multiple industrial barrels, one of which is dynamic/rolling into the path of the ego-vehicle.
+*   **Road Infrastructure:** Road surface with lane markings.
+*   **Environment:** Low-light night conditions (high-contrast, low visibility).
+
+**Relationships:**
+*   **White Van** is stationary and partially occupies the road edge.
+*   **Pedestrian** is near the van, occluded by the van/darkness.
+*   **Barrels** are positioned near the van.
+*   **One Barrel** is in a state of rolling (dynamic) and is currently **crossing** the path of the ego-vehicle.
+*   **Ego-Vehicle** is **approaching** the hazard zone created by the van, worker, and the rolling barrel.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:approaching ex:HazardZone .
+
+ex:WhiteVan a ex:Vehicle ;
+    ex:isStationary true ;
+    ex:locatedAt ex:RoadSide .
+
+ex:Pedestrian a ex:Person ;
+    ex:near ex:WhiteVan .
+
+ex:RollingBarrel a ex:Obstacle ;
+    ex:isDynamic true ;
+    ex:crossing ex:VehiclePath ;
+    ex:approaching ex:EgoVehicle .
+
+ex:HazardZone a ex:Zone ;
+    ex:contains ex:WhiteVan, ex:Pedestrian, ex:RollingBarrel .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision with dynamic object (Rolling Barrel). A barrel is rolling across the ego-vehicle's path in low-visibility night conditions, creating an immediate impact hazard.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Collision with vulnerable road user (Pedestrian). The worker standing near the van is in a high-risk zone and may move unexpectedly into the road, combined with the difficulty of detection at night.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Visual Occlusion/Low Light Visibility. The presence of the white van and dark environment limits the perception system's ability to identify the full extent of the hazard (e.g., whether more barrels or people are behind the van).
+*   **Severity Score:** 0.70

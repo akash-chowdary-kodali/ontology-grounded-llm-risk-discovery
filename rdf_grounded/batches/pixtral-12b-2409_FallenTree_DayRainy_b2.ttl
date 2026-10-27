@@ -1,0 +1,66 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRainyDrivingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi in right lane" .
+:actor2 a :Vehicle ;
+    :description "Gray vehicle ahead in left lane" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility and braking distance in rainy conditions" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain, increasing skid risk" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.80"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reduced visibility of surrounding actors due to heavy rain and potential water spray from vehicles" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.65"^^xsd:float .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain droplets visible in the scene" ;
+    :indicatesPotentialRisk :risk1, :risk2, :risk3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to reduced visibility and braking distance in rainy conditions
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Slippery road surface due to rain, increasing skid risk
+Severity Score: 0.80
+
+**Risk 3:**
+Description: Reduced visibility of surrounding actors due to heavy rain and potential water spray from vehicles
+Severity Score: 0.65
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to the observable heavy rain and its evident impact on driving conditions. The identified risks include collision risk, road condition risk, and occlusion risk, all influenced by the rainy weather conditions.

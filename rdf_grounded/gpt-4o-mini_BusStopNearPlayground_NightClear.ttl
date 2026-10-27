@@ -1,0 +1,43 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Pedestrians Crossing at Night" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Pedestrian .
+:actor2 a :Pedestrian .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing the road at night in front of oncoming traffic" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to pedestrians on the road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrians crossing the road at night in front of oncoming traffic
+Severity Score: 0.9
+
+Risk 2:
+Description: Potential distraction due to pedestrians on the road
+Severity Score: 0.7

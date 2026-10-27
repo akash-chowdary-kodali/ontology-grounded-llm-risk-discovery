@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "VehicleCrossTrafficTunnel" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle performing an erratic cross-traffic maneuver inside a tunnel" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High-speed potential collision with a vehicle obstructing the lane unexpectedly" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Rear-End Collision Risk caused by an autonomous vehicle failing to anticipate the sudden cross-lane obstruction by another actor within a low-visibility tunnel environment.
+Severity Score: 0.88

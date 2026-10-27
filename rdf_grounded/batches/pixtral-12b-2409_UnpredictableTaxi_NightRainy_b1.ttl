@@ -1,0 +1,84 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanRainyDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and traction" .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with standing water and reduced friction" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets on windshield indicating heavy rain" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain, increasing skid and hydroplaning risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and windshield droplets" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Adverse weather conditions (rain) affecting driving safety" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Slippery road conditions due to rain, increasing skid and hydroplaning risk.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain and windshield droplets.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Adverse weather conditions (rain) affecting driving safety.
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Scene Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (rain) rather than actor behavior or evidence-based anomalies.
+   - The **weather condition** is explicitly **RainyCondition**, and the **obstacle** is the **wet road surface** (modeled as a `RoadObject`).
+
+2. **Evidence Indicator:**
+   - The **RollingBallIndicator** (water droplets on the windshield) is used to indicate the **RoadConditionRisk** and **OcclusionRisk**.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** (highest severity) due to slippery roads.
+   - **OcclusionRisk** due to reduced visibility from rain and droplets.
+   - **WeatherRisk** as a broader category for adverse weather effects.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the criticality of each risk in rainy nighttime driving conditions. Slippery roads (0.90) are the most severe, followed by visibility issues (0.85) and general weather effects (0.80).

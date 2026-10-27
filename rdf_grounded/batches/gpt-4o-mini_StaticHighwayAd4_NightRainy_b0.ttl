@@ -1,0 +1,48 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rainy Intersection Scene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Wet road conditions can lead to skidding." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Poor visibility at night increases driver distraction." ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential for unexpected lane intrusions due to reduced visibility." ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class  
+Risk 1:  
+Description: Wet road conditions can lead to skidding.  
+Severity Score: 0.7  
+
+Risk 2:  
+Description: Poor visibility at night increases driver distraction.  
+Severity Score: 0.8  
+
+Risk 3:  
+Description: Potential for unexpected lane intrusions due to reduced visibility.  
+Severity Score: 0.65  

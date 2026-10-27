@@ -1,0 +1,131 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A red car (ego vehicle, partially visible at the bottom).
+  - A bus (visible in the second image, labeled "90").
+- **Road Infrastructure**:
+  - Road markings (double white lines, lane boundaries).
+  - Traffic signs (no entry, speed limit, pedestrian crossing).
+  - Billboards (advertisements for food and dental services).
+  - Streetlights.
+  - Sidewalk and pedestrian path.
+  - Brick wall and greenery (trees, bushes).
+- **Obstacles**:
+  - None directly visible (no debris, fallen objects, or construction barriers).
+- **Weather Conditions**:
+  - Clear, sunny day (no rain, fog, or adverse conditions).
+- **Pedestrians/Cyclists**:
+  - None visible in either image.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **ego vehicle** is traveling on a **two-lane road** with **no opposing traffic** (no entry sign).
+- The **bus (90)** is **stationary** at a bus stop on the right side of the road.
+- The **billboards** are positioned **above the road**, not obstructing traffic.
+- The **brick wall and greenery** run parallel to the road on the right.
+- The **road markings** indicate a **two-way road with no entry from the opposite direction**.
+- The **traffic signs** (no entry, pedestrian crossing) provide regulatory information.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :ClearWeather ;
+    :hasRoadType :TwoLaneRoad ;
+    :hasTrafficSign :NoEntrySign ;
+    :hasTrafficSign :PedestrianCrossingSign .
+
+:EgoVehicle a :Vehicle ;
+    :hasColor "red" ;
+    :isTravelingOn :Scene1 ;
+    :hasPosition :FrontLane .
+
+:Bus90 a :Vehicle ;
+    :hasType :Bus ;
+    :isStationary true ;
+    :isAt :BusStop ;
+    :hasRouteNumber "90" .
+
+:BusStop a :RoadInfrastructure ;
+    :isLocatedOn :Scene1 ;
+    :hasSidewalkAccess true .
+
+:Billboard1 a :RoadInfrastructure ;
+    :hasContent "FoodAdvertisement" ;
+    :isLocatedAbove :Road .
+
+:Billboard2 a :RoadInfrastructure ;
+    :hasContent "DentalAdvertisement" ;
+    :isLocatedAbove :Road .
+
+:BrickWall a :RoadInfrastructure ;
+    :isParallelTo :Road ;
+    :hasMaterial "brick" .
+
+:Greenery a :RoadInfrastructure ;
+    :isAdjacentTo :BrickWall ;
+    :hasType "trees, bushes" .
+
+:TrafficSign1 a :RoadInfrastructure ;
+    :hasType :NoEntrySign ;
+    :isLocatedOn :RightSide .
+
+:TrafficSign2 a :RoadInfrastructure ;
+    :hasType :PedestrianCrossing ;
+    :isLocatedOn :RightSide .
+
+:RoadMarkings a :RoadInfrastructure ;
+    :hasType :DoubleWhiteLines ;
+    :indicates :TwoWayTraffic .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **no-entry sign** suggests that the opposite lane is restricted, but the ego vehicle is traveling in a direction where no opposing traffic is expected. However, if another vehicle (e.g., emergency vehicle) were to enter from the restricted side, it could lead to a **head-on collision**.
+**Severity Score:** **0.6** (Moderate – Low probability but high consequence if violated).
+
+#### **Risk 2:**
+**Description:**
+The **bus stop** is located near the road, and pedestrians may suddenly cross the road to board the bus. The ego vehicle must be prepared for **unexpected pedestrian movement** near the bus stop.
+**Severity Score:** **0.7** (Moderate – High consequence if collision occurs).
+
+#### **Risk 3:**
+**Description:**
+The **billboards** are positioned close to the road, and if they were to fall (due to wind, structural failure, or accident), they could obstruct the road and cause a **traffic hazard**.
+**Severity Score:** **0.4** (Low – Unlikely but possible in extreme conditions).
+
+#### **Risk 4:**
+**Description:**
+The **road markings** indicate a two-way road, but if the ego vehicle misinterprets the lane direction (e.g., due to sensor failure), it could **drift into the wrong lane**, leading to a collision with an oncoming vehicle (if any were present).
+**Severity Score:** **0.5** (Moderate – Low probability but possible in sensor failure scenarios).
+
+#### **Risk 5:**
+**Description:**
+The **brick wall and greenery** on the right side could obscure **pedestrians or cyclists** moving parallel to the road, leading to **late detection** of vulnerable road users.
+**Severity Score:** **0.6** (Moderate – Possible if objects are occluded).
+
+---
+### **Summary of Risks**
+| **Risk ID** | **Description** | **Severity Score (0-1)** |
+|-------------|----------------|--------------------------|
+| Risk 1      | No-entry sign violation risk | 0.6 |
+| Risk 2      | Pedestrian crossing near bus stop | 0.7 |
+| Risk 3      | Billboard obstruction hazard | 0.4 |
+| Risk 4      | Misinterpretation of road markings | 0.5 |
+| Risk 5      | Occlusion of pedestrians/cyclists | 0.6 |
+
+---
+### **Conclusion**
+This scene presents **moderate risks** primarily related to **pedestrian movement near the bus stop** and **misinterpretation of road signs**. The **no-entry sign** and **occlusion risks** also warrant attention. The **billboard hazard** is low but should be monitored for structural integrity. The autonomous system must maintain **high vigilance** for unexpected pedestrian behavior and ensure **correct interpretation of traffic signs**.

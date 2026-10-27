@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Excavator bucket protruding into roadway" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with excavator bucket obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Excavator bucket intruding into driving lane" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with excavator bucket obstructing road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Excavator bucket intruding into driving lane
+Severity Score: 0.90
+
+---
+**Analysis:**
+1. **Entities Identified:**
+   - The excavator bucket is classified as a `:RoadObject` (subclass of `:Obstacle`).
+   - The scene is under `:NightCondition` (subclass of `:WeatherCondition`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the excavator bucket is in an unexpected state (protruding into the roadway), which is not typical for normal driving conditions.
+
+3. **Risks Identified:**
+   - **CollisionRisk**: High severity due to the immediate physical obstruction in the path of potential vehicles.
+   - **LaneIntrusionRisk**: High severity due to the excavator bucket occupying a significant portion of the driving lane, forcing vehicles to maneuver around it.
+
+The severity scores are high (0.95 and 0.90) due to the critical nature of the obstacle in the roadway, posing immediate danger to vehicles.

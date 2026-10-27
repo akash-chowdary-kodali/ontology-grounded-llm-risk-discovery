@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:contains ex:Vehicle1, ex:Vehicle2, ex:Obstacle1, ex:RoadInfrastructure ;
+    ex:weatherCondition "Clear" ;
+    ex:location "Urban Road" .
+
+ex:Vehicle1 a ex:Car ;
+    ex:color "Red" ;
+    ex:action "Approaching" ;
+    ex:relativePosition ex:Vehicle2 .
+
+ex:Vehicle2 a ex:Truck ;
+    ex:color "Gray" ;
+    ex:action "Following" ;
+    ex:relativePosition ex:Obstacle1 .
+
+ex:Obstacle1 a ex:HayBale ;
+    ex:action "Rolling" ;
+    ex:relativePosition ex:RoadInfrastructure .
+
+ex:RoadInfrastructure a ex:TrafficLight ;
+    ex:status "Red" ;
+    ex:location "Intersection" .
+
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Risk of collision due to the hay bale rolling into the roadway while vehicles are approaching the intersection.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Risk of pedestrian visibility obstruction due to the hay bale blocking the driver's line of sight.
+- **Severity Score:** 0.5
+
+**Risk 3:**
+- **Description:** Risk of sudden braking needed for the following vehicle to avoid the rolling obstacle, increasing rear-end collision potential.
+- **Severity Score:** 0.6

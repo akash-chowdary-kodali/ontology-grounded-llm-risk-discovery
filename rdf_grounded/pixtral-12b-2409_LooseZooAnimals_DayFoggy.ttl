@@ -1,0 +1,219 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithUnusualActors" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog crossing road in fog" .
+
+:actor2 a :Obstacle ;
+    :description "Large elephant statue on roadside" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Fog obscuring visibility beyond 20 meters" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog crossing road in fog, potential collision with vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy fog obscuring road and potential hazards" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Dog crossing road in fog, potential collision with vehicle
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Heavy fog obscuring road and potential hazards
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actors:** A dog (Pedestrian) crossing the road and an elephant statue (Obstacle).
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility).
+   - **Corner Case:** StateAnomaly (unusual presence of a dog and an elephant statue in a typical road scenario).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because it involves unexpected actors (dog and elephant statue) in a road environment, which deviates from typical driving scenarios.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High risk due to the dog crossing the road in low visibility.
+   - **OcclusionRisk:** High risk due to heavy fog obscuring visibility and potential hazards.
+
+4. **Severity Scores:**
+   - The dog crossing in fog is assigned a severity score of **0.90** due to the immediate collision risk.
+   - The fog itself is assigned a severity score of **0.85** due to its impact on visibility and potential for hidden obstacles. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "AnimalsOnRoadInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology, so we use :Actor as parent class
+    :description "Gorilla crossing road" .
+:actor2 a :AnimalActor ;
+    :description "Gorilla in background" .
+:actor3 a :AnimalActor ;
+    :description "Gorilla on right side" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Animals crossing road in foggy conditions" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with animals crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures visibility of animals and road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with animals crossing road
+- **Severity Score:** 0.95
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscures visibility of animals and road conditions
+- **Severity Score:** 0.88
+- **Type:** OcclusionRisk
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **Actors:** Three animals (gorillas) are identified as `Actor` (since the ontology does not include an "AnimalActor" subclass, we use the parent class `Actor`).
+   - **WeatherCondition:** Foggy conditions (`FoggyCondition`) significantly reduce visibility.
+   - **Corner Case:** The presence of animals crossing the road in foggy conditions is classified as a `BehaviorAnomaly` (unexpected behavior in a driving scenario).
+
+2. **Evidence Indicator:**
+   - The animals crossing the road in foggy conditions (`EvidenceIndicator`) directly indicates potential risks.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High risk due to animals crossing the road.
+   - **OcclusionRisk:** High risk due to fog reducing visibility of the animals and road conditions.
+
+4. **Severity Scores:**
+   - CollisionRisk: 0.95 (very high due to the unexpected presence of animals).
+   - OcclusionRisk: 0.88 (high due to fog impairing visibility). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnrealisticAnimalCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Monkey crossing road" .
+:actor2 a :Pedestrian ;
+    :description "Goat standing on roadside" .
+:actor3 a :Obstacle ;
+    :description "Elephant partially visible on right" .
+
+:obstacle1 a :RoadObject ;
+    :description "Unrealistic animal presence on road" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Monkey crossing road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Large animal partially occupying lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual scene elements may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Monkey crossing road unexpectedly
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Large animal partially occupying lane
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Unusual scene elements may distract driver
+Severity Score: 0.75

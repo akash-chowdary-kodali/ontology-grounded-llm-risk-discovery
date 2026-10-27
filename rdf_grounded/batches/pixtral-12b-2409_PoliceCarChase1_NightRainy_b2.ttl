@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotWithWetRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :rainyCondition1 ;
+    :hasEvidence :evidenceIndicator1 ;
+    :hasRisk :risk1, :risk2 .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet and reflective road surface" .
+
+:rainyCondition1 a :RainyCondition .
+
+:evidenceIndicator1 a :RollingBallIndicator ;
+    :description "Water puddles and reflective surface indicating recent rain" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to recent rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to headlights reflecting off wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road conditions due to recent rain
+Severity Score: 0.7
+
+**Risk 2:**
+Description: Reduced visibility due to headlights reflecting off wet surface
+Severity Score: 0.6
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The wet road surface is classified as a `RoadObject` under `Obstacle`.
+   - The rainy condition is classified as `RainyCondition` under `WeatherCondition`.
+   - The reflective water puddles and wet surface are classified as `RollingBallIndicator` under `EvidenceIndicator`.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `EvidenceBasedAnomaly` because the risks are inferred from observable evidence (wet road, reflective surface).
+
+3. **Risks Identified:**
+   - `RoadConditionRisk` due to slippery conditions from recent rain.
+   - `OcclusionRisk` due to reduced visibility from headlight reflections on the wet surface.
+
+4. **Severity Scores:**
+   - `RoadConditionRisk` is assigned a severity score of 0.7, indicating a high risk of skidding or loss of vehicle control.
+   - `OcclusionRisk` is assigned a severity score of 0.6, indicating moderate risk of impaired vision for the driver.

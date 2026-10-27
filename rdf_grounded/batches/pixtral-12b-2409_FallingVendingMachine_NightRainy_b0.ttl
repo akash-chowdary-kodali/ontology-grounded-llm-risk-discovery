@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Billboard falling onto road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen billboard obstructing road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fallen billboard partially blocking vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with fallen billboard or vehicle behind" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with limited visibility" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Fallen billboard partially blocking vehicle path
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Potential collision with fallen billboard or vehicle behind
+- **Risk Type:** CollisionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Fallen billboard (`:obstacle1` as `:RoadObject`)
+   - **Evidence Indicator:** Falling object (`:evidence1` as `:FallingObjectIndicator`)
+   - **Weather Condition:** Nighttime (`:weather1` as `:NightCondition`)
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` (due to the clear evidence of a falling object creating a hazardous situation).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The fallen billboard partially obstructs the road, posing a risk of reduced visibility or path blockage.
+   - **CollisionRisk:** The fallen billboard could cause a collision if not avoided, and the vehicle behind may also be at risk of rear-end collision due to sudden braking.
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.75 (high due to nighttime and limited visibility).
+   - CollisionRisk: 0.80 (high due to potential impact with the obstacle and secondary risk from following vehicles).

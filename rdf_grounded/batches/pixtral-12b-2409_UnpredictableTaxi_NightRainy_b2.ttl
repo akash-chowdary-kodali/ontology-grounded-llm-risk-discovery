@@ -1,0 +1,76 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRainyRoadWithFollowingVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :roadCondition1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle in front" .
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle (ego) following" .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with reflective puddles" .
+
+:rainy1 a :RainyCondition ;
+    :description "Rainy night condition with poor visibility" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to following distance and wet road" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Reduced traction and braking efficiency due to wet road" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reflective puddles causing visual occlusion and glare" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk4 a :WeatherRisk ;
+    :description "Poor visibility and reduced reaction time due to rain" ;
+    :hasSeverityScore :sev4 ;
+    :confidenceScore "0.80"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: High risk of rear-end collision due to following distance and wet road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Reduced traction and braking efficiency due to wet road
+Severity Score: 0.90
+
+**Risk 3:**
+Description: Reflective puddles causing visual occlusion and glare
+Severity Score: 0.80
+
+**Risk 4:**
+Description: Poor visibility and reduced reaction time due to rain
+Severity Score: 0.85

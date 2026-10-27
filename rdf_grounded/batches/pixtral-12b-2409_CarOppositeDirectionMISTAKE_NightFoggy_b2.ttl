@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeParkingLotWithLowLighting" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Poorly lit parking lot with structural beams obstructing view" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Structural beams obstructing view of distant objects" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Low lighting conditions in parking lot" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to limited visibility of parked vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Parked vehicle in the distance" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Structural beams obstructing view of distant objects
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Low lighting conditions in parking lot
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential collision risk due to limited visibility of parked vehicles
+Severity Score: 0.80
+
+---
+The scene is classified as a **StateAnomaly** due to the static but hazardous conditions (poor lighting and structural obstructions) that create risks without any dynamic behavior anomalies. The ontology does not include a specific class for "poor lighting," so it is mapped to **RoadConditionRisk** under the broader **Risk** class. The parked vehicle is included as an **Obstacle** of type **RoadObject** to reflect its potential collision risk.

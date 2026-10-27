@@ -1,0 +1,47 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red, camera view), Police car (ahead), Multiple parked taxis (yellow).
+*   **Infrastructure:** Roadway, Street lights, Sidewalks, Buildings, Vegetation/Hedges.
+*   **Obstacles:** Large fallen tree trunk obstructing the entire road.
+*   **Weather Conditions:** Nighttime, Heavy rain (wet pavement, reflections).
+
+### 2. Relationships
+*   **Obstacle-Road:** The fallen tree is *blocking* the roadway.
+*   **Police Car-Obstacle:** The police car is *behind* or *past* the fallen tree.
+*   **Taxis-Road:** Taxis are *parked* along the roadside.
+*   **Ego-Vehicle-Obstacle:** The ego-vehicle is *approaching* the fallen tree.
+*   **Ego-Vehicle-Environment:** The ego-vehicle is *operating in* low-visibility, hazardous weather.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isApproaching ex:FallenTree .
+
+ex:FallenTree rdf:type ex:Obstacle ;
+    ex:isBlocking ex:Roadway .
+
+ex:PoliceCar rdf:type ex:Vehicle ;
+    ex:isBehind ex:FallenTree .
+
+ex:Taxi_1 rdf:type ex:Vehicle ;
+    ex:isParkedOn ex:Roadside .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:hasType "RainyNight" ;
+    ex:hasVisibility "Low" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** High-severity collision risk due to an unlit, large fallen tree obstructing the entire width of the lane, combined with low-visibility weather conditions (rain/night) reducing perception time.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Risk of skidding or loss of control by the ego-vehicle due to wet road surfaces and emergency braking maneuvers required to avoid the obstacle.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** Situational uncertainty; presence of a police car near a road-blocking obstacle suggests a potential emergency scene or hazard zone, which may involve obscured personnel or dynamic movement behind the tree.
+*   **Severity Score:** 0.65

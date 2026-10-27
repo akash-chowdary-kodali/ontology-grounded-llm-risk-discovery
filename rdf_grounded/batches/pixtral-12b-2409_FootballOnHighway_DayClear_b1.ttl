@@ -1,0 +1,68 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Object falling from above onto road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling spherical object on road surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Potential collision with falling object on road (spherical object appears to be rolling/falling from above)
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Evidence:** FallingObjectIndicator (object appears to be a rolling ball)
+- **Corner Case Type:** EvidenceBasedAnomaly (detected through visual evidence of falling object)
+
+### Analysis Notes:
+1. **Entity Identification:**
+   - The primary **Obstacle** is a **RoadObject** (falling spherical object)
+   - The **WeatherCondition** is **DayCondition** (clear daytime)
+   - No Actors (Pedestrians/Cyclists/Vehicles) or TrafficSigns/Lights/Billboards are visible in this frame
+
+2. **Corner Case Classification:**
+   - Classified as **EvidenceBasedAnomaly** because the risk is identified through direct visual evidence of a falling object (not inferred behavior or state)
+
+3. **Risk Assessment:**
+   - The falling object creates a **CollisionRisk** (0.75 severity) as it may:
+     - Roll unpredictably across lanes
+     - Cause vehicles to swerve
+     - Damage vehicle windshields/lights
+   - No other risk types apply in this specific frame
+
+4. **Severity Justification:**
+   - 0.75/1.0 reflects moderate-high risk due to:
+     - Object's potential to cause damage
+     - Unpredictable movement pattern
+     - Limited time for reaction
+   - Lower than 1.0 because:
+     - Object appears small (not immediately dangerous)
+     - Clear visibility conditions
+     - No immediate collision trajectory visible

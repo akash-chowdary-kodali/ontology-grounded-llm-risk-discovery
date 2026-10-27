@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :occlusionRisk1, :distractionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard with partially visible text 'WAS SOME STUFF'" .
+
+:nightCondition1 a :NightCondition .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Potential occlusion of road features due to low visibility at night" ;
+    :hasSeverityScore :sev1 .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Potential distraction from illuminated billboard in low-light conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion of road features due to low visibility at night
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential distraction from illuminated billboard in low-light conditions
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (`billboard1`) with partially visible text.
+   - The **WeatherCondition** is classified as **NightCondition** (`nightCondition1`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the anomaly arises from the environmental state (low-light night conditions) rather than an actor's behavior or evidence-based indicators.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: Due to low visibility at night, road features (e.g., pedestrians, cyclists, or obstacles) may be harder to detect, increasing the risk of collision.
+   - **DistractionRisk**: The illuminated billboard could distract the driver, leading to reduced focus on the road.
+
+4. **Severity Scores:**
+   - Occlusion risk is assigned a higher severity (0.65) because it directly impacts the ability to perceive and avoid obstacles.
+   - Distraction risk is assigned a lower severity (0.45) as it is less immediate but still relevant in low-light conditions.

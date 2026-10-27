@@ -1,0 +1,7 @@
+google-genai
+rdflib
+ollama
+groq
+openai
+python-dotenv
+pillow

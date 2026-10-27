@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Tunnel with Vehicle and Potential OcclusionRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Tunnel entrance causing light glare and reduced visibility" .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle driving through tunnel with headlights on" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting in tunnel" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to tunnel entrance glare and nighttime conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential driver distraction from tunnel lighting and road markings" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to tunnel entrance glare and nighttime conditions
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Potential driver distraction from tunnel lighting and road markings
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.50
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Vehicle:** The car driving through the tunnel.
+   - **Obstacle:** The tunnel entrance causing glare and reduced visibility (classified as `RoadObject`).
+   - **WeatherCondition:** Nighttime with artificial lighting (classified as `NightCondition`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from the environmental state (tunnel lighting + nighttime) rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to glare and reduced visibility in the tunnel.
+   - **DistractionRisk:** Moderate severity due to the tunnel's lighting and road markings potentially distracting the driver.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.75) is higher due to the immediate threat to safe navigation.
+   - DistractionRisk (0.50) is lower but still relevant as it could lead to longer-term safety issues.

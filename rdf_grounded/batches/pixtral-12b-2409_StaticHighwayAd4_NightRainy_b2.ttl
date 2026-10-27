@@ -1,0 +1,59 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WetRoadNightDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Wet road surface with visible water reflections indicating potential hydroplaning risk" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to obscured road conditions and reduced visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: High risk of hydroplaning due to wet road surface.
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Reduced visibility due to nighttime conditions.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Potential collision risk due to obscured road conditions and reduced visibility.
+Severity Score: 0.85
+
+---
+The scene is classified as an **EvidenceBasedAnomaly** due to the presence of visible evidence (wet road surface) indicating potential risks. The ontology does not include explicit classes for the road surface itself, so the evidence is captured as a `RollingBallIndicator` (representing the wet road condition). The risks identified are primarily related to road conditions and visibility.

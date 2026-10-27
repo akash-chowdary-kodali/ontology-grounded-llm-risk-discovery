@@ -1,0 +1,170 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardNightScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling billboard obstructing road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Billboard falling across road path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling billboard" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+```
+
+---
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Risk of collision with falling billboard obstructing the road.
+- **Severity Score:** 0.95
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Obstacle:** A falling billboard (`:obstacle1` of type `:RoadObject`).
+   - **Evidence Indicator:** Falling object (`:evidence1` of type `:FallingObjectIndicator`).
+   - **Weather Condition:** Nighttime (`:weather1` of type `:NightCondition`).
+   - **Corner Case:** Classified as `:EvidenceBasedAnomaly` due to the observable falling object acting as evidence of an imminent hazard.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the falling billboard provides clear evidence of an abnormal state (falling object) that directly indicates a risk.
+
+3. **Risk Identification:**
+   - The primary risk is `:CollisionRisk` due to the falling billboard obstructing the road. The severity is high (0.95) because the object is large, falling directly into the path of vehicles, and visibility is limited at night.
+
+4. **Severity Justification:**
+   - The severity score of 0.95 reflects the immediate and high likelihood of collision if no evasive action is taken. The nighttime condition (`:NightCondition`) exacerbates the risk by reducing visibility and reaction time. Here is the semantic interpretation of the scene in RDF/Turtle format, following the strict ontology rules:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Billboard Obstacle Scenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red billboard blocking road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Large billboard obstructing driver's view of road ahead" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Billboard partially intruding into driving lane" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility nighttime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+**Identified Risks:**
+
+Risk 1:
+Description: Large billboard obstructing driver's view of road ahead
+Severity Score: 0.9
+Risk Type: OcclusionRisk
+
+Risk 2:
+Description: Billboard partially intruding into driving lane
+Severity Score: 0.7
+Risk Type: LaneIntrusionRisk
+
+**Analysis:**
+1. The scene contains a large billboard acting as an unexpected road obstacle (RoadObject subclass)
+2. The corner case is classified as StateAnomaly because it represents an abnormal static state (large object in road)
+3. Two primary risks identified:
+   - High-severity occlusion risk due to nighttime visibility challenges
+   - Moderate-severity lane intrusion risk from the billboard's position
+4. NightCondition is included as it exacerbates the visibility risk
+5. No actors (pedestrians/cyclists/vehicles) were detected in the immediate scene, focusing analysis on the static obstacle
+
+The billboard's size and position create both a physical obstruction and a visual occlusion hazard, particularly dangerous in nighttime conditions where visibility is already reduced. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRedReflectionDistraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Strong red light reflection on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Excessive red light reflection causing visual distraction" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Red reflection potentially obscuring road markings and objects" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Excessive red light reflection causing visual distraction
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Red reflection potentially obscuring road markings and objects
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. The primary anomaly is classified as **EvidenceBasedAnomaly** due to the observable red reflection acting as evidence of potential risks.
+2. The scene contains no actors, traffic signs, or traffic lights that can be confidently identified.
+3. The **NightCondition** is inferred from the dark sky and artificial lighting.
+4. The reflection creates two distinct risks:
+   - **DistractionRisk** (high severity) due to the bright reflection potentially impairing the driver's vision.
+   - **OcclusionRisk** (moderate severity) as the reflection may obscure important road features.

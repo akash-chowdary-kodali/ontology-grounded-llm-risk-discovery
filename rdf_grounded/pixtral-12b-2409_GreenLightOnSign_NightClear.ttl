@@ -1,0 +1,76 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightIntersectionWithBillboards" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :billboard1, :billboard2 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1, :roadConditionRisk1 ;
+    :hasWeatherCondition :nightCondition1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard advertising a shoe store with bright lights" .
+
+:billboard2 a :Billboard ;
+    :description "Billboard with colorful graphics and lights" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Bright billboards may distract drivers at night" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Darkness and lack of actors may cause sensor occlusion" ;
+    :hasSeverityScore :sev2 .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Wet road surface may affect vehicle handling" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Bright billboards may distract drivers at night
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Darkness and lack of actors may cause sensor occlusion
+Severity Score: 0.40
+
+**Risk 3:**
+Description: Wet road surface may affect vehicle handling
+Severity Score: 0.25
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - Two billboards (`:billboard1`, `:billboard2`) as `:Billboard`.
+   - Nighttime condition (`:nightCondition1`) as `:NightCondition`.
+   - No actors, traffic lights, or traffic signs were detected in this scene.
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` due to the lack of dynamic actors but the presence of potential distractions (billboards) and sensor challenges (darkness).
+
+3. **Risks Identified:**
+   - **DistractionRisk** from bright billboards at night.
+   - **OcclusionRisk** due to darkness and lack of dynamic actors.
+   - **RoadConditionRisk** inferred from the wet road surface (visible in the reflection).
+
+4. **Severity Scores:**
+   - Scores are moderate due to the absence of immediate threats (e.g., no pedestrians or vehicles).
+   - Distraction and occlusion risks are higher than road conditions in this context.

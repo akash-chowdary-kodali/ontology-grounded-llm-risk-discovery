@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyFogWithRainyConditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :FoggyCondition, :RainyCondition ;
+    :description "Dense fog combined with heavy rain reducing visibility" .
+
+:evidence1 a :FallingObjectIndicator, :RollingBallIndicator ;
+    :description "Rain droplets and reduced visibility indicators" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Heavy fog and rain severely reduce visibility of road and surrounding vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain and potential hydroplaning risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Following vehicle in the same lane" .
+
+:actor2 a :Vehicle ;
+    :description "Emergency vehicle in the distance" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Heavy fog and rain severely reduce visibility of road and surrounding vehicles.
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to rain and potential hydroplaning risk.
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition and RainyCondition (combined due to overlapping effects).
+   - **Actors:** Two vehicles (one following closely and one emergency vehicle in the distance).
+   - **EvidenceIndicator:** FallingObjectIndicator (rain droplets) and RollingBallIndicator (reduced visibility effects).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The corner case is classified as evidence-based due to observable indicators (fog, rain, and reduced visibility) that directly contribute to the risks.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the dense fog and rain, visibility is significantly reduced, making it difficult to detect other vehicles or obstacles.
+   - **RoadConditionRisk:** The wet road surface increases the likelihood of hydroplaning and reduced traction, posing a risk to vehicle control.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, ensuring all classes, properties, and data types are correctly used.

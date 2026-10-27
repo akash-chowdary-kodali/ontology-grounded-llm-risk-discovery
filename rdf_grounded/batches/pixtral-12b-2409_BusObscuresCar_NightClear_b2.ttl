@@ -1,0 +1,62 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1, :roadObject2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle in foreground" .
+:actor2 a :Vehicle ;
+    :description "Yellow vehicle approaching from right" .
+:actor3 a :Vehicle ;
+    :description "Orange vehicle in distance" .
+
+:roadObject1 a :RoadObject ;
+    :description "Traffic light showing red" .
+:roadObject2 a :Billboard ;
+    :description "Billboard in distance" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to following distance" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk with yellow vehicle at intersection" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to limited visibility at night" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential rear-end collision risk due to following distance
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential collision risk with yellow vehicle at intersection
+Severity Score: 0.70
+
+**Risk 3:**
+Description: Occlusion risk due to limited visibility at night
+Severity Score: 0.55

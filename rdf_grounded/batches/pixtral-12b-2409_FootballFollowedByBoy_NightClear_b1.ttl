@@ -1,0 +1,56 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+### Analysis:
+The scene shows a nighttime road with a soccer ball rolling in the path of the vehicle. This is a clear case of a **RollingBallIndicator** (EvidenceIndicator) creating a **CollisionRisk** (specifically a **Rear-End Collision Risk** if the vehicle stops abruptly). The corner case is classified as a **StateAnomaly** (unexpected object on the road) with no actors directly involved but a high risk of collision.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rolling Soccer Ball on Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball rolling on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball detected in vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling soccer ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+```
+
+---
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Potential collision with rolling soccer ball (Rear-End Collision Risk due to sudden braking).
+- **Severity Score:** 0.9 (High risk due to nighttime visibility and unpredictable object).
+
+---
+### Key Observations:
+1. **Corner Case Type:** `StateAnomaly` (unexpected object on the road).
+2. **Evidence Indicator:** `RollingBallIndicator` (soccer ball in path).
+3. **Risk:** `CollisionRisk` (specifically a rear-end collision risk if the vehicle stops).
+4. **Weather Condition:** `NightCondition` (reduces visibility, increasing risk severity).
+5. **Severity:** High (0.9) due to low visibility and unpredictable object behavior.
+
+No actors (pedestrians/cyclists/vehicles) are directly involved, but the rolling ball acts as a dynamic obstacle.

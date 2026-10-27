@@ -1,0 +1,50 @@
+Here’s the semantic interpretation grounded in the provided ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "NighttimeDrivingWithObstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian standing near the road" .
+
+:actor2 a :Vehicle ;
+    :description "White delivery van parked on the side of the road" .
+
+:weather1 a :NightCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling barrel obstructing the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with pedestrian" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Barrel intruding into the lane" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Risk of collision with pedestrian
+Severity Score: 0.75
+
+Risk 2:
+Description: Barrel intruding into the lane
+Severity Score: 0.65

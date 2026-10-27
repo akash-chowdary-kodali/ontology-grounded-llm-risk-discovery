@@ -1,0 +1,73 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainAndRedReflectiveSurface" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Reflective red surface causing sensor confusion" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual visual distortion from red reflective surface" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to heavy rain
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Reflective red surface causing sensor confusion
+Severity Score: 0.8
+
+**Risk 3:**
+Description: Unusual visual distortion from red reflective surface
+Severity Score: 0.7
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The scene primarily features a `RainyCondition` as the dominant `WeatherCondition`.
+   - The red reflective surface (likely part of the vehicle's rear) acts as an `EvidenceIndicator` classified as a `RollingBallIndicator` (due to its reflective, light-distorting properties).
+   - No explicit `Actor`, `Obstacle`, `TrafficSign`, or `TrafficLight` are directly visible in the image, so they are not included in the RDF.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `EvidenceBasedAnomaly` because the unusual reflective surface (evidence) triggers potential risks that are not typical in standard driving conditions.
+
+3. **Risks Identified:**
+   - **WeatherRisk:** Heavy rain reduces visibility, posing a significant hazard.
+   - **RoadConditionRisk:** The reflective surface may confuse sensors or mislead the autonomous system.
+   - **DistractionRisk:** The unusual visual distortion could distract the system or human observers.
+
+4. **Severity Scores:**
+   - The `WeatherRisk` has the highest severity (0.9) due to its direct impact on visibility.
+   - The `RoadConditionRisk` (0.8) and `DistractionRisk` (0.7) are slightly lower but still critical for autonomous driving safety.

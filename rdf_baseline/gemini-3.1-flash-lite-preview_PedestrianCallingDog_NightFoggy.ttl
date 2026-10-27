@@ -1,0 +1,46 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Vehicles:** Ego-vehicle (red, camera perspective), parked cars (green, red, orange/brown, silver).
+*   **Obstacle:** A German Shepherd dog (dynamic object).
+*   **Infrastructure:** Two-lane road with double yellow line, streetlights, sidewalks, residential brick buildings.
+*   **Environmental Conditions:** Nighttime, low-light, likely foggy/hazy, wet/reflective road surface.
+
+**2. Relationships:**
+*   The **Dog** is crossing the path of the **Ego-vehicle**.
+*   The **Parked Cars** are occluding the potential path of the dog from the left side of the street (initially).
+*   The **Dog** is in the immediate vicinity (front-right) of the **Ego-vehicle**.
+*   The **Ego-vehicle** is following a path down the center of the road.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:egoVehicle rdf:type ex:Vehicle .
+ex:dog rdf:type ex:DynamicObstacle .
+ex:parkedCar1 rdf:type ex:Vehicle .
+ex:roadSurface rdf:type ex:Infrastructure .
+
+ex:dog ex:crossing ex:roadPath .
+ex:dog ex:near ex:egoVehicle .
+ex:parkedCar1 ex:occluding ex:dog .
+ex:egoVehicle ex:approaching ex:dog .
+ex:environment ex:hasCondition "low-light" .
+ex:environment ex:hasCondition "foggy" .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Potential collision between the ego-vehicle and the crossing animal. The dog's sudden movement from behind parked cars into the vehicle's trajectory at night makes detection and reaction difficult.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Environmental visibility impairment. Low-light conditions combined with fog significantly reduce the perception system’s range and the confidence in object classification (e.g., distinguishing the dog from road noise).
+**Severity Score:** 0.75
+
+**Risk 3:**
+**Description:** Lateral occlusion. The row of parked vehicles creates "blind spots," preventing the early detection of the dog until it enters the active lane, significantly reducing the available braking distance.
+**Severity Score:** 0.85

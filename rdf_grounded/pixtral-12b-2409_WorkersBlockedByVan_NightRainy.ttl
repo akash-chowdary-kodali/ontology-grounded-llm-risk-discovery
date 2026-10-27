@@ -1,0 +1,225 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Roadwork with Pedestrian Activity" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Worker kneeling near roadwork area" .
+
+:actor2 a :Pedestrian ;
+    :description "Worker crossing road unexpectedly" .
+
+:obstacle1 a :RoadObject ;
+    :description "Roadwork barriers and orange traffic cones" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball test for roadwork area" ;
+    :indicatesPotentialRisk :risk3 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime environment" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Roadwork barriers obstructing visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Unstable road surface due to roadwork" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing into vehicle path
+- **Severity Score:** 0.90
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Roadwork barriers obstructing visibility
+- **Severity Score:** 0.75
+- **Risk Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Unstable road surface due to roadwork
+- **Severity Score:** 0.80
+- **Risk Type:** RoadConditionRisk
+
+---
+
+### Explanation:
+1. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because the pedestrians (workers) are engaging in unexpected behavior (one kneeling near the roadwork and another crossing the road unexpectedly), which deviates from typical pedestrian behavior in such environments.
+
+2. **Entities Identified:**
+   - **Actors:** Two pedestrians (workers).
+   - **Obstacle:** Roadwork barriers and orange traffic cones (classified as `RoadObject`).
+   - **Evidence Indicator:** Rolling ball test (indicating unstable road conditions).
+   - **Weather Condition:** Nighttime (`NightCondition`).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian crossing into the vehicle's path.
+   - **OcclusionRisk:** Moderate severity due to roadwork barriers obstructing visibility.
+   - **RoadConditionRisk:** High severity due to the unstable road surface (evidenced by the rolling ball test).
+
+4. **Severity Scores:**
+   - Scores are assigned based on the potential danger and likelihood of the risk occurring in this context. The pedestrian collision risk is highest due to the immediate threat to the vehicle. Here is the semantic interpretation of the scene in RDF/Turtle format, following the strict ontology rules:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Pedestrian Crossing with Road Obstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObstacle1 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person crossing road at night without proper lighting" .
+
+:roadObstacle1 a :RoadObject ;
+    :description "Orange traffic cones creating unexpected path obstruction" .
+
+:nightCondition a :NightCondition ;
+    :description "Low visibility conditions at night" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Pedestrian crossing road in front of vehicle with poor visibility" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High risk of collision with pedestrian crossing in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones create partial occlusion of pedestrian path" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+**Identified Risks:**
+
+**Risk 1:**
+Description: High risk of collision with pedestrian crossing in vehicle path
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Traffic cones create partial occlusion of pedestrian path
+Severity Score: 0.75
+
+**Analysis Justification:**
+1. The scene shows a **BehaviorAnomaly** because the pedestrian is crossing in an unexpected manner (nighttime, poor visibility) combined with road obstacles (cones)
+2. Two primary risks identified:
+   - **PedestrianCollisionRisk** (highest severity) due to the pedestrian crossing directly in front of the vehicle
+   - **OcclusionRisk** from the traffic cones that partially obscure the pedestrian's path
+3. The nighttime conditions (NightCondition) significantly increase the severity scores
+4. The cones are classified as RoadObject under Obstacle class
+5. The pedestrian's crossing behavior serves as evidence (EvidenceIndicator) for the collision risk
+
+The high severity scores reflect the dangerous combination of:
+- Nighttime conditions reducing visibility
+- Pedestrian crossing behavior
+- Road obstacles creating confusion
+- Potential for sudden collision with insufficient reaction time Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossingWithReflection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian in yellow shirt and light-colored pants crossing road at night" .
+
+:weather1 a :NightCondition .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective surface causing light glare on road" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing in front of vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Light reflection causing potential driver distraction" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Poor visibility of pedestrian due to night conditions" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing in front of vehicle path
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Light reflection causing potential driver distraction
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Poor visibility of pedestrian due to night conditions
+Severity Score: 0.80
+
+---
+The scene was classified as a **BehaviorAnomaly** because the pedestrian is crossing the road in a manner that could be unexpected for a driver, especially given the nighttime conditions and potential visual distractions. The rolling ball indicator was used to capture the reflective surface causing glare, which contributes to the distraction risk.

@@ -1,0 +1,218 @@
+Here is the semantic interpretation of the provided scene using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithBillboardDistraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Large electronic billboard displaying dynamic content" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime with good visibility" .
+
+:risk1 a :DistractionRisk ;
+    :description "Large billboard may distract driver's attention from traffic signals and signs" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Billboard partially obscures view of traffic signs and pedestrians on the right side" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light visible in the scene" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign partially obscured by billboard" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Large billboard may distract driver's attention from traffic signals and signs.
+- **Severity Score:** 0.75
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Billboard partially obscures view of traffic signs and pedestrians on the right side.
+- **Severity Score:** 0.60
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Billboard:** Large electronic billboard displaying dynamic content (classified as `:Billboard`).
+   - **Traffic Light:** Green traffic light (classified as `:TrafficLight`).
+   - **Traffic Sign:** No entry sign (classified as `:TrafficSign`).
+   - **Weather Condition:** Clear daytime (classified as `:DayCondition`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** (`:BehaviorAnomaly`) because the presence of the large billboard introduces a distraction risk, which is an anomalous behavior in the context of autonomous driving safety.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the large billboard potentially diverting the driver's attention from critical traffic elements.
+   - **OcclusionRisk:** Due to the billboard partially obscuring traffic signs and potential pedestrians.
+
+4. **Severity Scores:**
+   - The distraction risk is assigned a higher severity score (0.75) because it directly impacts the driver's ability to focus on the road.
+   - The occlusion risk is assigned a lower severity score (0.60) because it is less immediate but still poses a risk of missing important road signs or pedestrians. Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithBillboards" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :billboard1, :billboard2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Left-side billboard with directional sign and advertisement" .
+:billboard2 a :Billboard ;
+    :description "Right-side billboard with advertisement" .
+
+:evidence1 a :DistractionRisk ;
+    :description "Multiple billboards may distract drivers" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :DistractionRisk ;
+    :description "High visual clutter from billboards may cause driver distraction" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Billboards may partially obscure traffic signs or pedestrians" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.60"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High visual clutter from billboards may cause driver distraction.
+- **Severity Score:** 0.70
+- **Risk Type:** DistractionRisk
+- **Confidence Score:** 0.75
+
+**Risk 2:**
+- **Description:** Billboards may partially obscure traffic signs or pedestrians.
+- **Severity Score:** 0.55
+- **Risk Type:** OcclusionRisk
+- **Confidence Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - Two billboards (`:billboard1`, `:billboard2`) as `:Billboard` instances.
+   - No actors (pedestrians, cyclists, or vehicles) are visible in the scene.
+   - Weather condition is `:DayCondition` with clear visibility.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the primary concern arises from observable evidence (billboards) that may introduce risks (distraction, occlusion) rather than an anomalous state or behavior.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the high visual clutter from billboards, which may divert driver attention.
+   - **OcclusionRisk:** Billboards may partially obscure important elements like traffic signs or pedestrians, increasing the risk of missing critical information.
+
+4. **Severity Scores:**
+   - DistractionRisk is assigned a higher severity (0.70) due to its direct impact on driver focus.
+   - OcclusionRisk is assigned a lower severity (0.55) as it is less immediately dangerous but still relevant. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard displaying event advertisement" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard content may distract driver" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion from billboard obstructing view of distant road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.2"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Billboard content may distract driver
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Potential occlusion from billboard obstructing view of distant road
+Severity Score: 0.2
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - **Billboard:** The large electronic billboard advertising an event.
+   - **WeatherCondition:** Clear and Day conditions (no adverse weather).
+   - No **Actors**, **TrafficSigns**, **TrafficLights**, or **Vehicles** are present in the scene.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene is classified as a StateAnomaly because it represents an unusual or unexpected state (empty urban street with a prominent billboard) that could pose risks despite the absence of active actors.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The billboard content may distract the driver, though the severity is low (0.3) due to the lack of traffic or pedestrians.
+   - **OcclusionRisk:** The billboard could partially obstruct the driver's view of distant road features, but this is also low severity (0.2) as the road appears clear.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the absence of active actors and low likelihood of immediate danger. The risks are contextual and depend on driver behavior or future events (e.g., pedestrians appearing).

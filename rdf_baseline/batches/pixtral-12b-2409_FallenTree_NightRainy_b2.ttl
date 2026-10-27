@@ -1,0 +1,105 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/autonomous_driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :Scene ;
+    :hasWeatherCondition :RainyNight ;
+    :hasRoadCondition :Wet .
+
+:RainyNight a :WeatherCondition ;
+    :hasLightCondition :LowLight ;
+    :hasPrecipitation :Rain .
+
+:Wet a :RoadCondition ;
+    :hasSurfaceCondition :Slippery .
+
+:Vehicle1 a :Vehicle ;
+    :hasColor "Red" ;
+    :hasType :AutonomousCar ;
+    :hasPosition :FrontView .
+
+:Vehicle2 a :Vehicle ;
+    :hasColor "Yellow" ;
+    :hasType :Taxi ;
+    :hasPosition :RightLane ;
+    :hasDirection :Forward .
+
+:Vehicle3 a :Vehicle ;
+    :hasColor "White" ;
+    :hasType :PoliceCar ;
+    :hasPosition :LeftLane ;
+    :hasDirection :Forward .
+
+:Obstacle1 a :Obstacle ;
+    :hasType :FallenTreeBranch ;
+    :hasPosition :LeftSide ;
+    :occludes :Vehicle3 .
+
+:RoadInfrastructure1 a :RoadInfrastructure ;
+    :hasType :RoadMarking ;
+    :hasPosition :CenterLine .
+
+:Relationship1 a :Relationship ;
+    :between :Vehicle1 ;
+    :and :Vehicle2 ;
+    :type :Following .
+
+:Relationship2 a :Relationship ;
+    :between :Vehicle1 ;
+    :and :Obstacle1 ;
+    :type :Approaching .
+
+:Relationship3 a :Relationship ;
+    :between :Vehicle2 ;
+    :and :Vehicle3 ;
+    :type :Occluding .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:**
+The autonomous vehicle (Vehicle1) is approaching a fallen tree branch (Obstacle1) on the left side of the road, which could obstruct its path and cause a collision. The low-light and rainy conditions exacerbate the difficulty in detecting the obstacle early.
+
+**Severity Score:**
+0.9 (High)
+
+---
+
+**Risk 2:**
+**Description:**
+The slippery road conditions due to rain increase the risk of skidding or loss of control for Vehicle1, especially when braking or turning. This could lead to an accident with Vehicle2 (Taxi) or Vehicle3 (Police Car) in adjacent lanes.
+
+**Severity Score:**
+0.8 (High)
+
+---
+
+**Risk 3:**
+**Description:**
+The low-light conditions combined with the rainy weather reduce visibility, making it difficult for Vehicle1 to detect pedestrians, cyclists, or other potential obstacles in time. This increases the risk of a collision with unseen entities.
+
+**Severity Score:**
+0.8 (High)
+
+---
+
+**Risk 4:**
+**Description:**
+Vehicle2 (Taxi) is in close proximity to Vehicle1 and Vehicle3 (Police Car), and the occluding obstacle (FallenTreeBranch) could lead to misjudgment of distances and speeds, increasing the risk of a side-swipe or rear-end collision.
+
+**Severity Score:**
+0.7 (Moderate-High)
+
+---
+
+**Risk 5:**
+**Description:**
+The presence of a police car (Vehicle3) suggests a possible emergency or traffic control situation. Vehicle1 may not be aware of the police car's intentions (e.g., sudden braking or lane changes), leading to a collision.
+
+**Severity Score:**
+0.7 (Moderate-High)

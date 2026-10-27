@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle in left lane" .
+:vehicle2 a :Vehicle ;
+    :description "White vehicle in right lane" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential rear-end collision due to reduced braking distance in rain" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :LaneIntrusionRisk ;
+    :description "White vehicle drifting into left lane due to slippery road conditions" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road surface increasing skid risk" ;
+    :hasSeverityScore :sev3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets and spray indicating heavy rain and poor traction" ;
+    :indicatesPotentialRisk :risk1, :risk2, :risk3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential rear-end collision due to reduced braking distance in rain
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** White vehicle drifting into left lane due to slippery road conditions
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Slippery road surface increasing skid risk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - Two **Vehicles** (black and white cars).
+   - **RainyCondition** (heavy rain).
+   - No **TrafficSign**, **TrafficLight**, **Billboard**, or **Obstacle** detected in the scene.
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly**: The white vehicle appears to be drifting into the left lane, which is an abnormal behavior for autonomous driving in rainy conditions.
+
+3. **Evidence Indicator:**
+   - **RollingBallIndicator**: Water droplets and spray indicate heavy rain and poor traction, contributing to the risks.
+
+4. **Risks Identified:**
+   - **CollisionRisk (Rear-End Collision Risk)** due to reduced braking distance in rain.
+   - **LaneIntrusionRisk** due to the white vehicle drifting into the left lane.
+   - **RoadConditionRisk** due to slippery road conditions increasing skid risk.

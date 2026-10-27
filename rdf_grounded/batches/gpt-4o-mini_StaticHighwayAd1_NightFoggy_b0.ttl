@@ -1,0 +1,49 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeDrivingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Low visibility due to foggy conditions affecting safe navigation" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Increased risk of encountering pedestrians due to poor visibility" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from billboards under low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+```
+
+**Identified Risks for each risk class**
+Risk 1:
+Description: Low visibility due to foggy conditions affecting safe navigation
+Severity Score: 0.75
+
+Risk 2:
+Description: Increased risk of encountering pedestrians due to poor visibility
+Severity Score: 0.80
+
+Risk 3:
+Description: Potential distraction from billboards under low visibility
+Severity Score: 0.65

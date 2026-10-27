@@ -1,0 +1,225 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeFollowingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Vehicle following too closely at night with potential lane intrusion risk" ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow vehicle directly ahead with license plate 'CARLA'" .
+
+:obstacle1 a :RoadObject ;
+    :description "Yellow lane markings and road surface" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion risk due to vehicle's position near lane markings" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime urban environment with artificial lighting" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to close following distance
+- **Severity Score:** 0.90
+- **Confidence Score:** 0.92
+
+**Risk 2:**
+- **Description:** Potential lane intrusion risk due to vehicle's position near lane markings
+- **Severity Score:** 0.65
+- **Confidence Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** The yellow vehicle ahead (`:actor1`).
+   - **Obstacle:** Road markings and surface (`:obstacle1`).
+   - **WeatherCondition:** Nighttime (`:weather1`).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The yellow vehicle is following too closely, which is an anomalous behavior in autonomous driving scenarios.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** High severity due to the close proximity of the following vehicle.
+   - **LaneIntrusionRisk:** Moderate severity due to the vehicle's position near lane markings, which could indicate erratic lane-keeping behavior.
+
+4. **Severity Scores:**
+   - The rear-end collision risk is assigned a high severity score (0.90) due to the immediate danger of a collision.
+   - The lane intrusion risk is assigned a moderate severity score (0.65) due to the potential for unintended lane changes or drifting.
+
+--- Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Vehicle following too closely at night with potential lane intrusion risk" ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :laneIntrusionRisk1, :occlusionRisk1 ;
+    :hasObstacle :roadObject1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle in front (ego vehicle)" .
+
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle in the distance" .
+
+:roadObject1 a :RoadObject ;
+    :description "Yellow lane markings and road surface" .
+
+:nightCondition a :NightCondition .
+
+:laneIntrusionRisk1 a :LaneIntrusionRisk ;
+    :description "Risk of unintended lane drift due to poor visibility and close following distance" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Risk of obscured pedestrians or cyclists due to nighttime conditions" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.60"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Risk of unintended lane drift due to poor visibility and close following distance
+- **Risk Type:** `LaneIntrusionRisk`
+- **Severity Score:** `0.70`
+- **Confidence Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Risk of obscured pedestrians or cyclists due to nighttime conditions
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.55`
+- **Confidence Score:** `0.60`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`Vehicle` class) are present in the scene.
+   - **Obstacle:** Road markings and surface (`RoadObject` subclass of `Obstacle`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No `TrafficLight`, `TrafficSign`, `Billboard`, `Pedestrian`, or `Cyclist` were detected in this specific frame.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the primary issue stems from the state of the environment (nighttime) and the behavior of the ego vehicle (close following distance), which increases the risk of unintended lane drift.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** Due to the close following distance and potential for lane drift in low-visibility conditions.
+   - **OcclusionRisk:** Due to nighttime obscuring pedestrians or cyclists that may be present but not visible.
+
+4. **Severity Scores:**
+   - The `LaneIntrusionRisk` has a higher severity score (`0.70`) due to its immediate threat to lane discipline.
+   - The `OcclusionRisk` has a lower severity score (`0.55`) but remains significant due to the potential for unseen actors. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDrivingWithSlowVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow vehicle driving slowly in the center lane" .
+
+:actor2 a :Vehicle ;
+    :description "Red vehicle parked on the right side of the road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Yellow lane markings and road surface" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Slow-moving yellow vehicle occupying center lane, potentially causing lane intrusion risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to slow-moving yellow vehicle in the center lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to parked red vehicle on the right side, potentially obscuring visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slow-moving yellow vehicle occupying center lane, potentially causing lane intrusion risk.
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential rear-end collision risk due to slow-moving yellow vehicle in the center lane.
+Severity Score: 0.70
+
+**Risk 3:**
+Description: Occlusion risk due to parked red vehicle on the right side, potentially obscuring visibility.
+Severity Score: 0.50
+
+The scene is classified as a **BehaviorAnomaly** due to the unusual behavior of the yellow vehicle driving slowly in the center lane, which is not typical driving behavior in this context. The risks identified are based on the potential for lane intrusion, rear-end collision, and occlusion.

@@ -1,0 +1,45 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera view), white delivery van.
+*   **Pedestrians:** Pedestrian 1 (left, near cones/work zone), Pedestrian 2 (right, crossing path).
+*   **Road Infrastructure:** Traffic cones, road surface (wet/reflective), urban building, street lighting.
+*   **Weather Conditions:** Nighttime, heavy rain, low visibility.
+
+### 2. Relationships
+*   **Pedestrian 2 (right) is crossing** directly in front of the ego-vehicle.
+*   **White van is occluding** the area where Pedestrian 2 emerged from.
+*   **Pedestrian 1 (left) is near** the work zone/cones.
+*   **Road surface is wet**, indicating reduced tire traction.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaching ex:Intersection .
+ex:Pedestrian2 ex:crossingPath ex:EgoVehicle .
+ex:WhiteVan ex:occluding ex:Pedestrian2 .
+ex:Pedestrian1 ex:near ex:TrafficCones .
+ex:RoadSurface ex:condition "wet" .
+ex:Environment ex:weather "heavy_rain" ;
+               ex:lighting "low_visibility_night" .
+ex:Risk1 ex:type "PedestrianCollision" .
+ex:Risk2 ex:type "ReducedTraction" .
+```
+
+---
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** An unprotected pedestrian is jaywalking/crossing the road directly in the path of the ego-vehicle, potentially masked by the parked white van.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Adverse weather conditions (heavy rain and wet pavement) significantly increase braking distance and reduce vehicle control.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Presence of work zone/traffic cones on the left suggests unpredictable road geometry or personnel presence, creating a distraction while the driver focuses on the crossing pedestrian.
+*   **Severity Score:** 0.60

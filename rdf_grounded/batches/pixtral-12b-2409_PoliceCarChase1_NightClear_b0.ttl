@@ -1,0 +1,73 @@
+Here is the semantic interpretation of the provided underground parking garage scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingGarageNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Low-visibility environment with parked vehicles and potential occlusion risks" .
+
+:obstacle1 a :RoadObject ;
+    :description "Parked vehicles in underground garage" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Parked vehicles may obscure moving vehicles or pedestrians" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright artificial lighting may distract driver attention" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Parked vehicles may obscure moving vehicles or pedestrians
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Bright artificial lighting may distract driver attention
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.50
+
+---
+
+### Analysis Justification:
+1. **Scene Classification**:
+   - The underground parking garage is classified as a **StateAnomaly** because the primary issue stems from the environment's inherent characteristics (low visibility, artificial lighting) rather than dynamic behavior or evidence-based anomalies.
+
+2. **Entities Identified**:
+   - **Obstacle**: Parked vehicles (`:obstacle1` as `:RoadObject`)
+   - **WeatherCondition**: Nighttime with artificial lighting (`:weather1` as `:NightCondition`)
+
+3. **Risks Identified**:
+   - **OcclusionRisk (0.75)**: Parked vehicles create blind spots where other vehicles or pedestrians may be obscured.
+   - **DistractionRisk (0.50)**: The bright artificial lighting (common in underground garages) may distract drivers, reducing situational awareness.
+
+4. **Severity Scores**:
+   - Occlusion risk is rated higher (0.75) due to the potential for sudden collisions if moving vehicles are obscured.
+   - Distraction risk is moderate (0.50) as it depends on driver sensitivity to lighting changes.
+
+No actors (pedestrians/cyclists) or traffic signs/lights were visible in the provided images. The focus is on the environmental and structural risks inherent to the scene.

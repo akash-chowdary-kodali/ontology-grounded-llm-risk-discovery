@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:NightScene ;
+    ex:hasEntity ex:Vehicle1 , ex:Road1 , ex:StreetLights ; 
+    ex:hasWeatherCondition ex:Fog ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:isInState ex:MovingForward .
+
+ex:Road1 a ex:Road ;
+    ex:hasSurface ex:Wet ;
+    ex:hasLanes ex:SingleLane .
+
+ex:StreetLights a ex:Infrastructure ;
+    ex:providesLight ex:SoftLight .
+
+ex:WeatherCondition a ex:Weather ;
+    ex:hasVisibility ex:LowVisibility ;
+
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Poor visibility due to fog, which can lead to difficulty in detecting other road users or obstacles.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Wet road surface which can contribute to loss of vehicle traction and increase stopping distance.
+- **Severity Score:** 0.7
+
+**Risk 3:**
+- **Description:** Potential presence of other entities (e.g., pedestrians, cyclists) not visually discernible in low visibility conditions.
+- **Severity Score:** 0.9

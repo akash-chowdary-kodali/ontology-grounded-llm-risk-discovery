@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/>.
+
+# Entities
+ex:Scene a ex:TrafficScene ;
+    ex:hasWeatherCondition "fog" ;
+    ex:hasVehicle ex:Vehicle1 ;
+    ex:hasRoadInfrastructure ex:TrafficLight1, ex:Billboard1, ex:BusStop1 ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType "car" ;
+    ex:hasLocation "front" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:hasState "red" .
+
+ex:Billboard1 a ex:Billboard ;
+    ex:hasContent "It's a go for sale" .
+
+ex:BusStop1 a ex:BusStop ;
+    ex:isNearRoad "true" .
+
+# Relationships
+ex:Vehicle1 ex:isApproaching ex:TrafficLight1 ;
+    ex:hasProximity "close" ;
+    ex:hasVisibility "low" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Low visibility due to fog may cause drivers to misjudge distances and speeds of other vehicles or obstacles, leading to potential collisions.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** Stopped vehicles at a red light may not be visible in fog conditions, increasing the risk of rear-end collisions.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** The presence of pedestrians at bus stops is a concern with low visibility, as they may enter the road unexpectedly.  
+**Severity Score:** 0.6

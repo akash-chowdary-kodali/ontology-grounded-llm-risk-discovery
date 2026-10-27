@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FollowVehicleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Lead yellow vehicle" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High-speed follow distance and relative velocity toward lead vehicle" ;
+    :confidenceScore "0.92"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential rear-end collision due to proximity and speed relative to the lead yellow vehicle.
+Severity Score: 0.75

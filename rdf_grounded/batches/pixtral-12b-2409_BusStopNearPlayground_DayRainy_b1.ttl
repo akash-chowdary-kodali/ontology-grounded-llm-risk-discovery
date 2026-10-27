@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RainyDayPedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road in rainy conditions" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road unexpectedly in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to rain and pedestrian spray" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Rain droplets and pedestrian spray creating visual occlusion" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing road unexpectedly in heavy rain
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Reduced visibility due to rain and pedestrian spray
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two pedestrians crossing the road.
+   - **Weather Condition:** RainyCondition (heavy rain).
+   - **Evidence Indicator:** FallingObjectIndicator (rain droplets and pedestrian spray).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrians are crossing the road unexpectedly in heavy rain, which is atypical behavior for such conditions.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrians crossing in heavy rain, where visibility and reaction times are compromised.
+   - **OcclusionRisk:** High due to rain droplets and pedestrian spray reducing visibility for the autonomous vehicle.
+
+4. **Severity Scores:**
+   - PedestrianCollisionRisk: **0.90** (Very high due to the combination of pedestrian crossing and poor weather).
+   - OcclusionRisk: **0.80** (High due to reduced visibility from rain and pedestrian spray).

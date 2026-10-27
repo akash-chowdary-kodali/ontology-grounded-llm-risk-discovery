@@ -1,0 +1,292 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+:egoVehicle a :Vehicle ;
+    :hasFieldOfView :front ;
+    :isNear :pedestrian1, :pedestrian2, :constructionBarrier .
+
+:pedestrian1 a :Pedestrian ;
+    :hasAction :pushingBarrier ;
+    :isLocatedOn :roadShoulder ;
+    :isWearing :highVisibilityClothing .
+
+:pedestrian2 a :Pedestrian ;
+    :hasAction :crossingRoad ;
+    :isLocatedOn :road ;
+    :isWearing :highVisibilityClothing .
+
+:constructionBarrier a :Obstacle ;
+    :isType :barrier ;
+    :isLocatedOn :roadShoulder ;
+    :isMarkedBy :orangeCones .
+
+:orangeCones a :TrafficMarker ;
+    :indicates :constructionZone .
+
+:vehicleRight a :Vehicle ;
+    :isType :van ;
+    :isFollowing :egoVehicle ;
+    :isNear :pedestrian2 .
+
+# Relationships
+:egoVehicle :hasRisk :pedestrianCollisionRisk .
+:egoVehicle :hasRisk :constructionZoneObstacleRisk .
+:pedestrian2 :hasRisk :unpredictableCrossingRisk .
+
+# Environmental Conditions
+:weatherCondition a :Weather ;
+    :condition :clear .
+
+# Road Infrastructure
+:road a :Road ;
+    :hasLaneMarkings :solidWhite ;
+    :hasTrafficSigns :noneVisible ;
+    :hasTrafficControl :none .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1: Pedestrian Collision Risk**
+**Description:**
+The ego vehicle is approaching two pedestrians in high-visibility clothing. One pedestrian is actively pushing a large barrier on the road shoulder, while the other is crossing the road unexpectedly. The van following the ego vehicle may also pose a risk if it reacts abruptly to the crossing pedestrian.
+
+**Severity Score:** **0.85**
+*(High risk due to unpredictable pedestrian movement and proximity to the ego vehicle.)*
+
+---
+
+#### **Risk 2: Construction Zone Obstacle Risk**
+**Description:**
+The presence of a large barrier and orange cones on the road shoulder indicates an active construction zone. The ego vehicle may need to navigate around these obstacles, which could lead to sudden lane changes or reduced visibility of other road users.
+
+**Severity Score:** **0.65**
+*(Moderate risk due to potential obstruction and need for careful maneuvering.)*
+
+---
+
+#### **Risk 3: Unpredictable Pedestrian Crossing Risk**
+**Description:**
+The pedestrian crossing the road appears to be moving at an irregular pace and may not follow standard traffic rules. The ego vehicle must detect and react to this behavior quickly to avoid collision.
+
+**Severity Score:** **0.90**
+*(Very high risk due to sudden crossing and lack of clear right-of-way indicators.)*
+
+---
+
+#### **Risk 4: Following Vehicle Reaction Risk**
+**Description:**
+The van following the ego vehicle may not have sufficient reaction time if the ego vehicle brakes suddenly due to the crossing pedestrian. This could lead to a rear-end collision.
+
+**Severity Score:** **0.70**
+*(High risk due to close proximity and potential chain-reaction collision.)*
+
+---
+
+### **Summary of Key Observations**
+1. **Pedestrian Behavior:** Both pedestrians are wearing high-visibility clothing but exhibit unpredictable movements (pushing barriers, crossing roads).
+2. **Construction Zone:** The presence of barriers and cones suggests a need for careful navigation.
+3. **Following Vehicle:** The van behind the ego vehicle increases collision risk if sudden braking occurs.
+4. **Environmental Conditions:** Clear weather reduces visibility risks but does not mitigate pedestrian unpredictability.
+
+This analysis highlights the need for **advanced pedestrian detection**, **obstacle avoidance algorithms**, and **predictive collision warning systems** in autonomous vehicles for such scenarios. ### **Scene Analysis: Semantic Interpretation of Corner Case Scenario**
+
+---
+
+### **1. Identified Entities in the Scene**
+- **Vehicles**: None visible in the immediate scene (but distant vehicles are seen in the background).
+- **Pedestrians**: One pedestrian (wearing a yellow shirt and blue jeans) crossing the road.
+- **Cyclists**: None visible.
+- **Road Infrastructure**:
+  - Road markings (lane lines, crosswalk).
+  - Traffic cones (orange) placed near the left side of the road.
+  - Buildings (residential/commercial) on both sides.
+  - Streetlights and traffic signals.
+  - Sidewalk on the right.
+- **Obstacles**:
+  - Traffic cones (potential temporary obstruction).
+  - Possible construction zone in the distance.
+- **Weather Conditions**: Clear, sunny day (no adverse weather).
+
+---
+
+### **2. Relationships Between Entities**
+- The pedestrian is **crossing the road** from the right sidewalk toward the left side.
+- The pedestrian is **approaching** the ego vehicle (view from the front camera).
+- The traffic cones are **near** the left lane, possibly indicating a temporary restriction or hazard.
+- The ego vehicle is **following** the pedestrian’s path (potential collision risk if the pedestrian is not detected in time).
+- The buildings and streetlights are **static infrastructure** surrounding the scene.
+
+---
+
+### **3. RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:ClearDay ;
+    ex:hasRoadMarking ex:LaneLines, ex:Crosswalk ;
+    ex:hasObstacle ex:TrafficCone1, ex:TrafficCone2 ;
+    ex:hasPedestrian ex:Pedestrian1 ;
+    ex:hasVehicle ex:EgoVehicle .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isWearing ex:YellowShirt, ex:BlueJeans ;
+    ex:isCrossing ex:Road ;
+    ex:hasIntention ex:CrossingRoad ;
+    ex:isNear ex:TrafficCone2 ;
+    ex:hasTrajectory ex:MovingLeftToRight .
+
+ex:TrafficCone1 a ex:Obstacle ;
+    ex:isLocated ex:LeftLane ;
+    ex:hasColor ex:Orange ;
+    ex:isTemporaryRestriction true .
+
+ex:TrafficCone2 a ex:Obstacle ;
+    ex:isLocated ex:NearCrosswalk ;
+    ex:hasColor ex:Orange .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasCameraView ex:FrontCamera ;
+    ex:isFollowing ex:Pedestrian1 ;
+    ex:hasRisk ex:CollisionRisk .
+
+ex:CollisionRisk a ex:Risk ;
+    ex:riskType ex:PedestrianCollision ;
+    ex:severity 0.85 ;
+    ex:description "Ego vehicle may collide with pedestrian crossing road unexpectedly." .
+```
+
+---
+
+### **4. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The pedestrian is crossing the road unexpectedly, and the ego vehicle may not detect them in time due to their motion and potential occlusion by traffic cones or road markings.
+**Severity Score:** **0.85** (High risk due to potential collision with a vulnerable road user).
+
+#### **Risk 2:**
+**Description:**
+The traffic cones near the left lane may indicate a temporary hazard or construction zone, increasing the risk of misinterpretation by the ego vehicle (e.g., misclassifying them as pedestrians or ignoring them).
+**Severity Score:** **0.60** (Moderate risk due to potential sensor confusion).
+
+#### **Risk 3:**
+**Description:**
+The pedestrian’s trajectory is unpredictable (e.g., sudden change in direction), which could lead to a missed detection or delayed reaction from the ego vehicle.
+**Severity Score:** **0.75** (High risk due to dynamic behavior).
+
+#### **Risk 4:**
+**Description:**
+The ego vehicle’s perception system may struggle with detecting the pedestrian if they are partially occluded by the traffic cones or if lighting conditions change.
+**Severity Score:** **0.70** (High risk due to sensor limitations).
+
+---
+
+### **Summary of Key Risks**
+| **Risk Class**               | **Severity (0-1)** | **Description**                                                                 |
+|------------------------------|-------------------|---------------------------------------------------------------------------------|
+| Pedestrian Collision         | 0.85              | Ego vehicle may collide with pedestrian crossing unexpectedly.                   |
+| Sensor Occlusion             | 0.60              | Traffic cones may cause misclassification or missed detection.                  |
+| Unpredictable Pedestrian     | 0.75              | Pedestrian may change trajectory suddenly.                                     |
+| Perception Limitations       | 0.70              | Risk of missed detection due to lighting or occlusion.                          |
+
+---
+This analysis highlights the critical risks in this corner case scenario, emphasizing the need for robust pedestrian detection, trajectory prediction, and sensor fusion in autonomous driving systems. ```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:UrbanStreetScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasTimeOfDay ex:Daytime .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isWearing ex:YellowShirtAndJeans ;
+    ex:isCrossing ex:Road ;
+    ex:position ex:MidRoad ;
+    ex:movementDirection ex:Northbound .
+
+ex:Road1 a ex:Road ;
+    ex:hasLaneMarking ex:DoubleWhiteLine ;
+    ex:hasRoadSurface ex:Asphalt ;
+    ex:hasAdjacentSidewalk ex:Yes ;
+    ex:hasTrafficSigns ex:NoneVisible .
+
+ex:Building1 a ex:Building ;
+    ex:isLocated ex:RightSideOfRoad ;
+    ex:hasHeight ex:MultiStorey .
+
+ex:Building2 a ex:Building ;
+    ex:isLocated ex:LeftSideOfRoad ;
+    ex:hasHeight ex:LowRise .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType ex:Car ;
+    ex:position ex:Background ;
+    ex:movementDirection ex:Northbound .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isLocated ex:LeftSideOfRoad ;
+    ex:isOn ex:Yes .
+
+ex:Crosswalk1 a ex:Crosswalk ;
+    ex:isPresent ex:No ;
+    ex:location ex:MidRoad .
+
+ex:Scene1 ex:contains ex:Pedestrian1 .
+ex:Scene1 ex:contains ex:Road1 .
+ex:Scene1 ex:contains ex:Building1 .
+ex:Scene1 ex:contains ex:Building2 .
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:StreetLight1 .
+ex:Scene1 ex:contains ex:Crosswalk1 .
+
+ex:Pedestrian1 ex:isNear ex:Road1 .
+ex:Vehicle1 ex:isFollowing ex:Road1 .
+ex:Building1 ex:isAdjacentTo ex:Road1 .
+ex:Building2 ex:isAdjacentTo ex:Road1 .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The pedestrian is crossing the road without using a designated crosswalk, increasing the risk of collision with vehicles, especially in the absence of visible traffic signs or signals.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The lack of a crosswalk and the pedestrian crossing mid-road may lead to confusion for drivers, particularly if the pedestrian is not easily visible due to lighting conditions or vehicle blind spots.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: The vehicle in the background might not notice the pedestrian crossing mid-road in time, especially if the vehicle is traveling at a high speed or if the driver is distracted.
+Severity Score: 0.80
+
+**Risk 4:**
+Description: The absence of traffic signs or signals can lead to unpredictable pedestrian behavior and increase the risk of accidents.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: The buildings on either side of the road may create blind spots for drivers, making it difficult to see pedestrians crossing mid-road.
+Severity Score: 0.75
+
+These risks highlight the importance of proper road infrastructure, including crosswalks and traffic signals, to ensure pedestrian safety and reduce the likelihood of accidents.

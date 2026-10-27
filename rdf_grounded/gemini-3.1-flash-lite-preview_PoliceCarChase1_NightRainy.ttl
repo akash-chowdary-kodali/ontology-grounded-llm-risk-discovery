@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "TunnelLaneBlockage" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle performing an emergency stop or loss of control, blocking the lane" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High speed approach to a stationary vehicle in a low-visibility tunnel environment" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Rear-end collision risk due to an unexpected vehicle obstruction in a tunnel, exacerbated by wet road conditions and reduced visibility.
+Severity Score: 0.90

@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistInLane" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding in vehicle lane at night" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist due to lane intrusion" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Cyclist partially obscured by vehicle hood, reducing visibility" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Cyclist's motion suggests unstable riding behavior" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with cyclist due to lane intrusion
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Cyclist partially obscured by vehicle hood, reducing visibility (occlusion risk)
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Cyclist (riding in the vehicle lane)
+   - **WeatherCondition:** NightCondition (low visibility)
+   - **EvidenceIndicator:** RollingBallIndicator (unstable riding behavior)
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The cyclist is riding in the vehicle lane, which is atypical behavior for a cyclist in this context.
+
+3. **Risks Identified:**
+   - **CollisionRisk (0.90):** High severity due to the cyclist's lane intrusion and nighttime conditions.
+   - **OcclusionRisk (0.75):** Moderate severity due to the cyclist being partially obscured by the vehicle's hood.
+
+4. **Justification for Severity Scores:**
+   - The **CollisionRisk** is high (0.90) because the cyclist is in the vehicle's path, and visibility is poor at night.
+   - The **OcclusionRisk** is moderate (0.75) because the cyclist is partially hidden, but the vehicle's sensors or driver may still detect them.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

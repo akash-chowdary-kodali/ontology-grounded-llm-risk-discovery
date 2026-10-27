@@ -1,0 +1,41 @@
+This scene depicts a night-time intersection where a red ego-vehicle is performing a right turn, potentially conflicting with a golden sedan moving across the intersection.
+
+### 1. Main Entities
+*   **Vehicles:** Red ego-vehicle, golden sedan, black SUV (in the distance).
+*   **Infrastructure:** Intersection, pedestrian crosswalk, traffic signal (yellow), streetlights, overhead bridge/structure.
+*   **Environment:** Night-time, low visibility, urban residential/industrial area.
+
+### 2. Relationships
+*   **Ego-vehicle:** Executing a right-hand turn.
+*   **Golden Sedan:** Crossing the intersection path of the ego-vehicle.
+*   **Ego-vehicle and Golden Sedan:** Approaching potential collision point.
+*   **Infrastructure:** Traffic signals are in a caution state (yellow), suggesting an intersection phase change.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isPerforming ex:RightTurn ;
+    ex:approaching ex:Intersection .
+
+ex:GoldenSedan rdf:type ex:Vehicle ;
+    ex:crossing ex:Intersection ;
+    ex:spatialRelationship ex:Near .
+
+ex:TrafficSignal rdf:type ex:Signal ;
+    ex:state ex:CautionYellow .
+
+ex:EgoVehicle ex:riskOfCollisionWith ex:GoldenSedan .
+ex:Environment ex:condition ex:LowLight .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Collision risk at intersection during low-visibility conditions. The ego-vehicle is maneuvering a right turn while another vehicle is crossing the intersection. Given the low-light environment and the yellow signal state, the timing of the turn may lead to a lateral impact if the golden sedan does not yield or if the ego-vehicle misjudges the speed of the cross-traffic.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** Obscured intersection visibility due to night-time conditions and overhead infrastructure shadowing. The contrast between the illuminated areas and the deep shadows of the industrial structures makes it difficult for onboard sensors/cameras to perceive the precise distance and speed of the golden sedan.
+*   **Severity Score:** 0.60

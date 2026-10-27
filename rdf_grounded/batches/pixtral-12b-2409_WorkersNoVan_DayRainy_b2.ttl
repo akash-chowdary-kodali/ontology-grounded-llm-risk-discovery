@@ -1,0 +1,72 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FloodedUrbanPedestrianScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking in flooded street" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain causing flooding" .
+
+:obstacle1 a :RoadObject ;
+    :description "Floodwater covering road surface" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking in flooded roadway with potential vehicle collision" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery and flooded road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and flooding" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :DistractionRisk ;
+    :description "Driver distraction due to unusual flooding in urban area" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian walking in flooded roadway with potential vehicle collision
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Slippery and flooded road conditions
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Reduced visibility due to heavy rain and flooding
+Severity Score: 0.85
+
+**Risk 4:**
+Description: Driver distraction due to unusual flooding in urban area
+Severity Score: 0.75
+
+The corner case is classified as a **StateAnomaly** because the primary issue stems from the unusual state of the environment (flooded roadway) rather than an anomalous behavior or evidence-based anomaly. The pedestrian is simply navigating through an unexpected condition.

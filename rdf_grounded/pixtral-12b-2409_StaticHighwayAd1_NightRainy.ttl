@@ -1,0 +1,263 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFogAndWetRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1, :evidence2 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective glare" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Light reflections on wet road indicating poor traction" ;
+    :indicatesPotentialRisk :risk2 .
+
+:evidence2 a :OpenDoorIndicator ;
+    :description "Potential for obscured visibility due to fog" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Heavy fog obscuring traffic signs and signals" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road with glare increasing braking distance" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Fog-induced glare may distract driver" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Heavy fog obscuring traffic signs and signals
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+- **Confidence Score:** 0.92
+
+**Risk 2:**
+- **Description:** Wet road with glare increasing braking distance
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+- **Confidence Score:** 0.88
+
+**Risk 3:**
+- **Description:** Fog-induced glare may distract driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.70
+- **Confidence Score:** 0.75
+
+---
+
+### Analysis:
+1. **Scene Context:**
+   - The images depict a nighttime intersection with heavy fog and a wet road surface.
+   - Visibility is significantly reduced, and light reflections create glare.
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to observable evidence like rolling ball indicator for glare and fog-induced occlusion).
+
+3. **Key Entities:**
+   - **WeatherCondition:** FoggyCondition (reduced visibility).
+   - **Obstacle:** Wet road surface with reflective glare (RoadObject).
+   - **Evidence Indicators:**
+     - RollingBallIndicator (glare from wet road).
+     - OpenDoorIndicator (analogous to obscured visibility due to fog).
+
+4. **Risks Identified:**
+   - **OcclusionRisk:** Fog obscures traffic signs and signals.
+   - **RoadConditionRisk:** Wet road with glare increases braking distance.
+   - **DistractionRisk:** Glare may distract the driver.
+
+5. **Severity Scores:**
+   - Highest severity for occlusion (0.90) due to immediate safety impact.
+   - Moderate severity for road conditions (0.85) and distraction (0.70). Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithNoEntrySign" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition, :RainyCondition ;
+    :description "Dark night with wet road surface" .
+
+:obstacle1 a :RoadObject ;
+    :description "No entry sign on right side of road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water puddles and reflective road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime and potential rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Bright billboard may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to nighttime and potential rain
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Slippery road surface due to rain
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.80
+
+**Risk 3:**
+- **Description:** Bright billboard may distract driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.50
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** NightCondition and RainyCondition (due to dark lighting and wet road)
+   - **Obstacle:** RoadObject (No Entry sign on the right)
+   - **EvidenceIndicator:** RollingBallIndicator (water puddles and reflective road surface)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene represents an anomalous state due to the combination of nighttime, rain, and wet road conditions, which deviates from typical driving conditions.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to reduced visibility from nighttime and rain.
+   - **RoadConditionRisk:** Wet road increases the risk of skidding or loss of control.
+   - **DistractionRisk:** Bright billboard may distract the driver, especially in low-visibility conditions.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithReflections" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Darkness with limited visibility" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to wet conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflections on wet road causing visual distortion" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from road reflections" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road surface due to wet conditions
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Reflections on wet road causing visual distortion
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential distraction from road reflections
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains no explicit actors (e.g., pedestrians, cyclists, or vehicles) or traffic signs/lights, but the **wet road surface** and **nighttime conditions** are key environmental factors.
+   - The **reflections** on the road act as an **EvidenceIndicator** (specifically a **RollingBallIndicator**), suggesting potential risks due to visual distortion.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (wet road, reflections, and nighttime conditions).
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** (high severity due to slippery conditions).
+   - **OcclusionRisk** (moderate severity due to visual distortion from reflections).
+   - **DistractionRisk** (lower severity due to potential distraction from reflections).
+
+4. **Severity Scores:**
+   - Assigned based on the likelihood and impact of each risk in a nighttime wet-road scenario. Higher scores for risks with direct safety implications (e.g., slippery roads).

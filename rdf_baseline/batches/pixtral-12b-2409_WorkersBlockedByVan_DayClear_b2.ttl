@@ -1,0 +1,85 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:UrbanStreetScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasTimeOfDay ex:Daytime .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isWearing ex:YellowShirtAndJeans ;
+    ex:isCrossing ex:Road ;
+    ex:position ex:MidRoad ;
+    ex:movementDirection ex:Northbound .
+
+ex:Road1 a ex:Road ;
+    ex:hasLaneMarking ex:DoubleWhiteLine ;
+    ex:hasRoadSurface ex:Asphalt ;
+    ex:hasAdjacentSidewalk ex:Yes ;
+    ex:hasTrafficSigns ex:NoneVisible .
+
+ex:Building1 a ex:Building ;
+    ex:isLocated ex:RightSideOfRoad ;
+    ex:hasHeight ex:MultiStorey .
+
+ex:Building2 a ex:Building ;
+    ex:isLocated ex:LeftSideOfRoad ;
+    ex:hasHeight ex:LowRise .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType ex:Car ;
+    ex:position ex:Background ;
+    ex:movementDirection ex:Northbound .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isLocated ex:LeftSideOfRoad ;
+    ex:isOn ex:Yes .
+
+ex:Crosswalk1 a ex:Crosswalk ;
+    ex:isPresent ex:No ;
+    ex:location ex:MidRoad .
+
+ex:Scene1 ex:contains ex:Pedestrian1 .
+ex:Scene1 ex:contains ex:Road1 .
+ex:Scene1 ex:contains ex:Building1 .
+ex:Scene1 ex:contains ex:Building2 .
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:StreetLight1 .
+ex:Scene1 ex:contains ex:Crosswalk1 .
+
+ex:Pedestrian1 ex:isNear ex:Road1 .
+ex:Vehicle1 ex:isFollowing ex:Road1 .
+ex:Building1 ex:isAdjacentTo ex:Road1 .
+ex:Building2 ex:isAdjacentTo ex:Road1 .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The pedestrian is crossing the road without using a designated crosswalk, increasing the risk of collision with vehicles, especially in the absence of visible traffic signs or signals.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The lack of a crosswalk and the pedestrian crossing mid-road may lead to confusion for drivers, particularly if the pedestrian is not easily visible due to lighting conditions or vehicle blind spots.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: The vehicle in the background might not notice the pedestrian crossing mid-road in time, especially if the vehicle is traveling at a high speed or if the driver is distracted.
+Severity Score: 0.80
+
+**Risk 4:**
+Description: The absence of traffic signs or signals can lead to unpredictable pedestrian behavior and increase the risk of accidents.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: The buildings on either side of the road may create blind spots for drivers, making it difficult to see pedestrians crossing mid-road.
+Severity Score: 0.75
+
+These risks highlight the importance of proper road infrastructure, including crosswalks and traffic signals, to ensure pedestrian safety and reduce the likelihood of accidents.

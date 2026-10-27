@@ -1,0 +1,125 @@
+### **Scene Analysis: Heavy Fog with Construction Vehicle in Roadway**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - A **construction vehicle (excavator)** occupying the right lane, partially on the road.
+  - An **autonomous vehicle (ego vehicle)** in the left lane, following the excavator.
+- **Road Infrastructure**:
+  - **Road markings** (double yellow lines, lane dividers).
+  - **Buildings** (warehouses) on the left side.
+  - **Overhead structures** (likely part of a loading dock or warehouse).
+- **Obstacles**:
+  - **Excavator bucket** extending into the roadway, partially blocking the lane.
+- **Weather Conditions**:
+  - **Heavy fog**, reducing visibility to near-zero.
+- **Other**:
+  - No visible pedestrians or cyclists.
+
+---
+
+### **2. Relationships Between Entities**
+- The **excavator** is **partially on the road**, **blocking the right lane**.
+- The **excavator’s bucket** is **extending into the roadway**, creating a **dynamic obstacle**.
+- The **ego vehicle** is **following the excavator** but has **reduced visibility** due to fog.
+- The **fog** **occludes** the excavator’s full presence, making its exact position and movement **uncertain**.
+- The **road markings** are **partially visible** but **not clearly distinguishable** due to fog.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyFog ;
+    :hasRoadMarkings :DoubleYellowLines ;
+    :hasObstacle :ExcavatorBucket ;
+    :hasVehicle :EgoVehicle ;
+    :hasVehicle :ConstructionVehicle .
+
+:EgoVehicle a :Vehicle ;
+    :hasPosition "LeftLane" ;
+    :hasVisibility "Reduced" ;
+    :isFollowing :ConstructionVehicle ;
+    :hasRisk :VisibilityRisk .
+
+:ConstructionVehicle a :Vehicle ;
+    :hasType "Excavator" ;
+    :hasPosition "RightLane" ;
+    :hasEquipment :ExcavatorBucket ;
+    :isPartiallyOnRoad true .
+
+:ExcavatorBucket a :Obstacle ;
+    :isAttachedTo :ConstructionVehicle ;
+    :isExtendingIntoRoad true ;
+    :hasRisk :DynamicObstacleRisk .
+
+:HeavyFog a :WeatherCondition ;
+    :reducesVisibility true ;
+    :hasRisk :FogObscurationRisk .
+
+:DoubleYellowLines a :RoadMarking ;
+    :isPartiallyVisible true .
+
+:VisibilityRisk a :RiskClass ;
+    :description "Reduced visibility due to fog, increasing collision risk with excavator." ;
+    :severity 0.9 .
+
+:DynamicObstacleRisk a :RiskClass ;
+    :description "Excavator bucket extending into roadway, creating unpredictable obstacle." ;
+    :severity 0.95 .
+
+:FogObscurationRisk a :RiskClass ;
+    :description "Heavy fog obscures excavator’s full presence, delaying detection." ;
+    :severity 0.85 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Heavy fog severely reduces visibility, making it difficult for the ego vehicle to detect the excavator’s full presence and movement. This increases the risk of a collision due to delayed or incomplete perception of the obstacle.
+
+**Severity Score:** **0.9**
+
+---
+
+#### **Risk 2:**
+**Description:**
+The excavator’s bucket is partially on the road and extending into the lane, creating a **dynamic and unpredictable obstacle**. The ego vehicle may not anticipate its exact position or movement, leading to a high risk of a side collision or rear-end accident.
+
+**Severity Score:** **0.95**
+
+---
+
+#### **Risk 3:**
+**Description:**
+The combination of **fog and an unexpected obstacle** (excavator) creates a **high-risk corner case** where the ego vehicle’s perception system may fail to detect the excavator in time. This scenario tests the robustness of **object detection, path planning, and emergency braking systems**.
+
+**Severity Score:** **0.92**
+
+---
+
+### **Summary of Key Risks**
+| **Risk Class**               | **Severity (0-1)** | **Primary Concern**                          |
+|------------------------------|-------------------|---------------------------------------------|
+| Fog Obscuration Risk         | 0.85              | Reduced visibility of excavator            |
+| Dynamic Obstacle Risk        | 0.95              | Excavator bucket blocking lane              |
+| Combined Perception Risk     | 0.92              | Failure to detect excavator in time         |
+
+---
+### **Recommendations for Autonomous Systems**
+1. **Enhanced Sensor Fusion** – Use **LiDAR, radar, and camera redundancy** to improve obstacle detection in low-visibility conditions.
+2. **Predictive Path Planning** – Account for **unexpected large obstacles** (e.g., construction vehicles) in lane models.
+3. **Emergency Braking & Evasion** – Implement **aggressive deceleration or lane-change maneuvers** if an obstacle is detected late.
+4. **Human-Machine Interface (HMI)** – Alert the driver (if present) or request manual intervention in extreme corner cases.
+5. **Machine Learning for Anomaly Detection** – Train models to recognize **unusual road objects** (e.g., excavators) even in poor visibility.
+
+This scenario highlights the need for **robust perception systems** in **adverse weather and unexpected construction environments**.

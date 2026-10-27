@@ -1,0 +1,53 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Child crossing road from left side" .
+:actor2 a :Pedestrian ;
+    :description "Adult crossing road from left side" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road unexpectedly at night" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and pedestrian silhouettes" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrians crossing road unexpectedly at night
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Limited visibility due to nighttime and pedestrian silhouettes
+Severity Score: 0.75
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **BehaviorAnomaly** because the pedestrians (including a child) are crossing the road in a manner that deviates from expected behavior (e.g., no visible crosswalk usage, crossing at night).
+2. Two risks were identified:
+   - **PedestrianCollisionRisk** due to the unexpected crossing of two pedestrians.
+   - **OcclusionRisk** due to the low visibility of the pedestrians against the dark background.
+3. The severity scores reflect the high risk of collision (0.9) and moderate risk of occlusion (0.75).

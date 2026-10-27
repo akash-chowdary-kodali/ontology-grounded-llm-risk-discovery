@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :description "Empty street with visible billboard and no actors, indicating potential distraction risk" ;
+    :hasObstacle :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Large billboard advertising 'I saw some stop' with colorful graphics" .
+
+:weather1 a :ClearCondition, :DayCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard may distract driver with colorful graphics and text" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of smaller actors or objects by large billboard" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Billboard may distract driver with colorful graphics and text
+Severity Score: 0.35
+
+Risk 2:
+Description: Potential occlusion of smaller actors or objects by large billboard
+Severity Score: 0.25
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (the prominent "I saw some stop" advertisement).
+   - The weather is classified as **ClearCondition** and **DayCondition** (bright, sunny day).
+   - No **Actors**, **TrafficSigns**, **TrafficLights**, or **Vehicles** are present in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the empty street with a large billboard suggests potential risks (distraction/occlusion) that are not immediately actionable but should be monitored.
+
+3. **Risks Identified:**
+   - **DistractionRisk** due to the billboard's bright, colorful design.
+   - **OcclusionRisk** from the billboard potentially hiding smaller objects or actors.
+
+4. **Severity Scores:**
+   - Distraction risk is rated **0.35** (moderate concern, given the billboard's prominence).
+   - Occlusion risk is rated **0.25** (lower concern, as no actors/objects are visible).

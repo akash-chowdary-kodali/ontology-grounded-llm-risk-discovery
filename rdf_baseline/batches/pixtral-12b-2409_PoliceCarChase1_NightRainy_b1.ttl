@@ -1,0 +1,132 @@
+### **Scene Analysis: Tunnel Underpass with Low Visibility**
+
+---
+
+### **1. Main Entities in the Scene**
+- **Vehicles**:
+  - Multiple cars (at least 3 visible) moving in the same direction.
+  - One car (ego vehicle) in the foreground with motion blur.
+- **Road Infrastructure**:
+  - Tunnel with concrete walls and ceiling.
+  - Wet road surface (reflective, indicating recent rain).
+  - Overhead lighting (flickering or dim).
+- **Weather/Occlusions**:
+  - Low visibility due to darkness and potential rain.
+  - Motion blur from vehicle movement.
+- **Obstacles**:
+  - None immediately visible, but poor lighting and wet conditions increase risk.
+
+---
+
+### **2. Relationships Between Entities**
+- **Vehicles**:
+  - `Vehicle_1` (ego) is **following** `Vehicle_2` at a close distance.
+  - `Vehicle_2` is **following** `Vehicle_3` in the tunnel.
+  - All vehicles are **moving in the same direction** under **low-visibility conditions**.
+- **Environmental Factors**:
+  - Wet road surface **reduces traction** and **increases braking distance**.
+  - Dim lighting **occludes** distant objects, reducing perception range.
+- **Motion Dynamics**:
+  - Motion blur suggests **high-speed movement**, increasing collision risk.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+ex:Vehicle_1 a ex:AutonomousVehicle ;
+    ex:hasMotionBlur true ;
+    ex:isFollowing ex:Vehicle_2 ;
+    ex:isIn ex:Tunnel_1 .
+
+ex:Vehicle_2 a ex:Vehicle ;
+    ex:isFollowing ex:Vehicle_3 ;
+    ex:isIn ex:Tunnel_1 .
+
+ex:Vehicle_3 a ex:Vehicle ;
+    ex:isIn ex:Tunnel_1 .
+
+ex:Tunnel_1 a ex:RoadInfrastructure ;
+    ex:hasLighting ex:DimLighting ;
+    ex:hasSurfaceCondition ex:WetSurface ;
+    ex:hasWeatherCondition ex:LowVisibility .
+
+ex:EgoVehicle ex:Vehicle_1 .
+
+# Environmental Conditions
+ex:DimLighting a ex:LightingCondition ;
+    ex:reducesPerceptionRange 0.7 .
+
+ex:WetSurface a ex:RoadCondition ;
+    ex:reducesTraction 0.8 ;
+    ex:increasesBrakingDistance 0.9 .
+
+ex:LowVisibility a ex:WeatherCondition ;
+    ex:occludesObjects true ;
+    ex:reducesDetectionRange 0.95 .
+
+# Motion Dynamics
+ex:Vehicle_1 ex:hasMotionBlur true ;
+    ex:hasSpeed ex:HighSpeed .
+
+ex:HighSpeed a ex:SpeedCondition ;
+    ex:value "60-80 km/h"^^xsd:string ;
+    ex:increasesCollisionRisk 0.85 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Reduced Perception Due to Low Visibility**
+- **Description**:
+  Dim lighting and potential rain create **occlusions and reduced detection range**, increasing the risk of **late detection of obstacles or sudden stops**.
+- **Severity Score**: **0.95**
+  *(High risk due to tunnel darkness and wet conditions impairing sensor performance.)*
+
+#### **Risk 2: Increased Braking Distance on Wet Surfaces**
+- **Description**:
+  The **wet road surface** reduces tire traction, leading to **longer braking distances** and higher collision risk if sudden braking is required.
+- **Severity Score**: **0.85**
+  *(Moderate-high risk due to hydroplaning and reduced friction.)*
+
+#### **Risk 3: Following Too Closely in Low Visibility**
+- **Description**:
+  The ego vehicle is **following too closely** to the preceding vehicle, with **reduced reaction time** due to poor visibility and motion blur.
+- **Severity Score**: **0.90**
+  *(High risk due to limited time to react in case of sudden braking.)*
+
+#### **Risk 4: Motion Blur Impairing Object Detection**
+- **Description**:
+  The **motion blur** from high-speed movement **degrades sensor input**, making it harder to detect lane markings, pedestrians, or sudden obstacles.
+- **Severity Score**: **0.80**
+  *(Moderate-high risk due to sensor ambiguity in dynamic scenes.)*
+
+#### **Risk 5: Tunnel Exit Blind Spot**
+- **Description**:
+  The tunnel exit is **not fully visible** due to curvature and lighting, increasing the risk of **unexpected vehicles or pedestrians emerging**.
+- **Severity Score**: **0.75**
+  *(Moderate risk due to limited foresight in tunnel transitions.)*
+
+---
+### **Summary of Key Risks**
+| **Risk**                          | **Severity (0-1)** |
+|-----------------------------------|-------------------|
+| Reduced perception (low visibility) | 0.95              |
+| Wet surface braking risk           | 0.85              |
+| Following too closely              | 0.90              |
+| Motion blur sensor degradation     | 0.80              |
+| Tunnel exit blind spot             | 0.75              |
+
+### **Recommendations for Autonomous Driving Systems**
+1. **Increase sensor fusion reliability** (LiDAR + camera redundancy) in low-visibility conditions.
+2. **Enforce conservative following distances** (adaptive braking thresholds).
+3. **Activate hazard lights** to signal intent to following vehicles.
+4. **Use predictive modeling** to anticipate sudden stops in tunnels.
+5. **Improve tunnel exit detection** with high-resolution cameras and radar.
+
+---
+This analysis highlights the **high-risk nature of tunnels under poor visibility**, requiring robust adaptive cruise control (ACC) and emergency braking systems.

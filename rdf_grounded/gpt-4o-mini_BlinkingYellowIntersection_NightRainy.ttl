@@ -1,0 +1,32 @@
+Here's the RDF output based on the provided scene descriptions.
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Rainy Night Scene with Vehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasActor :actor1 .
+
+:actor1 a :Vehicle .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to visibility and wet road conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision risk due to visibility and wet road conditions
+Severity Score: 0.75

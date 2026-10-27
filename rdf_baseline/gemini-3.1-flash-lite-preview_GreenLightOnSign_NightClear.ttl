@@ -1,0 +1,51 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-vehicle:** The observer vehicle (red hood visible at the bottom).
+*   **Traffic Infrastructure:** Overhead traffic light (showing a non-standard or potentially ambiguous/off state), street lighting, road markings (lane dividers, stop lines), and roadside signage (billboards, speed limit/restricted access signs).
+*   **Environmental conditions:** Nighttime, artificial illumination from street lamps, clear weather.
+
+**2. Relationships:**
+*   **Ego-vehicle** is positioned at an intersection or wide road segment.
+*   **Traffic Light** is positioned directly in the field of view of the ego-vehicle.
+*   **Billboards/Signs** are located to the left and right of the ego-vehicle's path.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:locatedAt ex:Intersection .
+
+ex:TrafficLight a ex:Infrastructure ;
+    ex:state ex:Ambiguous ;
+    ex:positionedAbove ex:Roadway .
+
+ex:Billboard a ex:Infrastructure ;
+    ex:near ex:Roadway .
+
+ex:LightingCondition a ex:EnvironmentalState ;
+    ex:value "Night" .
+
+ex:Intersection ex:hasSignage ex:TrafficSign .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** **Ambiguous/Non-functional Traffic Signal.** The overhead traffic light appears unlit or in a state that does not clearly convey right-of-way, which could lead to hesitation or illegal maneuvers by the ego-vehicle or other cross-traffic.
+*   **Severity Score:** 0.65
+
+**Risk 2:**
+*   **Description:** **Distracting Visual Stimuli.** The bright, high-contrast digital-style billboard on the left (depicting a shoe) and other signage can cause "signal masking" or cognitive overload, potentially drawing the attention of the autonomous system's sensors or human operators away from critical road signs or hazards.
+*   **Severity Score:** 0.40
+
+**Risk 3:**
+*   **Description:** **Limited Visibility (Low Light).** Nighttime driving significantly reduces the detection range of the ego-vehicle’s perception system for non-reflective objects or pedestrians entering the roadway, especially outside the direct cone of the streetlights.
+*   **Severity Score:** 0.55

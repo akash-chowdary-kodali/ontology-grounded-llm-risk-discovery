@@ -1,0 +1,213 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Billboard falling onto road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen billboard obstructing road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fallen billboard partially blocking vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with fallen billboard or vehicle behind" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with limited visibility" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Fallen billboard partially blocking vehicle path
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Potential collision with fallen billboard or vehicle behind
+- **Risk Type:** CollisionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Fallen billboard (`:obstacle1` as `:RoadObject`)
+   - **Evidence Indicator:** Falling object (`:evidence1` as `:FallingObjectIndicator`)
+   - **Weather Condition:** Nighttime (`:weather1` as `:NightCondition`)
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` (due to the clear evidence of a falling object creating a hazardous situation).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The fallen billboard partially obstructs the road, posing a risk of reduced visibility or path blockage.
+   - **CollisionRisk:** The fallen billboard could cause a collision if not avoided, and the vehicle behind may also be at risk of rear-end collision due to sudden braking.
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.75 (high due to nighttime and limited visibility).
+   - CollisionRisk: 0.80 (high due to potential impact with the obstacle and secondary risk from following vehicles). Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanCyclistObstruction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding on right side of road, partially obstructing traffic" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red object (potentially a billboard or debris) partially blocking road" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Cyclist's position and movement suggest potential lane intrusion" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Cyclist riding in vehicle lane, increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision between vehicle and cyclist due to obstructing object" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Cyclist riding in vehicle lane, increasing collision risk
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential collision between vehicle and cyclist due to obstructing object
+- **Risk Type:** CollisionRisk (subtype implied by context)
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The cyclist's behavior (riding in the vehicle lane) and the obstructing object (potentially a billboard or debris) create a **BehaviorAnomaly** (unexpected behavior in a cyclist) combined with an **EvidenceBasedAnomaly** (evidence of lane intrusion via the cyclist's position). The primary classification is **BehaviorAnomaly** due to the cyclist's actions.
+
+2. **Entities Identified:**
+   - **Actor:** Cyclist (riding in the vehicle lane)
+   - **Obstacle:** RoadObject (large red object blocking part of the road)
+   - **WeatherCondition:** NightCondition (low visibility, artificial lighting)
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the cyclist's position in the vehicle lane.
+   - **CollisionRisk:** High severity due to the potential for a collision with the obstructing object and the cyclist's unpredictable movement.
+
+4. **Severity Scores:**
+   - Lane intrusion is scored higher (0.90) because it directly threatens the vehicle's path.
+   - Collision risk is slightly lower (0.85) but still critical due to the cyclist's proximity to the vehicle and the obstructing object. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRedReflectiveSurfaceAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Unusual red reflective surface resembling rolling ball indicator on road" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime scene with low ambient light" .
+
+:risk1 a :DistractionRisk ;
+    :description "Potential driver distraction due to unusual red reflective surface on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential misinterpretation of road surface as an object, causing occlusion of actual road features" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential driver distraction due to unusual red reflective surface on road
+Severity Score: 0.65
+
+Risk 2:
+Description: Potential misinterpretation of road surface as an object, causing occlusion of actual road features
+Severity Score: 0.70
+
+---
+**Analysis Explanation:**
+1. **Entities Identified:**
+   - The scene contains no clear actors (Cyclist/Pedestrian/Vehicle), traffic signs, traffic lights, or billboards.
+   - The primary anomaly is the **red reflective surface** on the road, which acts as an **EvidenceIndicator** (specifically a **RollingBallIndicator** due to its appearance and potential to mislead perception).
+   - The **WeatherCondition** is classified as **NightCondition** due to the low-light environment.
+
+2. **Corner Case Classification:**
+   - The anomaly is classified as an **EvidenceBasedAnomaly** because the red reflective surface provides misleading visual evidence that could lead to incorrect driver interpretation.
+
+3. **Risks Identified:**
+   - **DistractionRisk (0.65):** The unusual reflective pattern may distract drivers, causing them to focus on the road surface instead of the actual path ahead.
+   - **OcclusionRisk (0.70):** The reflective surface might obscure or misrepresent the road, leading to misjudgment of obstacles or road conditions.
+
+4. **Severity Scores:**
+   - Both risks are assigned moderate severity scores due to the potential for confusion but not immediate danger (e.g., no collision risk is evident in this static image). The scores reflect the likelihood of driver error rather than imminent harm.

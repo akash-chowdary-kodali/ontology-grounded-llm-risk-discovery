@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "BillboardDistractionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear daylight conditions with high visual clutter" .
+
+:risk1 a :DistractionRisk ;
+    :description "High cognitive load due to prominent misleading billboard content imitating traffic signals" ;
+    :confidenceScore "0.75"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Large billboard displaying a green traffic light image which may distract or confuse the autonomous agent" .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Distraction risk caused by an illuminated billboard featuring a green traffic light, which creates cognitive interference with actual traffic signal perception.
+Severity Score: 0.65

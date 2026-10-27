@@ -1,0 +1,62 @@
+Here is the semantic interpretation of the scene using the provided OWL ontology vocabulary:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanStreetWithStationaryVehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1, :roadObject2, :roadObject3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:roadObject1 a :RoadObject ;
+    :description "Stationary vehicle with rear lights on (red car)" .
+:roadObject2 a :RoadObject ;
+    :description "Stationary vehicle with rear lights on (green car)" .
+:roadObject3 a :RoadObject ;
+    :description "Stationary vehicle with rear lights on (white car)" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to stationary vehicles in lane" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk from parked vehicles reducing visibility of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision risk due to stationary vehicles in lane (red car directly ahead)
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Occlusion risk from parked vehicles reducing visibility of other road users (green and white cars)
+Severity Score: 0.50
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **StateAnomaly** because the corner case stems from the static state of vehicles (parked/stopped) rather than dynamic behavior or evidence-based anomalies.
+2. No actors (pedestrians/cyclists) were detected in the immediate scene.
+3. The **NightCondition** was identified as the primary weather condition affecting visibility.
+4. Two risks were identified:
+   - **RearEndCollisionRisk** due to the red vehicle directly ahead with its rear lights on.
+   - **OcclusionRisk** from parked vehicles blocking visibility of other potential road users.
+5. Severity scores were assigned based on:
+   - **0.65** for rear-end risk (moderate-high due to proximity and nighttime conditions).
+   - **0.50** for occlusion risk (moderate due to reduced visibility but no immediate threat).

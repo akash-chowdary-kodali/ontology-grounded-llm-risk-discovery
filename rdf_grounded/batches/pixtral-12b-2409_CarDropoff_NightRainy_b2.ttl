@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:weather1 a :NightCondition, :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision due to reduced visibility and slippery road" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced traction due to wet road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Limited visibility due to nighttime and rain
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Potential collision due to reduced visibility and slippery road
+Severity Score: 0.80
+
+---
+The scene is classified as a **StateAnomaly** because the primary issue stems from the current state of the road (wet and reflective) and weather conditions (nighttime and rain), rather than any anomalous behavior or evidence-based indicators. The ontology does not include a direct class for "wet road," so it is modeled as a **RoadObject** with a description. The risks identified are **RoadConditionRisk**, **OcclusionRisk**, and **CollisionRisk**, reflecting the primary hazards in this scenario.

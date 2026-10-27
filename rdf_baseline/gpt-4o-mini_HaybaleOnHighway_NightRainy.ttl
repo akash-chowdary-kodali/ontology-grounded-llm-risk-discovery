@@ -1,0 +1,60 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasVisibility ex:Low ;
+    ex:hasRoad ex:MainRoad ;
+    ex:containsVehicle ex:Vehicle1, ex:Vehicle2 ;
+    ex:containsObstacle ex:Obstacle1 ;
+    ex:containsInfrastructure ex:TrafficLight1 ;
+    ex:hasPedestrianCount 0 ;
+    ex:hasCyclistCount 0 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType ex:Car ;
+    ex:isPositioned ex:NearTrafficLight .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasType ex:Car ;
+    ex:isPositioned ex:FarFromTrafficLight .
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:hasType ex:BaleOfHay ;
+    ex:isPositioned ex:NearRoadCenter .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:hasState ex:Red .
+
+ex:Rainy a ex:WeatherCondition ;
+    ex:description "Heavy rain reducing visibility and road traction." .
+
+ex:Low a ex:Visibility ;
+    ex:description "Visibility is significantly reduced due to darkness and rain." .
+
+ex:MainRoad a ex:Road ;
+    ex:hasLaneCount 2 ;
+    ex:hasSurfaceType ex:Paved .
+
+ex:Car a ex:VehicleType .
+ex:BaleOfHay a ex:ObstacleType .
+ex:TrafficLight a ex:TrafficControl .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Reduced visibility due to rain and darkness may impede the vehicle's ability to see the surrounding environment clearly, increasing the risk of collision with obstacles or other vehicles.  
+**Severity Score:** 0.8  
+
+#### Risk 2:
+**Description:** The presence of an obstacle (bale of hay) near the center of the road could lead to sudden maneuvers or loss of vehicle control if encountered unexpectedly.  
+**Severity Score:** 0.9  
+
+#### Risk 3:
+**Description:** The traffic light being red may require the vehicle to stop, but with slick road conditions, the potential for skidding increases if not slowed adequately.  
+**Severity Score:** 0.7  
+
+These analyses highlight the critical safety risks present in the scene and their potential impact on driving safety.

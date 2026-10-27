@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Cyclists Crossing Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist running alongside bicycle on road" .
+:actor2 a :Cyclist ;
+    :description "Cyclist running alongside bicycle on road" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Cyclists crossing road unexpectedly in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Unexpected road users may distract driver" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Unusual motion of cyclists (running alongside bikes)" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Cyclists crossing road unexpectedly in low visibility
+- **Risk Type:** PedestrianCollisionRisk (treated as collision risk due to cyclists' vulnerable road user status)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Unexpected road users may distract driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - Two **Cyclists** (running alongside bicycles on the road).
+   - **NightCondition** (low-light environment).
+   - No traffic signs, traffic lights, or billboards are visible in the scene.
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly**: The cyclists are running alongside their bikes on the road, which is an unusual behavior for road users (typically cyclists ride, not run).
+
+3. **Evidence Indicator:**
+   - **RollingBallIndicator**: The unusual motion (running) of the cyclists serves as evidence of a potential risk.
+
+4. **Risks Identified:**
+   - **PedestrianCollisionRisk**: High severity due to low visibility and unexpected road users.
+   - **DistractionRisk**: Moderate severity due to the unexpected presence of cyclists running on the road.
+
+5. **Severity Scores:**
+   - PedestrianCollisionRisk: **0.90** (high due to low visibility and vulnerable road users).
+   - DistractionRisk: **0.75** (moderate due to potential driver distraction).

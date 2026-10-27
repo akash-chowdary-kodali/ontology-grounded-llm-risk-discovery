@@ -1,0 +1,52 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:RoadMarker1, ex:RoadSurface1 ;
+    ex:hasWeatherCondition ex:NightTime .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:locatedAt ex:Position1 ;
+    ex:hasType "Car" .
+
+ex:RoadMarker1 a ex:RoadInfrastructure ;
+    ex:hasType "Street Light" ;
+    ex:locatedAt ex:Position2 .
+
+ex:RoadSurface1 a ex:Surface ;
+    ex:hasCondition "Dry" ;
+    ex:locatedAt ex:Position3 .
+
+ex:Position1 a ex:Location ;
+    ex:hasCoordinates "X1,Y1" .
+
+ex:Position2 a ex:Location ;
+    ex:hasCoordinates "X2,Y2" .
+
+ex:Position3 a ex:Location ;
+    ex:hasCoordinates "X3,Y3" .
+
+ex:NightTime a ex:WeatherCondition ;
+    ex:visibility "Low" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Low visibility conditions due to nighttime. Potential for reduced detection of pedestrians or obstacles.  
+**Severity Score:** 0.7  
+
+#### Risk 2:
+**Description:** Presence of street lights may create confusion or distraction for drivers due to flickering or malfunctioning lights.  
+**Severity Score:** 0.5  
+
+#### Risk 3:
+**Description:** Potential for unexpected obstacles (e.g., cyclists or pedestrians) emerging from shadows or poorly illuminated areas.  
+**Severity Score:** 0.8  
+
+### Summary of Risks
+- **Risk 1:** Low visibility (0.7)
+- **Risk 2:** Distracting street lights (0.5)
+- **Risk 3:** Unexpected obstacles (0.8)

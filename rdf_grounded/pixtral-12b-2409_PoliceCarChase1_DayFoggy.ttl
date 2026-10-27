@@ -1,0 +1,207 @@
+Here is the semantic interpretation of the provided tunnel scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "TunnelLaneIntrusionWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :fogObstacle ;
+    :hasEvidence :fogEvidence ;
+    :hasRisk :laneIntrusionRisk ;
+    :hasRisk :occlusionRisk ;
+    :hasWeatherCondition :foggyCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle ahead in tunnel" .
+
+:fogObstacle a :RoadObject ;
+    :description "Fog reducing visibility in tunnel" .
+
+:fogEvidence a :FallingObjectIndicator ;
+    :description "Fog density reducing visibility range" ;
+    :indicatesPotentialRisk :occlusionRisk .
+
+:laneIntrusionRisk a :LaneIntrusionRisk ;
+    :description "Vehicle ahead may drift into lane due to poor visibility" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Fog obscures vehicle ahead, increasing collision risk" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.85"^^xsd:float .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog in tunnel" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Vehicle ahead may drift into lane due to poor visibility
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.70
+- **Confidence Score:** 0.75
+
+**Risk 2:**
+- **Description:** Fog obscures vehicle ahead, increasing collision risk
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.80
+- **Confidence Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Vehicle ahead in tunnel (`:vehicle1` as `:Vehicle`)
+   - **Obstacle:** Fog reducing visibility (`:fogObstacle` as `:RoadObject`)
+   - **WeatherCondition:** Heavy fog (`:foggyCondition` as `:FoggyCondition`)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to fog evidence reducing visibility, which is observable and measurable).
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** The vehicle ahead may drift into the lane due to poor visibility caused by fog.
+   - **OcclusionRisk:** The fog obscures the vehicle ahead, increasing the risk of collision due to reduced visibility.
+
+4. **Severity Scores:**
+   - Lane intrusion risk is assigned a severity of **0.70** (moderate-high risk).
+   - Occlusion risk is assigned a severity of **0.80** (high risk).
+
+The scene is classified as an **EvidenceBasedAnomaly** because the fog is observable and measurable, directly contributing to the identified risks. Here is the semantic interpretation of the provided scenes using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle in front moving erratically" .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle in adjacent lane drifting into ego lane" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light underground parking environment" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle drifting from adjacent lane into ego vehicle's path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to tunnel lighting and vehicle position" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Vehicle drifting from adjacent lane into ego vehicle's path (Lane Intrusion Risk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Limited visibility due to tunnel lighting and vehicle position (Occlusion Risk)
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Vehicle (the vehicle in front moving erratically).
+   - **Obstacle:** RoadObject (the vehicle drifting into the ego lane).
+   - **WeatherCondition:** NightCondition (low-light underground environment).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The vehicle in the adjacent lane is drifting into the ego vehicle's path, which is an unexpected behavior in a structured parking environment.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the potential for a collision if the ego vehicle does not react.
+   - **OcclusionRisk:** Moderate severity due to reduced visibility in the tunnel, which could exacerbate the lane intrusion risk.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, and all entities are properly typed and linked. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingVehicleFollow" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle in red (ego vehicle)" .
+
+:vehicle2 a :Vehicle ;
+    :description "White vehicle ahead in underground parking" .
+
+:roadObject1 a :RoadObject ;
+    :description "Parking lane markings and walls" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear visibility in underground parking" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to close following in low-visibility environment" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to vehicle ahead blocking view of potential obstacles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential rear-end collision due to close following in low-visibility environment
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of occlusion due to vehicle ahead blocking view of potential obstacles
+Severity Score: 0.60

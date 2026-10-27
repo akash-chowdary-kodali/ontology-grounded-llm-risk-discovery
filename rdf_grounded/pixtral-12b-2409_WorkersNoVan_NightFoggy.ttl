@@ -1,0 +1,235 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeParkingLotWithPedestriansAndObstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian kneeling near traffic cone" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian walking toward vehicle path" .
+
+:obstacle1 a :RoadObject ;
+    :description "Traffic cone on road" .
+:obstacle2 a :RoadObject ;
+    :description "Large cylindrical object blocking path" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime environment" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Traffic cones and cylindrical object suggest potential rolling hazard" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Large cylindrical object partially obscures pedestrian visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Traffic cones and cylindrical object intrude into driving lane" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian walking into vehicle path
+- **Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Large cylindrical object partially obscures pedestrian visibility
+- **Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Traffic cones and cylindrical object intrude into driving lane
+- **Type:** LaneIntrusionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because the pedestrians are engaging in unexpected behavior (kneeling near cones and walking into a potentially hazardous area) that deviates from typical pedestrian movement patterns in a parking lot.
+
+2. **Entities Identified:**
+   - **Actors:** Two pedestrians (one kneeling, one walking).
+   - **Obstacles:** Traffic cones and a large cylindrical object.
+   - **WeatherCondition:** NightCondition (low-light environment).
+
+3. **Evidence Indicator:**
+   The traffic cones and cylindrical object are interpreted as a **RollingBallIndicator**, suggesting potential rolling hazards (e.g., the cylindrical object could roll if disturbed).
+
+4. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian walking into the vehicle's path.
+   - **OcclusionRisk:** Medium severity due to the cylindrical object partially blocking visibility.
+   - **LaneIntrusionRisk:** High severity due to the cones and object intruding into the driving lane. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianSkateboardingInConstructionZone" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person skateboarding across road at night" .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cones marking construction zone" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime environment" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Skateboard wheels rolling on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian skateboarding directly into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Low visibility due to nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian skateboarding directly into vehicle path
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.92
+- **Evidence:** Rolling skateboard wheels indicate imminent path crossing
+
+**Risk 2:**
+- **Description:** Low visibility due to nighttime conditions
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+- **Context:** Nighttime environment with limited lighting
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification**: This is a **BehaviorAnomaly** because the pedestrian is engaging in non-standard road behavior (skateboarding across a road rather than walking) in a construction zone marked by cones.
+
+2. **Key Entities**:
+   - **Actor**: Pedestrian (skateboarding)
+   - **Obstacle**: RoadObject (traffic cones)
+   - **WeatherCondition**: NightCondition (low-light environment)
+
+3. **Risks Identified**:
+   - Primary risk is **PedestrianCollisionRisk** due to the skateboarder's path crossing the vehicle's potential trajectory.
+   - Secondary risk is **OcclusionRisk** from poor nighttime visibility, which could exacerbate the collision risk.
+
+4. **Severity Scores**:
+   - The collision risk is high (0.92) because the skateboarder is actively moving into the roadway.
+   - The occlusion risk is moderate (0.75) due to nighttime conditions but is secondary to the immediate collision threat. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianNearVehicleNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking near vehicle with unusual proximity" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking too close to vehicle, potential collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver may be distracted by pedestrian's proximity and movement" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian walking too close to vehicle, potential collision risk
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Driver may be distracted by pedestrian's proximity and movement
+Severity Score: 0.75
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The pedestrian is classified as an `:Actor` of type `:Pedestrian`.
+   - The scene's weather condition is `:NightCondition`.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:BehaviorAnomaly` because the pedestrian is walking unusually close to the vehicle, which deviates from expected pedestrian behavior in such proximity to a moving or stationary vehicle.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk**: The pedestrian's proximity to the vehicle poses a high risk of collision, especially in low-light conditions.
+   - **DistractionRisk**: The driver may be distracted by the pedestrian's movement, increasing the likelihood of an accident.
+
+4. **Severity Scores:**
+   - The **PedestrianCollisionRisk** is assigned a high severity score of **0.90** due to the immediate danger of collision.
+   - The **DistractionRisk** is assigned a severity score of **0.75**, reflecting a moderate but significant risk of driver distraction.

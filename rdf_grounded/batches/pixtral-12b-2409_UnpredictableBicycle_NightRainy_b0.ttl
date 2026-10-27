@@ -1,0 +1,79 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Cyclist Crossing with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist crossing road without proper signaling" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions with wet road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Wet road surface indicating potential hydroplaning risk" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Cyclist crossing path with insufficient visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Cyclist intruding into vehicle lane without warning" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road surface increasing hydroplaning risk" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Cyclist crossing path with insufficient visibility due to nighttime conditions.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Cyclist intruding into vehicle lane without warning or signaling.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Wet road surface increasing hydroplaning risk for vehicles.
+- **Severity Score:** 0.75
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:** The cyclist's behavior (crossing without signaling in low visibility) is classified as a **BehaviorAnomaly**.
+2. **Evidence Indicator:** The wet road surface is modeled as a **RollingBallIndicator**, which suggests potential hydroplaning risk.
+3. **Weather Condition:** Nighttime with low visibility is represented as **NightCondition**.
+4. **Risks Identified:**
+   - High **PedestrianCollisionRisk** due to the cyclist's unpredictable path.
+   - High **LaneIntrusionRisk** from the cyclist's lane intrusion.
+   - Moderate **RoadConditionRisk** from the wet road surface.
+
+This RDF representation adheres strictly to the provided ontology vocabulary and rules.

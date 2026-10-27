@@ -1,0 +1,61 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:containsVehicle ex:Vehicle1 ;
+    ex:containsPedestrian ex:Pedestrian1 ;
+    ex:containsPedestrian ex:Pedestrian2 ;
+    ex:containsObstacle ex:Obstacle1 ;
+    ex:containsObstacle ex:Obstacle2 ;
+    ex:hasRoadInfrastructure ex:Road1 ;
+    ex:hasWeatherCondition ex:NightCondition .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:isLocatedAt ex:Location1 .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isApproaching ex:Location2 .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:isApproaching ex:Location2 .
+
+ex:Obstacle1 a ex:Animal ;
+    ex:isLocatedAt ex:Location3 .
+
+ex:Obstacle2 a ex:Animal ;
+    ex:isLocatedAt ex:Location4 .
+
+ex:Road1 a ex:Road ;
+    ex:isCurved .
+
+ex:Location1 a ex:Location ;
+    ex:coordinates "x1,y1" .
+
+ex:Location2 a ex:Location ;
+    ex:coordinates "x2,y2" .
+
+ex:Location3 a ex:Location ;
+    ex:coordinates "x3,y3" .
+
+ex:Location4 a ex:Location ;
+    ex:coordinates "x4,y4" .
+
+ex:NightCondition a ex:Weather ;
+    ex:description "Night visibility is low" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with approaching pedestrians due to low visibility at night and proximity.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Risk of occlusion from obstacles (animals) that could hinder the driver's view of the road and pedestrians.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Risk of misjudgment of vehicle path due to the curved road, combined with poor visibility.
+- **Severity Score:** 0.5

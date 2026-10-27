@@ -1,0 +1,76 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring vehicles and road features" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk due to limited visibility of vehicles ahead" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RearEndCollisionRisk ;
+    :description "Increased risk of rear-end collision due to foggy conditions and traffic congestion" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RoadConditionRisk ;
+    :description "Potential risk of misjudging road conditions due to fog" ;
+    :hasSeverityScore :sev4 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog as an obstacle reducing visibility" .
+
+:actor1 a :Vehicle ;
+    :description "Green vehicle ahead in the right lane" .
+
+:actor2 a :Vehicle ;
+    :description "Red vehicle on the right side of the scene" .
+
+:actor3 a :Vehicle ;
+    :description "White vehicle in the middle of the scene" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring vehicles and road features
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potential collision risk due to limited visibility of vehicles ahead
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Increased risk of rear-end collision due to foggy conditions and traffic congestion
+Severity Score: 0.8
+
+**Risk 4:**
+Description: Potential risk of misjudging road conditions due to fog
+Severity Score: 0.75
+
+The scene was classified as an **EvidenceBasedAnomaly** due to the foggy conditions providing clear evidence of reduced visibility, which affects the autonomous vehicle's ability to perceive and react to the environment.

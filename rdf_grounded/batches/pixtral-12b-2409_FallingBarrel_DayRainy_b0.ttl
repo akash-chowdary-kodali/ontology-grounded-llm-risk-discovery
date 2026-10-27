@@ -1,0 +1,99 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithRoadWorkers" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Road worker in high-visibility clothing" .
+
+:actor2 a :Vehicle ;
+    :description "Van with rear doors open and workers loading/unloading" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical barrels blocking part of the lane" .
+
+:obstacle2 a :RoadObject ;
+    :description "Road worker standing near barrels" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Water droplets and debris from road work" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with road worker in path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Barrels obstructing view of oncoming traffic" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Heavy rain reducing visibility and traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with road worker in path
+- **Severity Score:** 0.90
+- **Risk Type:** CollisionRisk (PedestrianCollisionRisk implied by context)
+
+**Risk 2:**
+- **Description:** Barrels obstructing view of oncoming traffic
+- **Severity Score:** 0.85
+- **Risk Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Heavy rain reducing visibility and traction
+- **Severity Score:** 0.80
+- **Risk Type:** WeatherRisk
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (e.g., barrels, workers, and weather conditions) rather than an actor's anomalous behavior or state.
+
+2. **Entities:**
+   - **Actors:** A pedestrian (road worker) and a vehicle (van).
+   - **Obstacles:** Barrels and the road worker acting as temporary road objects.
+   - **Weather:** Heavy rain (RainyCondition).
+
+3. **Risks:**
+   - **CollisionRisk:** High due to the worker's proximity to the vehicle path.
+   - **OcclusionRisk:** Barrels block visibility of oncoming traffic.
+   - **WeatherRisk:** Heavy rain exacerbates all risks (reduced visibility, traction).
+
+4. **Severity Scores:**
+   - Collision risk is highest (0.90) due to the immediate threat to the worker.
+   - Occlusion risk (0.85) and weather risk (0.80) are slightly lower but still critical.

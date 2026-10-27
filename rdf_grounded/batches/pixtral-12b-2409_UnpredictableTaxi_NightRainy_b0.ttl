@@ -1,0 +1,69 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rainy Road with Open Door Indicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Open rear door of preceding vehicle may cause collision with following vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle with open rear door" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle (ego vehicle) with open door indicator visible" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Open rear door of preceding vehicle may cause collision with following vehicle
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to rain
+- **Risk Type:** RoadConditionRisk (subtype of Risk)
+- **Severity Score:** 0.75
+
+### Analysis:
+1. **Entities Identified:**
+   - Two `Vehicle` instances (one with an open rear door, one following)
+   - `RainyCondition` as the weather condition
+   - `OpenDoorIndicator` as evidence of the corner case
+
+2. **Corner Case Classification:**
+   - Classified as `:StateAnomaly` because the open door represents an unexpected physical state of the vehicle that could lead to immediate risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the open door (high severity)
+   - **RoadConditionRisk** due to rainy conditions (moderate severity)
+
+The scene clearly shows a nighttime rainy environment with a vehicle's rear door open, creating a high-risk situation for the following vehicle. The ontology captures both the immediate collision risk and the secondary risk from road conditions.

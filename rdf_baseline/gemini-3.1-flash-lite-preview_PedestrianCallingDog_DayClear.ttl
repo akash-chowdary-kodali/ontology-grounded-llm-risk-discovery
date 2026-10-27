@@ -1,0 +1,40 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red), red convertible (parked), green hatchback (parked), black SUVs (in distance), gold vehicle (partially visible on right).
+*   **Animal:** German Shepherd (crossing the ego-vehicle's path).
+*   **Road Infrastructure:** Streetlights, asphalt road with double yellow lines, lane markings, parked vehicle zone, residential brownstone buildings, large apartment complex, construction hoarding.
+*   **Weather/Environment:** Clear sky, daylight, bright sunlight creating long shadows.
+
+### 2. Relationships
+*   **Ego-Vehicle:** Moving forward on the road.
+*   **Animal (Dog):** Crossing the road from the right (emerging from behind the parked vehicles) towards the path of the ego-vehicle.
+*   **Parked Vehicles:** Occluding the vision of the ego-vehicle towards the sidewalk/right curb.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isMoving "true" .
+
+ex:Dog rdf:type ex:Animal ;
+    ex:isCrossing ex:Road ;
+    ex:isMovingTowards ex:EgoVehiclePath .
+
+ex:ParkedVehicle rdf:type ex:Vehicle ;
+    ex:occludes ex:Dog ;
+    ex:isStationary "true" .
+
+ex:Environment rdf:type ex:ClearDaylight ;
+    ex:hasVisibility "high" .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** An animal (dog) has entered the roadway suddenly, emerging from an occluded area (behind parked cars), creating an immediate collision hazard.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Presence of parked vehicles along the curb significantly limits the detection range of pedestrians or animals, creating an "occlusion risk" for the ego-vehicle's perception system.
+*   **Severity Score:** 0.65

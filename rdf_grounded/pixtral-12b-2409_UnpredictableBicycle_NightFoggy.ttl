@@ -1,0 +1,207 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistCrossingWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding across the road at night" .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy nighttime conditions reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with cyclist due to low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures visibility of cyclist and surrounding area" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog creates visual occlusion similar to falling objects" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of collision with cyclist due to low visibility
+- **Severity Score:** 0.92
+- **Risk Type:** CollisionRisk (Pedestrian/Cyclist Collision Risk)
+
+**Risk 2:**
+- **Description:** Fog obscures visibility of cyclist and surrounding area
+- **Severity Score:** 0.88
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Cyclist (riding across the road)
+   - **WeatherCondition:** FoggyCondition (reduced visibility)
+   - **EvidenceIndicator:** FallingObjectIndicator (fog creates visual occlusion)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The cyclist's presence in low-visibility conditions (fog) creates an anomalous state for safe navigation.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the cyclist's unexpected crossing in low-visibility conditions.
+   - **OcclusionRisk:** Fog reduces visibility, making it difficult to detect the cyclist and other obstacles.
+
+4. **Severity Scores:**
+   - CollisionRisk: **0.92** (high due to cyclist's proximity and low visibility).
+   - OcclusionRisk: **0.88** (high due to fog's impact on perception).
+
+The scene is classified as a **StateAnomaly** because the cyclist's behavior (crossing the road) is not inherently anomalous, but the **environmental conditions (fog)** create a hazardous state. The ontology does not explicitly model "unexpected actor behavior" as a BehaviorAnomaly here because the cyclist appears to be following traffic rules (crossing at an intersection), but the **fog** is the primary anomaly. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Cyclist crossing road in front of vehicle at night without proper signaling" .
+
+:actor1 a :Cyclist ;
+    :description "Person riding a bicycle across the road" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with cyclist crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of cyclist due to poor lighting and nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision with cyclist crossing road
+- **Severity Score:** 0.95
+- **Risk Type:** `:CollisionRisk` (subclass of `:Risk`)
+
+**Risk 2:**
+- **Description:** Potential occlusion of cyclist due to poor lighting and nighttime conditions
+- **Severity Score:** 0.80
+- **Risk Type:** `:OcclusionRisk` (subclass of `:Risk`)
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** `:actor1` is classified as a `:Cyclist` (since the person is riding a bicycle).
+   - **WeatherCondition:** `:weather1` is classified as `:NightCondition` (due to low visibility and nighttime setting).
+
+2. **Corner Case Classification:**
+   - The cyclist crossing the road without proper signaling or preparation (e.g., no lights, sudden movement) is classified as a `:BehaviorAnomaly` (since the cyclist's actions deviate from expected behavior).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** The cyclist is crossing directly in front of the vehicle, posing a high risk of collision.
+   - **OcclusionRisk:** The nighttime conditions reduce visibility, increasing the risk of the cyclist being obscured or not detected in time.
+
+4. **Severity Scores:**
+   - The collision risk is assigned a high severity score (0.95) due to the immediate threat.
+   - The occlusion risk is assigned a slightly lower score (0.80) but still significant due to the poor visibility. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRollingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "White spherical object on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling spherical object detected on road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rolling object may partially obscure view of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with rolling object on road
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Rolling object may partially obscure view of road ahead
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. The white spherical object on the road is classified as a `:RoadObject` under `:Obstacle`.
+2. The corner case is classified as `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (the rolling object).
+3. Two risks are identified:
+   - **CollisionRisk** due to the rolling object being in the vehicle's path.
+   - **OcclusionRisk** as the object may partially block the driver's view of the road ahead.
+4. Severity scores are assigned based on the potential impact of the rolling object:
+   - Collision risk is higher (0.75) due to direct threat to vehicle safety.
+   - Occlusion risk is moderate (0.60) as it may impair situational awareness.

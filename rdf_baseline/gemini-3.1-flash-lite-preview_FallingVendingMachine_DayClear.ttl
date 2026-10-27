@@ -1,0 +1,46 @@
+This safety analysis concerns a scenario where a large, unsecured object (a vending machine or similar signage) has fallen from a delivery vehicle directly into the ego-vehicle's path.
+
+### 1. Main Entities
+*   **Ego-vehicle:** The vehicle recording the scene.
+*   **Delivery Vehicle:** A white van positioned to the right.
+*   **Obstacle:** A large, red rectangular object (e.g., a vending machine) lying on the road.
+*   **Pedestrian:** A person standing near the delivery van, presumably the operator.
+*   **Infrastructure:** Urban road, streetlights, buildings.
+*   **Environment:** Clear weather, daylight, asphalt road surface.
+
+### 2. Relationships
+*   **Obstacle** is **blocking** the ego-vehicle’s lane.
+*   **Delivery Vehicle** is **adjacent** to the ego-vehicle’s path.
+*   **Pedestrian** is **near** the delivery vehicle and the obstacle.
+*   **Obstacle** was **transported by** the delivery vehicle (inferred from the falling sequence).
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:DeliveryVan a ex:Vehicle ;
+    ex:near ex:Pedestrian ;
+    ex:near ex:Obstacle .
+ex:Obstacle a ex:Obstacle ;
+    ex:locatedOn ex:RoadLane ;
+    ex:blocking ex:EgoVehicle .
+ex:Pedestrian a ex:Person ;
+    ex:standingNear ex:DeliveryVan .
+ex:Road a ex:Infrastructure .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** **Collision with road obstruction.** The large object has fallen directly into the path of the ego-vehicle. Given the size and rigidity of the object, a direct collision would cause significant damage to the vehicle and potential injury to occupants.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** **Pedestrian safety hazard.** The pedestrian is standing in close proximity to the delivery van and the displaced object. Any evasive maneuver by the ego-vehicle or shifting of the fallen object poses a direct strike risk to the pedestrian.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** **Unexpected maneuver/Emergency braking.** The sudden appearance of the obstacle requires immediate emergency braking or lane changing, which could lead to a loss of vehicle control or a rear-end collision if trailing vehicles do not maintain a safe distance.
+*   **Severity Score:** 0.70

@@ -1,0 +1,37 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WildlifeEncroachment" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obs1 ;
+    :hasWeatherCondition :rain1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Actor ;
+    :description "Gorilla moving on roadway" .
+
+:actor2 a :Actor ;
+    :description "Elephant standing on road shoulder" .
+
+:obs1 a :RoadObject ;
+    :description "Large animal presence obstructing traffic lane" .
+
+:rain1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with unpredictable wildlife on wet road" ;
+    :confidenceScore "0.95"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision with unpredictable wildlife (gorilla and elephant) on a wet, rainy road surface.
+Severity Score: 0.90

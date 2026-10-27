@@ -1,0 +1,54 @@
+### Semantic Interpretation of the Environment
+
+#### 1. Main Entities
+*   **Ego Vehicle:** The observer vehicle (red hood visible).
+*   **Heavy Machinery:** An excavator, significantly obstructing the right lane.
+*   **Infrastructure:** Road surface, double yellow lines, overhead bridge structure, traffic cone (in first frame), concrete barriers/walls.
+*   **Environment:** Nighttime conditions, artificial lighting from streetlights.
+
+#### 2. Relationships
+*   **Ego Vehicle** is *approaching* the **Excavator**.
+*   **Excavator** is *occupying* the road lane, forcing a potential lane deviation.
+*   **Excavator** is *near* the road boundary/lane markings.
+*   **Infrastructure** (bridge) is *overhead* and might limit visibility or vertical clearance.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://autonomous-safety.org/ontology#> .
+
+:EgoVehicle a :Vehicle ;
+    :approaching :Excavator .
+
+:Excavator a :Obstacle, :HeavyMachinery ;
+    :locatedIn :RoadLane ;
+    :position :RightLane ;
+    :status :Stationary .
+
+:Road a :Infrastructure ;
+    :hasMarking :DoubleYellowLine .
+
+:OverheadBridge a :Infrastructure ;
+    :positionedAbove :Road .
+
+:Environment a :Nighttime ;
+    :hasLighting :Artificial .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Physical Obstruction of Travel Lane. The excavator bucket and body protrude significantly into the travel path, forcing the ego vehicle to perform an emergency maneuver or cross the double yellow line into opposing traffic.
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** Reduced Visibility/Poor Infrastructure Interaction. Nighttime conditions combined with an unconventional obstacle (excavator) under a bridge structure increase the complexity of object detection and classification for the perception system.
+**Severity Score:** 0.60
+
+**Risk 3:**
+**Description:** Collision with Unpredictable Obstacle. Proximity to heavy construction equipment carries a risk of sudden movement or structural protrusion (e.g., hydraulics or bucket swing) into the Ego Vehicle's path.
+**Severity Score:** 0.75

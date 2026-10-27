@@ -1,0 +1,77 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanIntersectionWithTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle ahead" .
+:actor2 a :Vehicle ;
+    :description "Black vehicle in front of ego vehicle" .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light ahead" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to following distance and braking" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to nighttime and limited visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Risk of skidding or hydroplaning due to wet road surface" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :CollisionRisk ;
+    :description "General collision risk due to traffic light intersection" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to following distance and braking.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Occlusion risk due to nighttime and limited visibility.
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Risk of skidding or hydroplaning due to wet road surface.
+Severity Score: 0.60
+
+**Risk 4:**
+Description: General collision risk due to traffic light intersection.
+Severity Score: 0.70
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to observable evidence such as wet road conditions and nighttime visibility issues. The identified risks include rear-end collision, occlusion, road condition, and general collision risks, with severity scores reflecting their potential impact.

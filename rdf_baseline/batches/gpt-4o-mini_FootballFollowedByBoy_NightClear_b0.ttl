@@ -1,0 +1,40 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix w3: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Pedestrian1, ex:Obstacle1 ;
+    ex:hasWeatherCondition ex:Night ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasLightState ex:HeadlightsOn ;
+    ex:near ex:Pedestrian1 .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasLightState ex:HeadlightsOn ;
+    ex:occluding ex:Pedestrian1 .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasAction ex:Running ;
+    ex:crossing ex:Road .
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:hasType ex:SoccerBall ;
+    ex:near ex:Vehicle1 .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** The pedestrian is running near vehicles in low light conditions, creating a risk of collision. The presence of the soccer ball as an obstacle could distract the driver.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** The occlusion of the pedestrian by vehicles may prevent safe visibility and reaction time for the driver.
+- **Severity Score:** 0.8
+
+**Risk 3:**
+- **Description:** The night environment limits visibility, increasing the potential for accidents involving both the pedestrian and the vehicles.
+- **Severity Score:** 0.9

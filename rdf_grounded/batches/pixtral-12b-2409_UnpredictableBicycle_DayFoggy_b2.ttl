@@ -1,0 +1,48 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanDrivingWithOpenRearHatch" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle with open rear hatch" .
+
+:obstacle1 a :RoadObject ;
+    :description "Open rear hatch of vehicle" .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy visibility conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Open rear hatch obstructing rear visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential collision risk due to obstructed rear view" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Open rear hatch obstructing rear visibility
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision risk due to obstructed rear view
+Severity Score: 0.65

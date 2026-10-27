@@ -1,0 +1,82 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFoggyDrivingWithReducedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :description "Reduced visibility due to foggy conditions on urban roadway" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Foggy conditions reducing visibility and increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures vehicles and obstacles beyond 50 meters" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road surface increases braking distance and skid risk" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RearEndCollisionRisk ;
+    :description "Reduced visibility increases risk of rear-end collisions" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Green vehicle in center lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle in right lane" .
+
+:vehicle3 a :Vehicle ;
+    :description "White vehicle in center lane" .
+
+:actor1 a :Vehicle ;
+    :description "Red vehicle in foreground (ego vehicle)" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Foggy conditions reducing visibility and increasing collision risk
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Fog obscures vehicles and obstacles beyond 50 meters
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Wet road surface increases braking distance and skid risk
+Severity Score: 0.75
+
+**Risk 4:**
+Description: Reduced visibility increases risk of rear-end collisions
+Severity Score: 0.8
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** due to the environmental condition (fog) creating hazardous driving conditions.
+2. No actors (pedestrians/cyclists) were detected in the scene, so no pedestrian-related risks were identified.
+3. The **WeatherRisk** and **OcclusionRisk** were prioritized due to the fog's impact on visibility.
+4. The **RoadConditionRisk** was included due to the wet road surface, which is implied by the foggy conditions.
+5. The **RearEndCollisionRisk** was identified as a significant concern in low-visibility scenarios.

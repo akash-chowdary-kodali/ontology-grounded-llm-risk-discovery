@@ -1,0 +1,90 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianAndObstacleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian kneeling on road with object" .
+
+:actor2 a :Pedestrian ;
+    :description "Pedestrian running across road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object on road" .
+
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime environment" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Running pedestrian crossing path of vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Large road object obstructing visibility of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual pedestrian behavior (kneeling) may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Running pedestrian crossing path of vehicle
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Large road object obstructing visibility of pedestrian
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Unusual pedestrian behavior (kneeling) may distract driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.70
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:** The scene is classified as a **BehaviorAnomaly** because the pedestrians exhibit unusual behavior (one kneeling on the road, the other running across it), which deviates from expected road user behavior.
+2. **Key Entities:**
+   - Two pedestrians (one kneeling, one running)
+   - Road objects (cylindrical obstacle + traffic cones)
+   - Nighttime weather condition
+3. **Risks Identified:**
+   - High collision risk from the running pedestrian
+   - Occlusion risk from the large road object
+   - Distraction risk from the kneeling pedestrian's unusual behavior
+4. **Severity Scores:**
+   - Scores reflect the urgency of each risk (higher for immediate collision threats)
+   - Nighttime conditions amplify all risks due to reduced visibility

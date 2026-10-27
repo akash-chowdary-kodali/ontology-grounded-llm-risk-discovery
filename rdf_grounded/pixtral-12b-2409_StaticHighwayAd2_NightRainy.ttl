@@ -1,0 +1,238 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Wet Road with Reduced Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition, :RainyCondition .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective light patterns on wet road indicating poor traction" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime and rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Adverse weather (nighttime + rain) reducing driver awareness" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Type:** `OcclusionRisk`
+- **Description:** Reduced visibility due to nighttime and rain
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Type:** `RoadConditionRisk`
+- **Description:** Slippery road conditions due to wet surface
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Type:** `WeatherRisk`
+- **Description:** Adverse weather (nighttime + rain) reducing driver awareness
+- **Severity Score:** 0.8
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the hazardous conditions (wet road, nighttime, rain) are environmental/state-based rather than behavioral or evidence-based anomalies.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` + `RainyCondition` (combined due to overlapping effects).
+   - **Obstacle:** `RoadObject` (wet road surface with reflective sheen).
+   - **EvidenceIndicator:** `RollingBallIndicator` (reflective light patterns suggesting poor traction).
+
+3. **Risks Justified:**
+   - **OcclusionRisk:** Heavy rain and nighttime reduce visibility.
+   - **RoadConditionRisk:** Wet road increases slipperiness.
+   - **WeatherRisk:** Combined nighttime + rain exacerbates hazards.
+
+4. **Severity Scores:**
+   - Highest severity for **OcclusionRisk** (0.9) due to immediate danger of missing obstacles.
+   - Moderate-high for **RoadConditionRisk** (0.85) and **WeatherRisk** (0.8) due to compounded effects. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithObscuredVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Poor visibility due to nighttime and wet road conditions" ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime with limited visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface causing glare and reduced traction" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Headlight glare from wet road reduces visibility of distant objects" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface increases risk of skidding or loss of control" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Nighttime conditions reduce visibility and reaction time" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on the left side of the road" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry traffic sign on the right side of the road" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Headlight glare from wet road reduces visibility of distant objects
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road surface increases risk of skidding or loss of control
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Nighttime conditions reduce visibility and reaction time
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Scene Analysis:**
+   - The scene is classified as a **StateAnomaly** due to the **nighttime conditions** and **wet road**, which create hazardous driving conditions.
+   - The **nighttime** (`NightCondition`) and **wet road** (`RoadObject`) are explicitly modeled as contributing factors.
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the scene, so they are not included in the RDF.
+
+2. **Risks Identified:**
+   - **OcclusionRisk:** The wet road causes glare, obscuring visibility of distant objects.
+   - **RoadConditionRisk:** The slippery surface increases the risk of skidding or loss of control.
+   - **WeatherRisk:** Nighttime conditions reduce visibility and reaction time.
+
+3. **Severity Scores:**
+   - High severity scores (0.80–0.90) are assigned due to the compounded risks of nighttime, wet roads, and glare.
+
+4. **Entities in the Scene:**
+   - A **Billboard** (advertisement) and a **TrafficSign** (no entry) are included as static elements in the scene. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WetRoadNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Wet road surface with reflective sheen indicating recent rain" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective water patches on road indicating wet conditions" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Poor visibility due to nighttime and wet road reflections" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced traction due to wet road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Poor visibility due to nighttime and wet road reflections
+Severity Score: 0.65
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - No explicit Actors, TrafficSigns, TrafficLights, or Billboards were visible in the scene.
+   - The primary observable entity is the **WeatherCondition** (`RainyCondition`) inferred from the wet road surface and reflections.
+
+2. **Corner Case Classification:**
+   - Classified as `:EvidenceBasedAnomaly` due to the presence of observable evidence (reflective water patches) indicating wet conditions.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** due to reduced traction from wet surfaces.
+   - **OcclusionRisk** due to poor visibility from nighttime and reflective road surfaces.
+
+4. **Severity Scores:**
+   - RoadConditionRisk (0.75): High due to potential loss of vehicle control.
+   - OcclusionRisk (0.65): Moderate due to reduced visibility but no immediate obstacles.

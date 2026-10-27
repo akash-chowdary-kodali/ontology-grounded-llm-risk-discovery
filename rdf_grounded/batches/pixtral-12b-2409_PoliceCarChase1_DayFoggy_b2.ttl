@@ -1,0 +1,51 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingVehicleFollow" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle in red (ego vehicle)" .
+
+:vehicle2 a :Vehicle ;
+    :description "White vehicle ahead in underground parking" .
+
+:roadObject1 a :RoadObject ;
+    :description "Parking lane markings and walls" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear visibility in underground parking" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to close following in low-visibility environment" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to vehicle ahead blocking view of potential obstacles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential rear-end collision due to close following in low-visibility environment
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of occlusion due to vehicle ahead blocking view of potential obstacles
+Severity Score: 0.60

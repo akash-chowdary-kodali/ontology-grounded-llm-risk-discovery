@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFogAndObstacle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Debris on road surface" .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy visibility at night" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Debris on road indicating potential falling object" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fog reduces visibility of road obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Debris on road surface poses hazard" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Fog reduces visibility of road obstacles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+- **Evidence:** FallingObjectIndicator (debris on road)
+
+**Risk 2:**
+- **Description:** Debris on road surface poses hazard
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+- **Evidence:** Implied by the presence of debris (RoadObject)
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - **Obstacle:** Debris on the road (typed as `RoadObject`).
+   - **WeatherCondition:** Foggy visibility at night (typed as `FoggyCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting with the debris in these images, so no `Actor` instances are included.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the debris (evidence) suggests a potential hazard (falling object) that isn't actively interacting with traffic but could cause issues.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to fog reducing visibility of the debris.
+   - **RoadConditionRisk:** High severity due to the debris itself posing a hazard.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is higher because fog is a dynamic, environment-related hazard that affects perception.
+   - RoadConditionRisk (0.85) is slightly lower but still critical due to the physical presence of debris.

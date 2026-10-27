@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the scene based on the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Wet Road with Potential Falling Object" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Reflective glint and splash pattern suggesting falling object (e.g., debris) on wet road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with wet road surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision risk due to falling object (e.g., debris) on the road, indicated by reflective glint and splash patterns.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to wet surface under nighttime conditions.
+- **Severity Score:** 0.60
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - The scene lacks explicit actors (e.g., pedestrians, cyclists, or vehicles) in the visible frame, so no `:Actor` instances are included.
+   - The **weather condition** is classified as `:NightCondition` with wet road surface implications.
+   - The **evidence indicator** is `:FallingObjectIndicator` due to the reflective glint and splash pattern suggesting debris or an object falling onto the road.
+
+2. **Corner Case Classification:**
+   - The corner case is `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (reflective glint and splash pattern) rather than direct observation of an actor's behavior or state.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the potential for a vehicle to collide with the falling object.
+   - **RoadConditionRisk** due to the wet road surface, which increases the likelihood of skidding or loss of control.
+
+4. **Severity Scores:**
+   - The collision risk is rated higher (0.75) because it directly threatens vehicle safety.
+   - The road condition risk is rated lower (0.60) but still significant due to the nighttime and wet conditions.

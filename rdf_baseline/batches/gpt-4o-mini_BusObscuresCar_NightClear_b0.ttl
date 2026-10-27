@@ -1,0 +1,43 @@
+## Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+
+ex:Scene1 a ex:Scene;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Vehicle3, ex:Infrastructure1, ex:WeatherCondition1.
+
+ex:Vehicle1 a ex:Vehicle;
+    ex:hasType "Sedan";
+    ex:hasPosition "In-lane" .
+
+ex:Vehicle2 a ex:Vehicle;
+    ex:hasType "Truck";
+    ex:hasPosition "Parked" .
+
+ex:Vehicle3 a ex:Vehicle;
+    ex:hasType "SUV";
+    ex:hasPosition "Parked" .
+
+ex:Infrastructure1 a ex:Infrastructure;
+    ex:hasType "Streetlight" ;
+    ex:hasPosition "Sidewalk" .
+
+ex:WeatherCondition1 a ex:WeatherCondition;
+    ex:hasType "Night" .
+```
+
+## Identified Risks for each risk class
+
+### Risk 1:
+- **Description:** Potential for collision with parked vehicles due to narrow lane. The approaching traffic may not be visible due to nighttime conditions.
+- **Severity Score:** 0.7
+
+### Risk 2:
+- **Description:** Reduced visibility at night may hinder detection of pedestrians or cyclists.
+- **Severity Score:** 0.6 
+
+### Risk 3:
+- **Description:** The presence of obstacles (parked vehicles) could lead to unexpected maneuvering situations.
+- **Severity Score:** 0.5 
+
+These risks are highlighted due to the night conditions combined with the layout of the road and nearby infrastructure.

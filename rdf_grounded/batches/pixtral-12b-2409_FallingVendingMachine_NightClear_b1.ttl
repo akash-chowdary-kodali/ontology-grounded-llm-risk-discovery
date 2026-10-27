@@ -1,0 +1,58 @@
+Here is the semantic interpretation of the scene in RDF/Turtle format, following the strict ontology rules:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Billboard Obstacle Scenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red billboard blocking road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Large billboard obstructing driver's view of road ahead" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Billboard partially intruding into driving lane" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility nighttime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+**Identified Risks:**
+
+Risk 1:
+Description: Large billboard obstructing driver's view of road ahead
+Severity Score: 0.9
+Risk Type: OcclusionRisk
+
+Risk 2:
+Description: Billboard partially intruding into driving lane
+Severity Score: 0.7
+Risk Type: LaneIntrusionRisk
+
+**Analysis:**
+1. The scene contains a large billboard acting as an unexpected road obstacle (RoadObject subclass)
+2. The corner case is classified as StateAnomaly because it represents an abnormal static state (large object in road)
+3. Two primary risks identified:
+   - High-severity occlusion risk due to nighttime visibility challenges
+   - Moderate-severity lane intrusion risk from the billboard's position
+4. NightCondition is included as it exacerbates the visibility risk
+5. No actors (pedestrians/cyclists/vehicles) were detected in the immediate scene, focusing analysis on the static obstacle
+
+The billboard's size and position create both a physical obstruction and a visual occlusion hazard, particularly dangerous in nighttime conditions where visibility is already reduced.

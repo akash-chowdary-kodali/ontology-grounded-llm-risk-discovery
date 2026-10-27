@@ -1,0 +1,153 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+---
+
+### **1. Identified Entities in the Scene**
+- **Vehicles**:
+  - **Vehicle_A** (white SUV, right lane, moving forward)
+  - **Vehicle_B** (black sedan, left lane, moving forward)
+  - **Vehicle_C** (ego vehicle, red hood visible, perspective from inside)
+- **Road Infrastructure**:
+  - **Road**: Multi-lane urban road with lane markings (solid white and yellow lines).
+  - **Bridge/Overpass**: Elevated structure with visible beams and supports.
+  - **Sidewalks**: Partially visible on the right side.
+- **Weather Conditions**:
+  - **Heavy Rain**: Visible raindrops, reduced visibility, wet road surface.
+- **Obstacles**:
+  - **None directly visible**, but **reduced visibility due to rain** acts as an obstacle.
+- **Pedestrians/Cyclists**:
+  - **None visible** in the provided frames.
+
+---
+
+### **2. Relationships Between Entities**
+- **Vehicle_A** is **following** **Vehicle_C** in the right lane.
+- **Vehicle_B** is **approaching** from the opposite direction in the left lane.
+- **Heavy Rain** is **occluding** visibility of distant objects.
+- **Bridge/Overpass** is **above** the road, potentially affecting sensor perception (e.g., LiDAR).
+- **Lane markings** are **partially obscured** due to rain.
+
+---
+
+### **3. RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyRain ;
+    :hasRoad :UrbanMultiLaneRoad ;
+    :hasObstacle :ReducedVisibilityDueToRain .
+
+:HeavyRain a :WeatherCondition ;
+    :reducesVisibility "true"^^xsd:boolean ;
+    :affectsRoadSurface "wet"^^xsd:string .
+
+:UrbanMultiLaneRoad a :Road ;
+    :hasLane :LaneRight ;
+    :hasLane :LaneLeft ;
+    :hasInfrastructure :BridgeOverpass .
+
+:LaneRight a :Lane ;
+    :containsVehicle :Vehicle_A ;
+    :containsVehicle :Vehicle_C ;
+    :hasMarking :SolidWhiteLine .
+
+:LaneLeft a :Lane ;
+    :containsVehicle :Vehicle_B ;
+    :hasMarking :SolidYellowLine .
+
+:Vehicle_A a :Vehicle ;
+    :type "SUV"^^xsd:string ;
+    :position "right_lane"^^xsd:string ;
+    :action :Following ;
+    :follows :Vehicle_C .
+
+:Vehicle_B a :Vehicle ;
+    :type "Sedan"^^xsd:string ;
+    :position "left_lane"^^xsd:string ;
+    :action :Approaching ;
+    :approaches :Vehicle_C .
+
+:Vehicle_C a :Vehicle ;
+    :type "EgoVehicle"^^xsd:string ;
+    :position "right_lane"^^xsd:string ;
+    :action :Driving .
+
+:BridgeOverpass a :RoadInfrastructure ;
+    :location "above_road"^^xsd:string ;
+    :material "metal"^^xsd:string ;
+    :potentialSensorObstacle "true"^^xsd:boolean .
+
+:ReducedVisibilityDueToRain a :Obstacle ;
+    :type "Environmental"^^xsd:string ;
+    :severity "High"^^xsd:string .
+```
+
+---
+
+### **4. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+**Reduced visibility due to heavy rain** increases the likelihood of misdetecting or missing objects (e.g., pedestrians, cyclists, or other vehicles). This can lead to delayed or incorrect decision-making by the autonomous system, particularly in lane-keeping or collision avoidance.
+
+**Severity Score:** **0.9**
+*(High risk due to environmental occlusion and potential for undetected hazards.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+**Lane markings are partially obscured** by rain, making it difficult for the autonomous vehicle to accurately perceive lane boundaries. This increases the risk of **lane departure** or **incorrect lane-change decisions**.
+
+**Severity Score:** **0.7**
+*(Moderate-high risk due to potential misinterpretation of lane positioning.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+**Bridge/Overpass structure** may cause **sensor interference** (e.g., LiDAR reflections or camera glare), leading to **false detections** or **blind spots** in perception.
+
+**Severity Score:** **0.6**
+*(Moderate risk due to potential sensor occlusion from infrastructure.)*
+
+---
+
+#### **Risk 4:**
+**Description:**
+**Following too closely (Vehicle_A behind Vehicle_C)** in low-visibility conditions increases the risk of **rear-end collisions** if sudden braking is required.
+
+**Severity Score:** **0.8**
+*(High risk due to limited reaction time in poor visibility.)*
+
+---
+
+#### **Risk 5:**
+**Description:**
+**Approaching vehicle (Vehicle_B) in opposite lane** may be **misidentified or delayed in detection** due to rain, leading to **improper merging or collision avoidance**.
+
+**Severity Score:** **0.75**
+*(Moderate-high risk due to potential delayed response in adverse weather.)*
+
+---
+### **Summary of Key Risks:**
+| **Risk**                          | **Severity (0-1)** |
+|-----------------------------------|-------------------|
+| Reduced visibility (heavy rain)   | 0.9               |
+| Obscured lane markings            | 0.7               |
+| Sensor interference (bridge)      | 0.6               |
+| Following too closely             | 0.8               |
+| Misidentification of oncoming car | 0.75              |
+
+---
+### **Recommendations for Autonomous Driving Systems:**
+1. **Enhance sensor fusion** to compensate for rain-induced occlusion (e.g., radar + LiDAR + camera redundancy).
+2. **Increase safety margins** in low-visibility conditions (e.g., slower speeds, larger following distances).
+3. **Improve lane detection algorithms** to handle obscured markings.
+4. **Monitor infrastructure-induced sensor noise** (e.g., bridge reflections) and apply filtering.
+5. **Use predictive modeling** to anticipate potential hazards in adverse weather.
+
+---
+This analysis provides a structured risk assessment for the given scene, highlighting critical corner-case challenges for autonomous driving in heavy rain.

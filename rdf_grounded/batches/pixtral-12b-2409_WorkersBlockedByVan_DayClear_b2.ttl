@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingStreetAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian crossing street unexpectedly" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing into vehicle path without clear right-of-way" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrian intruding into lane from unexpected direction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing into vehicle path without clear right-of-way
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Pedestrian intruding into lane from unexpected direction
+Severity Score: 0.80
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The **Pedestrian** is the primary **Actor** in the scene.
+   - The **WeatherCondition** is classified as both **DayCondition** and **ClearCondition** since it is daytime with no visible adverse weather.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the pedestrian is crossing the street unexpectedly, which deviates from typical pedestrian behavior (e.g., crossing at a crosswalk or waiting for a signal).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk** (Severity: 0.90): The pedestrian is crossing into the path of a vehicle, posing a high risk of collision.
+   - **LaneIntrusionRisk** (Severity: 0.80): The pedestrian is intruding into the lane from an unexpected direction, which could cause a vehicle to swerve or brake suddenly.
+
+The severity scores reflect the urgency of the situation, with **0.90** indicating a high risk of collision and **0.80** indicating a significant risk of lane intrusion.

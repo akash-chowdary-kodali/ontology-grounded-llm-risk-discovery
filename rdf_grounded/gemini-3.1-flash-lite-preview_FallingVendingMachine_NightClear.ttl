@@ -1,0 +1,32 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obs1 ;
+    :hasEvidence :ind1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle .
+:obs1 a :Billboard .
+:ind1 a :FallingObjectIndicator .
+:night1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Billboard falling into the driving lane creating a collision hazard" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Billboard falling into the driving lane, obstructing the path of the ego vehicle.
+Severity Score: 0.90

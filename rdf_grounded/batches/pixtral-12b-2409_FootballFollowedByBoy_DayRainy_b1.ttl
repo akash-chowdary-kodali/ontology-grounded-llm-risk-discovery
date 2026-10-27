@@ -1,0 +1,72 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball on road" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling soccer ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with falling soccer ball (evidence-based anomaly)
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain (occlusion risk)
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** `:weather1` (RainyCondition)
+   - **Obstacle:** `:obstacle1` (RoadObject - soccer ball)
+   - **EvidenceIndicator:** `:evidence1` (FallingObjectIndicator)
+
+2. **Corner Case Classification:**
+   - `:cc1` is classified as `:EvidenceBasedAnomaly` because the presence of the soccer ball (falling object) serves as clear evidence of an unexpected road hazard.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the soccer ball being on the road, posing a direct collision threat.
+   - **OcclusionRisk:** Due to heavy rain reducing visibility, increasing the difficulty of detecting other actors or obstacles.
+
+4. **Severity Scores:**
+   - The soccer ball collision risk is assigned a severity of **0.75** (moderate-high risk due to unpredictable movement).
+   - The occlusion risk from rain is assigned a severity of **0.80** (high risk due to impaired perception).

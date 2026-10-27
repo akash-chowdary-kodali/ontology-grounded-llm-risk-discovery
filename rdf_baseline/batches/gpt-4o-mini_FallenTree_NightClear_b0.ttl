@@ -1,0 +1,50 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#>.
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:Taxi1, ex:Taxi2, ex:PoliceCar, ex:TreeObstacle, ex:Building, ex:Road .
+    
+ex:Taxi1 a ex:Vehicle ;
+    ex:hasColor "yellow" ;
+    ex:locatedAt ex:Location1 .
+
+ex:Taxi2 a ex:Vehicle ;
+    ex:hasColor "yellow" ;
+    ex:locatedAt ex:Location2 .
+
+ex:PoliceCar a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:locatedAt ex:Location3 .
+
+ex:TreeObstacle a ex:Obstacle ;
+    ex:isLocatedOn ex:Road .
+
+ex:Building a ex:Infrastructure ;
+    ex:isLocatedNear ex:Road .
+
+ex:Road a ex:Infrastructure ;
+    ex:hasLane "2" ;
+    ex:hasCondition ex:Clear .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+- **Description:** A fallen tree obstacle on the roadway, potentially blocking the lane and creating a hazard for vehicles.
+- **Severity Score:** 0.8 
+
+#### Risk 2:
+- **Description:** Multiple taxis in proximity, which may lead to potential collision if they react unpredictably to the obstacle.
+- **Severity Score:** 0.6
+
+#### Risk 3:
+- **Description:** Limited visibility conditions at night may impair driver perception of obstacles or vehicles.
+- **Severity Score:** 0.7
+
+### Summary of Risks
+
+- **Risk 1:** High severity due to the immediate obstacle.
+- **Risk 2:** Moderate severity related to traffic dynamics and congestion.
+- **Risk 3:** High severity due to visibility issues at night.

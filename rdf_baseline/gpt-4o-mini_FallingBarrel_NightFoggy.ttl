@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Van ;
+    ex:hasEntity ex:Pedestrian ;
+    ex:hasEntity ex:TrafficCone1 ;
+    ex:hasEntity ex:TrafficCone2 ;
+    ex:hasWeather ex:Fog .
+
+ex:Van a ex:Vehicle ;
+    ex:location ex:Road ;
+    ex:hasOrientation ex:FacingEast .
+
+ex:Pedestrian a ex:Human ;
+    ex:location ex:NearVan ;
+    ex:action ex:Walking .
+
+ex:TrafficCone1 a ex:Obstacle ;
+    ex:location ex:Road ;
+    ex:position ex:NearVan .
+
+ex:TrafficCone2 a ex:Obstacle ;
+    ex:location ex:Road ;
+    ex:position ex:NearTrafficCone1 .
+
+ex:Fog a ex:WeatherCondition ;
+    ex:intensity ex:High .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Visibility is severely reduced due to fog, impairing the driver's ability to see the pedestrian and obstacles on the road.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** The pedestrian is close to the van and moving, creating a potential for collision if the driver does not see the pedestrian in time.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** The presence of obstacles (traffic cones) on the road could lead to swerving or collisions if the driver is unable to maneuver effectively.  
+**Severity Score:** 0.65

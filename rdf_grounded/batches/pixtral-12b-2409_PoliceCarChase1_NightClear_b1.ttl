@@ -1,0 +1,71 @@
+Here's the semantic interpretation of the provided underground parking garage scenes using the given ontology:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingGarageTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle in underground parking garage" .
+
+:obstacle1 a :RoadObject ;
+    :description "Stationary vehicle blocking lane change path" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in underground garage" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Vehicle ahead appears to be preparing for lane change" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion from vehicle ahead preparing to change lanes" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to garage structure and night conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+**Identified Risks:**
+
+Risk 1:
+Description: Potential lane intrusion from vehicle ahead preparing to change lanes
+Severity Score: 0.75
+Risk Type: LaneIntrusionRisk
+
+Risk 2:
+Description: Limited visibility due to garage structure and night conditions
+Severity Score: 0.60
+Risk Type: OcclusionRisk
+
+**Scene Analysis:**
+1. The scene shows an underground parking garage with night conditions (low lighting)
+2. The corner case is classified as a StateAnomaly because it involves a vehicle's state (preparing to change lanes) that creates a potential hazardous situation
+3. Key entities identified:
+   - Vehicle (following vehicle)
+   - RoadObject (stationary vehicle blocking path)
+   - NightCondition (weather condition)
+   - OpenDoorIndicator (evidence of potential lane change)
+4. Two primary risks identified:
+   - Lane intrusion risk from the vehicle ahead
+   - Occlusion risk due to limited visibility in the garage
+5. The severity scores reflect moderate risk levels (0.75 for lane intrusion, 0.60 for occlusion) appropriate for this underground parking scenario
+
+The analysis focuses on the potential lane change maneuver that could lead to collision if not properly executed, combined with the inherent visibility challenges of underground parking structures.

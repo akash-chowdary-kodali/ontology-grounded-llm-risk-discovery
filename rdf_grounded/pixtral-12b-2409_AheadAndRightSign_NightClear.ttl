@@ -1,0 +1,142 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Roundabout with Potential Occlusion Risk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Blurred moving vehicle in roundabout periphery" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Blurred vehicle in roundabout periphery may obscure pedestrians or cyclists" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Streetlights and building reflections may distract driver attention" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Blurred vehicle in roundabout periphery may obscure pedestrians or cyclists
+Severity Score: 0.75
+Risk Type: OcclusionRisk
+
+**Risk 2:**
+Description: Streetlights and building reflections may distract driver attention
+Severity Score: 0.45
+Risk Type: DistractionRisk
+
+---
+
+### Analysis Justification:
+1. **Entities Identified**:
+   - No explicit actors (pedestrians/cyclists) or traffic signs/lights are clearly visible in the scene.
+   - The primary **obstacle** is the blurred moving vehicle in the roundabout periphery, classified as a **RoadObject** (subclass of Obstacle).
+   - The **weather condition** is **NightCondition** due to the low-light environment.
+
+2. **Corner Case Classification**:
+   - The scene is classified as an **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (blurred vehicle, lighting conditions) rather than explicit anomalous behavior or state.
+
+3. **Risks Identified**:
+   - **OcclusionRisk (0.75)**: The blurred vehicle could obscure pedestrians or cyclists entering the roundabout, posing a collision risk.
+   - **DistractionRisk (0.45)**: The combination of streetlights and building reflections may distract the driver, reducing situational awareness.
+
+4. **Severity Scores**:
+   - OcclusionRisk is high (0.75) due to the potential for unseen actors.
+   - DistractionRisk is moderate (0.45) as it is less immediate but still relevant in low-light conditions. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanNightRoundabout" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Empty roundabout at night with no actors or obstacles present" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to limited visibility in nighttime urban environment" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential driver distraction due to empty road and lack of dynamic stimuli" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.4"^^xsd:float .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Potential road condition risks due to nighttime driving (e.g., unseen potholes, debris)" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential occlusion due to limited visibility in nighttime urban environment.
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Potential driver distraction due to empty road and lack of dynamic stimuli.
+Severity Score: 0.4
+
+**Risk 3:**
+Description: Potential road condition risks due to nighttime driving (e.g., unseen potholes, debris).
+Severity Score: 0.25
+
+---
+### Explanation:
+1. **Entities in the Scene**:
+   - No actors (e.g., `Vehicle`, `Pedestrian`, `Cyclist`) or obstacles (`Obstacle`, `RoadObject`) are present in this image.
+   - No `TrafficLight`, `TrafficSign`, or `Billboard` is visible.
+   - The only relevant entity is the `WeatherCondition`, which is classified as `NightCondition`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as a `StateAnomaly` because it represents an unusual state (empty roundabout at night) that could lead to risks despite the absence of dynamic actors.
+
+3. **Risks Identified**:
+   - **OcclusionRisk**: Due to limited visibility at night, objects or actors may be harder to detect.
+   - **DistractionRisk**: An empty road can lead to driver inattention or drowsiness.
+   - **RoadConditionRisk**: Nighttime driving increases the risk of unseen hazards like potholes or debris.
+
+4. **Severity Scores**:
+   - The scores are moderate-low because while risks exist, there are no immediate threats in this static snapshot. The risks are inferred based on the context (nighttime, empty road).

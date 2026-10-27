@@ -1,0 +1,238 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Wet road surface with low visibility at night, potential for reduced traction and obscured traffic signals." .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating recent rain." .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting." .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface, increasing skid risk." ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflective road surface obscures visibility of traffic signals and distant objects." ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Nighttime conditions reduce visibility and reaction time." ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic signal visible in the scene." .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle in the distance, partially obscured by wet road reflections." .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced traction due to wet road surface, increasing skid risk.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Reflective road surface obscures visibility of traffic signals and distant objects.
+- **Severity Score:** 0.65
+
+**Risk 3:**
+- **Description:** Nighttime conditions reduce visibility and reaction time.
+- **Severity Score:** 0.80
+
+---
+
+### Explanation of the Interpretation:
+1. **Scene Context:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (wet road, nighttime) rather than actor behavior or evidence-based anomalies.
+   - The **RoadObject** (`:roadObject1`) represents the wet road surface, which acts as an obstacle due to its impact on vehicle dynamics.
+   - The **WeatherCondition** (`:nightCondition1`) captures the low-light environment.
+
+2. **Risks Identified:**
+   - **RoadConditionRisk:** High severity due to wet roads reducing traction.
+   - **OcclusionRisk:** Moderate severity due to reflections obscuring visibility.
+   - **WeatherRisk:** High severity due to nighttime conditions impairing visibility and reaction time.
+
+3. **Severity Scores:**
+   - Scores are assigned based on the potential impact of each risk on autonomous driving safety, with values between 0.0 (no risk) and 1.0 (critical risk).
+
+4. **Entities in the Scene:**
+   - The **TrafficLight** (`:trafficLight1`) is included as a contextual element, though it is not directly tied to the corner case.
+   - The **Vehicle** (`:vehicle1`) is noted but not directly linked to the corner case since it does not exhibit anomalous behavior.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Wet road surface with potential hydroplaning risk and rear-end collision risk due to reduced visibility and braking distance" ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "No open doors detected, but wet road surface indicates recent rain" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to wet road reducing braking efficiency and visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Hydroplaning risk due to wet road surface" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in foreground (ego vehicle)" .
+
+:vehicle2 a :Vehicle ;
+    :description "Orange vehicle in distance" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to wet road reducing braking efficiency and visibility.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Hydroplaning risk due to wet road surface.
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** No pedestrians or cyclists detected in the scene.
+   - **Obstacles:** Wet road surface (`RoadObject`).
+   - **Weather Condition:** Nighttime (`NightCondition`).
+   - **Vehicles:** Two vehicles (`Vehicle`), one in the foreground (ego vehicle) and one in the distance.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene is classified as a `StateAnomaly` due to the abnormal road condition (wet surface) caused by recent rain, which is not typical for nighttime urban driving.
+
+3. **Evidence Indicator:**
+   - The wet road surface (`OpenDoorIndicator` is used metaphorically here since no open doors are present, but it indicates a recent event that altered the road state).
+
+4. **Risks Identified:**
+   - **RearEndCollisionRisk:** High due to reduced braking efficiency and visibility.
+   - **RoadConditionRisk:** High due to hydroplaning risk from wet roads.
+
+5. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.90 and 0.85) due to the critical nature of wet roads at night, where braking distances and visibility are significantly compromised. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeParkingLotOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large parked vehicle partially obstructing view of parking lot exit" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Partial occlusion of parking lot exit by parked vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to limited visibility of exit" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction from parked vehicle's rear lights" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Partial occlusion of parking lot exit by parked vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential rear-end collision due to limited visibility of exit
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Driver distraction from parked vehicle's rear lights
+Severity Score: 0.55
+
+---
+**Analysis Notes:**
+1. The scene features a **StateAnomaly** due to the parked vehicle creating a static occlusion hazard.
+2. No actors (pedestrians/cyclists) or dynamic behaviors are present, so no **BehaviorAnomaly** applies.
+3. The **NightCondition** is inferred from the dark lighting and visible artificial illumination.
+4. The parked vehicle is classified as a **RoadObject** under **Obstacle**.
+5. Three risks are identified:
+   - **OcclusionRisk** (highest severity) due to the parked vehicle blocking the exit.
+   - **RearEndCollisionRisk** (secondary) from limited visibility of the exit path.
+   - **DistractionRisk** (lowest) from the parked vehicle's rear lights.
+6. Severity scores reflect the likelihood and immediacy of each risk in this context.

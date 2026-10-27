@@ -1,0 +1,91 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanFloodedRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain causing flooded road conditions" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large puddle/standing water covering road surface" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Water droplets visible in headlights, indicating active rainfall" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to standing water and rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of traffic signs and distant vehicles due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Active rainfall increasing collision risk" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Class:** `:RoadConditionRisk`
+**Description:** Slippery road surface due to standing water and rain.
+**Severity Score:** 0.9
+
+#### **Risk 2:**
+**Class:** `:OcclusionRisk`
+**Description:** Reduced visibility of traffic signs and distant vehicles due to rain.
+**Severity Score:** 0.75
+
+#### **Risk 3:**
+**Class:** `:WeatherRisk`
+**Description:** Active rainfall increasing collision risk.
+**Severity Score:** 0.8
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - `:StateAnomaly` (due to abnormal road conditions caused by rainfall/flooding).
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `:RainyCondition` (active rainfall).
+   - **Obstacle:** `:RoadObject` (standing water/puddles).
+   - **EvidenceIndicator:** `:FallingObjectIndicator` (water droplets in headlights).
+
+3. **Risks Justified:**
+   - **High Severity (0.9):** Slippery roads directly threaten vehicle control.
+   - **Medium-High Severity (0.8):** Rainfall increases collision likelihood.
+   - **Medium Severity (0.75):** Occlusion risks are mitigated by headlights but still significant.
+
+4. **Omitted Classes (Not Applicable):**
+   - No actors (pedestrians/cyclists/vehicles) were detected in the provided images.
+   - No traffic lights/signs/billboards were clearly visible.
+
+This interpretation adheres strictly to the ontology vocabulary and rules provided.

@@ -1,0 +1,201 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :occlusionRisk1, :distractionRisk1 ;
+    :description "Low-visibility conditions in underground parking lot with potential occlusion and distraction risks due to lighting and vehicle positioning." .
+
+:roadObject1 a :RoadObject ;
+    :description "Vehicle parked or moving in the distance with poor lighting visibility" .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low-light conditions typical of an underground parking lot" .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Risk of occlusion due to poor visibility of distant vehicles and surroundings" ;
+    :hasSeverityScore :sev1 .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Risk of driver distraction due to tunnel lighting and lack of clear visual landmarks" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of occlusion due to poor visibility of distant vehicles and surroundings.
+- **Severity Score:** 0.75
+- **Risk Type:** OcclusionRisk
+
+**Risk 2:**
+- **Description:** Risk of driver distraction due to tunnel lighting and lack of clear visual landmarks.
+- **Severity Score:** 0.60
+- **Risk Type:** DistractionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** A `RoadObject` (vehicle in the distance) is the primary obstacle due to poor visibility.
+   - **WeatherCondition:** `NightCondition` due to the low-light environment of the underground parking lot.
+   - No `Actor`, `TrafficLight`, `TrafficSign`, or `Billboard` are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from the environmental state (low visibility at night in a tunnel) rather than an actor's behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the poor visibility of distant vehicles and surroundings, the system may struggle to detect obstacles in time.
+   - **DistractionRisk:** The tunnel lighting and lack of visual landmarks may distract the driver, reducing situational awareness.
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a higher severity (0.75) because it directly impacts collision avoidance.
+   - DistractionRisk is assigned a moderate severity (0.60) as it indirectly affects driving safety. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :vehicle2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :nightCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle in underground parking" .
+
+:vehicle2 a :Vehicle ;
+    :description "Vehicle in adjacent lane with open door" .
+
+:nightCondition a :NightCondition ;
+    :description "Low-light underground parking environment" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle in adjacent lane with open door obstructing path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Open door of vehicle2 partially blocking visibility of lane" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Vehicle in adjacent lane with open door obstructing path
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Open door of vehicle2 partially blocking visibility of lane
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`:vehicle1` as the ego vehicle, `:vehicle2` as the vehicle with an open door).
+   - **WeatherCondition:** `:nightCondition` (low-light underground environment).
+   - **Obstacle:** `:vehicle2` (acting as an obstacle due to its open door).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The open door of `:vehicle2` is an anomalous behavior in a parking scenario, violating expected vehicle behavior (doors should be closed while driving).
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the open door obstructing the lane.
+   - **OcclusionRisk:** Medium severity due to reduced visibility caused by the open door.
+
+4. **Severity Scores:**
+   - Lane intrusion is assigned a higher score (0.90) due to immediate collision potential.
+   - Occlusion is assigned a lower score (0.75) as it is a secondary risk but still critical for situational awareness. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and parking structure lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential collision with vehicle ahead due to reduced visibility and braking distance" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Risk of unintended lane intrusion due to limited visibility and parking structure layout" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Limited visibility due to nighttime and parking structure lighting
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision with vehicle ahead due to reduced visibility and braking distance
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Risk of unintended lane intrusion due to limited visibility and parking structure layout
+Severity Score: 0.55
+
+---
+The scene is classified as a **StateAnomaly** due to the inherent conditions of the environment (nighttime, underground parking lot) creating a state of limited visibility and potential hazards. The identified risks are primarily related to the reduced visibility and structural layout of the parking garage.

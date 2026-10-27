@@ -1,0 +1,51 @@
+### Scene Interpretation
+
+**1. Main Entities:**
+*   **Ego-vehicle:** The car capturing the scene (red hood visible).
+*   **Animals:** Large gorilla-like creatures on the road, a deer-like animal on the left.
+*   **Obstacles:** A large statue/model of an elephant on the right.
+*   **Infrastructure:** Residential buildings, street lamp, paved road, grass verges/hedges.
+*   **Weather:** Rainy, foggy, poor visibility.
+
+**2. Relationships:**
+*   **Gorilla (Center):** Occupying the driving lane, positioned directly ahead of the ego-vehicle.
+*   **Gorilla (Distance):** Located further down the road, near the buildings.
+*   **Elephant (Right):** Static, placed on the roadside, near the curb.
+*   **Deer-like animal (Left):** Standing on the grass verge, near the hedges.
+*   **Weather:** The environment is imposing severe visibility constraints on the ego-vehicle.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:isLocatedOn ex:Road .
+ex:Gorilla_1 ex:isLocatedOn ex:Road ;
+             ex:isNear ex:EgoVehicle .
+ex:Gorilla_2 ex:isLocatedOn ex:Road ;
+             ex:isAheadOf ex:Gorilla_1 .
+ex:ElephantStatue ex:isNear ex:Road ;
+                  ex:isStatic true .
+ex:Deer ex:isLocatedOn ex:GrassVerge .
+ex:Environment ex:hasWeather ex:Rainy ;
+               ex:hasVisibility ex:Low .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1: Collision with Large Obstacles (Wildlife/Creatures)**
+*   **Description:** The ego-vehicle is traveling on a road occupied by large, unexpected creatures (gorillas). Due to the low visibility, reaction time is severely compromised, posing a critical collision risk.
+*   **Severity Score:** 0.95
+
+**Risk 2: Adverse Weather and Poor Visibility**
+*   **Description:** The rainy and foggy environment reduces sensor range (LiDAR/Camera), making it difficult to identify and track the movement of living entities or static obstacles accurately.
+*   **Severity Score:** 0.85
+
+**Risk 3: Unpredictable Animal Behavior**
+*   **Description:** The entities present are non-standard. Their behavior in response to an approaching vehicle is unpredictable, increasing the likelihood of sudden movement into the vehicle's path.
+*   **Severity Score:** 0.80

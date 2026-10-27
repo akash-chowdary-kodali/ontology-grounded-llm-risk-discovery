@@ -1,0 +1,30 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Two Pedestrians Crossing the Street" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Pedestrian .
+:actor2 a :Pedestrian .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrians crossing in vehicle path
+Severity Score: 0.9

@@ -1,0 +1,208 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingRoadObstacleInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasObstacle :roadObstacle1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :collisionRisk1, :occlusionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :description "Orange road sign falling into the path" ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:roadObstacle1 a :RoadObject ;
+    :description "Falling orange road sign (20MPH)" .
+
+:foggyCondition1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Risk of collision with falling road sign" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling road sign
+- **Severity Score:** 0.95
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of road ahead
+- **Severity Score:** 0.80
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Falling road sign (`RoadObject` subclass of `Obstacle`)
+   - **Weather Condition:** Heavy fog (`FoggyCondition` subclass of `WeatherCondition`)
+   - **Evidence Indicator:** Falling object (`FallingObjectIndicator`)
+
+2. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the falling road sign (evidence) directly indicates a potential collision risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate threat of the falling sign.
+   - **OcclusionRisk:** Moderate severity due to reduced visibility from fog.
+
+4. **Severity Scores:**
+   - Collision risk is assigned the highest score (0.95) due to the immediate danger.
+   - Occlusion risk is slightly lower (0.80) but still critical for safe navigation. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithObstructedBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasObstacle :billboardObstacle ;
+    :hasRisk :occlusionRisk ;
+    :hasRisk :roadConditionRisk .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility on urban road" .
+
+:billboardObstacle a :Billboard ;
+    :description "Large red billboard partially obstructing road view" .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Billboard obstructs visibility of road ahead in fog" ;
+    :hasSeverityScore :sev1 .
+
+:roadConditionRisk a :RoadConditionRisk ;
+    :description "Foggy conditions reduce road visibility and increase collision risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Billboard obstructs visibility of road ahead in fog
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Foggy conditions reduce road visibility and increase collision risk
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (due to heavy fog reducing visibility)
+   - **Obstacle:** Billboard (large red billboard partially obstructing the road view)
+   - **Corner Case:** EvidenceBasedAnomaly (the billboard's obstruction is evidence of a potential risk in foggy conditions)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The billboard's obstruction in fog serves as evidence of a safety risk (occlusion and reduced visibility).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the billboard blocking critical road visibility in fog.
+   - **RoadConditionRisk:** High severity due to foggy conditions exacerbating the occlusion risk.
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.90 (high due to immediate obstruction of critical visual information)
+   - RoadConditionRisk: 0.85 (high due to fog reducing overall visibility and increasing collision potential) Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithRedReflectionAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Red reflective surface causing visual distortion" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :DistractionRisk ;
+    :description "Visual distortion from red reflection on vehicle surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to foggy conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Visual distortion from red reflection on vehicle surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Reduced visibility due to foggy conditions
+Severity Score: 0.85
+
+---
+### Analysis:
+1. **Entities Identified**:
+   - **WeatherCondition**: FoggyCondition (due to heavy fog reducing visibility)
+   - **EvidenceIndicator**: RollingBallIndicator (red reflective surface causing visual distortion)
+
+2. **Corner Case Classification**:
+   - **EvidenceBasedAnomaly**: The scene contains a visual distortion (red reflection) and fog, which are observable evidence-based anomalies affecting perception.
+
+3. **Risks Identified**:
+   - **DistractionRisk**: The red reflection on the vehicle surface acts as a visual distraction, potentially causing the driver to misinterpret the environment.
+   - **OcclusionRisk**: The foggy conditions reduce visibility, increasing the risk of occlusion of other actors or obstacles in the scene.
+
+4. **Severity Scores**:
+   - The **DistractionRisk** is assigned a severity score of **0.75** due to its potential to mislead the driver's perception.
+   - The **OcclusionRisk** is assigned a higher severity score of **0.85** because fog significantly impairs visibility, posing a greater threat to safety.

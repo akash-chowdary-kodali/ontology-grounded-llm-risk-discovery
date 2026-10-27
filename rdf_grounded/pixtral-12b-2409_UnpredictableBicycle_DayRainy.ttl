@@ -1,0 +1,209 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainCyclistIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding in heavy rain with reduced visibility" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and creating slippery road conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision due to cyclist's unpredictable movement in poor visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Slippery road conditions due to heavy rain, increasing braking distance and maneuverability risk" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets and reduced visibility suggest heavy rain conditions" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+**Description:** High risk of collision due to cyclist's unpredictable movement in poor visibility.
+**Severity Score:** 0.92
+
+**Risk 2:**
+**Description:** Slippery road conditions due to heavy rain, increasing braking distance and maneuverability risk.
+**Severity Score:** 0.88
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** A cyclist riding in heavy rain.
+   - **WeatherCondition:** Heavy rain (`RainyCondition`), reducing visibility and creating slippery road conditions.
+   - **EvidenceIndicator:** `RollingBallIndicator` (water droplets and poor visibility) supports the corner case.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain and cyclist's behavior are observable evidence of a hazardous situation.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the cyclist's unpredictable movement in low visibility.
+   - **WeatherRisk:** Due to slippery road conditions from heavy rain.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a high severity (0.92) due to the immediate danger of the cyclist's movement.
+   - Weather risk is slightly lower (0.88) but still critical due to the impact on vehicle control. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CyclistInHeavyFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding in foggy conditions" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision due to cyclist's proximity and low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility due to foggy conditions" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog obscures visibility of cyclist's path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision due to cyclist's proximity and low visibility.
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Reduced visibility due to foggy conditions.
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** A `Cyclist` riding in foggy conditions.
+   - **WeatherCondition:** `FoggyCondition` (heavy fog reducing visibility).
+   - No explicit `Obstacle`, `TrafficLight`, `TrafficSign`, or `Billboard` are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as an **EvidenceBasedAnomaly** because the fog (evidence indicator) obscures the cyclist's path, creating a potential risk scenario.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the cyclist's proximity and the low visibility caused by fog.
+   - **WeatherRisk:** Due to the foggy conditions reducing overall visibility.
+
+4. **Severity Scores:**
+   - The collision risk is assigned a high severity score (0.95) because the cyclist is in close proximity and visibility is severely reduced.
+   - The weather risk is assigned a slightly lower severity score (0.85) because while it affects visibility, it does not directly involve an immediate collision threat. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CyclistWithRollingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding on the road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling ball on the road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy weather reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision between cyclist and rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Cyclist may intrude into adjacent lane due to ball" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Fog reduces visibility of cyclist and ball" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision between cyclist and rolling ball
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Cyclist may intrude into adjacent lane due to ball
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Fog reduces visibility of cyclist and ball
+Severity Score: 0.80

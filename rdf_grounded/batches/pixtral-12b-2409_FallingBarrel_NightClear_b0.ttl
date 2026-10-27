@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Road Construction with Pedestrian Near Open Vehicle Door" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian standing near open vehicle door" .
+
+:obstacle1 a :RoadObject ;
+    :description "Road construction barrels and equipment on roadside" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Vehicle door open with pedestrian standing nearby" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian near open vehicle door in path of traffic" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Construction barrels partially obstructing view of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.78"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian near open vehicle door in path of traffic
+- **Severity Score:** 0.92
+- **Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Construction barrels partially obstructing view of pedestrian
+- **Severity Score:** 0.78
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The scene is classified as a **StateAnomaly** because the anomalous state arises from the open vehicle door and the pedestrian's proximity to traffic, which is an unexpected and hazardous situation.
+2. **Entities Identified:**
+   - **Actor:** Pedestrian standing near the open vehicle door.
+   - **Obstacle:** Road construction barrels and equipment on the roadside.
+   - **Evidence Indicator:** OpenDoorIndicator (open vehicle door with pedestrian nearby).
+   - **Weather Condition:** NightCondition (low visibility).
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian's proximity to traffic and the open door.
+   - **OcclusionRisk:** Moderate severity due to construction barrels partially blocking visibility of the pedestrian.

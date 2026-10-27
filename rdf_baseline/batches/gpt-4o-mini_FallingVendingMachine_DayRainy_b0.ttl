@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:HeavyRain ;
+    ex:hasRoadInfrastructure ex:ObstructionSign ;
+    ex:hasVehicle ex:DeliveryVan ;
+    ex:hasRoad ex:WetRoad ;
+    ex:hasObstacle ex:FallenSign ;
+    ex:hasAction ex:SignLeaning ;
+    ex:hasVisibility ex:PoorVisibility .
+
+ex:HeavyRain a ex:WeatherCondition ;
+    ex:description "Heavy rain causing low visibility and slippery roads." .
+
+ex:ObstructionSign a ex:RoadInfrastructure ;
+    ex:description "A sign indicating obstruction on the road." .
+
+ex:DeliveryVan a ex:Vehicle ;
+    ex:description "A delivery van approaching the obstruction." .
+
+ex:WetRoad a ex:Road ;
+    ex:description "Road is wet due to heavy rainfall." .
+
+ex:FallenSign a ex:Obstacle ;
+    ex:description "A sign that has fallen onto the road, obstructing the pathway." .
+
+ex:SignLeaning a ex:Action ;
+    ex:description "The sign is leaning dangerously." .
+
+ex:PoorVisibility a ex:Visibility ;
+    ex:description "Visibility is severely reduced due to heavy rain." .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description:** The fallen sign may obscure the view for approaching vehicles, increasing the risk of collision.
+- **Severity Score:** 0.8 
+
+#### Risk 2:
+- **Description:** Heavy rain increases the risk of skidding, especially on wet roads.
+- **Severity Score:** 0.7 
+
+#### Risk 3:
+- **Description:** Poor visibility may prevent drivers from reacting in time to sudden obstacles on the road.
+- **Severity Score:** 0.9 

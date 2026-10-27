@@ -1,0 +1,27 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RainyNightRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced visibility and wet road surface due to rainy night conditions" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Poor road surface traction and reduced visibility caused by heavy rainfall at night, increasing the risk of loss of vehicle control.
+Severity Score: 0.75

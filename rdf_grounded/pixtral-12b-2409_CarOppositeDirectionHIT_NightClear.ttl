@@ -1,0 +1,216 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Parking Lot with Vehicle and Pedestrian" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Vehicle parked in a manner that may obstruct pedestrian movement in a poorly lit parking lot" ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle parked in the middle of the parking lot" .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle acting as an obstacle in pedestrian path" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Poor lighting and vehicle obstructing view of potential pedestrians" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Vehicle obstructs view of potential pedestrians due to poor lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Potential collision risk if pedestrians emerge from poorly lit areas" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Vehicle obstructs view of potential pedestrians due to poor lighting.
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Potential collision risk if pedestrians emerge from poorly lit areas.
+- **Risk Type:** `PedestrianCollisionRisk`
+- **Severity Score:** `0.80`
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the vehicle is parked in a way that could obstruct pedestrian movement, which is not typical behavior in a parking lot.
+
+2. **Entities Identified:**
+   - **Actor:** A **Vehicle** parked in the middle of the parking lot.
+   - **Obstacle:** The **Vehicle** itself acts as a **RoadObject** obstructing pedestrian paths.
+   - **WeatherCondition:** **NightCondition** due to low visibility.
+   - **EvidenceIndicator:** **OcclusionRisk** (poor lighting and vehicle obstructing view).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the vehicle blocking visibility in a poorly lit area.
+   - **PedestrianCollisionRisk:** Potential for pedestrians to emerge unexpectedly from poorly lit zones.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.75 and 0.80) due to the combination of poor lighting and the vehicle's position, which could lead to accidents if pedestrians are present. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Parking Lot with Vehicle and Open Door Evidence" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Potential obstruction from open vehicle door in parking lot" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to open vehicle door obstructing path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Risk of driver distraction due to unexpected open door in low-visibility nighttime setting" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting in urban parking lot" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision due to open vehicle door obstructing path
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Risk of driver distraction due to unexpected open door in low-visibility nighttime setting
+- **Severity Score:** 0.60
+- **Risk Type:** DistractionRisk
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - The scene contains a **Vehicle** (the car in the parking lot) and an **EvidenceIndicator** (open door, inferred from the context of the scene and the potential obstruction).
+   - The **WeatherCondition** is classified as **NightCondition** due to the dark environment and artificial lighting.
+   - No explicit **Actor**, **TrafficLight**, **TrafficSign**, or **Billboard** are visible in the provided images.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as **EvidenceBasedAnomaly** because the primary concern is the open door (evidence) that could lead to a collision or distraction, even though no explicit actor (e.g., pedestrian or cyclist) is present.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the open door obstructing the path of other vehicles or pedestrians.
+   - **DistractionRisk** due to the unexpected open door in a low-visibility nighttime setting, which could distract drivers or pedestrians.
+
+4. **Severity Scores:**
+   - The **CollisionRisk** is assigned a higher severity (0.75) because it directly threatens safety.
+   - The **DistractionRisk** is assigned a lower severity (0.60) but is still significant due to the nighttime setting. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLotScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan parked in front of another vehicle" .
+
+:roadObject1 a :RoadObject ;
+    :description "Red puddle on road surface" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to parked vehicle blocking view of other vehicles or pedestrians" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road condition due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to limited visibility and parked vehicle" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to parked vehicle blocking view of other vehicles or pedestrians
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Slippery road condition due to wet surface
+Severity Score: 0.55
+
+**Risk 3:**
+Description: Potential rear-end collision risk due to limited visibility and parked vehicle
+Severity Score: 0.70
+
+---
+The scene was classified as a **StateAnomaly** due to the static but potentially hazardous conditions (parked vehicle, wet surface, and nighttime). The risks identified include occlusion risk from the parked vehicle, road condition risk from the wet surface, and collision risk due to limited visibility. Severity scores were assigned based on the potential impact and likelihood of each risk occurring.

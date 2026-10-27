@@ -1,0 +1,67 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithDistractionRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:evidence1 a :DistractionRisk ;
+    :description "Bright billboard and sale sign may distract driver" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion from trees and parked vehicles on right side" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright billboard and sale sign may cause driver distraction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard advertising sale" .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light at intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of intersection" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential occlusion from trees and parked vehicles on the right side of the intersection, which may obscure visibility of pedestrians or cyclists.
+- **Severity Score:** 0.65
+
+**Risk 2:**
+- **Description:** Bright billboard and sale sign may cause driver distraction, increasing the likelihood of missing traffic signals or other road users.
+- **Severity Score:** 0.75
+
+---
+
+### Explanation of Corner Case Classification:
+The scene is classified as a **BehaviorAnomaly** because the primary concern is not a physical state anomaly (e.g., a fallen object) or an evidence-based anomaly (e.g., a rolling ball indicator), but rather a behavioral risk introduced by the driver's potential distraction due to the bright billboard and sale sign. This aligns with the ontology's definition of **BehaviorAnomaly** as a corner case where an actor's (in this case, the driver's) behavior deviates from expected norms due to external stimuli.
+
+The **OcclusionRisk** is also present due to the trees and parked vehicles on the right side, which could obscure visibility of pedestrians or cyclists. The **DistractionRisk** is explicitly tied to the billboard, which serves as an **EvidenceIndicator** for this risk.

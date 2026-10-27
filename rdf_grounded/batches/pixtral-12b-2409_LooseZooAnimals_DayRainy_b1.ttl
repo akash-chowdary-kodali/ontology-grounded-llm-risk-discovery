@@ -1,0 +1,68 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+**Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WildAnimalCrossingInRainyCondition" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology, so we use the closest match: :Obstacle (RoadObject)
+    :description "Large elephant crossing road" .
+:actor2 a :AnimalActor ;  # Same as above
+    :description "Medium-sized animal (likely deer or similar) crossing road" .
+:actor3 a :AnimalActor ;  # Same as above
+    :description "Small animal (likely deer or similar) crossing road" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with large animal (elephant) crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Multiple animals crossing road causing partial occlusion of path" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;  # Raindrops acting as evidence of weather condition
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+**Note on Ontology Constraints:**
+The ontology does not include an `AnimalActor` class, so I modeled the animals as `:Obstacle` (specifically `:RoadObject`) since they are not explicitly covered in the `Actor` hierarchy. If this is not acceptable, the closest alternative would be to use `:Pedestrian` (though semantically incorrect) or leave them as generic `:Actor` instances.
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of collision with large animal (elephant) crossing road.
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Multiple animals crossing road causing partial occlusion of path.
+- **Severity Score:** 0.80
+
+### Justification for Corner Case Classification:
+- **BehaviorAnomaly:** The presence of wild animals (elephants and smaller animals) crossing a road is highly anomalous behavior in an urban/suburban setting, warranting this classification.
+
+### Additional Notes:
+- The scene includes **rainy weather**, which exacerbates risks (reduced visibility, slippery roads).
+- The **FallingObjectIndicator** (raindrops) is used to represent evidence of the weather condition, which indirectly contributes to the risks.
+- If the ontology allowed for a more specific `AnimalActor` class, it would be ideal to use it instead of `:Obstacle`.

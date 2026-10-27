@@ -1,0 +1,88 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Wet Road with Reduced Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition, :RainyCondition .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective light patterns on wet road indicating poor traction" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime and rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Adverse weather (nighttime + rain) reducing driver awareness" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Type:** `OcclusionRisk`
+- **Description:** Reduced visibility due to nighttime and rain
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Type:** `RoadConditionRisk`
+- **Description:** Slippery road conditions due to wet surface
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Type:** `WeatherRisk`
+- **Description:** Adverse weather (nighttime + rain) reducing driver awareness
+- **Severity Score:** 0.8
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the hazardous conditions (wet road, nighttime, rain) are environmental/state-based rather than behavioral or evidence-based anomalies.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` + `RainyCondition` (combined due to overlapping effects).
+   - **Obstacle:** `RoadObject` (wet road surface with reflective sheen).
+   - **EvidenceIndicator:** `RollingBallIndicator` (reflective light patterns suggesting poor traction).
+
+3. **Risks Justified:**
+   - **OcclusionRisk:** Heavy rain and nighttime reduce visibility.
+   - **RoadConditionRisk:** Wet road increases slipperiness.
+   - **WeatherRisk:** Combined nighttime + rain exacerbates hazards.
+
+4. **Severity Scores:**
+   - Highest severity for **OcclusionRisk** (0.9) due to immediate danger of missing obstacles.
+   - Moderate-high for **RoadConditionRisk** (0.85) and **WeatherRisk** (0.8) due to compounded effects.

@@ -1,0 +1,47 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene_1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle_1 ;
+    ex:hasEntity ex:ConstructionVehicle_1 ;
+    ex:hasEntity ex:RoadInfrastructure_1 ;
+    ex:hasEntity ex:WeatherCondition_1 ;
+    ex:hasEntity ex:SurfaceCondition_1 .
+
+ex:Vehicle_1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:isInProximity ex:ConstructionVehicle_1 .
+
+ex:ConstructionVehicle_1 a ex:Vehicle ;
+    ex:hasType "Excavator" ;
+    ex:hasAction "Digging" ;
+    ex:obstructsTraffic true .
+
+ex:RoadInfrastructure_1 a ex:Infrastructure ;
+    ex:hasType "Overpass" ;
+    ex:providesCoverage true .
+
+ex:WeatherCondition_1 a ex:Weather ;
+    ex:hasType "Rain" ;
+    ex:causesVisibilityReduction true .
+
+ex:SurfaceCondition_1 a ex:Condition ;
+    ex:hasType "Wet" ;
+    ex:affectsTraction true .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description:** Reduced visibility due to heavy rain and overcast conditions, increasing the likelihood of accidents.
+- **Severity Score:** 0.7
+
+#### Risk 2:
+- **Description:** Presence of a construction vehicle (excavator) that obstructs the lane, posing a collision risk.
+- **Severity Score:** 0.8
+
+#### Risk 3:
+- **Description:** Wet road conditions leading to potential skidding or loss of vehicle control.
+- **Severity Score:** 0.6

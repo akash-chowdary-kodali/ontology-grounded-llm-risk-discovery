@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Wet Surface and Stationary Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Wet road surface in a poorly lit parking lot with a stationary vehicle obstructing path" .
+
+:roadObject1 a :RoadObject ;
+    :description "Puddles and wet surface indicating recent rain or poor drainage" .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low visibility due to nighttime lighting" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to standing water, increasing braking distance and collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Stationary vehicle partially obscuring view of potential pedestrians or obstacles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Slippery road surface due to standing water, increasing braking distance and collision risk.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Stationary vehicle partially obscuring view of potential pedestrians or obstacles.
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Wet road surface (`:roadObject1` as `RoadObject`).
+   - **WeatherCondition:** Nighttime (`:nightCondition1` as `NightCondition`).
+   - No actors (pedestrians, cyclists, or vehicles in motion) are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the hazardous conditions (wet surface, poor lighting) are static but pose significant risks.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the wet surface, which could lead to reduced traction and longer braking distances.
+   - **OcclusionRisk:** The stationary vehicle partially blocks the view of potential hazards or pedestrians.
+
+4. **Severity Scores:**
+   - The **RoadConditionRisk** is assigned a higher severity (0.75) due to its direct impact on vehicle control.
+   - The **OcclusionRisk** is assigned a lower severity (0.60) because it is less immediate but still critical for situational awareness.

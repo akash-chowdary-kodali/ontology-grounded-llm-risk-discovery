@@ -1,0 +1,69 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+**Scene Analysis:**
+The images show a vehicle approaching an intersection with traffic lights (red) and a large spherical object (likely a watermelon) rolling into the road from the sidewalk. This creates a potential obstacle scenario.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RollingObjectIntoRoadIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large spherical object rolling into road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rolling object may obscure visibility of pedestrians or cyclists" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling object in vehicle path
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Rolling object may obscure visibility of pedestrians or cyclists
+- **Severity Score:** 0.75
+- **Type:** OcclusionRisk
+
+---
+### Key Observations:
+1. **Corner Case Classification:** The rolling object is classified as an **EvidenceBasedAnomaly** because it is detected through visual evidence (the rolling ball indicator) rather than an actor's behavior or state anomaly.
+2. **Risks Identified:**
+   - **CollisionRisk** due to the object's trajectory intersecting with the vehicle's path.
+   - **OcclusionRisk** because the object may block visibility of other actors (e.g., pedestrians or cyclists) near the intersection.
+3. **Severity Scores:**
+   - CollisionRisk is high (0.90) due to immediate danger.
+   - OcclusionRisk is moderate (0.75) as it may affect situational awareness but is less immediate.

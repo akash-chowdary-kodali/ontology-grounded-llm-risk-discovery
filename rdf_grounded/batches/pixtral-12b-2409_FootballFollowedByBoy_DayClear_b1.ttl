@@ -1,0 +1,77 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "BallOnRoadwayScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Ball rolling unpredictably on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Ball detected in vehicle path" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion of pedestrian or cyclist by rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to unexpected object on road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential occlusion of pedestrian or cyclist by rolling ball
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Driver distraction risk due to unexpected object on road
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** A rolling ball (modeled as a `Pedestrian` subclass since it behaves like an unpredictable moving object in the roadway).
+   - **WeatherCondition:** `DayCondition` (clear daytime).
+   - **EvidenceIndicator:** `RollingBallIndicator` (evidence of the anomaly).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (the anomaly is detected based on evidence of a rolling ball, which is an unexpected object on the road).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The ball may obscure pedestrians or cyclists from view.
+   - **DistractionRisk:** The unexpected object may distract the driver.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.75): High due to potential for missing vulnerable road users.
+   - DistractionRisk (0.60): Moderate due to driver distraction potential.

@@ -1,0 +1,140 @@
+### **Scene Analysis: Nighttime Pedestrian Crossing in Wet Conditions**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - Autonomous vehicle (ego) – partially visible (front view).
+  - Large truck (right side, partially occluded).
+  - Distant vehicle (left side, barely visible).
+- **Pedestrians**:
+  - Two pedestrians (adult and child) crossing the road.
+- **Road Infrastructure**:
+  - Wet road surface (reflective, indicating recent rain).
+  - Double yellow lines (lane markings).
+  - Traffic signal (red, visible in the distance).
+  - Crosswalk (marked with white lines).
+  - Streetlights (illuminating the scene).
+  - Sidewalk and residential buildings.
+- **Weather Conditions**:
+  - Nighttime with low visibility.
+  - Rain (wet road, raindrops visible).
+- **Obstacles**:
+  - None directly blocking the path, but wet conditions increase slip risk.
+
+---
+
+### **2. Relationships Between Entities**
+- The **two pedestrians** are **crossing** the road from the ego vehicle’s perspective.
+- The **ego vehicle** is **approaching** the crosswalk.
+- The **truck** is **stationary** or **slow-moving** on the right side, partially occluding the scene.
+- The **traffic signal** is **red**, indicating the ego vehicle should stop.
+- The **wet road** increases **slip risk** for pedestrians and vehicles.
+- The **streetlights** provide **limited illumination**, reducing visibility.
+
+---
+
+### **3. RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :RainyNight ;
+    :hasRoadCondition :WetSurface ;
+    :hasTrafficSignal :RedLight .
+
+:EgoVehicle a :AutonomousVehicle ;
+    :isApproaching :Crosswalk ;
+    :hasSpeed :LowSpeed ;
+    :hasPosition :Lane1 .
+
+:Pedestrian1 a :Person ;
+    :isCrossing :Crosswalk ;
+    :hasTrajectory :Diagonal ;
+    :hasClothing :ReflectiveBlue ;
+    :hasAge :Child .
+
+:Pedestrian2 a :Person ;
+    :isCrossing :Crosswalk ;
+    :hasTrajectory :Diagonal ;
+    :hasClothing :Dark ;
+    :hasAge :Adult ;
+    :isHolding :Child .
+
+:Truck a :Vehicle ;
+    :isStationary true ;
+    :isOccluding :Crosswalk true ;
+    :hasPosition :RightLane .
+
+:Crosswalk a :RoadMarking ;
+    :hasCondition :Wet ;
+    :hasVisibility :LowDueToRain .
+
+:TrafficSignal a :Signal ;
+    :hasColor :Red ;
+    :hasLocation :Intersection .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :PedestrianCollision ;
+    :severity 0.9 ;
+    :description "High risk of collision due to low visibility and wet conditions." .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :SlipperyRoad ;
+    :severity 0.7 ;
+    :description "Increased risk of skidding for vehicles and pedestrians due to wet surface." .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :Occlusion ;
+    :severity 0.6 ;
+    :description "Truck partially obscures view of pedestrians, increasing detection difficulty." .
+```
+
+---
+
+### **4. Identified Risks**
+
+#### **Risk 1:**
+**Description:**
+High risk of collision between the ego vehicle and pedestrians due to:
+- Low visibility (nighttime + rain).
+- Pedestrians crossing diagonally, making trajectory prediction difficult.
+- Wet road reducing braking efficiency.
+- Traffic signal is red, but pedestrians may not be fully visible.
+
+**Severity Score:** **0.9** (Critical)
+
+---
+
+#### **Risk 2:**
+**Description:**
+Increased risk of skidding or loss of control for:
+- The ego vehicle due to wet road conditions.
+- Pedestrians slipping while crossing.
+- Reduced tire grip, leading to longer braking distances.
+
+**Severity Score:** **0.7** (High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+Partial occlusion by the truck reduces the ego vehicle’s ability to:
+- Detect pedestrians early.
+- Assess their exact crossing trajectory.
+- React in time if they deviate from expected path.
+
+**Severity Score:** **0.6** (Moderate)
+
+---
+
+### **5. Additional Observations**
+- **Lighting:** Streetlights provide limited illumination, worsening visibility.
+- **Pedestrian Behavior:** Diagonal crossing increases unpredictability.
+- **Autonomous System Challenge:** Requires robust pedestrian detection, trajectory prediction, and adaptive braking in low-visibility conditions.
+
+---
+This analysis highlights critical risks for autonomous driving in adverse weather and low-light scenarios, emphasizing the need for enhanced sensor fusion (e.g., LiDAR + camera) and conservative decision-making.

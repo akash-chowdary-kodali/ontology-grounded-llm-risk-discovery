@@ -1,0 +1,54 @@
+### Scene Analysis Report
+
+**1. Main Entities:**
+*   **Agent Vehicle:** The ego-vehicle observing the scene.
+*   **Animals (Large):** Multiple gorillas in the roadway and a large elephant on the right roadside.
+*   **Road Infrastructure:** Asphalt road, painted lane markings, street lighting, curb/grass verge.
+*   **Environment/Weather:** Dark night, rainy conditions, residential buildings in the background.
+
+**2. Relationships:**
+*   **Gorillas:** Currently obstructing the travel path (in-lane).
+*   **Elephant:** Near the edge of the road, creating a static hazard.
+*   **Ego-Vehicle:** Approaching the group of animals.
+*   **Environment:** The low-light, rainy conditions severely limit perception and increase braking distance.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:Gorilla1 a ex:LargeAnimal ;
+    ex:location "on_roadway" ;
+    ex:relationship "obstructing" .
+ex:Elephant1 a ex:LargeAnimal ;
+    ex:location "roadside" ;
+    ex:relationship "near_road" .
+ex:Environment a ex:Condition ;
+    ex:weather "rainy" ;
+    ex:lighting "night" ;
+    ex:visibility "low" .
+ex:Roadway a ex:Infrastructure .
+
+ex:EgoVehicle ex:approaching ex:Gorilla1 .
+ex:Gorilla1 ex:near ex:Roadway .
+ex:Elephant1 ex:near ex:Roadway .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Collision with Large Animals on Roadway.** The presence of multiple gorillas directly in the driving path of the ego-vehicle poses an immediate collision risk. These entities are non-standard obstacles for standard object detection models, likely leading to misclassification and delayed reaction.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** **Environmental Perception Degradation.** The combination of night-time lighting and rain creates a "low visibility" scenario. This significantly increases the risk of undetected stationary hazards (like the elephant or distant gorillas) and reduces the effectiveness of LiDAR and camera sensor suites.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** **Dynamic Hazard Evasion Failure.** Large animals exhibit unpredictable movement patterns. Given the slippery road surface (rain) and the proximity of the animals, an emergency braking maneuver or sudden swerving could lead to a loss of vehicle control or impact with the elephant on the roadside.
+*   **Severity Score:** 0.85

@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the provided scene based on the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain reducing visibility and creating wet road conditions" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Slippery road surface due to rain
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **WeatherCondition:** `RainyCondition` (due to heavy rain and wet roads).
+   - No explicit `Actor`, `Obstacle`, `TrafficSign`, or `TrafficLight` are clearly visible in the images, so they are not included in the RDF.
+   - The primary focus is on the **weather-induced anomalies** (evidence-based corner case).
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain and its effects (reduced visibility, slippery roads) are observable evidence that directly impact driving safety.
+
+3. **Risks Identified:**
+   - **WeatherRisk:** Due to heavy rain reducing visibility.
+   - **RoadConditionRisk:** Due to slippery roads caused by rain.
+
+4. **Severity Scores:**
+   - **WeatherRisk (0.9):** High severity due to significantly reduced visibility.
+   - **RoadConditionRisk (0.85):** High severity due to increased risk of skidding or loss of control.
+
+The RDF strictly adheres to the provided ontology vocabulary and rules.

@@ -1,0 +1,39 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "A spherical object is falling from the air onto the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling object on the road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather conditions" .
+
+:scene1 :hasWeatherCondition :weather1 .
+```
+
+Identified Risks for each risk class
+---
+**Risk 1:**
+Description: Potential collision risk due to falling object on the road.
+Severity Score: 0.75
+
+---
+The scene contains a **FallingObjectIndicator** (the spherical object in mid-air), which is classified as an **EvidenceBasedAnomaly**. The primary risk identified is a **CollisionRisk** due to the falling object potentially causing an accident. The severity score of 0.75 reflects a moderate-to-high risk level, given the object's trajectory and potential impact on the road. The weather condition is clear, which does not exacerbate the risk.

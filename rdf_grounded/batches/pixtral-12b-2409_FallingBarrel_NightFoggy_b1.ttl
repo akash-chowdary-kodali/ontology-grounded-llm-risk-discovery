@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Obstacle and Pedestrian Interaction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Pedestrian near vehicle with open door and obstacles on road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen cylindrical object (barrel) on road" .
+
+:obstacle2 a :RoadObject ;
+    :description "Fallen cylindrical object (barrel) with hazard markings on road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Evidence of falling objects (barrels) obstructing road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstacles partially blocking vehicle path, increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with pedestrian near open vehicle door and obstacles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Obstacles (fallen barrels) partially blocking the vehicle path, increasing collision risk due to reduced visibility and maneuverability.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential collision with pedestrian near an open vehicle door and obstacles on the road, compounding the risk of sudden movement or misjudgment.
+- **Severity Score:** 0.85
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the risk is derived from observable evidence (fallen barrels and pedestrian behavior).
+2. **Actors/Obstacles:** The pedestrian and fallen barrels are identified as key entities.
+3. **Weather Condition:** Nighttime conditions reduce visibility, exacerbating risks.
+4. **Risks:** The primary risks are **OcclusionRisk** (from obstacles) and **CollisionRisk** (pedestrian + obstacles). The severity scores reflect the high danger due to low-light conditions and unexpected obstacles.

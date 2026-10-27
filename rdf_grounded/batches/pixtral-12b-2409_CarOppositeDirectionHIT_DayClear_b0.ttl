@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small spherical object (e.g., ball) rolling in the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Rolling object may distract driver or passengers" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling object in vehicle path
+- **Severity Score:** 0.75
+- **Type:** CollisionRisk (subtype of Risk)
+
+**Risk 2:**
+- **Description:** Rolling object may distract driver or passengers
+- **Severity Score:** 0.45
+- **Type:** DistractionRisk (subtype of Risk)
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - The rolling spherical object (e.g., ball) is classified as a **RoadObject** (subclass of Obstacle).
+   - The scene occurs under **DayCondition** (clear daytime).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting with the object, so the focus is on the **EvidenceBasedAnomaly** (evidence being the rolling object).
+
+2. **Corner Case Classification:**
+   - The corner case is classified as **EvidenceBasedAnomaly** because the rolling object provides observable evidence of a potential hazard.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the object's unpredictable path and potential to enter the vehicle's trajectory.
+   - **DistractionRisk:** Lower severity but still relevant, as the object may draw attention away from the road.
+
+4. **Severity Scores:**
+   - CollisionRisk: **0.75** (high due to direct threat to vehicle safety).
+   - DistractionRisk: **0.45** (moderate, as distraction is less immediate but still a concern).

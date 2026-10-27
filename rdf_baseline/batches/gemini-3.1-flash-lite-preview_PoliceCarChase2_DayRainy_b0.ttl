@@ -1,0 +1,42 @@
+This scene analysis focuses on the environmental challenges and immediate risks posed by heavy weather conditions and improper lane usage.
+
+### 1. & 2. Entities and Relationships
+*   **Entities:** Ego-vehicle (red), oncoming black sedan, white vehicle (to the right), bridge structure (overhead), wet road surface.
+*   **Relationships:** The ego-vehicle is traveling in its lane; the oncoming black sedan is **encroaching** into the ego-vehicle’s lane (wrong-way driving); the white vehicle is to the right of the ego-vehicle; weather is heavy rain/fog causing low visibility; road is wet with significant standing water.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isLocatedIn ex:Lane1 .
+
+ex:BlackSedan rdf:type ex:Vehicle ;
+    ex:isLocatedIn ex:Lane1 ;
+    ex:isDrivingTowards ex:EgoVehicle ;
+    ex:isPerforming ex:WrongWayDriving .
+
+ex:WhiteVehicle rdf:type ex:Vehicle ;
+    ex:isLocatedIn ex:Lane2 .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:hasVisibility ex:Low ;
+    ex:hasPrecipitation ex:HeavyRain ;
+    ex:roadSurface ex:Wet .
+
+ex:BridgeStructure rdf:type ex:Infrastructure .
+```
+
+### 4. & 5. Identified Risks
+**Risk 1: Head-on Collision Hazard**
+*   **Description:** The oncoming black sedan has crossed the center line and is occupying the ego-vehicle’s lane, creating an immediate risk of a head-on collision.
+*   **Severity Score:** 0.95
+
+**Risk 2: Adverse Environmental Conditions**
+*   **Description:** Heavy rain and fog combined with a wet, reflective road surface significantly reduce sensor range (Lidar/Camera) and tire traction, increasing braking distance and reducing reaction time.
+*   **Severity Score:** 0.70
+
+**Risk 3: Visibility Obstruction due to Infrastructure**
+*   **Description:** The large overhead bridge structure creates complex shadows and potential light-glare transitions that may confuse object detection algorithms in an already low-visibility environment.
+*   **Severity Score:** 0.40

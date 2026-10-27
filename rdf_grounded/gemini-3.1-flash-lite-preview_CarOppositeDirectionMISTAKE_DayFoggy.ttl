@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyIntersectionCrossTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Other vehicle traversing intersection in low visibility" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cross-traffic vehicle due to impaired visibility in heavy fog" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision with cross-traffic vehicle due to impaired visibility in heavy fog
+Severity Score: 0.75

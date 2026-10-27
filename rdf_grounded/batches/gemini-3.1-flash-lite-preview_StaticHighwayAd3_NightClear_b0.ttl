@@ -1,0 +1,26 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRoadScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Highly distracting commercial billboards causing cognitive load at night" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Highly distracting commercial billboards causing cognitive load at night
+Severity Score: 0.60

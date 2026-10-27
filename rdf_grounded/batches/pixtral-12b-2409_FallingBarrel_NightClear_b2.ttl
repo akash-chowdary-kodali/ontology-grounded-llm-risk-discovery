@@ -1,0 +1,49 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeOpenDoorAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Open door of a parked vehicle" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Open vehicle door obstructing view of cyclist" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with cyclist due to obstructed view" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Open vehicle door obstructing view of cyclist
+Class: OcclusionRisk
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision with cyclist due to obstructed view
+Class: CollisionRisk
+Severity Score: 0.88

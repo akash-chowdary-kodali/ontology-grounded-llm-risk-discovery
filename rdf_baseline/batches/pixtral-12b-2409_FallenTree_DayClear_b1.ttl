@@ -1,0 +1,115 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :TrafficScene ;
+    :hasWeatherCondition :ClearWeather ;
+    :hasRoadType :UrbanMultiLaneRoad ;
+    :hasTrafficLight :GreenLight .
+
+:Vehicle1 a :AutonomousVehicle ;
+    :hasColor "Red" ;
+    :hasPosition :FrontLeftLane ;
+    :hasSpeed "0 km/h" ;  # Stationary (due to perspective)
+    :hasSensorOcclusion :Moderate .
+
+:Vehicle2 a :TaxiVehicle ;
+    :hasColor "Yellow" ;
+    :hasPosition :RightLane ;
+    :hasSpeed "20 km/h" ;
+    :hasDirection :Forward .
+
+:Vehicle3 a :PassengerVehicle ;
+    :hasColor "Gray" ;
+    :hasPosition :OppositeLane ;
+    :hasSpeed "15 km/h" ;
+    :hasDirection :Forward .
+
+:Pedestrian1 a :Pedestrian ;
+    :hasPosition :SidewalkLeft ;
+    :hasAction :Walking ;
+    :hasVisibility :Low ;  # Occluded by trees
+
+:Obstacle1 a :Tree ;
+    :hasPosition :LeftSide ;
+    :hasOcclusionEffect :High .
+
+:Obstacle2 a :TrafficCone ;
+    :hasPosition :IntersectionCenter ;
+    :hasPurpose :ConstructionWarning .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :SensorOcclusion ;
+    :affectedEntity :Vehicle1 ;
+    :severityScore 0.75 ;
+    :description "Autonomous vehicle's sensors are partially occluded by trees, reducing detection capability of pedestrians and cyclists." .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :LaneChangeConflict ;
+    :affectedEntity :Vehicle2 ;
+    :severityScore 0.6 ;
+    :description "Yellow taxi in right lane may cut across autonomous vehicle's path if lane discipline is not maintained." .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :PedestrianDetectionFailure ;
+    :affectedEntity :Vehicle1 ;
+    :severityScore 0.8 ;
+    :description "Low visibility of pedestrian due to tree occlusion increases risk of collision if pedestrian crosses unexpectedly." .
+
+:Risk4 a :SafetyRisk ;
+    :riskType :IntersectionUncertainty ;
+    :affectedEntity :Vehicle1 ;
+    :severityScore 0.5 ;
+    :description "Presence of traffic cones suggests potential construction or roadwork, increasing uncertainty in path planning." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The autonomous vehicle (red car) experiences **moderate sensor occlusion** due to trees on the left side, reducing its ability to detect pedestrians, cyclists, or other obstacles in the blind spot.
+
+**Severity Score:** **0.75**
+*(High risk due to potential undetected vulnerable road users.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **yellow taxi in the right lane** is moving forward and may perform an **unpredictable lane change** into the autonomous vehicle’s path, especially if the autonomous vehicle is preparing to turn or merge.
+
+**Severity Score:** **0.6**
+*(Moderate risk due to potential conflict in lane discipline.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+A **pedestrian on the left sidewalk** is partially occluded by trees, making detection difficult for the autonomous vehicle. If the pedestrian crosses unexpectedly, the vehicle may fail to react in time.
+
+**Severity Score:** **0.8**
+*(High risk due to vulnerable road user visibility issues.)*
+
+---
+
+#### **Risk 4:**
+**Description:**
+The presence of **traffic cones at the intersection** suggests ongoing construction or roadwork, which may alter traffic patterns unpredictably. The autonomous vehicle may struggle with **path planning uncertainty** if it does not account for temporary changes.
+
+**Severity Score:** **0.5**
+*(Moderate risk due to potential misinterpretation of road layout.)*
+
+---
+### **Summary of Key Observations**
+1. **Sensor Limitations:** Trees occlude the autonomous vehicle’s sensors, increasing blind-spot risks.
+2. **Human Driver Behavior:** The yellow taxi’s movement introduces unpredictability in lane discipline.
+3. **Vulnerable Road Users:** Pedestrians are at risk of being undetected due to occlusion.
+4. **Dynamic Road Conditions:** Traffic cones suggest potential changes in traffic flow, requiring adaptive decision-making.
+
+This scenario highlights the importance of **robust sensor fusion, predictive path planning, and real-time risk assessment** in autonomous driving systems.

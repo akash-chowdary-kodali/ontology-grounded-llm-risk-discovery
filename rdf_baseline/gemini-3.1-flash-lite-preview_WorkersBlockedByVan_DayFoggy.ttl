@@ -1,0 +1,57 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-Vehicle:** The perspective vehicle.
+*   **Pedestrians:** Two individuals (one near the construction site, one crossing the road from the right).
+*   **Vehicle:** A white van parked/stationary on the right.
+*   **Infrastructure:** Traffic cones, road markings, street lamps, building on the right.
+*   **Weather Condition:** Heavy fog/low visibility.
+
+**2. Relationships:**
+*   **Pedestrian 1:** Near road work (left side).
+*   **Pedestrian 2:** Crossing the road, occluded by the white van.
+*   **White Van:** Obstructing the view of the pedestrian, stationary near the road edge.
+*   **Ego-Vehicle:** Approaching the crossing pedestrian and road work.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:Van a ex:Vehicle ;
+    ex:isStationary "true" ;
+    ex:near ex:RoadEdge .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:near ex:RoadWork .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:isCrossing "true" ;
+    ex:occludedBy ex:Van .
+
+ex:Environment a ex:Condition ;
+    ex:weather "heavy fog" ;
+    ex:visibility "low" .
+
+ex:EgoVehicle ex:approaching ex:Pedestrian2 .
+ex:EgoVehicle ex:approaching ex:RoadWork .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Pedestrian crossing obscured by a stationary vehicle in low visibility conditions. The ego-vehicle cannot see the pedestrian until they emerge from behind the van, leaving very little reaction time.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Adverse environmental conditions (heavy fog). Significantly reduces the sensor range (LiDAR/Camera) and identification capabilities, increasing the likelihood of failure to detect hazards.
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** Active road work/construction site. Unpredictable movement of workers and potential hidden obstacles (debris/cones) near the path of the ego-vehicle.
+**Severity Score:** 0.65

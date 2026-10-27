@@ -1,0 +1,48 @@
+This scene depicts a high-risk autonomous driving scenario involving low visibility and an unexpected obstacle in the vehicle's travel path.
+
+### 1. Entity Identification
+*   **Vehicles:** A white van (stationary, partially blocking the lane/shoulder).
+*   **Pedestrians:** One human operator (standing near the van).
+*   **Obstacles:** Multiple industrial/hazard drums (one appearing to be tipped/falling into the vehicle's direct path), a red dolly.
+*   **Road Infrastructure:** Paved roadway, lane markings.
+*   **Weather Conditions:** Nighttime, rainy (wet road reflections), low visibility/dark environment.
+
+### 2. Entity Relationships
+*   **The Van** is **stationary** and acts as an **occlusion** for the pedestrian.
+*   **The Pedestrian** is **standing near** the van and the roadway.
+*   **The Falling Drum** is **crossing** the ego-vehicle's path.
+*   **The Ego-Vehicle** is **approaching** the stationary van and the falling obstacle.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaching ex:Van .
+ex:Van rdf:type ex:Vehicle ;
+       ex:status "stationary" .
+ex:Pedestrian rdf:type ex:Human ;
+              ex:near ex:Van .
+ex:Drum rdf:type ex:Obstacle ;
+        ex:location "in_path" ;
+        ex:action "falling" .
+ex:Environment rdf:type ex:Weather ;
+               ex:condition "night_rain" ;
+               ex:visibility "low" .
+ex:CollisionRisk rdf:type ex:SafetyRisk ;
+                 ex:severity 0.95 .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Immediate Collision with Falling Obstacle.** A heavy industrial drum is in the direct trajectory of the ego-vehicle. Given the low-light and wet road conditions, the braking distance may be compromised, leading to a high probability of impact.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** **Unpredicted Human Movement.** A pedestrian is standing in the immediate vicinity of a stationary vehicle on a dark, wet road. There is a risk that the pedestrian may step into the road unexpectedly or be obscured by the van until the last second.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** **Environmental Visibility and Traction.** The combination of nighttime, rainfall, and wet pavement creates poor visibility for sensors and reduced coefficient of friction for emergency braking maneuvers.
+*   **Severity Score:** 0.70

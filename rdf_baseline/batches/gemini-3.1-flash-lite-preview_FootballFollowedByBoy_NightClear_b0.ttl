@@ -1,0 +1,50 @@
+### Semantic Interpretation
+
+**1. Main Entities:**
+*   **Ego Vehicle:** The observer, driving at night.
+*   **Pedestrian:** A child running from the side of the road into the path of the vehicle.
+*   **Obstacle:** A soccer ball rolling onto the road (indicating a high probability of child presence).
+*   **Vehicle:** A parked vehicle on the right, which creates an occlusion zone for the child.
+*   **Environment:** Suburban/residential road, nighttime, low ambient lighting.
+
+**2. Relationships:**
+*   **Occlusion:** The parked vehicle on the right is occluding the child from the driver's view until the last possible moment.
+*   **Movement:** The child is moving rapidly across the ego vehicle's projected path.
+*   **Proximity:** The soccer ball is in the road, acting as a precursor warning for the child.
+*   **Approaching:** The ego vehicle is approaching the location where the child is entering the road.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Child rdf:type ex:Pedestrian .
+ex:ParkedVehicle rdf:type ex:Vehicle .
+ex:SoccerBall rdf:type ex:Obstacle .
+
+ex:Child ex:movingAcross ex:Road .
+ex:ParkedVehicle ex:occludes ex:Child .
+ex:SoccerBall ex:isNear ex:Child .
+ex:EgoVehicle ex:approaching ex:Child .
+ex:Environment ex:hasCondition "LowLight" .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** High-speed pedestrian (child) crossing hazard. The child is entering the road from behind an occluding object (parked car), drastically reducing the reaction time for the ego vehicle.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Distraction and secondary hazard (soccer ball). The presence of the ball suggests play behavior, which often correlates with unpredictable child movement and lack of situational awareness.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** Low visibility (Nighttime/Low illumination). The lack of street lighting and the dark clothing of the pedestrian significantly decrease the effectiveness of computer vision systems and human reaction time.
+*   **Severity Score:** 0.85

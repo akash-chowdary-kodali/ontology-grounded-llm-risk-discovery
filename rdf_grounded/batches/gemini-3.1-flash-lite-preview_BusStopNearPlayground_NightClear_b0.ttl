@@ -1,0 +1,32 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1, :pedestrian2 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Child crossing road" .
+:pedestrian2 a :Pedestrian ;
+    :description "Child crossing road" .
+
+:night1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High-speed crossing of pedestrians in front of vehicle at night" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.98"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: PedestrianCollisionRisk involving two children running across the vehicle's path at night, creating a critical safety hazard due to low visibility and erratic movement.
+Severity Score: 0.95

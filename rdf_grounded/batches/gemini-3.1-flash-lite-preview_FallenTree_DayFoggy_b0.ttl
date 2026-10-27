@@ -1,0 +1,29 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadObstacle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :foggy1 ;
+    :hasRisk :risk1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Fallen tree blocking the roadway" .
+
+:foggy1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High probability of collision due to road obstruction in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: High probability of collision due to road obstruction in low visibility
+Severity Score: 0.95

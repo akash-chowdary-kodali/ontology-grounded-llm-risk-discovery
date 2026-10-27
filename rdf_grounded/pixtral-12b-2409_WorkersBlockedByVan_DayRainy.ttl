@@ -1,0 +1,245 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFogWithPedestrianAndObstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian pushing heavy object on sidewalk" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian crossing road in fog" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large concrete barrier on sidewalk" .
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy object being pushed by pedestrian" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :RollingBallIndicator ;
+    :description "Orange cones indicating potential rolling hazard" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with pedestrian pushing heavy object" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to fog and objects" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing road in low-visibility conditions" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with pedestrian pushing heavy object
+- **Severity Score:** 0.9
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Risk of occlusion due to fog and objects
+- **Severity Score:** 0.8
+- **Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Pedestrian crossing road in low-visibility conditions
+- **Severity Score:** 0.95
+- **Type:** PedestrianCollisionRisk
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - Two pedestrians (`:actor1`, `:actor2`).
+   - Two road objects (`:obstacle1` - concrete barrier, `:obstacle2` - traffic cones).
+   - Foggy weather condition (`:weather1`).
+   - Evidence indicators (`:evidence1` - FallingObjectIndicator, `:evidence2` - RollingBallIndicator).
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (fog, cones, pedestrians' actions).
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the pedestrian pushing a heavy object.
+   - **OcclusionRisk** due to fog and objects obstructing visibility.
+   - **PedestrianCollisionRisk** due to the pedestrian crossing in low-visibility conditions.
+
+4. **Severity Scores:**
+   - High severity for pedestrian-related risks (0.9-0.95) due to fog and potential for sudden movement.
+   - Moderate-high severity for occlusion risk (0.8) due to reduced visibility. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInHeavyRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasWeatherCondition :rainyCondition ;
+    :hasRisk :pedestrianCollisionRisk1, :occlusionRisk1, :roadConditionRisk1 ;
+    :hasObstacle :roadObject1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Pedestrian crossing road in heavy rain" .
+
+:rainyCondition a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:pedestrianCollisionRisk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing path of vehicle in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Heavy rain reduces visibility of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Flooded road conditions reduce traction" ;
+    :hasSeverityScore :sev3 .
+
+:roadObject1 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing path of vehicle in heavy rain
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Heavy rain reduces visibility of pedestrian
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Flooded road conditions reduce traction
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian crossing the road.
+   - **WeatherCondition:** Heavy rain (`RainyCondition`).
+   - **Obstacle:** Orange traffic cones (`RoadObject`).
+   - No visible `TrafficLight`, `TrafficSign`, or `Billboard` in the scene.
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the road in heavy rain, which is a non-standard behavior for such conditions (high risk of collision and reduced visibility).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrian crossing in heavy rain.
+   - **OcclusionRisk:** High due to reduced visibility from rain.
+   - **RoadConditionRisk:** Moderate due to flooded road conditions.
+
+4. **Severity Scores:**
+   - Assigned based on the urgency and potential impact of each risk (higher for immediate collision risk, lower for road conditions). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyPedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking on flooded road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing flooded road in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Flooded road conditions affecting vehicle maneuverability" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing flooded road in low visibility
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Fog obscuring visibility of pedestrian
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Flooded road conditions affecting vehicle maneuverability
+Severity Score: 0.75
+
+---
+**Justification:**
+1. The scene contains a **Pedestrian** walking on a flooded road in heavy fog, which is classified as an **EvidenceBasedAnomaly** due to observable evidence of poor visibility and hazardous conditions.
+2. The **FoggyCondition** is explicitly identified as the weather condition reducing visibility.
+3. Three risks are identified:
+   - **PedestrianCollisionRisk** (highest severity) due to the pedestrian's unexpected presence on the road.
+   - **OcclusionRisk** due to fog obscuring the pedestrian.
+   - **RoadConditionRisk** due to flooding affecting vehicle control.
+4. Severity scores reflect the criticality of each risk, with pedestrian collision being the most severe.

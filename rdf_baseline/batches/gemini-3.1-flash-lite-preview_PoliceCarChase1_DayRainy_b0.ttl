@@ -1,0 +1,50 @@
+### Scene Analysis
+
+#### 1. Main Entities
+*   **Ego Vehicle:** Red vehicle from which the perspective is taken.
+*   **Target Vehicle:** White SUV/off-road vehicle.
+*   **Road Infrastructure:** Tunnel environment, concrete support pillars, marked traffic lanes, tiled tunnel walls.
+*   **Weather/Environment:** Heavy rainfall, wet/slippery road surface with standing water (puddles), low-light tunnel conditions.
+
+#### 2. Relationships
+*   **Target Vehicle** is **crossing** the path of the **Ego Vehicle** laterally.
+*   **Target Vehicle** is **sliding/skidding** due to low friction.
+*   **Ego Vehicle** is **approaching** the intersection/path of the **Target Vehicle**.
+*   **Infrastructure** (pillars/walls) is **occluding** peripheral vision.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://autonomous-driving.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:TargetVehicle a ex:Vehicle .
+ex:Tunnel a ex:Infrastructure .
+ex:Road a ex:Infrastructure .
+
+ex:TargetVehicle ex:isSlidingOn ex:Road .
+ex:TargetVehicle ex:isCrossingPathOf ex:EgoVehicle .
+ex:EgoVehicle ex:isApproaching ex:TargetVehicle .
+ex:Road ex:hasCondition ex:Wet .
+ex:Environment ex:hasWeather ex:HeavyRain .
+ex:Tunnel ex:contains ex:SupportPillar .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Loss of vehicle control (skidding/aquaplaning) by the target vehicle in heavy rain, resulting in an uncontrolled lateral crossing of the ego vehicle's path.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Reduced friction and visibility due to environmental conditions (heavy rain in a tunnel), significantly increasing braking distance for the ego vehicle.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Obstruction of sensor/visual field by tunnel infrastructure (pillars), limiting the ego vehicle's ability to perform evasive maneuvers or detect the skid earlier.
+*   **Severity Score:** 0.70

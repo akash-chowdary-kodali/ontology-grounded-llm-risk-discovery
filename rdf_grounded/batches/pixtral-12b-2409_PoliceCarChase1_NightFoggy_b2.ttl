@@ -1,0 +1,56 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and parking structure lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential collision with vehicle ahead due to reduced visibility and braking distance" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Risk of unintended lane intrusion due to limited visibility and parking structure layout" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Limited visibility due to nighttime and parking structure lighting
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision with vehicle ahead due to reduced visibility and braking distance
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Risk of unintended lane intrusion due to limited visibility and parking structure layout
+Severity Score: 0.55
+
+---
+The scene is classified as a **StateAnomaly** due to the inherent conditions of the environment (nighttime, underground parking lot) creating a state of limited visibility and potential hazards. The identified risks are primarily related to the reduced visibility and structural layout of the parking garage.

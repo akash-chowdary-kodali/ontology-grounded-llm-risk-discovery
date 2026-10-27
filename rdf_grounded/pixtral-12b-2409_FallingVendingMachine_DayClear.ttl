@@ -1,0 +1,224 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling billboard obstructing road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Billboard falling onto road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling billboard" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of road by fallen billboard" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling billboard
+- **Severity Score:** 0.95
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Occlusion of road by fallen billboard
+- **Severity Score:** 0.88
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Falling billboard (`RoadObject` subclass of `Obstacle`)
+   - **Evidence Indicator:** Falling object (`FallingObjectIndicator`)
+   - **Weather Condition:** Daytime (`DayCondition`)
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the falling billboard provides clear evidence of an abnormal event that poses a risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate threat of the billboard falling onto the road.
+   - **OcclusionRisk:** High severity due to the obstruction of the road, which could lead to accidents if vehicles cannot navigate around the obstacle.
+
+4. **Severity Scores:**
+   - Collision risk is assigned the highest score (0.95) due to the immediate danger.
+   - Occlusion risk is slightly lower (0.88) but still critical due to the potential for secondary collisions. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Roadwork with Billboard Obstruction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red billboard obstructing forward view" .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding on sidewalk near construction zone" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Forward view obstructed by large billboard" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright red billboard may distract driver" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime visibility" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Forward view obstructed by large billboard
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.9`
+
+**Risk 2:**
+- **Description:** Bright red billboard may distract driver
+- **Risk Type:** `DistractionRisk`
+- **Severity Score:** `0.6`
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the obstruction (billboard) is a static but unexpected element that alters the expected road state (e.g., visibility, path predictability).
+
+2. **Entities Identified:**
+   - **Obstacle:** Large red billboard (`RoadObject` subclass of `Obstacle`).
+   - **Actor:** Cyclist on sidewalk (`Cyclist` subclass of `Actor`).
+   - **Weather:** Clear daytime (`DayCondition` subclass of `WeatherCondition`).
+
+3. **Risks Identified:**
+   - **OcclusionRisk (0.9):** The billboard blocks the forward view, posing a high risk of collision with unseen obstacles (e.g., cyclist, vehicles).
+   - **DistractionRisk (0.6):** The bright red billboard may divert driver attention, increasing the likelihood of missing critical cues (e.g., pedestrians, traffic signs).
+
+4. **Severity Scores:**
+   - Occlusion is assigned a high score (0.9) due to its immediate impact on situational awareness.
+   - Distraction is moderate (0.6) as it depends on driver focus but still poses a secondary hazard. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "SnowCoveredRoadWithArtInstallation" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Snow-covered road surface with reflective red art installation on the sidewalk" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Reflective red surface on sidewalk edge indicating potential distraction or misinterpretation of road conditions" ;
+    :indicatesPotentialRisk :risk2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to snow" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction from red reflective art installation on sidewalk" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Red art installation may partially obscure visibility of pedestrians or vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road surface due to snow
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential distraction from red reflective art installation on sidewalk
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Red art installation may partially obscure visibility of pedestrians or vehicles
+Severity Score: 0.55
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The snow-covered road surface is classified as a `:RoadObject` under `:Obstacle`.
+   - The red reflective art installation is treated as an `:EvidenceIndicator` due to its potential to mislead or distract.
+   - The weather condition is `:ClearCondition` (no precipitation visible).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the unusual state of the road (snow) and the presence of the art installation create an unexpected driving condition.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the snow-covered road, which could lead to reduced traction and control.
+   - **DistractionRisk:** The red reflective art installation may distract drivers, causing them to misinterpret the road conditions.
+   - **OcclusionRisk:** The art installation could partially obscure visibility of pedestrians or other vehicles, increasing the risk of collisions.

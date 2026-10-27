@@ -1,0 +1,54 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadVisibilityReduction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road and surroundings" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions reducing overall driving safety" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring road and surroundings
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Foggy conditions reducing overall driving safety
+Severity Score: 0.8
+
+---
+### Explanation:
+1. **Entities in the Scene**:
+   - The primary entity affecting the scene is the **FoggyCondition** (`:weather1`), which is classified under `:WeatherCondition`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the fog itself is an observable condition that directly impacts driving safety and visibility, without any anomalous behavior or state from actors.
+
+3. **Risks Identified**:
+   - **OcclusionRisk**: Due to the fog reducing visibility of the road, billboards, and other potential obstacles, leading to a high severity score of 0.9.
+   - **WeatherRisk**: The foggy conditions themselves pose a general risk to driving safety, assigned a severity score of 0.8.
+
+4. **Severity Scores**:
+   - The scores are assigned based on the potential impact of the fog on autonomous driving systems, with occlusion being slightly more severe due to its direct effect on object detection and path planning.

@@ -1,0 +1,133 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A large white vehicle (likely a van or truck) parked on the right side of the road.
+- **Pedestrians**:
+  - One pedestrian (male, wearing a yellow shirt and jeans) standing near the vehicle’s rear side.
+- **Obstacles**:
+  - Two large cylindrical objects (barrels/drums) lying on the road.
+  - One of the barrels appears to be tilted or partially obstructing the road.
+  - A red hydraulic jack placed near the barrels.
+- **Road Infrastructure**:
+  - Road markings (white dashed lines).
+  - A curb separating the road from the sidewalk.
+- **Weather Conditions**:
+  - Nighttime/low visibility (dark environment with limited lighting).
+- **Other**:
+  - A small section of a building wall visible in the background.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **pedestrian** is **standing near** the **vehicle’s rear** and appears to be **interacting with** or **inspecting** the **barrels**.
+- The **barrels** are **lying on the road**, **partially obstructing** the lane.
+- The **vehicle** is **parked** on the right side of the road, **occluding** part of the scene.
+- The **hydraulic jack** is **placed near** the barrels, suggesting maintenance or loading/unloading activity.
+- The **road markings** indicate a **lane boundary**, but the barrels are **crossing** it.
+- The **low visibility** (nighttime) increases the risk of **undetected obstacles**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasLightingCondition ex:LowVisibilityNight ;
+    ex:hasWeatherCondition ex:Nighttime .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:isParkedOn ex:RoadLane1 ;
+    ex:hasPosition ex:RightSideOfRoad .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasClothing "yellow shirt, jeans" ;
+    ex:isNear ex:Vehicle1 ;
+    ex:isInteractingWith ex:Barrel1, ex:Barrel2 ;
+    ex:hasPosition ex:RearOfVehicle .
+
+ex:Barrel1 a ex:Obstacle ;
+    ex:hasShape "cylindrical" ;
+    ex:hasMaterial "metal" ;
+    ex:isLyingOn ex:RoadLane1 ;
+    ex:partiallyObstructs ex:RoadLane1 ;
+    ex:hasWarningLabel "X" .
+
+ex:Barrel2 a ex:Obstacle ;
+    ex:hasShape "cylindrical" ;
+    ex:hasMaterial "metal" ;
+    ex:isLyingOn ex:RoadLane1 ;
+    ex:hasWarningLabel "X" .
+
+ex:HydraulicJack a ex:Obstacle ;
+    ex:hasColor "red" ;
+    ex:isPlacedNear ex:Barrel2 .
+
+ex:RoadLane1 a ex:RoadInfrastructure ;
+    ex:hasMarking ex:WhiteDashedLine ;
+    ex:hasBoundary ex:Curb .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:UndetectedObstacle ;
+    ex:affectedEntity ex:Barrel1, ex:Barrel2 ;
+    ex:severity 0.95 .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianInteractionWithObstacle ;
+    ex:affectedEntity ex:Pedestrian1 ;
+    ex:severity 0.85 .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:LowVisibility ;
+    ex:affectedEntity ex:Scene1 ;
+    ex:severity 0.75 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **barrels lying on the road** pose a high risk of **collision** with an autonomous vehicle (or any vehicle) due to **low visibility at night**. The barrels are **partially obstructing the lane**, and their **warning labels ("X")** may not be easily detectable in poor lighting.
+
+**Severity Score:** **0.95** (Critical risk due to undetected obstacles in low visibility)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **pedestrian is interacting with the barrels near the vehicle**, which could lead to:
+- **Unexpected movement** into the road.
+- **Distraction** from traffic.
+- **Potential for the pedestrian to become an obstacle** if they step onto the road while an autonomous vehicle approaches.
+
+**Severity Score:** **0.85** (High risk due to pedestrian-vehicle interaction in a potentially hazardous area)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **low visibility (nighttime)** increases the difficulty for **autonomous sensors (cameras, LiDAR, radar)** to detect:
+- The **barrels** on the road.
+- The **pedestrian’s movements**.
+- **Road markings and infrastructure details**.
+
+This could lead to **late detection or misclassification** of objects, increasing the risk of accidents.
+
+**Severity Score:** **0.75** (Moderate-high risk due to environmental limitations)
+
+---
+
+### **Additional Observations**
+- The **hydraulic jack** suggests **maintenance or loading activity**, which may indicate **temporary road hazards**.
+- The **warning labels ("X")** on the barrels may indicate **hazardous materials**, adding another layer of risk if mishandled.
+- The **vehicle’s rear is partially visible**, meaning an **autonomous vehicle approaching from behind** may not detect the barrels until too late.
+
+This scene represents a **high-risk corner case** for autonomous driving systems, particularly in **low-visibility conditions with unexpected obstacles and pedestrian interactions**.

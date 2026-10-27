@@ -1,0 +1,79 @@
+```
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:NighttimeDrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear ;
+    ex:hasRoadSurface ex:Dry .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurfaceType ex:Asphalt ;
+    ex:hasMarkings ex:FadedLaneMarkings ;
+    ex:hasObstacle ex:None .
+
+ex:LightSource1 a ex:StreetLight ;
+    ex:isOn true ;
+    ex:illuminates ex:Road .
+
+ex:LightSource2 a ex:StreetLight ;
+    ex:isOn true ;
+    ex:illuminates ex:Road .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:isPositionedAt ex:Foreground ;
+    ex:hasSensorData ex:LimitedVisibility .
+
+ex:Obstacle1 a ex:UnidentifiedObject ;
+    ex:isPositionedAt ex:Background ;
+    ex:isOccludedBy ex:Darkness .
+
+ex:RoadBoundary a ex:RoadInfrastructure ;
+    ex:hasType ex:Barrier ;
+    ex:isPositionedAt ex:RightSide .
+```
+
+---
+
+```
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The scene depicts a nighttime driving scenario with low lighting conditions, which significantly reduces visibility. The autonomous vehicle's sensors may struggle to detect obstacles or pedestrians effectively, increasing the risk of collision.
+
+Severity Score: 0.85
+
+**Risk 2:**
+Description:
+Faded lane markings on the road can confuse the autonomous vehicle's lane detection systems, leading to incorrect lane positioning and potential drifting into adjacent lanes.
+
+Severity Score: 0.7
+
+**Risk 3:**
+Description:
+Unidentified objects in the background, occluded by darkness, pose a risk of sudden appearance into the vehicle's path, which could lead to an unexpected collision.
+
+Severity Score: 0.8
+
+**Risk 4:**
+Description:
+The autonomous vehicle's reliance on limited sensor data in low-light conditions may result in delayed or inaccurate decision-making, increasing the risk of failing to respond appropriately to dynamic obstacles.
+
+Severity Score: 0.8
+
+**Risk 5:**
+Description:
+The presence of streetlights, though on, may create glare or shadows that further obscure the vehicle's view of the road and surrounding environment.
+
+Severity Score: 0.65
+
+---
+This analysis highlights the critical safety risks associated with autonomous driving in low-light conditions and emphasizes the importance of robust sensor systems and adaptive algorithms for such scenarios.

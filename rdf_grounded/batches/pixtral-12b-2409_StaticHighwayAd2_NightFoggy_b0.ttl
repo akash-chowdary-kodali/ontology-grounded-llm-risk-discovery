@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithRedLight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Red traffic light at intersection" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Red traffic light indicates stop" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to following vehicle not stopping at red light" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to billboards and low visibility at night" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:billboard1 a :Billboard ;
+    :description "Restaurant billboard on right side of intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of intersection" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential rear-end collision due to following vehicle not stopping at red light.
+- **Severity Score:** 0.90
+- **Type:** RearEndCollisionRisk
+
+**Risk 2:**
+- **Description:** Driver distraction risk due to billboards and low visibility at night.
+- **Severity Score:** 0.65
+- **Type:** DistractionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Traffic Light:** Red light at the intersection (`:trafficLight1`).
+   - **Billboard:** Restaurant advertisement on the right (`:billboard1`).
+   - **Traffic Sign:** No entry sign on the right (`:trafficSign1`).
+   - **Weather Condition:** Nighttime (`:weather1`), contributing to low visibility.
+   - **Obstacle:** The red traffic light itself (`:roadObject1`) acts as a critical obstacle for vehicle movement.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The primary anomaly is the **red traffic light**, which requires vehicles to stop. The risk arises from potential non-compliance (e.g., a following vehicle not stopping), leading to a **RearEndCollisionRisk**.
+
+3. **Evidence Indicator:**
+   - **OpenDoorIndicator:** The red traffic light (`:evidence1`) serves as evidence that vehicles should stop, but its effectiveness is compromised by low visibility and potential driver distraction.
+
+4. **Additional Risks:**
+   - **DistractionRisk:** Billboards and nighttime conditions (`:risk2`) increase the likelihood of driver distraction, further exacerbating the risk of non-compliance with traffic signals.

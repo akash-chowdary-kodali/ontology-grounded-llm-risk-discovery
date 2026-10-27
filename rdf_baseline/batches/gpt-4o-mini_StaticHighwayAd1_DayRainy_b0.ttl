@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeather ex:RainyWeather ;
+    ex:hasVisibility ex:LowVisibility ;
+    ex:hasRoad ex:RoadType ;
+    ex:hasTrafficLight ex:TrafficLightState ;
+    ex:hasSign ex:TrafficSignType ;
+    ex:containsEntity ex:Vehicle, ex:Pedestrian, ex:BusStop, ex:Billboard .
+
+ex:Vehicle a ex:Car ; 
+    ex:location ex:Road ;
+
+ex:Pedestrian a ex:Person ;
+    ex:location ex:BusStop .
+
+ex:TrafficLight a ex:TrafficLight ;
+    ex:state ex:YellowLight .
+
+ex:RainyWeather a ex:WeatherCondition ;
+    ex:intensity ex:HeavyRain .
+
+ex:BusStop a ex:Infrastructure ;
+    ex:location ex:NearRoad .
+
+ex:Billboard a ex:Infrastructure ;
+    ex:location ex:NearRoad .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Low visibility due to heavy rain can impair the ability of drivers to see other road users and infrastructure clearly.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** The traffic light is yellow, indicating that vehicles may be preparing to stop, but uncertain visibility increases risk of running a red light.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** Potential for pedestrians at the bus stop to unexpectedly enter the roadway, leading to risks of collision.  
+**Severity Score:** 0.6
+
+#### Risk 4:
+**Description:** Slippery road conditions due to heavy rain increase the risk of losing vehicle control.   
+**Severity Score:** 0.9

@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist crossing road at night without proper lighting" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist crossing road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction due to cyclist's unexpected presence in low-light conditions" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Cyclist's movement detected as a rolling object in sensor data" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with cyclist crossing road unexpectedly
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk (PedestrianCollisionRisk subclass implied due to cyclist's vulnerability)
+
+**Risk 2:**
+- **Description:** Driver distraction due to cyclist's unexpected presence in low-light conditions
+- **Severity Score:** 0.75
+- **Type:** DistractionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Cyclist (crossing road at night)
+   - **WeatherCondition:** NightCondition (low-light urban environment)
+   - **EvidenceIndicator:** RollingBallIndicator (sensor detection of cyclist's movement)
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The cyclist is crossing the road unexpectedly in low-light conditions, which deviates from standard nighttime cycling behavior (e.g., using lights, staying on bike lanes).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the cyclist's vulnerable position and the vehicle's limited visibility.
+   - **DistractionRisk:** Moderate severity due to the cyclist's unexpected appearance in low-light conditions, which could distract the driver.
+
+4. **Severity Scores:**
+   - CollisionRisk: 0.90 (high due to immediate threat of impact)
+   - DistractionRisk: 0.75 (moderate due to potential delayed reaction time)

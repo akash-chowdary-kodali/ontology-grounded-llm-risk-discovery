@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRoadWithBillboardsAndSpeedLimit" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Nighttime road with potential distraction from billboards and speed limit sign" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Bright billboards may distract driver at night" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface may reduce traction" ;
+    :hasSeverityScore :sev2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Speed limit sign (90 km/h) and billboards" .
+
+:billboard1 a :Billboard ;
+    :description "Restaurant billboard with 'Are You Hungry?' text" .
+
+:billboard2 a :Billboard ;
+    :description "Restaurant billboard with 'Dr. Carle' text" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "Speed limit sign (90 km/h)" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Bright billboards may distract driver at night
+- **Risk Type:** `:DistractionRisk`
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Wet road surface may reduce traction
+- **Risk Type:** `:RoadConditionRisk`
+- **Severity Score:** `0.60`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** Nighttime (`:NightCondition`)
+   - **Obstacles:** Speed limit sign (`:TrafficSign`) and two billboards (`:Billboard`)
+   - **Corner Case:** Classified as `:StateAnomaly` due to the combination of nighttime driving, potential distractions from bright billboards, and wet road conditions (implied by reflections).
+
+2. **Corner Case Classification:**
+   - `:StateAnomaly` because the scene involves environmental conditions (nighttime, wet road) and static obstacles (billboards) that create a high-risk state for the autonomous vehicle.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the bright billboards in low-light conditions.
+   - **RoadConditionRisk:** Due to the wet road surface (inferred from reflections), which may reduce traction.
+
+4. **Severity Scores:**
+   - Distraction risk is assigned a higher severity (`0.75`) because nighttime distractions are particularly dangerous.
+   - Road condition risk is assigned a moderate severity (`0.60`) due to the potential for reduced traction.

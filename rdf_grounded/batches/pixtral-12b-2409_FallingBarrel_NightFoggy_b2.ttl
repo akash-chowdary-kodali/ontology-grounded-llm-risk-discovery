@@ -1,0 +1,66 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRollingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling cylindrical object on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Cylindrical object rolling across the road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk with rolling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rolling object partially obscuring visibility of parked vehicle" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions at night" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision risk with rolling object on road
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Rolling object partially obscuring visibility of parked vehicle
+Severity Score: 0.60
+
+---
+**Analysis Justification:**
+1. **Entities Identified:**
+   - The rolling cylindrical object is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene's low-light condition is classified as `:NightCondition` under `:WeatherCondition`.
+
+2. **Corner Case Classification:**
+   - The rolling object is an `:EvidenceBasedAnomaly` because it is observable evidence of an unusual state (a rolling object on the road) that poses risks.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the rolling object being in the path of potential vehicle movement.
+   - **OcclusionRisk** because the rolling object partially obscures visibility of the parked vehicle, which could lead to misjudgment of distance or presence.
+
+4. **Severity Scores:**
+   - The **CollisionRisk** is assigned a higher severity (0.75) due to the immediate danger of a vehicle colliding with the rolling object.
+   - The **OcclusionRisk** is assigned a lower severity (0.60) because it is an indirect risk, affecting visibility rather than causing an immediate collision.

@@ -1,0 +1,50 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Environment ;
+    ex:hasEntity ex:Vehicle ;
+    ex:hasEntity ex:RoadInfrastructures ;
+    ex:hasEntity ex:WeatherCondition ;
+    ex:hasEntity ex:Billboard ;
+    ex:hasEntity ex:TrafficLight ;
+    ex:hasEntity ex:Rain ;
+
+ex:Vehicle a ex:Entity ;
+    ex:entityType "Car" .
+
+ex:RoadInfrastructures a ex:Entity ;
+    ex:entityType "Road" .
+
+ex:WeatherCondition a ex:Entity ;
+    ex:condition "Wet" .
+
+ex:Billboard a ex:Entity ;
+    ex:entityType "Billboard" .
+
+ex:TrafficLight a ex:Entity ;
+    ex:state "Red" .
+
+ex:Rain a ex:Entity ;
+    ex:entityType "Rain" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Wet road conditions increase the risk of hydroplaning and loss of vehicle control.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Reduced visibility due to nighttime and rain conditions may lead to delayed responses from drivers.  
+**Severity Score:** 0.8
+
+#### Risk 3:
+**Description:** Potential for misinterpretation of red traffic light due to weather effects, which could result in accidents.  
+**Severity Score:** 0.6
+
+### Summary of Risks
+- **Wet road conditions:** Risk of hydroplaning (Severity Score: 0.7)
+- **Reduced visibility:** Increased likelihood of accidents (Severity Score: 0.8)
+- **Misinterpretation of traffic lights:** Risk of accidents (Severity Score: 0.6)

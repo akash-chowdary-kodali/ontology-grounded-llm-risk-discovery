@@ -1,0 +1,34 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Scene with Falling Obstacle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling object onto the road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling object" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+
+Risk 1:
+Description: Potential collision with falling object
+Severity Score: 0.75

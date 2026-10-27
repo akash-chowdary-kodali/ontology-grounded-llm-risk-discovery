@@ -1,0 +1,68 @@
+Based on the provided images, the scene appears to be a nighttime urban setting with a **rolling ball indicator** (likely a spherical object rolling on the road) and a **vehicle** (partially visible on the right). The rolling object suggests a potential **EvidenceBasedAnomaly** (since it is observable evidence of a risk) and introduces **OcclusionRisk** (due to limited visibility) and **CollisionRisk** (if the object remains in the vehicle's path).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rolling Object on Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling spherical object on road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and rolling object" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with rolling object" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime environment" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Limited visibility due to nighttime and rolling object
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Potential collision with rolling object
+- **Risk Type:** `CollisionRisk`
+- **Severity Score:** `0.80`
+
+---
+### **Key Observations:**
+1. **Corner Case Classification:** `:EvidenceBasedAnomaly` (due to the observable rolling object).
+2. **Primary Risks:**
+   - **OcclusionRisk** (nighttime + object reduces visibility).
+   - **CollisionRisk** (object may obstruct vehicle path).
+3. **Severity Scores:**
+   - OcclusionRisk (`0.75`) is slightly lower than CollisionRisk (`0.80`) since the object itself is the direct hazard.
+4. **Weather Condition:** `:NightCondition` (low-light environment).
+
+This RDF representation adheres strictly to the provided ontology vocabulary.

@@ -1,0 +1,56 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadVisibilityReduction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Reduced visibility due to fog obscuring road and surroundings" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fog causing occlusion of potential actors and obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Fog reducing overall visibility and increasing collision risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Fog causing occlusion of potential actors and obstacles
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Fog reducing overall visibility and increasing collision risk
+Severity Score: 0.85
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains no explicit actors, traffic signs, traffic lights, or billboards due to fog obscuring visibility. The primary entity is the **FoggyCondition** weather condition.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as **EvidenceBasedAnomaly** because the reduced visibility (fog) is an observable condition that directly affects driving safety without implying anomalous behavior or state of actors.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: Due to fog, potential actors (pedestrians, cyclists, or vehicles) may be obscured, increasing the risk of collision.
+   - **WeatherRisk**: The fog itself poses a direct risk by reducing visibility, which can lead to accidents.
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a high severity (0.90) because obscured actors pose an immediate collision threat.
+   - WeatherRisk is slightly lower (0.85) but still critical, as it underlies the occlusion risk.

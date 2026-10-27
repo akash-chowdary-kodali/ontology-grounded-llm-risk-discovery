@@ -1,0 +1,63 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Multiple vehicles stationary or moving slowly in a nighttime urban setting with potential lane intrusion" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:weather1 a :NightCondition .
+
+:actor1 a :Vehicle ;
+    :description "Red vehicle in right lane" .
+:actor2 a :Vehicle ;
+    :description "Green vehicle in right lane" .
+:actor3 a :Vehicle ;
+    :description "White vehicle in right lane" .
+:actor4 a :Vehicle ;
+    :description "Black vehicle in left lane" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicles in right lane moving slowly, potentially intruding into left lane" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Slow-moving vehicles may cause rear-end collision" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Buildings and parked vehicles may occlude visibility of oncoming traffic" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Vehicles in the right lane moving slowly, potentially intruding into the left lane.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Slow-moving vehicles may cause a rear-end collision.
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Buildings and parked vehicles may occlude visibility of oncoming traffic.
+Severity Score: 0.55
+
+---
+The scene was classified as a **StateAnomaly** due to the unusual state of vehicles moving slowly or being stationary in a nighttime urban setting, which deviates from typical driving behavior and poses risks. The identified risks are based on the observed conditions and potential hazards in the scene.

@@ -1,0 +1,204 @@
+Here is the semantic interpretation of the provided scene images grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainDrivingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rainfall reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets creating rolling ball effect on road surface" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and water droplets" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Slippery road surface due to heavy rain
+- **Severity Score:** 0.90
+- **Type:** RoadConditionRisk
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain and water droplets
+- **Severity Score:** 0.85
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities in the scene:**
+   - **WeatherCondition:** Heavy rain (`:weather1` of type `:RainyCondition`)
+   - **EvidenceIndicator:** Rolling ball effect on the road surface (`:evidence1` of type `:RollingBallIndicator`), which indicates potential risks.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** (`:cc1`) because the rolling ball effect (water droplets on the road) serves as evidence of hazardous conditions.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the slippery road surface caused by heavy rain.
+   - **OcclusionRisk:** Due to reduced visibility from heavy rain and water droplets.
+
+4. **Severity Scores:**
+   - The slippery road surface (`RoadConditionRisk`) is assigned a severity score of **0.90** (high risk).
+   - The reduced visibility (`OcclusionRisk`) is assigned a severity score of **0.85** (high risk).
+
+This interpretation aligns with the ontology's vocabulary and rules, ensuring no new terms or properties are introduced. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainFloodedRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rainfall causing flooding on road surface" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Visible water droplets and potential debris in heavy rain" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Flooded road surface reducing traction and visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Heavy rain reducing visibility and increasing hydroplaning risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Flooded road surface reducing traction and visibility
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Heavy rain reducing visibility and increasing hydroplaning risk
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - The scene primarily features **weather conditions** (heavy rain/flooding) and no explicit actors, obstacles, traffic signs, or traffic lights are visible in the provided images.
+   - The **weather condition** is classified as `:RainyCondition` with flooding implications.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:EvidenceBasedAnomaly` because the heavy rain and flooding are observable evidence-based risks rather than behavioral or state anomalies.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the flooded road surface, which significantly impacts traction and visibility.
+   - **WeatherRisk:** Due to heavy rain, which reduces visibility and increases the risk of hydroplaning.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.92 and 0.88) due to the immediate danger posed by flooding and heavy rain to autonomous driving systems. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainOnRoadScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Poor visibility and slippery road surface due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of road signs and other vehicles due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Poor visibility and slippery road surface due to heavy rain
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Reduced visibility of road signs and other vehicles due to rain
+Severity Score: 0.8
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The primary entity in this scene is the **WeatherCondition** subclassified as `:RainyCondition`.
+   - No actors (e.g., pedestrians, cyclists, or vehicles) or static objects (e.g., traffic signs, billboards) are clearly visible due to the heavy rain and occlusion.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the anomalous state is caused by the environmental condition (heavy rain) rather than any behavioral or evidence-based anomaly.
+
+3. **Evidence Indicator:**
+   - The heavy rain and its effect on visibility are represented as a `:FallingObjectIndicator` (simplified to represent the falling raindrops and their impact on the scene).
+
+4. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the slippery and wet road surface, which can lead to loss of vehicle control.
+   - **OcclusionRisk:** Due to reduced visibility of road signs, other vehicles, and pedestrians, increasing the risk of collisions.
+
+5. **Severity Scores:**
+   - The **RoadConditionRisk** is assigned a severity score of 0.9 because slippery roads significantly increase the risk of accidents.
+   - The **OcclusionRisk** is assigned a severity score of 0.8 because reduced visibility is a major hazard but slightly less severe than immediate road conditions.

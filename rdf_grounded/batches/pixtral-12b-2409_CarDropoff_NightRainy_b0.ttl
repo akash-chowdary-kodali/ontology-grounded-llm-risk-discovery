@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRainyRoadWithReducedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets on windshield indicating rain" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface increasing skid risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Limited visibility of road markings and distant objects" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.90
+- **Type:** WeatherRisk
+
+**Risk 2:**
+- **Description:** Wet road surface increasing skid risk
+- **Severity Score:** 0.80
+- **Type:** RoadConditionRisk
+
+**Risk 3:**
+- **Description:** Limited visibility of road markings and distant objects
+- **Severity Score:** 0.85
+- **Type:** OcclusionRisk
+
+---
+
+### Explanation:
+1. **Scene Analysis**:
+   - The scene depicts a nighttime urban road with heavy rain, reducing visibility.
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting in a risky manner, but the environmental conditions themselves create risks.
+
+2. **Corner Case Classification**:
+   - The corner case is classified as **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (water droplets on the windshield indicating rain).
+
+3. **Risks Identified**:
+   - **WeatherRisk**: Due to heavy rain reducing visibility.
+   - **RoadConditionRisk**: Wet road surfaces increase the risk of skidding or hydroplaning.
+   - **OcclusionRisk**: Limited visibility of road markings and distant objects due to rain and nighttime conditions.
+
+4. **Severity Scores**:
+   - The scores reflect the high risk associated with these conditions, with **WeatherRisk** being the most severe due to the immediate impact on visibility.

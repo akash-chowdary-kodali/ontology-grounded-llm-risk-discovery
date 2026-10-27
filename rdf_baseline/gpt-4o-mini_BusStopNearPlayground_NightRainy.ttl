@@ -1,0 +1,56 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle1, ex:Pedestrian1, ex:Pedestrian2, ex:RoadInfrastructure1 ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasObstacle ex:None .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:type "Truck" ;
+    ex:location "Near the center of the road" ;
+    ex:status "Stopped" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:location "Crossing the road" ;
+    ex:status "Running" .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:location "Crossing the road" ;
+    ex:status "Running" .
+
+ex:RoadInfrastructure1 a ex:RoadInfrastructure ;
+    ex:feature "Traffic Lights" ;
+    ex:status "Active" ;
+    ex:lightColor "Red" .
+
+ex:Rainy a ex:WeatherCondition ;
+    ex:visibility "Reduced" ;
+    ex:wetRoad "True" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description:** Potential collision between the truck and pedestrians running across the road in a low visibility environment due to rain.
+- **Severity Score:** 0.8
+
+#### Risk 2:
+- **Description:** Slippery road conditions could lead to loss of vehicle control if the truck were to suddenly move.
+- **Severity Score:** 0.6
+
+#### Risk 3:
+- **Description:** Reduced visibility due to rain increases the risk of not detecting pedestrians in time.
+- **Severity Score:** 0.7
+
+### Summary of Risks:
+1. **Risk 1:** Potential collision with pedestrians.
+   - Severity Score: **0.8**
+   
+2. **Risk 2:** Slippery road conditions.
+   - Severity Score: **0.6**
+   
+3. **Risk 3:** Reduced visibility impacts detection of pedestrians.
+   - Severity Score: **0.7**

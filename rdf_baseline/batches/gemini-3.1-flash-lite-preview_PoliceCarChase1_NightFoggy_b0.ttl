@@ -1,0 +1,47 @@
+This analysis examines a critical safety scenario where an ego-vehicle is navigating a tunnel and encounters a sudden obstruction (a vehicle performing an emergency maneuver or loss of control).
+
+### 1. Entity Identification
+*   **Ego-Vehicle:** The red vehicle from which the footage is captured.
+*   **Obstacle Vehicle:** A white SUV positioned laterally, blocking the lane of travel.
+*   **Infrastructure:** Tunnel environment, concrete support pillars, tiled wall, lane markings.
+*   **Conditions:** Low-light tunnel environment with artificial overhead lighting.
+
+### 2. Entity Relationships
+*   **Ego-Vehicle approaches Obstacle Vehicle:** The ego-vehicle is moving toward the white SUV at a high rate of speed.
+*   **Obstacle Vehicle blocks lane:** The SUV is oriented perpendicularly across the driving lane, effectively creating a total roadway obstruction.
+*   **Obstacle Vehicle near wall:** The rear of the SUV is in close proximity to the right-hand tunnel wall.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isMovingTowards ex:ObstacleVehicle .
+
+ex:ObstacleVehicle rdf:type ex:Vehicle ;
+    ex:isPerpendicularTo ex:Lane ;
+    ex:blocksPathOf ex:EgoVehicle ;
+    ex:isNear ex:TunnelWall .
+
+ex:TunnelEnvironment rdf:type ex:Infrastructure ;
+    ex:hasCondition "LowLight" .
+
+ex:Risk1 rdf:type ex:CollisionRisk ;
+    ex:involves ex:EgoVehicle ;
+    ex:severityScore 0.95 .
+```
+
+### 4. Identified Risks
+
+**Risk 1: High-Speed Frontal Collision**
+*   **Description:** The ego-vehicle is approaching a stationary or slow-moving vehicle that has completely occluded the lane within a confined tunnel environment. The perpendicular orientation of the obstacle vehicle leaves no room for standard lane-keeping maneuvers and minimal reaction time.
+*   **Severity Score:** 0.95
+
+**Risk 2: Evasive Maneuver/Loss of Control**
+*   **Description:** Due to the confined space of the tunnel (walls and pillars), an emergency braking or swerving maneuver to avoid the obstacle vehicle carries a high risk of side-swiping the tunnel infrastructure or losing lateral stability.
+*   **Severity Score:** 0.85
+
+**Risk 3: Visibility/Perception Constraint**
+*   **Description:** The low-light conditions inside the tunnel combined with the sudden nature of the lateral obstruction challenge the ego-vehicle's sensor suite (LiDAR/Camera) to accurately identify the object's trajectory and depth in a short timeframe.
+*   **Severity Score:** 0.70

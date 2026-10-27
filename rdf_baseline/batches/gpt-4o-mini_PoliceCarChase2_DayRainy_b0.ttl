@@ -1,0 +1,58 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+# Entities
+ex:Vehicle_1 a ex:Vehicle ;
+    ex:hasType "Sedan" ;
+    ex:position "moving" ;
+    ex:color "black" .
+
+ex:Vehicle_2 a ex:Vehicle ;
+    ex:hasType "Convertible" ;
+    ex:position "stationary" ;
+    ex:color "white" .
+
+ex:Vehicle_3 a ex:Vehicle ;
+    ex:hasType "Mini" ;
+    ex:position "moving" ;
+    ex:color "silver" .
+
+ex:Pedestrian_1 a ex:Pedestrian ;
+    ex:position "not_present" .
+
+ex:Road a ex:Infrastructure ;
+    ex:hasCondition "wet" ;
+    ex:hasWeather "rainy" .
+
+ex:Overpass a ex:Infrastructure ;
+    ex:hasType "bridge" ;
+    ex:position "above" .
+
+# Relationships
+ex:Vehicle_1 ex:approaches ex:Vehicle_2 .
+ex:Vehicle_2 ex:following ex:Vehicle_1 .
+ex:Vehicle_1 ex:crosses ex:road .
+ex:Vehicle_2 ex:near ex:Road .
+ex:Vehicle_3 ex:near ex:Vehicle_1 .
+ex:Vehicle_1 ex:occludes ex:Vehicle_3 .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential collision between Vehicle 1 (black sedan) and Vehicle 2 (white convertible) while navigating a wet road under an overpass.
+Severity Score: 0.7
+
+**Risk 2:**
+Description: Reduced braking effectiveness due to wet road conditions, increasing the likelihood of loss of control.
+Severity Score: 0.8
+
+**Risk 3:**
+Description: Visibility issues due to rain impairing the driver's ability to see road conditions and other vehicles clearly.
+Severity Score: 0.6
+
+**Risk 4:**
+Description: Risk of skidding or hydroplaning from rapid maneuvers on the wet road surface.
+Severity Score: 0.7

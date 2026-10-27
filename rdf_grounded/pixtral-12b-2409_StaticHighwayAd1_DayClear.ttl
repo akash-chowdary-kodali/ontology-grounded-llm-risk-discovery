@@ -1,0 +1,214 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithTrafficLightAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :trafficLight1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Traffic light showing green arrow for left turn while pedestrian crossing signal is red" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :DistractionRisk ;
+    :description "Driver may be distracted by billboard advertisements near intersection" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to traffic light ambiguity (green arrow vs. red pedestrian signal)" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Driver may be distracted by billboard advertisements near intersection.
+- **Severity Score:** 0.45
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Potential rear-end collision risk due to traffic light ambiguity (green arrow vs. red pedestrian signal).
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk (Rear-End Collision Risk implied by context)
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene depicts a **StateAnomaly** because the traffic light is in an ambiguous state (green arrow for left turn while pedestrian signal is red), which violates standard traffic signal logic.
+
+2. **Entities Identified:**
+   - **TrafficLight** (`:trafficLight1`): Shows conflicting signals (green arrow + red pedestrian).
+   - **WeatherCondition** (`:weather1`): Clear daytime conditions.
+   - **Billboards** (implicit in `:risk1` description): Advertisements near the intersection contribute to distraction.
+
+3. **Risks Identified:**
+   - **DistractionRisk**: Billboards near the intersection may distract drivers.
+   - **Rear-End CollisionRisk**: Ambiguous traffic light signals increase the risk of drivers misinterpreting right-of-way rules.
+
+4. **Severity Scores:**
+   - DistractionRisk (0.45): Moderate concern due to visual clutter but not immediately hazardous.
+   - CollisionRisk (0.75): High concern due to potential misinterpretation of traffic signals.
+
+No actors (pedestrians/cyclists) or obstacles (e.g., open doors) were observed in the provided images, so they were not included in the RDF. The focus was on the **traffic light anomaly** and its downstream risks. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithDistractionRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard advertising distracts driver attention" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Large billboard partially obscures traffic sign visibility" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime visibility" .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard with sale promotion" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No parking sign partially obscured by billboard" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Billboard advertising distracts driver attention
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.75
+- **Evidence:** OpenDoorIndicator (analogous to visual distraction from billboard)
+
+**Risk 2:**
+- **Description:** Large billboard partially obscures traffic sign visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.60
+- **Evidence:** Implied by the spatial arrangement of billboard and traffic sign
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the distraction caused by the billboard represents an atypical driver behavior (diverted attention from the road).
+
+2. **Key Entities:**
+   - **Billboard:** Large advertisement billboard with sale promotion.
+   - **Traffic Sign:** No parking sign partially obscured by the billboard.
+   - **Weather:** Clear daytime conditions.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the billboard's prominent advertising content.
+   - **OcclusionRisk:** The billboard partially blocks visibility of the traffic sign.
+
+4. **Severity Scores:**
+   - DistractionRisk (0.75): High due to potential for driver inattention.
+   - OcclusionRisk (0.60): Moderate due to partial obstruction of the traffic sign.
+
+The RDF triples strictly adhere to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :description "Empty street with visible billboard and no actors, indicating potential distraction risk" ;
+    :hasObstacle :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Large billboard advertising 'I saw some stop' with colorful graphics" .
+
+:weather1 a :ClearCondition, :DayCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard may distract driver with colorful graphics and text" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of smaller actors or objects by large billboard" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Billboard may distract driver with colorful graphics and text
+Severity Score: 0.35
+
+Risk 2:
+Description: Potential occlusion of smaller actors or objects by large billboard
+Severity Score: 0.25
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (the prominent "I saw some stop" advertisement).
+   - The weather is classified as **ClearCondition** and **DayCondition** (bright, sunny day).
+   - No **Actors**, **TrafficSigns**, **TrafficLights**, or **Vehicles** are present in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the empty street with a large billboard suggests potential risks (distraction/occlusion) that are not immediately actionable but should be monitored.
+
+3. **Risks Identified:**
+   - **DistractionRisk** due to the billboard's bright, colorful design.
+   - **OcclusionRisk** from the billboard potentially hiding smaller objects or actors.
+
+4. **Severity Scores:**
+   - Distraction risk is rated **0.35** (moderate concern, given the billboard's prominence).
+   - Occlusion risk is rated **0.25** (lower concern, as no actors/objects are visible).

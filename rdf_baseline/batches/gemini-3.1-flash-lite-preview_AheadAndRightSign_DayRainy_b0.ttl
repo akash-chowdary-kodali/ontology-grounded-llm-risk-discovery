@@ -1,0 +1,51 @@
+### 1. Scene Interpretation
+
+**Entities:**
+*   **Ego-Vehicle:** The red vehicle from which the scene is captured.
+*   **Infrastructure:** Multi-lane urban road, asphalt surface, traffic lights (distant), street lamps, buildings/commercial structures, lane markings.
+*   **Environmental Conditions:** Heavy fog/low visibility, precipitation (rain).
+
+**Relationships:**
+*   **Ego-Vehicle is situated on:** The road.
+*   **Weather conditions affect:** The entire scene (limiting visibility distance).
+*   **Infrastructure contains:** Traffic control signals and lane indicators.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:location ex:Road .
+
+ex:Road rdf:type ex:Infrastructure ;
+    ex:surfaceCondition ex:Wet ;
+    ex:visibilityLevel ex:Low .
+
+ex:WeatherCondition rdf:type ex:Fog, ex:Rain .
+
+ex:Environment ex:hasWeather ex:WeatherCondition ;
+    ex:visibilityRange ex:Reduced .
+
+ex:TrafficLight rdf:type ex:Infrastructure ;
+    ex:distance ex:Distant .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** **Severely Reduced Visibility:** The heavy fog and rain significantly curtail the sensor perception range (LiDAR, Camera, Radar). This limits the ego-vehicle's ability to detect static obstacles, other road users, or traffic signal changes in time to react safely.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** **Reduced Surface Friction (Hydroplaning Risk):** The wet road surface, evidenced by standing water and rain, increases the stopping distance and reduces tire-to-road traction, posing a risk of loss of control during sudden braking or maneuvering.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** **Obscured Traffic Control Signals:** Due to the dense atmospheric conditions, traffic lights are difficult to distinguish, increasing the risk of an unintended signal violation or failure to anticipate stop commands.
+*   **Severity Score:** 0.70

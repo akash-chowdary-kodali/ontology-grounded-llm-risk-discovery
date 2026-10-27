@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDrivingWithBlurredVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Blurred vehicle ahead in low-light urban setting" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with limited visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Blurred vehicle ahead reduces visibility of its state and actions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential wet road conditions due to nighttime and lack of visible dryness indicators" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to obscured vehicle and low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Blurred vehicle ahead reduces visibility of its state and actions.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential wet road conditions due to nighttime and lack of visible dryness indicators.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential collision risk due to obscured vehicle and low visibility.
+Severity Score: 0.80
+
+---
+The scene is classified as a **StateAnomaly** due to the obscured state of the vehicle ahead, which is a result of the nighttime conditions and motion blur. The primary risks identified are related to occlusion, road conditions, and collision potential. The severity scores reflect the potential danger posed by these conditions, with the highest score assigned to collision risk due to the obscured vehicle.

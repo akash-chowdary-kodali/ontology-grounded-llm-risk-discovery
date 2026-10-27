@@ -1,0 +1,213 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :vehicle1, :vehicle2 ;
+    :description "Heavy fog reduces visibility in urban intersection" .
+
+:foggyCondition a :FoggyCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle ahead in foggy conditions" .
+:vehicle2 a :Vehicle ;
+    :description "Vehicle on right lane, partially visible" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscures other vehicles and pedestrians" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions increase risk of collision due to limited visibility" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog obscures other vehicles and pedestrians (OcclusionRisk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Foggy conditions increase risk of collision due to limited visibility (WeatherRisk)
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (heavy fog)
+   - **Actors:** Two Vehicles (one ahead, one on the right lane)
+   - **Corner Case:** EvidenceBasedAnomaly (fog reduces visibility, acting as evidence of a hazardous situation)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The fog itself is the evidence that triggers the corner case, as it directly impacts visibility and safety.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to fog obscuring other road users.
+   - **WeatherRisk:** Due to foggy conditions increasing collision likelihood.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is slightly higher than WeatherRisk (0.85) because the immediate danger is the inability to see other actors, which could lead to a collision.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyFogUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Dense fog reducing visibility to <10 meters" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog particles accumulating on vehicle surfaces, indicating poor visibility" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Heavy fog obscures pedestrians, cyclists, and other vehicles in the intersection" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions increase risk of collision due to reduced reaction time" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Heavy fog obscures pedestrians, cyclists, and other vehicles in the intersection, creating an occlusion hazard.
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Foggy conditions increase the risk of collision due to reduced visibility and reaction time.
+- **Severity Score:** 0.90
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the fog accumulation on the vehicle (evidence) directly supports the identification of risks (occlusion and weather-related hazards).
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `:foggyCondition` (subclass of `WeatherCondition`).
+   - **EvidenceIndicator:** `:evidence1` (subclass of `FallingObjectIndicator`, representing fog accumulation as an indicator of poor visibility).
+   - **Risks:** `:risk1` (OcclusionRisk) and `:risk2` (WeatherRisk).
+
+3. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.95 and 0.90) due to the extreme visibility reduction caused by dense fog, which is a critical safety concern for autonomous vehicles.
+
+4. **No Actors/Obstacles Detected:**
+   - The fog obscures all potential actors (pedestrians, cyclists, vehicles) and obstacles, so they cannot be explicitly modeled in this RDF. The risks are derived from the environmental conditions themselves.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadOcclusionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :FoggyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog-induced visual obstruction" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Severe fog reducing visibility of road and other vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions increasing collision likelihood" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to poor visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Severe fog reducing visibility of road and other vehicles
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Foggy conditions increasing collision likelihood
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Potential rear-end collision due to poor visibility
+Severity Score: 0.80
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - No explicit actors (Cyclist/Pedestrian/Vehicle) are visible due to fog, but the fog itself is classified as `:WeatherCondition` with `:FoggyCondition`.
+   - The fog acts as an `:Obstacle` of type `:RoadObject` due to its impact on visibility.
+
+2. **Corner Case Classification:**
+   - Classified as `:StateAnomaly` because the anomalous state is caused by environmental conditions (fog) rather than behavioral or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: Directly tied to the fog obstructing visibility.
+   - **WeatherRisk**: General risk associated with foggy conditions.
+   - **RearEndCollisionRisk**: High likelihood of collisions due to poor visibility of other vehicles.
+
+4. **Severity Scores:**
+   - High scores reflect the critical nature of fog-induced visibility issues in autonomous driving.

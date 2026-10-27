@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the provided parking garage scene using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ParkingGarageLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle in front moving erratically" .
+
+:obstacle1 a :RoadObject ;
+    :description "Debris or small object on the road surface" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light indoor parking garage environment" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle in front drifting into adjacent lane" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to pillars and low lighting" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:** Vehicle in front drifting into adjacent lane (potential lane intrusion).
+**Severity Score:** 0.75
+
+#### **Risk 2:**
+**Description:** Limited visibility due to pillars and low lighting (occlusion risk).
+**Severity Score:** 0.60
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the vehicle in front appears to be moving erratically (e.g., drifting into an adjacent lane), which is an unexpected behavior in a structured parking garage environment.
+
+2. **Entities Identified:**
+   - **Actor:** The vehicle in front is typed as `:Vehicle`.
+   - **Obstacle:** A small object/debris on the road is typed as `:RoadObject` (subclass of `:Obstacle`).
+   - **WeatherCondition:** The scene is classified as `:NightCondition` due to the low-light indoor setting.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High due to the vehicle drifting into an adjacent lane.
+   - **OcclusionRisk:** Moderate due to the pillars and limited visibility in the parking garage.
+
+4. **Severity Scores:**
+   - Lane intrusion is assigned a higher severity (0.75) because it directly threatens collision.
+   - Occlusion risk is lower (0.60) but still significant due to reduced situational awareness.
+
+---

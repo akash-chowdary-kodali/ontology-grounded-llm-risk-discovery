@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnrealisticAnimalCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Monkey crossing road" .
+:actor2 a :Pedestrian ;
+    :description "Goat standing on roadside" .
+:actor3 a :Obstacle ;
+    :description "Elephant partially visible on right" .
+
+:obstacle1 a :RoadObject ;
+    :description "Unrealistic animal presence on road" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Monkey crossing road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Large animal partially occupying lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual scene elements may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Monkey crossing road unexpectedly
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Large animal partially occupying lane
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Unusual scene elements may distract driver
+Severity Score: 0.75

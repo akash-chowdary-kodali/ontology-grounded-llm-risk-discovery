@@ -1,0 +1,147 @@
+### **Scene Analysis: Foggy Urban Roadway with Taxi Traffic**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Taxi_1** (yellow, left lane, approaching)
+  - **Taxi_2** (yellow, right lane, following)
+  - **Taxi_3** (yellow, distant, obscured by fog)
+  - **Ego_Vehicle** (red hood visible, perspective of driver)
+- **Road Infrastructure:**
+  - **Road_Markings** (double yellow lines, lane divider)
+  - **Traffic_Lights** (visible but obscured by fog)
+  - **Buildings** (urban environment, left side)
+  - **Trees** (right side, partially occluding visibility)
+- **Weather Conditions:**
+  - **Fog** (dense, reducing visibility beyond ~30-50m)
+- **Obstacles:**
+  - **Fog** (acts as a dynamic obstacle, reducing sensor effectiveness)
+
+#### **Relationships:**
+- **Taxi_1** `isApproaching` `Ego_Vehicle` (same lane, left side).
+- **Taxi_2** `isFollowing` `Ego_Vehicle` (right lane, slightly behind).
+- **Taxi_3** `isOccludedBy` `Fog` (invisible beyond ~50m).
+- **Fog** `reducesVisibilityOf` `Traffic_Lights`, `Taxi_3`, `Buildings`.
+- **Ego_Vehicle` `isDrivingIn` `Urban_Roadway` with `ReducedVisibility`.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Fog ;
+    :hasRoadCondition :WetOrDry ;  # Assumed dry, but fog implies humidity
+    :hasTimeOfDay :Daytime .
+
+:Fog a :WeatherCondition ;
+    :reducesVisibilityToMeters 30 ;
+    :occludes :Taxi_3 ;
+    :occludes :Traffic_Lights .
+
+:Ego_Vehicle a :Vehicle ;
+    :hasColor "Red" ;
+    :isDrivingIn :Urban_Roadway ;
+    :hasLanePosition "Center" .
+
+:Taxi_1 a :Vehicle ;
+    :hasColor "Yellow" ;
+    :isApproaching :Ego_Vehicle ;
+    :hasLanePosition "Left" ;
+    :hasDistanceToEgo 15 .
+
+:Taxi_2 a :Vehicle ;
+    :hasColor "Yellow" ;
+    :isFollowing :Ego_Vehicle ;
+    :hasLanePosition "Right" ;
+    :hasDistanceToEgo 10 .
+
+:Taxi_3 a :Vehicle ;
+    :hasColor "Yellow" ;
+    :isOccludedBy :Fog ;
+    :hasEstimatedDistanceToEgo 50+ .
+
+:Urban_Roadway a :Road ;
+    :hasLaneMarkings :DoubleYellowLines ;
+    :hasTrafficLights :VisibleButOccluded ;
+    :hasSurroundings :Buildings, :Trees .
+
+:Risk_ReducedVisibility a :SafetyRisk ;
+    :causedBy :Fog ;
+    :affects :Ego_Vehicle, :Taxi_1, :Taxi_2 ;
+    :severity 0.85 .
+
+:RiskLaneChangeConflict a :SafetyRisk ;
+    :causedBy :Taxi_1 ;
+    :affects :Ego_Vehicle ;
+    :severity 0.7 .
+
+:RiskRearEndCollision a :SafetyRisk ;
+    :causedBy :Taxi_2 ;
+    :affects :Ego_Vehicle ;
+    :severity 0.6 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Risk Class:** `ReducedVisibilityRisk`
+**Description:**
+Dense fog severely limits sensor perception (cameras, LiDAR, radar), increasing the likelihood of:
+- Late detection of **Taxi_3** emerging from fog.
+- Misidentification of static objects (e.g., trees, buildings) as dynamic obstacles.
+- Failure to detect pedestrians or cyclists outside the immediate lane.
+**Severity Score:** **0.85** (High)
+
+#### **Risk 2:**
+**Risk Class:** `LaneChangeConflictRisk`
+**Description:**
+**Taxi_1** is approaching in the adjacent left lane, potentially requiring a lane change by **Ego_Vehicle**. Risks include:
+- **Taxi_1** suddenly changing lanes into **Ego_Vehicle**’s path.
+- **Ego_Vehicle** misjudging **Taxi_1**’s speed/distance due to fog.
+- **Taxi_2** (following in the right lane) may also attempt a lane change, creating a multi-vehicle conflict.
+**Severity Score:** **0.7** (High)
+
+#### **Risk 3:**
+**Risk Class:** `RearEndCollisionRisk`
+**Description:**
+**Taxi_2** is following **Ego_Vehicle** in the right lane. Risks include:
+- **Taxi_2** tailgating due to reduced visibility of **Ego_Vehicle**’s brakes.
+- **Ego_Vehicle** braking suddenly, but **Taxi_2** not reacting in time.
+- **Taxi_2** misjudging stopping distance in fog.
+**Severity Score:** **0.6** (Moderate-High)
+
+#### **Risk 4:**
+**Risk Class:** `SuddenObstacleEmergenceRisk`
+**Description:**
+**Taxi_3** is occluded by fog but may emerge suddenly. Risks include:
+- **Taxi_3** accelerating into **Ego_Vehicle**’s path from a standstill.
+- **Ego_Vehicle** failing to detect **Taxi_3** until it is too late to react.
+- **Taxi_3** turning abruptly from a side road not visible due to fog.
+**Severity Score:** **0.8** (High)
+
+#### **Risk 5:**
+**Risk Class:** `SensorDegradationRisk`
+**Description:**
+Fog degrades sensor performance, leading to:
+- **LiDAR** returning false reflections from water droplets.
+- **Cameras** losing contrast, making object detection unreliable.
+- **Radar** experiencing signal attenuation, reducing range accuracy.
+**Severity Score:** **0.75** (High)
+
+---
+### **4. Mitigation Recommendations (Not Requested but Implied)**
+- **Slow speed** and **increased following distance** (adaptive cruise control with fog mode).
+- **Activated fog lights** (if available) to improve visibility for other drivers.
+- **Frequent sensor fusion checks** to cross-validate object detection.
+- **Defensive lane-change maneuvers** (e.g., waiting for **Taxi_1** to pass).
+- **Emergency braking readiness** if **Taxi_2** closes the gap too quickly.
+
+---
+This analysis highlights the **critical role of environmental perception in autonomous driving**, particularly in adverse weather. The fog introduces **multi-layered risks** that require robust sensor redundancy and conservative driving strategies.

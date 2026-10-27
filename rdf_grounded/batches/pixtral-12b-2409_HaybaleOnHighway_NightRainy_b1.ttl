@@ -1,0 +1,88 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Road with Wet Surface and Sandbags" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Sandbags blocking part of the road" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Wet road surface indicating potential hydroplaning risk" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Sandbags partially obstructing view of the road ahead" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface increasing risk of hydroplaning" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Bright streetlights and reflections may distract the driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Sandbags partially obstructing view of the road ahead
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Wet road surface increasing risk of hydroplaning
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.80
+
+**Risk 3:**
+- **Description:** Bright streetlights and reflections may distract the driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Sandbags (`RoadObject`).
+   - **Weather Condition:** Nighttime (`NightCondition`).
+   - **Evidence Indicator:** Wet road surface (`FallingObjectIndicator` - interpreted as a potential hydroplaning risk indicator).
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene represents an abnormal state due to the presence of sandbags and wet road conditions, which are not typical for normal driving scenarios.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to sandbags blocking part of the road.
+   - **RoadConditionRisk:** Due to wet road conditions increasing the risk of hydroplaning.
+   - **DistractionRisk:** Due to bright streetlights and reflections that may distract the driver.
+
+4. **Severity Scores:**
+   - The severity scores are assigned based on the potential impact of each risk, with higher scores for risks that directly affect vehicle control (e.g., hydroplaning) and lower scores for risks that are more situational (e.g., distraction).

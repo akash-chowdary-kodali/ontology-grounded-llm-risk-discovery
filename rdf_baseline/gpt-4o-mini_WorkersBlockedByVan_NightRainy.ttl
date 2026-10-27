@@ -1,0 +1,52 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1 ;
+    ex:hasEntity ex:Pedestrian1 ;
+    ex:hasEntity ex:Pedestrian2 ;
+    ex:hasEntity ex:RoadInfrastructure1 ;
+    ex:hasEntity ex:Obstacle1 ;
+    ex:hasWeatherCondition ex:Wet ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType "Van" ;
+    ex:hasLocation "Near intersection" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasClothingColor "Yellow" ;
+    ex:hasAction "Running" ;
+    ex:hasLocation "Crossing road" .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:hasClothingColor "Yellow" ;
+    ex:hasAction "Stationary" ;
+    ex:hasLocation "Beside road" .
+
+ex:RoadInfrastructure1 a ex:TrafficLight ;
+    ex:hasState "Off" ;
+    ex:hasLocation "Near intersection" .
+
+ex:Obstacle1 a ex:WorkZone ;
+    ex:hasType "Construction Barrier" ;
+    ex:hasLocation "On road" .
+
+ex:Wet a ex:WeatherCondition ;
+    ex:hasDescription "Wet road due to rain" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Pedestrian running across the road may lead to a collision with the van.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** Wet road conditions increase the risk of vehicle slipping or losing control.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** Stationary pedestrian may be occluding visibility for oncoming traffic, leading to reduced reaction time.  
+**Severity Score:** 0.5

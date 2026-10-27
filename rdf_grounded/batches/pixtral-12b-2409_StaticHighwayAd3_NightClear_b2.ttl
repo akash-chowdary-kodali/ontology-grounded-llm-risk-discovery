@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on right side of road" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Bright billboard may distract driver" ;
+    :hasSeverityScore :sevDistraction1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Dark surroundings may reduce visibility of potential obstacles" ;
+    :hasSeverityScore :sevOcclusion1 .
+
+:sevDistraction1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sevOcclusion1 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Bright billboard may distract driver
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Dark surroundings may reduce visibility of potential obstacles
+Severity Score: 0.40
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The illuminated billboard is classified as `:Billboard`.
+   - The nighttime condition is classified as `:NightCondition`.
+   - No actors (pedestrians, cyclists, or vehicles) are present in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because it involves a static but potentially hazardous state (bright billboard + low visibility) rather than dynamic behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the bright billboard, which may draw the driver's attention away from the road.
+   - **OcclusionRisk:** Due to the dark surroundings, which may obscure potential obstacles or hazards not illuminated by the vehicle's headlights.
+
+4. **Severity Scores:**
+   - Both risks are assigned moderate severity scores (0.35 and 0.40) because while they are present, they do not immediately pose an imminent threat. The scene lacks dynamic elements (e.g., moving actors or vehicles) that would elevate the risk further.

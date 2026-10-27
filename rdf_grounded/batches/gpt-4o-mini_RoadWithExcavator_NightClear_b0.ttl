@@ -1,0 +1,34 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Construction Area with Equipment" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle.
+
+:obstacle1 a :RoadObject ;
+    :description "Excavator equipment in the roadway" .
+
+:weather1 a :NightCondition ;
+    :description "Night time visibility conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with road equipment" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+Risk 1:
+Description: Potential collision with road equipment
+Severity Score: 0.7

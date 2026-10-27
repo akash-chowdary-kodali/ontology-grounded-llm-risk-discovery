@@ -1,0 +1,52 @@
+This scene depicts an urban night-time driving scenario characterized by poor visibility, potential road hazards, and an immediate pedestrian-vehicle interaction.
+
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera perspective), white delivery van.
+*   **Pedestrians:** Two pedestrians (one walking across the road, one near road cones).
+*   **Infrastructure:** Roadway, traffic cones, building facade, street lighting.
+*   **Weather Conditions:** Night-time, low ambient light, artificial street lighting.
+
+### 2. Relationships
+*   **Pedestrian (right):** Crossing the road, directly in the path of the ego-vehicle.
+*   **Van:** Partially occluding the pedestrian on the right, creating a blind spot.
+*   **Pedestrian (left):** Standing near road maintenance/hazard zone (cones).
+*   **Ego-vehicle:** Approaching the pedestrian on the right.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:egoVehicle a ex:Vehicle .
+ex:whiteVan a ex:Vehicle .
+ex:pedestrianRight a ex:Pedestrian .
+ex:pedestrianLeft a ex:Pedestrian .
+ex:hazardZone a ex:Obstacle .
+
+ex:pedestrianRight ex:isCrossing ex:roadway .
+ex:pedestrianRight ex:isNear ex:whiteVan .
+ex:whiteVan ex:occludes ex:pedestrianRight .
+ex:egoVehicle ex:approaching ex:pedestrianRight .
+ex:pedestrianLeft ex:isNear ex:hazardZone .
+ex:environment ex:hasCondition "night" .
+```
+
+### 4. Identified Risks
+
+**Risk 1: Pedestrian Collision**
+*   **Description:** A pedestrian is currently walking across the lane directly in the path of the ego-vehicle, presenting an immediate collision risk.
+*   **Severity Score:** 0.98
+
+**Risk 2: Visual Occlusion by Infrastructure**
+*   **Description:** The white van obstructs the field of view, making it difficult for the ego-vehicle's sensors or the driver to anticipate the pedestrian's emergence earlier.
+*   **Severity Score:** 0.75
+
+**Risk 3: Low Visibility Environment**
+*   **Description:** Night-time conditions significantly reduce detection range and reaction time for the ego-vehicle regarding hazards or pedestrians.
+*   **Severity Score:** 0.65
+
+**Risk 4: Unmarked Hazard Zone**
+*   **Description:** Road cones indicate an ongoing hazard or maintenance area on the left, which might cause unpredictable vehicle maneuvers or divert attention from the primary pedestrian threat on the right.
+*   **Severity Score:** 0.50

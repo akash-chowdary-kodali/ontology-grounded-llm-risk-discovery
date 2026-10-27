@@ -1,0 +1,57 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Pedestrian1, ex:Pedestrian2, ex:RoadInfrastructure1, ex:WeatherCondition1 ;
+    ex:hasRelationship ex:Relationship1, ex:Relationship2, ex:Relationship3 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType "Van" ;
+    ex:position "Near the road right side" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:pedestrianType "Worker" ;
+    ex:clothingColor "Yellow" ;
+    ex:position "Crossing the road" .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:pedestrianType "Worker" ;
+    ex:clothingColor "Yellow" ;
+    ex:position "Walking towards the road" .
+
+ex:RoadInfrastructure1 a ex:RoadInfrastructure ;
+    ex:structureType "Traffic cones" ;
+    ex:position "In the lane" .
+
+ex:WeatherCondition1 a ex:WeatherCondition ;
+    ex:condition "Rainy" ;
+    ex:visibility "Low" .
+
+ex:Relationship1 a ex:Relationship ;
+    ex:involves ex:Pedestrian1, ex:Vehicle1 ;
+    ex:interactionType "Approaching" .
+
+ex:Relationship2 a ex:Relationship ;
+    ex:involves ex:Pedestrian2, ex:Vehicle1 ;
+    ex:interactionType "Near" .
+
+ex:Relationship3 a ex:Relationship ;
+    ex:involves ex:RoadInfrastructure1, ex:Pedestrian1 ;
+    ex:interactionType "Obstructing" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1: 
+**Description:** The pedestrian (Worker in yellow) is crossing the road while the vehicle (Van) is approaching, creating a potential collision scenario.
+**Severity Score:** 0.8
+
+#### Risk 2: 
+**Description:** Low visibility due to heavy rain increases risks of misjudgment in distance and speed by both the vehicle and the pedestrian.
+**Severity Score:** 0.7
+
+#### Risk 3: 
+**Description:** The presence of traffic cones presents an obstacle that may lead to confusion about the road layout, especially under poor weather conditions.
+**Severity Score:** 0.6

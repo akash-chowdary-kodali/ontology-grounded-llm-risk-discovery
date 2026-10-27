@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Parking Lot with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating recent rain" .
+
+:nightCondition a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective sheen on wet road resembling rolling ball indicator" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and artificial lighting shadows" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to wet conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Limited visibility due to nighttime and artificial lighting shadows
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Slippery road surface due to wet conditions
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Obstacle:** Wet road surface (`:roadObject1` as `RoadObject`).
+   - **WeatherCondition:** Nighttime (`:nightCondition` as `NightCondition`).
+   - No explicit `Actor`, `TrafficLight`, `TrafficSign`, or `Billboard` were detected in the images.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the primary issue stems from the **physical state of the road** (wet/slippery) and **environmental conditions** (nighttime occlusion).
+
+3. **Evidence Indicator:**
+   - The reflective sheen on the wet road is modeled as a **RollingBallIndicator** (`:evidence1`), which suggests potential **RoadConditionRisk** (slippery surface).
+
+4. **Risks Identified:**
+   - **OcclusionRisk:** Due to shadows and low-light conditions, the vehicle's perception system may struggle to detect obstacles.
+   - **RoadConditionRisk:** Wet roads increase the likelihood of skidding or loss of control.
+
+5. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.75 and 0.80) due to the combination of nighttime driving and slippery conditions, which are critical for autonomous vehicle safety.

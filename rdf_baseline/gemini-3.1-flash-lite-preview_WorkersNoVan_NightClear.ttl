@@ -1,0 +1,46 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera position).
+*   **Pedestrians:** Two individuals wearing yellow shirts.
+*   **Road Infrastructure:** Traffic cones, road surface, street lighting, buildings, nearby billboard/signage.
+*   **Obstacles:** Large dome-shaped object on the left, traffic cones marking a work or restricted zone.
+*   **Weather Conditions:** Nighttime, clear visibility, artificial lighting present.
+
+### 2. Relationships
+*   **Pedestrian 1:** Located near the dome-shaped obstacle, facing away from the road/towards the obstacle.
+*   **Pedestrian 2:** Crossing the road in front of the ego-vehicle, moving from left to right.
+*   **Ego-vehicle:** Approaching the pedestrian who is currently in the vehicle's path.
+*   **Infrastructure:** The traffic cones and dome obstacle are delineating a hazard zone.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:EgoVehicle rdf:type :Vehicle .
+:Pedestrian_1 rdf:type :Pedestrian ;
+              :near :DomeObstacle .
+:Pedestrian_2 rdf:type :Pedestrian ;
+              :crossing :Road ;
+              :inPathOf :EgoVehicle .
+:DomeObstacle rdf:type :Obstacle .
+:TrafficCone rdf:type :Infrastructure .
+:Environment rdf:type :Nighttime .
+
+:EgoVehicle :approaching :Pedestrian_2 .
+:Pedestrian_2 :position :OnRoad .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision risk with a pedestrian crossing directly in front of the ego-vehicle at night. The pedestrian is currently occupying the lane and is in the immediate trajectory of the vehicle.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Hazard zone navigation. The presence of a stationary obstacle and traffic cones indicates a potential construction site or restricted area which may have irregular road surface or hidden hazards.
+*   **Severity Score:** 0.45
+
+**Risk 3:**
+*   **Description:** Limited environmental visibility due to nighttime conditions, which may hinder the ego-vehicle's sensors and perception systems in detecting the pedestrian's full intent or additional hazards nearby.
+*   **Severity Score:** 0.60

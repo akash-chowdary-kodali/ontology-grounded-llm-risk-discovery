@@ -1,0 +1,239 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Pedestrian Near Parked Vehicle with Road Obstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person standing near parked vehicle on roadside" .
+
+:actor2 a :Vehicle ;
+    :description "Parked van with open rear door" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree branch lying across road" .
+
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cone near roadside" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fallen tree branch obstructing road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fallen tree branch partially blocking road visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Pedestrian standing too close to moving traffic path" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Vehicle parked in non-standard position near road hazard" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Fallen tree branch partially blocking road visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Pedestrian standing too close to moving traffic path
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Vehicle parked in non-standard position near road hazard
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the primary concern arises from observable evidence (fallen tree branch and traffic cone) that creates hazardous conditions rather than an actor's anomalous behavior or state.
+
+2. **Entities Identified:**
+   - **Actors:** Pedestrian (standing near parked vehicle) and Vehicle (parked van with open rear door).
+   - **Obstacles:** Fallen tree branch and traffic cone (both classified as `RoadObject`).
+   - **Weather Condition:** `NightCondition` (low visibility).
+   - No traffic signs or billboards are visible in the scene.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The fallen tree branch obstructs visibility, posing a risk to vehicles navigating the road.
+   - **PedestrianCollisionRisk:** The pedestrian is standing dangerously close to the traffic path, increasing the risk of collision.
+   - **LaneIntrusionRisk:** The parked van is positioned near the hazard, potentially blocking or confusing other drivers.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is the highest due to the immediate threat to visibility.
+   - PedestrianCollisionRisk (0.85) is high due to the pedestrian's proximity to traffic.
+   - LaneIntrusionRisk (0.75) is moderate but still significant due to the van's position. Here is the semantic interpretation of the scene images in RDF/Turtle format, following the provided ontology vocabulary:
+
+---
+
+**Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBarrierAndPedestrianNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObject1 ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :nightCondition1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Child standing near fallen road barrier" .
+
+:roadObject1 a :RoadObject ;
+    :description "Fallen traffic barrier with 'AX' markings" .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :description "Falling traffic barrier detected in vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Falling barrier obstructing visibility of pedestrian" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with pedestrian near falling debris" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+- **Description:** Falling barrier obstructing visibility of pedestrian
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Potential collision with pedestrian near falling debris
+- **Risk Type:** CollisionRisk (subtype: PedestrianCollisionRisk implied by context)
+- **Severity Score:** 0.88
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** because the scene contains clear evidence (falling barrier) that directly indicates potential risks (occlusion and collision).
+
+2. **Entities Identified:**
+   - **Pedestrian:** Child standing near debris.
+   - **Obstacle:** Fallen traffic barrier (RoadObject subclass).
+   - **WeatherCondition:** NightCondition (low-light environment).
+   - **EvidenceIndicator:** FallingObjectIndicator (falling barrier).
+
+3. **Risks:**
+   - **OcclusionRisk:** High severity due to the barrier blocking visibility of the pedestrian in low light.
+   - **CollisionRisk:** High severity due to the pedestrian's proximity to the vehicle path and the falling debris.
+
+4. **Severity Scores:**
+   - Scores are high (0.88–0.92) due to the combination of:
+     - Low-light conditions (reduced visibility).
+     - Falling debris (immediate hazard).
+     - Pedestrian presence (vulnerable road user). Based on the provided image, here is the semantic interpretation grounded in the OWL ontology vocabulary:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeOpenDoorAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Open vehicle door obstructing traffic" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Vehicle door is open and visible in the scene" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Open vehicle door obstructing lane and creating occlusion risk" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Scene captured during nighttime" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Open vehicle door obstructing lane and creating occlusion risk
+Severity Score: 0.9
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The open vehicle door is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene is under `:NightCondition` due to the darkness and lack of visible light.
+
+2. **Corner Case Classification:**
+   - The open door is classified as a `:StateAnomaly` because it represents an unexpected state of a vehicle (open door) that is not typical in normal driving conditions.
+
+3. **Evidence Indicator:**
+   - The open door is identified as an `:OpenDoorIndicator`, which directly indicates the potential risk.
+
+4. **Risk Identification:**
+   - The primary risk identified is `:OcclusionRisk` due to the door obstructing the lane and potentially hiding other objects or actors from view.
+
+5. **Severity Score:**
+   - The severity score is assigned as 0.9, indicating a high risk level due to the potential for collision or distraction caused by the open door in low-visibility conditions.

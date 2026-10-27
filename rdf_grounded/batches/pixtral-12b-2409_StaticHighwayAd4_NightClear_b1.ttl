@@ -1,0 +1,97 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanRoadWithBillboards" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Nighttime road with potential distraction from billboards and speed limit sign" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Bright billboards may distract driver at night" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Darkness and lack of pedestrians/cyclists may reduce situational awareness" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road surface (inferred from reflections) may reduce traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+
+:obstacle1 a :RoadObject ;
+    :description "Speed limit sign (90 km/h) and no-entry sign on right" .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on left side of road" .
+
+:billboard2 a :Billboard ;
+    :description "Large illuminated billboard in distance" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of road" .
+
+:trafficSign2 a :TrafficSign ;
+    :description "Speed limit 90 km/h sign on right side of road" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Bright billboards may distract driver at night
+- **Severity Score:** 0.75
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Darkness and lack of pedestrians/cyclists may reduce situational awareness
+- **Severity Score:** 0.60
+- **Risk Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Wet road surface (inferred from reflections) may reduce traction
+- **Severity Score:** 0.55
+- **Risk Type:** RoadConditionRisk
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (nighttime, wet road) and static objects (billboards, signs) rather than dynamic actor behavior or evidence-based anomalies.
+
+2. **Key Observations:**
+   - **Nighttime (NightCondition):** Reduces visibility and increases reliance on artificial lighting.
+   - **Billboards:** Act as potential distractions due to their brightness and size.
+   - **Traffic Signs:** The "no entry" and speed limit signs are visible but may not be immediately relevant to the current scenario.
+   - **Road Surface:** Reflections suggest wet conditions, increasing traction risk.
+
+3. **Risks Justification:**
+   - **DistractionRisk:** High severity due to the glare and size of illuminated billboards at night.
+   - **OcclusionRisk:** Moderate severity due to limited visibility of potential actors (pedestrians/cyclists).
+   - **RoadConditionRisk:** Moderate severity due to wet road conditions inferred from reflections.
+
+4. **Ontology Constraints:**
+   - No actors (pedestrians/cyclists/vehicles) were detected in the scene, so no `hasActor` property was used.
+   - The `EvidenceIndicator` subclass was not applicable here, as there were no dynamic indicators (e.g., rolling balls, open doors).

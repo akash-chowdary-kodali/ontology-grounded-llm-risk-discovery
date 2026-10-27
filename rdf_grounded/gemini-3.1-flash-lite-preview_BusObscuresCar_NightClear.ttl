@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasEvidence :door1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+:door1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+:night1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle door opened into the travel lane at night" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle door opened into the travel lane at night
+Severity Score: 0.80

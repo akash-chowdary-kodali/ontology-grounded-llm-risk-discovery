@@ -1,0 +1,111 @@
+### **Scene Analysis: Heavy Fog and Snowy Conditions**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - **Ego Vehicle** (red car, front view)
+  - **Black SUV** (right lane, moving forward)
+  - **White Emergency Vehicle** (ambulance, distant left lane)
+- **Road Infrastructure**:
+  - Road markings (double yellow lines, lane dividers)
+  - Streetlights (partially obscured by fog)
+  - Buildings (residential/commercial)
+  - Sidewalk (partially visible)
+- **Weather Conditions**:
+  - Heavy fog (reduced visibility)
+  - Snowfall (wet, accumulating on road)
+- **Obstacles**:
+  - None directly visible, but fog creates potential hidden obstacles.
+
+---
+
+### **2. Relationships Between Entities**
+- **Ego Vehicle** is **following** the **Black SUV** in the same lane.
+- **Black SUV** is **moving forward** in the right lane.
+- **White Emergency Vehicle** is **approaching from behind** in the left lane.
+- **Fog** is **occluding** visibility beyond ~50 meters.
+- **Snowfall** is **reducing traction** on the road surface.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:HeavyFog, ex:Snowfall ;
+    ex:hasRoadCondition ex:WetSlipperyRoad .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isFollowing ex:BlackSUV ;
+    ex:hasPosition ex:RightLane .
+
+ex:BlackSUV a ex:Vehicle ;
+    ex:hasColor "Black" ;
+    ex:isMovingForward ;
+    ex:isOccludedBy ex:HeavyFog .
+
+ex:WhiteEmergencyVehicle a ex:Vehicle ;
+    ex:hasType "Ambulance" ;
+    ex:isApproachingFrom ex:LeftLane .
+
+ex:HeavyFog a ex:WeatherCondition ;
+    ex:reducesVisibility ;
+    ex:hasRange "0-50m" .
+
+ex:Snowfall a ex:WeatherCondition ;
+    ex:reducesTraction ;
+    ex:isAccumulating .
+
+ex:RoadMarkings a ex:RoadInfrastructure ;
+    ex:isPartiallyVisible .
+
+ex:Streetlights a ex:RoadInfrastructure ;
+    ex:arePartiallyObscured .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Reduced Visibility Due to Fog**
+- **Description**: Heavy fog limits visibility to ~50 meters, increasing the risk of collisions with unseen pedestrians, cyclists, or vehicles.
+- **Severity Score**: **0.9** (High risk due to sudden obstacles)
+
+#### **Risk 2: Slippery Road Conditions from Snow**
+- **Description**: Wet, snow-covered roads reduce tire grip, increasing braking distance and risk of skidding.
+- **Severity Score**: **0.8** (High risk, especially in emergency maneuvers)
+
+#### **Risk 3: Following Too Closely Behind Black SUV**
+- **Description**: Ego vehicle is following the Black SUV too closely, reducing reaction time in case of sudden braking.
+- **Severity Score**: **0.7** (Moderate risk, depends on speed)
+
+#### **Risk 4: Emergency Vehicle Approaching from Opposite Direction**
+- **Description**: The ambulance may require sudden lane changes or high-speed maneuvers, increasing collision risk.
+- **Severity Score**: **0.85** (High risk due to emergency vehicle unpredictability)
+
+#### **Risk 5: Occluded Road Markings and Infrastructure**
+- **Description**: Fog obscures lane markings and streetlights, increasing the risk of misalignment or incorrect lane changes.
+- **Severity Score**: **0.75** (Moderate to high risk)
+
+---
+### **Summary of Critical Risks**
+| **Risk** | **Severity (0-1)** |
+|----------|-------------------|
+| Reduced Visibility (Fog) | 0.9 |
+| Slippery Road (Snow) | 0.8 |
+| Emergency Vehicle Interaction | 0.85 |
+| Following Too Closely | 0.7 |
+| Occluded Road Markings | 0.75 |
+
+**Recommendations**:
+- **Slow down** to maintain safe following distance.
+- **Increase headway** to allow for emergency braking.
+- **Use adaptive cruise control (if available)** to maintain distance.
+- **Activate hazard lights** to signal presence in low visibility.
+- **Monitor radar/LiDAR** for hidden obstacles.
+
+Would you like additional risk mitigation strategies or a deeper dive into any specific risk?

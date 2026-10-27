@@ -1,0 +1,55 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyParkingLotNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Empty parking lot at night with no visible actors, potential risks due to low visibility and road conditions" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion risk due to limited visibility from streetlights and darkness" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential risk due to wet or slippery road conditions, though not visibly wet" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Risk of driver distraction due to empty surroundings and lack of dynamic stimuli" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.4"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion risk due to limited visibility from streetlights and darkness.
+Severity Score: 0.4
+
+**Risk 2:**
+Description: Potential risk due to wet or slippery road conditions, though not visibly wet.
+Severity Score: 0.3
+
+**Risk 3:**
+Description: Risk of driver distraction due to empty surroundings and lack of dynamic stimuli.
+Severity Score: 0.35
+
+---
+The scene does not contain any visible actors, traffic signs, traffic lights, billboards, or obstacles, so no entities were identified under those classes. The corner case was classified as a **StateAnomaly** due to the static but potentially hazardous conditions of the environment. The risks identified are based on the environmental conditions and potential hazards associated with nighttime driving in an empty parking lot.

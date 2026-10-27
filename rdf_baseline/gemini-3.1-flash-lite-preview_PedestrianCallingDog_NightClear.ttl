@@ -1,0 +1,41 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The observer vehicle (red hood visible).
+*   **Animal:** A large German Shepherd dog crossing the road.
+*   **Other Vehicles:** Multiple parked cars along the right side of the road, and distant vehicles approaching from the opposite direction.
+*   **Road Infrastructure:** Two-lane road with double yellow lines, street lighting, buildings, and residential sidewalk areas.
+*   **Environment:** Nighttime, clear weather conditions, artificial illumination from streetlights.
+
+### 2. Entity Relationships
+*   **Animal crossing:** The dog is moving perpendicularly across the lane of the ego-vehicle.
+*   **Ego-vehicle approaching:** The ego-vehicle is moving forward on the path of the dog.
+*   **Parked cars occluding:** The line of parked cars on the right likely occluded the dog until it entered the road.
+*   **Distance:** The dog is in close proximity to the ego-vehicle's path.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:movingForward ex:Road .
+
+ex:GermanShepherd rdf:type ex:Animal ;
+    ex:isCrossing ex:Road ;
+    ex:inProximityOf ex:EgoVehicle .
+
+ex:ParkedCars rdf:type ex:Vehicle ;
+    ex:locatedOn ex:RoadSide ;
+    ex:occluding ex:GermanShepherd .
+
+ex:Road rdf:type ex:Infrastructure ;
+    ex:hasLighting ex:NightCondition .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Collision risk due to the sudden emergence of an animal crossing the ego-vehicle's path. The animal is unpredictable and moving rapidly, requiring immediate braking or evasive maneuvers.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Occlusion hazard. The row of parked vehicles on the right-hand side limits the visibility of the ego-vehicle, preventing early detection of the dog until it enters the active lane.
+*   **Severity Score:** 0.65

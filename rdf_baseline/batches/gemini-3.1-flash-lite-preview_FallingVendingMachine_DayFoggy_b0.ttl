@@ -1,0 +1,39 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The observer vehicle.
+*   **Van:** A stationary or slow-moving commercial vehicle parked/stopped on the side of the road.
+*   **Pedestrian:** A person standing next to the van, interacting with a hand truck.
+*   **Obstacle:** A large, rectangular, reflective Coca-Cola branded sign/board being transported or positioned near the road.
+*   **Environment:** Urban road, low-visibility weather condition (thick fog).
+
+### 2. Relationships
+*   **Van near Pedestrian:** The pedestrian is positioned adjacent to the van.
+*   **Obstacle occluding Vision:** The large sign is positioned directly in the path of the ego-vehicle, obstructing the view of the road ahead.
+*   **Pedestrian near Obstacle:** The pedestrian is manipulating or near the large sign.
+*   **Van near Obstacle:** The van is the source/support for the loading activity involving the sign.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaches ex:Obstacle .
+ex:Van ex:locatedAt ex:Roadside .
+ex:Pedestrian ex:near ex:Van .
+ex:Obstacle ex:inPath ex:EgoVehicle .
+ex:Environment ex:hasCondition ex:ThickFog .
+ex:Obstacle ex:isA ex:LargeSign .
+ex:Pedestrian ex:interactsWith ex:Obstacle .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Obstructed line of sight and potential collision with a large, rigid obstacle. The presence of a large sign in the middle of the driving lane, compounded by severe fog, creates an immediate high-severity collision hazard.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Pedestrian proximity to active traffic. The pedestrian is working near the roadway edge in low-visibility conditions. Any movement into the lane or shift of the cargo poses a lethal threat to the pedestrian.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Environmental hazards (Low visibility/Fog). The thick fog severely reduces the sensing range of LiDAR, cameras, and radar, delaying detection time for both the ego-vehicle and the human actor, increasing reaction time requirements beyond normal thresholds.
+*   **Severity Score:** 0.75

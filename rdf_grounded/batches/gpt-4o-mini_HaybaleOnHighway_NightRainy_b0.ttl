@@ -1,0 +1,30 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NightSceneWithRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "A round object on the road, potentially hazardous"^^xsd:string .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to an obstacle on the road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Risk of collision due to an obstacle on the road
+Severity Score: 0.75

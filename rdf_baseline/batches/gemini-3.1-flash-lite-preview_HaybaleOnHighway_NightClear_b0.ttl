@@ -1,0 +1,38 @@
+This scene depicts a night-time driving environment featuring an anomalous physical event involving a large object (a hay bale) seemingly floating or flying across the roadway.
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:ego_vehicle rdf:type ex:Vehicle .
+ex:other_vehicle rdf:type ex:Vehicle ;
+                 ex:isNear ex:ego_vehicle ;
+                 ex:isOccludedBy ex:hay_bale .
+
+ex:hay_bale rdf:type ex:Obstacle ;
+            ex:isMovingAcross ex:roadway ;
+            ex:isFloating true .
+
+ex:roadway rdf:type ex:Infrastructure .
+ex:traffic_light rdf:type ex:Infrastructure ;
+                 ex:state "red" .
+
+ex:environment rdf:type ex:WeatherCondition ;
+               ex:time "night" ;
+               ex:visibility "low" .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Unidentified aerial obstacle (hay bale) trajectory collision. The object is moving across the ego vehicle's path at an unpredictable height/angle, posing a direct threat of impact.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Occlusion of other traffic participants. The hay bale is obstructing the view of the vehicle stopped ahead, preventing the ego vehicle from accurately assessing the other vehicle’s status or potential movement.
+**Severity Score:** 0.70
+
+**Risk 3:**
+**Description:** Low-light sensor degradation. The night-time environment complicates the classification of the floating object and background details, increasing the latency for potential emergency braking maneuvers.
+**Severity Score:** 0.65

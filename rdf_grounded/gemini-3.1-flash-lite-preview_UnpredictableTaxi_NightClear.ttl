@@ -1,0 +1,28 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RearEndClosingDistance" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+:night1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Rapidly decreasing distance to the preceding vehicle at night" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Rapidly decreasing distance to the preceding vehicle at night
+Severity Score: 0.75

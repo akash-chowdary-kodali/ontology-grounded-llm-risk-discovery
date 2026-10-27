@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRoadConstructionWithPedestrianAndCyclist" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding near construction zone" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian walking on road near construction zone" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large construction barrier on road" .
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball test object on road indicating potential instability" ;
+    :indicatesPotentialRisk :risk2 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking into vehicle path near construction zone" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Construction barriers and cones may obscure visibility of cyclist/pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian walking into vehicle path near construction zone
+- **Severity Score:** 0.90
+- **Risk Type:** `:PedestrianCollisionRisk`
+
+**Risk 2:**
+- **Description:** Construction barriers and cones may obscure visibility of cyclist/pedestrian
+- **Severity Score:** 0.80
+- **Risk Type:** `:OcclusionRisk`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** A cyclist riding near the construction zone and a pedestrian walking on the road.
+   - **Obstacles:** Large construction barriers and orange traffic cones obstructing the road.
+   - **Evidence Indicator:** Rolling ball test object (indicating potential instability or uneven road surface).
+   - **Weather Condition:** Clear daytime conditions.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`BehaviorAnomaly`** because the cyclist and pedestrian are navigating an unexpected construction zone, which deviates from typical road behavior.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian walking in the vehicle path.
+   - **OcclusionRisk:** High severity due to construction barriers and cones obstructing visibility.
+
+4. **Severity Scores:**
+   - The pedestrian collision risk is assigned a severity score of **0.90** (high risk).
+   - The occlusion risk is assigned a severity score of **0.80** (moderate-high risk).

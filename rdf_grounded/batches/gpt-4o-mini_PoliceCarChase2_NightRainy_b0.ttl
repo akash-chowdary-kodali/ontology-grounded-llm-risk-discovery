@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Night driving in rainy conditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :RainyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road conditions due to rain" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Increased risk of skidding due to wet roads" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Increased risk of skidding due to wet roads
+Severity Score: 0.75

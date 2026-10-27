@@ -1,0 +1,86 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithRoadWorkers" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Road worker with heavy equipment on left side" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian walking near roadwork zone" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large concrete barrier blocking part of road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy equipment being moved by road worker" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :RollingBallIndicator ;
+    :description "Orange traffic cones near roadwork zone" ;
+    :indicatesPotentialRisk :risk2 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with road worker handling heavy equipment" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones and equipment obstructing clear path" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :RoadConditionRisk ;
+    :description "Flooded road conditions reducing traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with road worker handling heavy equipment
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk (PedestrianCollisionRisk implied by context)
+
+**Risk 2:**
+- **Description:** Traffic cones and equipment obstructing clear path
+- **Severity Score:** 0.75
+- **Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Flooded road conditions reducing traction
+- **Severity Score:** 0.80
+- **Type:** RoadConditionRisk
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification**: The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (falling/rolling objects, roadwork setup) rather than direct behavioral or state anomalies.
+2. **Key Actors**: Two pedestrians (road workers) and their equipment are identified as critical actors.
+3. **Obstacles**: The concrete barrier and traffic cones are classified as **RoadObjects** under **Obstacle**.
+4. **Weather**: Heavy rain is explicitly modeled as a **RainyCondition** contributing to road hazards.
+5. **Severity Scores**:
+   - Highest risk (0.90) assigned to the worker handling equipment due to immediate collision potential.
+   - Occlusion risk (0.75) from cones/equipment is secondary but still critical.
+   - Flooded road (0.80) is a persistent hazard affecting vehicle control.

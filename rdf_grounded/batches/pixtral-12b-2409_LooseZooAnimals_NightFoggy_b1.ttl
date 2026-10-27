@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ZooAnimalCrossingRoadAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist on roadside path" .
+:actor2 a :Cyclist ;
+    :description "Cyclist crossing road in background" .
+:actor3 a :Cyclist ;
+    :description "Cyclist sitting in roadway" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large elephant statue blocking road" .
+
+:weather1 a :NightCondition ;
+    :description "Low-visibility nighttime scene with fog" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist sitting in roadway" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Large elephant statue obstructing forward visibility" ;
+    :hasSeverityScore :sev2 .
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with cyclist sitting in roadway
+- **Severity Score:** 0.95
+- **Risk Type:** CollisionRisk (Pedestrian/Cyclist Collision)
+
+**Risk 2:**
+- **Description:** Large elephant statue obstructing forward visibility
+- **Severity Score:** 0.80
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** because the primary issue is the unexpected presence of cyclists (including one sitting in the road) and a large road-blocking object (elephant statue) in an otherwise empty roadway.
+
+2. **Entities Identified:**
+   - **Actors:** Three cyclists (two moving, one sitting in the road).
+   - **Obstacle:** Large elephant statue acting as a **RoadObject**.
+   - **Weather:** **NightCondition** with low visibility (fog).
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the cyclist sitting in the roadway (high severity).
+   - **OcclusionRisk** due to the elephant statue blocking visibility (moderate severity).
+
+4. **Ontology Constraints:**
+   - No **TrafficLight** or **TrafficSign** detected in the scene.
+   - No **BehaviorAnomaly** or **EvidenceBasedAnomaly** applied (no evidence indicators like open doors or rolling balls).
+   - **WeatherCondition** is limited to **NightCondition** (no rain/fog subclass used due to lack of explicit evidence in the ontology).

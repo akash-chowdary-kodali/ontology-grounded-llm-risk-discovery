@@ -1,0 +1,145 @@
+### **Scene Analysis: Nighttime Urban Street with Wet Conditions and Animals Crossing**
+
+---
+
+### **1. Identified Entities in the Scene**
+#### **Vehicles:**
+- **Autonomous vehicle (ego vehicle)** – Yellow car in the right lane.
+- **Red pickup truck** – Stationary or moving slowly on the right side.
+- **Green car** – Stationary or moving slowly on the right side.
+- **Black car** – Stationary or moving slowly on the right side.
+- **Other parked vehicles** – Alongside the road.
+
+#### **Pedestrians & Animals:**
+- **Two dogs** – Crossing the road from the right side toward the left.
+
+#### **Road Infrastructure:**
+- **Wet road surface** – Reflective, indicating recent rain.
+- **Streetlights** – Illuminating the road.
+- **Double yellow lines** – Marking the center of the road.
+- **Sidewalk** – On the left side with buildings.
+- **Buildings** – On both sides of the road.
+
+#### **Weather Conditions:**
+- **Nighttime** – Low visibility.
+- **Rainy/Wet** – Reflective road surface.
+
+#### **Obstacles:**
+- **Dogs crossing unpredictably** – Potential sudden movement.
+
+---
+
+### **2. Relationships Between Entities**
+- **Ego vehicle (yellow car)** is **approaching** the dogs crossing the road.
+- **Dogs** are **crossing** the road from the right side toward the left lane.
+- **Red pickup truck, green car, and black car** are **stationary or moving slowly** on the right side.
+- **Streetlights** are **illuminating** the road, but visibility is reduced due to nighttime and rain.
+- **Wet road** is **affecting traction** for vehicles.
+- **Buildings** are **occluding** some parts of the road, reducing visibility of distant objects.
+
+---
+
+### **3. RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Nighttime ;
+    :hasWeatherCondition :Rainy ;
+    :hasRoadCondition :WetRoad .
+
+:EgoVehicle a :Vehicle ;
+    :hasColor "Yellow" ;
+    :isPositionedIn :RightLane ;
+    :isApproaching :Dogs .
+
+:Dogs a :Animal ;
+    :areCrossing :Road ;
+    :areMovingFrom :RightSide ;
+    :areMovingTo :LeftSide .
+
+:RedPickupTruck a :Vehicle ;
+    :hasColor "Red" ;
+    :isPositionedIn :RightSide ;
+    :isStationaryOrSlowMoving .
+
+:GreenCar a :Vehicle ;
+    :hasColor "Green" ;
+    :isPositionedIn :RightSide ;
+    :isStationaryOrSlowMoving .
+
+:BlackCar a :Vehicle ;
+    :hasColor "Black" ;
+    :isPositionedIn :RightSide ;
+    :isStationaryOrSlowMoving .
+
+:Streetlights a :Infrastructure ;
+    :illuminate :Road ;
+    :arePresent .
+
+:Road a :RoadInfrastructure ;
+    :hasSurfaceCondition :Wet ;
+    :hasMarkings :DoubleYellowLines ;
+    :hasObstacle :Dogs .
+
+:Buildings a :Infrastructure ;
+    :areOn :LeftSide ;
+    :areOn :RightSide ;
+    :occlude :DistantObjects .
+```
+
+---
+
+### **4. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Unpredictable Animal Crossing**
+- **Description:**
+  The two dogs are crossing the road unpredictably, which could lead to sudden braking or swerving by the ego vehicle or other vehicles. This is particularly hazardous at night due to reduced visibility and wet road conditions.
+- **Severity Score:** **0.9**
+  *(High risk due to sudden movement, low visibility, and wet conditions increasing braking distance.)*
+
+#### **Risk 2: Reduced Visibility Due to Nighttime and Rain**
+- **Description:**
+  The combination of nighttime and wet road conditions reduces visibility, making it difficult for the autonomous vehicle to detect obstacles, pedestrians, or animals in time.
+- **Severity Score:** **0.8**
+  *(Moderate to high risk due to limited sensor effectiveness in low-light and rainy conditions.)*
+
+#### **Risk 3: Wet Road Surface Affecting Traction**
+- **Description:**
+  The wet road increases the risk of hydroplaning or loss of control, especially if the ego vehicle or other vehicles brake suddenly.
+- **Severity Score:** **0.7**
+  *(Moderate risk due to potential loss of traction, but not as immediate as animal crossing.)*
+
+#### **Risk 4: Stationary or Slow-Moving Vehicles on the Right Side**
+- **Description:**
+  The red pickup truck, green car, and black car are either stationary or moving slowly, which could create a bottleneck or require the ego vehicle to change lanes abruptly.
+- **Severity Score:** **0.6**
+  *(Moderate risk due to potential lane changes or congestion.)*
+
+#### **Risk 5: Occlusion by Buildings**
+- **Description:**
+  Buildings on both sides of the road may occlude distant objects, reducing the ego vehicle’s ability to detect hazards early.
+- **Severity Score:** **0.5**
+  *(Low to moderate risk, as occlusion is a persistent issue but not immediate.)*
+
+---
+### **Summary of Risks**
+| **Risk**                          | **Severity Score (0-1)** |
+|-----------------------------------|--------------------------|
+| Unpredictable Animal Crossing      | 0.9                      |
+| Reduced Visibility (Night + Rain) | 0.8                      |
+| Wet Road Affecting Traction       | 0.7                      |
+| Stationary/Slow-Moving Vehicles    | 0.6                      |
+| Occlusion by Buildings            | 0.5                      |
+
+---
+### **Recommendations for Autonomous Vehicle Response**
+1. **Increase sensor sensitivity** (LiDAR, radar, cameras) to detect animals early.
+2. **Slow down and prepare for sudden stops** due to unpredictable animal movement.
+3. **Use adaptive headlights** to improve visibility in low-light conditions.
+4. **Monitor lane changes** due to stationary vehicles on the right.
+5. **Adjust traction control** to prevent skidding on wet surfaces.
+
+This scenario highlights the importance of robust **object detection, adaptive speed control, and environmental awareness** in autonomous driving systems.

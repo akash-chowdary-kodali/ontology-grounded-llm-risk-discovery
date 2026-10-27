@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "VehicleApproachingHeadOn" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle approaching ego-vehicle in the same lane" .
+
+:weather1 a :ClearCondition ;
+    :description "Daytime clear weather conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Head-on collision risk with oncoming vehicle in ego-lane" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Head-on collision risk with an oncoming vehicle that has intruded into the ego-vehicle's lane.
+Severity Score: 0.95

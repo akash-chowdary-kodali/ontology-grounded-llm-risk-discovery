@@ -1,0 +1,35 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:ego_vehicle rdf:type :Vehicle .
+:soccer_ball rdf:type :Obstacle .
+:road_surface rdf:type :Infrastructure .
+:environment rdf:type :WeatherCondition .
+
+:environment :type :HeavyRain ;
+             :visibility :Low .
+
+:soccer_ball :location :RoadCenter ;
+             :motion :Moving ;
+             :proximityTo :ego_vehicle :Near .
+
+:road_surface :state :Wet ;
+              :reflectivity :High .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Dynamic Obstacle Intrusion (Soccer Ball):** A soccer ball is crossing the vehicle's path. In a residential or suburban context, the presence of a ball often indicates that a child may be running into the street to retrieve it. Due to the heavy rain and low visibility, the detection and reaction time for the child (who is likely occluded or not yet in view) are severely compromised.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** **Adverse Environmental Conditions (Hydroplaning/Visibility):** The combination of heavy rain and a wet road surface significantly reduces tire-to-road friction (increasing braking distance) and creates high-contrast glare from overhead lights on the road. This degrades both sensor performance (LiDAR/Camera noise) and human/AI situational awareness.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** **Potential Pedestrian Collision:** Given the context of a ball entering the roadway, there is a high-probability latent risk of a pedestrian collision. The poor visibility makes the environment highly unpredictable, and the ego vehicle must prepare for a sudden stop or emergency maneuver to avoid a potential small pedestrian (child).
+*   **Severity Score:** 0.90

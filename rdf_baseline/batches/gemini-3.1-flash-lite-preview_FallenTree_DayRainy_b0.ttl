@@ -1,0 +1,49 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (camera perspective).
+*   **Vehicles:** Multiple yellow taxi cabs, police vehicle (in the distance).
+*   **Obstacles:** Large fallen tree trunk obstructing the entire road.
+*   **Road Infrastructure:** Street lights, double yellow line road markings, sidewalk, building (left).
+*   **Weather Conditions:** Heavy rain, low visibility, wet/reflective road surface.
+
+### 2. Relationships
+*   **Ego-Vehicle** is approaching the **Fallen Tree**.
+*   **Fallen Tree** is blocking the **Road**.
+*   **Taxi Cabs** are parked/stationary on the right.
+*   **Police Vehicle** is positioned behind the obstacle.
+*   **Environment** is characterized by low visibility due to adverse weather.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isApproaching ex:FallenTree ;
+    ex:drivingIn ex:RainyWeather .
+
+ex:FallenTree rdf:type ex:Obstacle ;
+    ex:isBlocking ex:Road .
+
+ex:PoliceVehicle rdf:type ex:Vehicle ;
+    ex:isBehind ex:FallenTree .
+
+ex:TaxiCab rdf:type ex:Vehicle ;
+    ex:isStationaryOn ex:Roadside .
+
+ex:RoadSurface rdf:type ex:Infrastructure ;
+    ex:hasCondition ex:Wet .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+**Description:** Full roadway obstruction by a fallen tree. The obstacle completely blocks the path, requiring an immediate stop or emergency maneuver to prevent collision.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Adverse weather conditions (heavy rain). This significantly reduces friction on the road surface (increased braking distance) and lowers the visual sensor range (camera/Lidar).
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** Reduced visibility of the obstacle. The combination of rain and the tree's color/texture blending with the background increases the latency in object detection.
+**Severity Score:** 0.75

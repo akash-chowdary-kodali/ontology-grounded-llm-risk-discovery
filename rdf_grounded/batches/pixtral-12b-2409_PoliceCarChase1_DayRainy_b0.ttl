@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the provided tunnel scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:tunnelScene1 a :Scene ;
+    :scenarioName "RainyTunnelDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :rainyCondition ;
+    :hasObstacle :roadSurface ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:rainyCondition a :RainyCondition ;
+    :description "Heavy rain reducing visibility and creating wet road conditions" .
+
+:roadSurface a :RoadObject ;
+    :description "Wet road surface with standing water and reflective sheen" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning due to standing water on road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to rain and tunnel lighting conditions" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Visual evidence of water droplets and reflective road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning due to standing water on road surface
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Reduced visibility due to rain and tunnel lighting conditions
+- **Severity Score:** 0.8
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** `RainyCondition` (heavy rain)
+   - **Obstacle:** `RoadObject` (wet road surface with standing water)
+   - **EvidenceIndicator:** `RollingBallIndicator` (water droplets and reflective road surface)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene represents an anomalous state due to the combination of heavy rain and tunnel driving, which creates hazardous road conditions (hydroplaning risk) and reduced visibility.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** High hydroplaning risk from standing water.
+   - **OcclusionRisk:** Reduced visibility due to rain and tunnel lighting.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is assigned the highest severity (0.9) due to its immediate danger.
+   - Occlusion risk is slightly lower (0.8) but still critical in tunnel environments.
+
+The RDF output strictly adheres to the provided ontology vocabulary and rules.

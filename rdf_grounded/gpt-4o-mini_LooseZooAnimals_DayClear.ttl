@@ -1,0 +1,53 @@
+Here's the semantic interpretation of the scene images using the given OWL ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnusualAnimalEncounter" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist encountering a large elephant" .
+
+:actor2 a :Pedestrian ;
+    :description "Pedestrians reacting to animals" .
+
+:obstacle1 a :RoadObject ;
+    :description "Car overturned in the road" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Risk of collision with pedestrians due to unexpected animal presence" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Distraction from unconventional road objects" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Risk of collision with pedestrians due to unexpected animal presence
+Severity Score: 0.8
+
+Risk 2:
+Description: Distraction from unconventional road objects
+Severity Score: 0.6

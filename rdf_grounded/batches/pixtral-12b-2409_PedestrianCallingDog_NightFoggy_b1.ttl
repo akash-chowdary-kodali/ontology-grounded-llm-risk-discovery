@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreetAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running into street" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into path of oncoming vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver may be distracted by unexpected animal" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dog's movement resembles a rolling ball (unpredictable trajectory)" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Dog running into path of oncoming vehicle
+Severity Score: 0.92
+Risk Type: PedestrianCollisionRisk
+
+**Risk 2:**
+Description: Driver may be distracted by unexpected animal
+Severity Score: 0.75
+Risk Type: DistractionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified**:
+   - **Actor**: Dog (modeled as a `Pedestrian` since it's an unexpected road user)
+   - **WeatherCondition**: `NightCondition` (low visibility, nighttime setting)
+   - **EvidenceIndicator**: `RollingBallIndicator` (dog's unpredictable movement resembles a rolling object)
+
+2. **Corner Case Classification**:
+   - **BehaviorAnomaly**: The dog's behavior (running unpredictably into the street) is the primary anomaly.
+
+3. **Risks Identified**:
+   - **PedestrianCollisionRisk**: High severity due to the dog's trajectory intersecting with vehicles.
+   - **DistractionRisk**: Moderate severity as drivers may react unpredictably to the unexpected animal.
+
+4. **Severity Scores**:
+   - Collision risk is high (0.92) due to immediate threat.
+   - Distraction risk is moderate (0.75) due to potential driver distraction.

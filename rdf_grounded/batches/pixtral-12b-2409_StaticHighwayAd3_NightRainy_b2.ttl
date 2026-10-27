@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithReflections" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with minimal illumination" .
+
+:weather2 a :RainyCondition ;
+    :description "Wet road surface indicating recent or ongoing rain" .
+
+:obstacle1 a :RoadObject ;
+    :description "Reflective water puddles on road surface causing visual distortion" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Visual occlusion due to water reflections on road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from light reflections on wet road" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Visual occlusion due to water reflections on road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Slippery road conditions due to wet surface
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Potential distraction from light reflections on wet road
+Severity Score: 0.55
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** due to the anomalous state of the road (wet surface and reflections).
+2. No actors (e.g., pedestrians, cyclists, or vehicles) were detected in the image, so no `hasActor` property was assigned.
+3. The primary risks identified are related to the road conditions and visual distortions caused by the wet surface.
+4. Severity scores were assigned based on the potential impact of each risk on autonomous driving safety.

@@ -1,0 +1,76 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:ClearNight ;
+    ex:hasRoadMarking ex:DoubleWhiteSolidLine .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasLaneMarking ex:DoubleWhiteSolidLine ;
+    ex:hasCurve ex:SharpCurve ;
+    ex:hasSignage ex:SignagePresent .
+
+ex:SignagePresent a ex:Sign ;
+    ex:hasText "Dr. Carla" ;
+    ex:hasLocation ex:RightSideOfRoad .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:hasPosition ex:OnRoad ;
+    ex:hasSpeed ex:SlowSpeed ;
+    ex:hasHeadlight ex:On .
+
+ex:Obstacle1 a ex:PotentialObstacle ;
+    ex:hasType ex:UnknownObject ;
+    ex:hasLocation ex:FarRightSide ;
+    ex:hasVisibility ex:LowVisibility .
+
+ex:LightingCondition ex:LowLighting ;
+    ex:hasSource ex:StreetLights .
+
+ex:WeatherCondition ex:ClearNight ;
+    ex:hasVisibility ex:ReducedNightVisibility .
+
+ex:Vehicle1 ex:isApproaching ex:Curve .
+ex:Vehicle1 ex:hasNearby ex:SignagePresent .
+ex:Vehicle1 ex:hasPotentialObstacle ex:Obstacle1 .
+ex:Obstacle1 ex:isOccludedBy ex:SignagePresent .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description:
+The autonomous vehicle is navigating a sharp curve with low visibility due to limited street lighting and nighttime conditions. The potential unknown object on the far right side of the road could be an obstacle, such as a pedestrian, cyclist, or animal, which is not clearly visible.
+
+Severity Score: 0.85
+
+**Risk 2:**
+Description:
+The double white solid line indicates no overtaking or lane change, but the autonomous vehicle might need to adjust its path due to the sharp curve. Misinterpretation of road markings or unexpected obstacles could lead to a collision or loss of control.
+
+Severity Score: 0.75
+
+**Risk 3:**
+Description:
+The signage on the right side of the road could partially occlude the view of potential obstacles or other vehicles, leading to delayed detection and response.
+
+Severity Score: 0.70
+
+**Risk 4:**
+Description:
+The low lighting conditions combined with the nighttime setting reduce the visibility of the road and any potential hazards, increasing the risk of not detecting obstacles in time.
+
+Severity Score: 0.80
+
+---
+The severity scores are based on a scale where 1 indicates a critical risk and 0 indicates no risk. The scores reflect the potential danger and the likelihood of an adverse event occurring in this scenario.

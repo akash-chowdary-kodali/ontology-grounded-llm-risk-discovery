@@ -1,0 +1,226 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball rolling on wet road" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling ball on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling ball on road
+- **Severity Score:** 0.90
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.85
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Obstacle:** A soccer ball rolling on the wet road (`:obstacle1` as `:RoadObject`).
+   - **Weather Condition:** Heavy rain (`:weather1` as `:RainyCondition`).
+   - **Evidence Indicator:** Rolling ball (`:evidence1` as `:RollingBallIndicator`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the rolling ball (evidence) directly indicates a potential risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the ball rolling unpredictably on a wet road.
+   - **OcclusionRisk:** High severity due to heavy rain reducing visibility.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a severity of **0.90** (very high).
+   - Occlusion risk is assigned a severity of **0.85** (high). Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball on road" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling soccer ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with falling soccer ball (evidence-based anomaly)
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain (occlusion risk)
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** `:weather1` (RainyCondition)
+   - **Obstacle:** `:obstacle1` (RoadObject - soccer ball)
+   - **EvidenceIndicator:** `:evidence1` (FallingObjectIndicator)
+
+2. **Corner Case Classification:**
+   - `:cc1` is classified as `:EvidenceBasedAnomaly` because the presence of the soccer ball (falling object) serves as clear evidence of an unexpected road hazard.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the soccer ball being on the road, posing a direct collision threat.
+   - **OcclusionRisk:** Due to heavy rain reducing visibility, increasing the difficulty of detecting other actors or obstacles.
+
+4. **Severity Scores:**
+   - The soccer ball collision risk is assigned a severity of **0.75** (moderate-high risk due to unpredictable movement).
+   - The occlusion risk from rain is assigned a severity of **0.80** (high risk due to impaired perception). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRainyDayWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:evidence2 a :RoadConditionRisk ;
+    :indicatesPotentialRisk :risk4 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian running on sidewalk" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle in front of ego vehicle" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian running unexpectedly onto road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to fog and rain" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian running unexpectedly onto road
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Potential rear-end collision due to reduced visibility
+Severity Score: 0.70
+
+**Risk 3:**
+Description: Occlusion risk due to fog and rain
+Severity Score: 0.65
+
+**Risk 4:**
+Description: Slippery road conditions due to rain
+Severity Score: 0.75
+
+---
+**Notes:**
+- The corner case is classified as `:EvidenceBasedAnomaly` due to the presence of clear indicators (rolling ball and road conditions) that suggest potential risks.
+- The `:RollingBallIndicator` and `:RoadConditionRisk` are used as evidence indicators.
+- The `:RainyCondition` is identified as the weather condition affecting the scene.
+- Severity scores are assigned based on the potential danger and likelihood of the risks occurring in the given scenario.

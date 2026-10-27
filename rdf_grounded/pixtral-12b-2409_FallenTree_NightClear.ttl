@@ -1,0 +1,206 @@
+Here's the semantic interpretation of the provided scene images using the given OWL ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNightTrafficWithFollowingRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :vehicle3 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle (yellow taxi)" .
+:vehicle2 a :Vehicle ;
+    :description "Ego vehicle (red hood visible)" .
+:vehicle3 a :Vehicle ;
+    :description "Lead vehicle (silver car)" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance at night" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential driver distraction from following too closely at night" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: High risk of rear-end collision due to close following distance at night
+Severity Score: 0.88
+Confidence Score: 0.92
+
+Risk 2:
+Description: Potential driver distraction from following too closely at night
+Severity Score: 0.65
+Confidence Score: 0.75
+
+Analysis Notes:
+1. The corner case is classified as a BehaviorAnomaly because it involves unsafe driving behavior (close following) rather than a physical state anomaly or evidence-based anomaly.
+2. The primary risk identified is RearEndCollisionRisk due to the close proximity of the following yellow taxi to the lead vehicle.
+3. A secondary DistractionRisk is identified as the close following behavior may distract drivers from other potential hazards.
+4. The NightCondition is included as it exacerbates both risks (reduced visibility increases collision risk and may contribute to driver distraction).
+5. No evidence indicators were present in the scene to include in the RDF.
+6. The severity scores reflect the high danger of rear-end collisions at night combined with close following, while the distraction risk is moderately severe. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Nighttime Lane Intrusion with Police Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Police vehicle stopped in the middle of the road" .
+
+:actor2 a :Vehicle ;
+    :description "Yellow taxi vehicle approaching from behind" .
+
+:obstacle1 a :RoadObject ;
+    :description "Police vehicle blocking the lane" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Police vehicle obstructing traffic flow, increasing risk of rear-end collision" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Yellow taxi vehicle following too closely behind the police vehicle" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Police vehicle obstructing traffic flow, increasing risk of lane intrusion and rear-end collision.
+- **Risk Type:** `:LaneIntrusionRisk`
+- **Severity Score:** `0.90`
+
+**Risk 2:**
+- **Description:** Yellow taxi vehicle following too closely behind the police vehicle, increasing risk of rear-end collision.
+- **Risk Type:** `:RearEndCollisionRisk`
+- **Severity Score:** `0.85`
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`:BehaviorAnomaly`** because the police vehicle is stationary in the middle of the lane, which is an unexpected behavior for typical traffic flow.
+
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (`:actor1` as the police vehicle, `:actor2` as the yellow taxi).
+   - **Obstacle:** The police vehicle (`:obstacle1`) acts as a road obstruction.
+   - **Weather Condition:** `:NightCondition` due to the dark environment.
+
+3. **Risks Identified:**
+   - **Lane Intrusion Risk:** The police vehicle is blocking the lane, forcing other vehicles to maneuver around it.
+   - **Rear-End Collision Risk:** The yellow taxi is following too closely, increasing the likelihood of a collision if the police vehicle moves suddenly.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (`0.90` and `0.85`) due to the potential for immediate collision and traffic disruption in an urban nighttime setting. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle in adjacent lane" .
+:actor2 a :Vehicle ;
+    :description "Police vehicle ahead in same lane" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree branches obstructing sidewalk" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to sudden braking by police vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Yellow taxi in adjacent lane may intrude into current lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Fallen tree branches may occlude pedestrians or cyclists" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to sudden braking by police vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Yellow taxi in adjacent lane may intrude into current lane
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Fallen tree branches may occlude pedestrians or cyclists
+Severity Score: 0.50
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **BehaviorAnomaly** due to the police vehicle's potential sudden braking behavior and the taxi's lane proximity.
+2. Three risks were identified: **RearEndCollisionRisk** (highest priority), **LaneIntrusionRisk**, and **OcclusionRisk**.
+3. Severity scores were assigned based on:
+   - Immediate braking threat (0.75)
+   - Lane proximity (0.60)
+   - Occlusion potential (0.50)
+4. The night condition was noted but not directly assigned a risk since no weather-related hazards were evident.

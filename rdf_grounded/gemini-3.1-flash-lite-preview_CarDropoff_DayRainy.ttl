@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyIntersectionWithVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasActor :vehicle1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle encroaching on ego-vehicle lane" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle intruding into ego-lane under poor visibility conditions" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle intruding into ego-lane under poor visibility conditions
+Severity Score: 0.80

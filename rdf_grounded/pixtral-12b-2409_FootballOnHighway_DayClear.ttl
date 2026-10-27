@@ -1,0 +1,175 @@
+Based on the provided images, here is the semantic interpretation grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanIntersectionWithRollingBallIndicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball indicator detected on the road surface, suggesting potential lane intrusion or distraction risk" ;
+    :indicatesPotentialRisk :risk1 ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to rolling ball indicator, indicating a vehicle may swerve unpredictably" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Rolling ball indicator may distract the driver, leading to reduced attention to the road" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation or fog" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential lane intrusion due to rolling ball indicator, indicating a vehicle may swerve unpredictably.
+- **Severity Score:** 0.65
+
+**Risk 2:**
+- **Description:** Rolling ball indicator may distract the driver, leading to reduced attention to the road.
+- **Severity Score:** 0.50
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - The scene primarily features an empty urban intersection with no actors (pedestrians, cyclists, or vehicles) directly visible. The only notable entity is the **rolling ball indicator** (evidence of potential anomalies).
+   - The weather is clear (`:ClearCondition`), and there are no visible traffic signs, traffic lights, billboards, or obstacles in the immediate foreground.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:EvidenceBasedAnomaly` because the rolling ball indicator (a physical phenomenon) suggests potential risks without direct evidence of an actor's anomalous behavior or state.
+
+3. **Risks Identified:**
+   - **Lane Intrusion Risk:** The rolling ball indicator suggests that a vehicle might swerve unpredictably, leading to potential lane intrusion.
+   - **Distraction Risk:** The indicator may distract the driver, reducing their attention to the road.
+
+4. **Severity Scores:**
+   - The severity scores are assigned based on the likelihood and potential impact of the risks. Lane intrusion is scored higher (0.65) than distraction (0.50) due to its direct impact on collision potential. Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Object falling from above onto road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling spherical object on road surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Potential collision with falling object on road (spherical object appears to be rolling/falling from above)
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Evidence:** FallingObjectIndicator (object appears to be a rolling ball)
+- **Corner Case Type:** EvidenceBasedAnomaly (detected through visual evidence of falling object)
+
+### Analysis Notes:
+1. **Entity Identification:**
+   - The primary **Obstacle** is a **RoadObject** (falling spherical object)
+   - The **WeatherCondition** is **DayCondition** (clear daytime)
+   - No Actors (Pedestrians/Cyclists/Vehicles) or TrafficSigns/Lights/Billboards are visible in this frame
+
+2. **Corner Case Classification:**
+   - Classified as **EvidenceBasedAnomaly** because the risk is identified through direct visual evidence of a falling object (not inferred behavior or state)
+
+3. **Risk Assessment:**
+   - The falling object creates a **CollisionRisk** (0.75 severity) as it may:
+     - Roll unpredictably across lanes
+     - Cause vehicles to swerve
+     - Damage vehicle windshields/lights
+   - No other risk types apply in this specific frame
+
+4. **Severity Justification:**
+   - 0.75/1.0 reflects moderate-high risk due to:
+     - Object's potential to cause damage
+     - Unpredictable movement pattern
+     - Limited time for reaction
+   - Lower than 1.0 because:
+     - Object appears small (not immediately dangerous)
+     - Clear visibility conditions
+     - No immediate collision trajectory visible Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "A spherical object is falling from the air onto the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling object on the road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather conditions" .
+
+:scene1 :hasWeatherCondition :weather1 .
+```
+
+Identified Risks for each risk class
+---
+**Risk 1:**
+Description: Potential collision risk due to falling object on the road.
+Severity Score: 0.75
+
+---
+The scene contains a **FallingObjectIndicator** (the spherical object in mid-air), which is classified as an **EvidenceBasedAnomaly**. The primary risk identified is a **CollisionRisk** due to the falling object potentially causing an accident. The severity score of 0.75 reflects a moderate-to-high risk level, given the object's trajectory and potential impact on the road. The weather condition is clear, which does not exacerbate the risk.

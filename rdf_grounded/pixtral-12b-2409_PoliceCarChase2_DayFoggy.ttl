@@ -1,0 +1,203 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanTunnelDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:evidence1 a :FoggyCondition ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog, increasing risk of rear-end collision" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "High likelihood of rear-end collision due to poor visibility and close following distance" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "White vehicle in right lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "Gray vehicle in left lane" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog, increasing risk of rear-end collision
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** High likelihood of rear-end collision due to poor visibility and close following distance
+- **Severity Score:** 0.95
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - Two **Vehicles** (`vehicle1` and `vehicle2`) are identified, traveling in opposite directions in a tunnel.
+   - **FoggyCondition** (`foggyCondition`) is the dominant weather condition, significantly reducing visibility.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the foggy conditions serve as evidence for potential risks (occlusion and rear-end collision).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the fog, the visibility is severely reduced, making it difficult for drivers to see other vehicles or obstacles in time.
+   - **RearEndCollisionRisk:** The close following distance between vehicles combined with poor visibility increases the risk of a rear-end collision.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.90 and 0.95) due to the critical nature of the situation in a foggy tunnel with limited visibility. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyTunnelLaneChangeScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasObstacle :vehicle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Vehicle lane change in foggy tunnel with reduced visibility" .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to ~50 meters" .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle (red car) in left lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "White vehicle in right lane, partially occluded by fog" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Fog-induced rolling ball effect causing lane drift illusion" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential unintended lane intrusion due to fog-induced perception distortion" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of white vehicle in adjacent lane due to fog" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.68"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Potential unintended lane intrusion due to fog-induced perception distortion (rolling ball effect).
+- **Severity Score:** 0.75
+- **Confidence Score:** 0.92
+
+**Risk 2:**
+- **Description:** Reduced visibility of the white vehicle in the adjacent lane due to fog, increasing collision risk during lane changes.
+- **Severity Score:** 0.68
+- **Confidence Score:** 0.88
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the risk arises from observable evidence (fog-induced visual distortion) rather than an actor's behavior or state anomaly.
+2. **Primary Risks:**
+   - **LaneIntrusionRisk** (due to fog-induced lane drift illusion).
+   - **OcclusionRisk** (reduced visibility of the white vehicle).
+3. **WeatherCondition:** Heavy fog (`FoggyCondition`) is the dominant factor influencing risk assessment.
+4. **Actors:** Two vehicles (`Vehicle` class) are present, with the ego vehicle in the left lane and the white vehicle in the right lane.
+5. **Evidence Indicator:** The rolling ball effect (`RollingBallIndicator`) is used to model the perceptual distortion caused by fog. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyFogTunnelScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :FoggyCondition .
+
+:actor1 a :Vehicle ;
+    :description "Leading vehicle in tunnel" .
+
+:actor2 a :Vehicle ;
+    :description "Following vehicle (ego) in tunnel" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Reduced visibility due to fog" ;
+    :indicatesPotentialRisk :risk1, :risk2, :risk3 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Inability to clearly see leading vehicle due to fog" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Adverse weather conditions affecting driving safety" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Inability to clearly see leading vehicle due to fog
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potential rear-end collision due to reduced visibility
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Adverse weather conditions affecting driving safety
+Severity Score: 0.8

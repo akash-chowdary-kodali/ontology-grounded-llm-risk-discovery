@@ -1,0 +1,55 @@
+### Scene Analysis Report
+
+#### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red, camera position), lead vehicle (white/silver passenger car).
+*   **Obstacles:** Large hay bale (bouncing/unsecured load on the roadway).
+*   **Road Infrastructure:** Traffic lights, street lamps, road markings, sidewalk.
+*   **Weather Conditions:** Heavy rain, low visibility, fog/mist, wet/slick road surfaces.
+
+#### 2. Relationships
+*   **Ego-vehicle:** Following lead vehicle, approaching the hazard.
+*   **Hay bale:** On the road, near the lead vehicle, obstructing the travel lane.
+*   **Lead vehicle:** Ahead of ego-vehicle, near the hay bale.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:following ex:LeadVehicle ;
+    ex:approaching ex:HayBale .
+
+ex:LeadVehicle rdf:type ex:Vehicle ;
+    ex:near ex:HayBale .
+
+ex:HayBale rdf:type ex:Obstacle ;
+    ex:locatedOn ex:Roadway .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:hasType "HeavyRain" ;
+    ex:hasVisibility "Low" ;
+    ex:hasRoadSurface "Wet" .
+
+ex:TrafficLight rdf:type ex:Infrastructure ;
+    ex:state "Red" .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1: Dynamic Obstacle Collision**
+*   **Description:** An unsecured hay bale is present on the active roadway. Due to the physics of the scene (it appears mid-air/bouncing), it presents an unpredictable hazard that can cause a collision or emergency maneuver in low-traction, wet conditions.
+*   **Severity Score:** 0.95
+
+**Risk 2: Adverse Weather & Low Visibility**
+*   **Description:** Heavy rain and fog significantly reduce the perception range of sensors and human operators. Wet road surfaces increase braking distances and the risk of hydroplaning, complicating evasive maneuvers for the hay bale.
+*   **Severity Score:** 0.85
+
+**Risk 3: Sudden Lead Vehicle Evasive Maneuver**
+*   **Description:** The lead vehicle may perform a sudden braking or steering maneuver to avoid the hay bale, potentially leading to a rear-end collision if the ego-vehicle does not detect the obstacle or the lead vehicle's intention immediately.
+*   **Severity Score:** 0.80

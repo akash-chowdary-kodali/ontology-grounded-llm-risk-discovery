@@ -1,0 +1,136 @@
+### **Scene Analysis: Heavy Rain and Low Visibility Scenario**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Ego Vehicle (Red front visible, perspective-based)**
+  - **Opposing Vehicle (Black sedan in the distance, partially obscured by rain)**
+- **Road Infrastructure:**
+  - **Road Markings (Double white lines, centerline)**
+  - **Sidewalk (Left side, partially visible)**
+  - **Streetlights & Utility Poles (Multiple, partially obscured)**
+  - **Buildings (Left and right sides, residential/commercial)**
+  - **Overhead Power Lines (Visible in the distance)**
+- **Weather Conditions:**
+  - **Heavy Rain (Significant visibility reduction, water spray)**
+  - **Fog/Haze (Reduced visibility in the distance)**
+- **Obstacles:**
+  - **None directly visible, but potential hidden obstacles due to poor visibility**
+
+#### **Relationships:**
+- **Ego Vehicle** `is-driving-on` **Road**
+- **Opposing Vehicle** `is-approaching` **Ego Vehicle** (along same lane, opposite direction)
+- **Heavy Rain** `reduces-visibility-of` **Opposing Vehicle**
+- **Heavy Rain** `causes-water-spray` `obscuring` **Road Markings**
+- **Streetlights** `partially-obscured-by` **Heavy Rain**
+- **Buildings** `border` **Road** (left and right sides)
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:HeavyRain ;
+    ex:hasVisibilityLevel "Low" ;
+    ex:hasTimeStamp "2023-11-15T14:30:00"^^xsd:dateTime .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isDrivingOn ex:RoadSegment1 ;
+    ex:hasSpeed "30"^^xsd:kmPerHour ;
+    ex:hasPosition "Lane1" .
+
+ex:OpposingVehicle a ex:Vehicle ;
+    ex:hasColor "Black" ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:isObscuredBy ex:HeavyRain ;
+    ex:hasPosition "Lane2" .
+
+ex:RoadSegment1 a ex:Road ;
+    ex:hasMarkings ex:DoubleWhiteLines ;
+    ex:hasBorder ex:BuildingLeft , ex:BuildingRight ;
+    ex:hasObstacleRisk "High" .
+
+ex:HeavyRain a ex:WeatherCondition ;
+    ex:reducesVisibility "Severe" ;
+    ex:causesWaterSpray ex:WaterSprayEffect ;
+    ex:affects ex:OpposingVehicle , ex:RoadMarkings .
+
+ex:WaterSprayEffect a ex:ObstacleEffect ;
+    ex:obscures ex:OpposingVehicle , ex:Streetlights .
+
+ex:BuildingLeft a ex:Building ;
+    ex:isAdjacentTo ex:RoadSegment1 .
+
+ex:BuildingRight a ex:Building ;
+    ex:isAdjacentTo ex:RoadSegment1 .
+
+ex:Streetlight1 a ex:Infrastructure ;
+    ex:isObscuredBy ex:HeavyRain ;
+    ex:isLocatedOn ex:RoadSegment1 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Risk Class:** `Visibility-Related Collision`
+**Description:**
+The opposing vehicle is heavily obscured by rain and water spray, increasing the risk of misidentification or late detection. The ego vehicle may fail to recognize the opposing vehicle in time, leading to a potential head-on collision.
+**Severity Score:** **0.95**
+*(High due to severe visibility reduction and potential for catastrophic collision)*
+
+#### **Risk 2:**
+**Risk Class:** `Lane-Departure Risk`
+**Description:**
+The heavy rain reduces the visibility of road markings, increasing the risk of the ego vehicle unintentionally drifting into the opposing lane or losing lane position.
+**Severity Score:** **0.75**
+*(Moderate-high due to potential for minor-to-major accidents if lane discipline is lost)*
+
+#### **Risk 3:**
+**Risk Class:** `Hidden-Pedestrian Risk`
+**Description:**
+Due to poor visibility, pedestrians or cyclists may be obscured by rain or buildings, increasing the risk of sudden appearance in the ego vehicle’s path.
+**Severity Score:** **0.65**
+*(Moderate due to potential for pedestrian collisions, though no visible pedestrians in this scene)*
+
+#### **Risk 4:**
+**Risk Class:** `Braking-Distance Extension Risk`
+**Description:**
+Wet road conditions reduce tire grip, increasing braking distances. If the ego vehicle needs to react to an unseen obstacle or vehicle, the stopping distance may be insufficient.
+**Severity Score:** **0.80**
+*(High due to potential for rear-end collisions or failure to stop in time)*
+
+#### **Risk 5:**
+**Risk Class:** `Sensor-Failure Risk`
+**Description:**
+Heavy rain can interfere with sensors (cameras, LiDAR, radar), leading to incorrect object detection or false negatives in perceiving the environment.
+**Severity Score:** **0.85**
+*(High due to potential for autonomous system failure in perception stack)*
+
+---
+### **Summary of Key Risks:**
+| **Risk Class**               | **Severity (0-1)** |
+|------------------------------|-------------------|
+| Visibility-Related Collision | 0.95              |
+| Sensor-Failure Risk          | 0.85              |
+| Braking-Distance Extension   | 0.80              |
+| Lane-Departure Risk          | 0.75              |
+| Hidden-Pedestrian Risk       | 0.65              |
+
+---
+### **Recommended Mitigation Strategies:**
+1. **Reduce Speed** – Activate rain mode to slow down and increase reaction time.
+2. **Enhance Sensor Fusion** – Rely on radar/LiDAR redundancy to compensate for camera failure.
+3. **Increase Headlight Usage** – Use high beams (if safe) to improve visibility.
+4. **Alert Driver (if semi-autonomous)** – Warn of reduced visibility conditions.
+5. **Dynamic Lane Keeping Assist** – Use steering assistance to prevent unintended lane departures.
+
+This scenario highlights the critical need for robust **perception robustness** in adverse weather conditions for autonomous vehicles.

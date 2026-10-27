@@ -1,0 +1,119 @@
+### **Scene Analysis: Nighttime Urban Road with Adverse Weather**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Vehicle_A** (ego vehicle, front view visible)
+  - **Vehicle_B** (white van, approaching from left)
+  - **Vehicle_C** (black car, following closely on the right)
+- **Road Infrastructure:**
+  - Road markings (dashed white lines)
+  - Streetlights (illuminated, but foggy conditions reduce visibility)
+  - Sidewalk and buildings (partially obscured)
+- **Weather Conditions:**
+  - Heavy fog/rain (reduced visibility, wet road surface)
+- **Obstacles:**
+  - None directly visible, but fog creates potential for unseen hazards.
+
+#### **Relationships:**
+- **Vehicle_B** is **approaching** from the left lane.
+- **Vehicle_C** is **following** closely on the right.
+- **Fog** is **occluding** distant objects, reducing visibility.
+- **Streetlights** are **illuminating** the road but are **partially obscured** by fog.
+- **Wet road surface** increases risk of hydroplaning.
+
+---
+
+### **2. Scene Description in RDF (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:FoggyRain ;
+    ex:hasRoadCondition ex:WetSurface ;
+    ex:hasLightingCondition ex:LowVisibility .
+
+ex:FoggyRain a ex:WeatherCondition ;
+    ex:reducesVisibility "High" ;
+    ex:affectsObjectDetection "Severe" .
+
+ex:WetSurface a ex:RoadCondition ;
+    ex:increasesRisk ex:Hydroplaning ;
+    ex:reducesTraction "Moderate" .
+
+ex:Vehicle_A a ex:EgoVehicle ;
+    ex:hasPosition "LaneCenter" ;
+    ex:hasFollowingVehicle ex:Vehicle_C ;
+    ex:hasApproachingVehicle ex:Vehicle_B .
+
+ex:Vehicle_B a ex:Vehicle ;
+    ex:hasDirection "LeftLaneApproaching" ;
+    ex:hasSpeed "Moderate" ;
+    ex:hasVisibility "LowDueToFog" .
+
+ex:Vehicle_C a ex:Vehicle ;
+    ex:hasDirection "Following" ;
+    ex:hasDistanceToEgo "Close" ;
+    ex:hasVisibility "LowDueToFog" .
+
+ex:Streetlight1 a ex:Streetlight ;
+    ex:isIlluminated "Yes" ;
+    ex:isObscuredBy "Fog" .
+
+ex:Risk_Hydroplaning a ex:SafetyRisk ;
+    ex:causedBy ex:WetSurface ;
+    ex:severity "0.8" .
+
+ex:Risk_CollisionWithVehicleB a ex:SafetyRisk ;
+    ex:causedBy ex:LowVisibility ;
+    ex:severity "0.7" .
+
+ex:Risk_CollisionWithVehicleC a ex:SafetyRisk ;
+    ex:causedBy ex:CloseFollowingDistance ;
+    ex:severity "0.6" .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+**Hydroplaning Risk** – Wet road surface combined with high-speed driving increases the likelihood of losing vehicle control due to reduced traction.
+**Severity Score:** **0.8**
+
+#### **Risk 2:**
+**Description:**
+**Collision with Approaching Vehicle (Vehicle_B)** – Heavy fog reduces visibility of oncoming traffic, increasing the risk of a head-on or side collision.
+**Severity Score:** **0.7**
+
+#### **Risk 3:**
+**Description:**
+**Collision with Following Vehicle (Vehicle_C)** – The vehicle following too closely in low-visibility conditions increases the risk of a rear-end collision if sudden braking is required.
+**Severity Score:** **0.6**
+
+#### **Risk 4:**
+**Description:**
+**Pedestrian/Cyclist Occlusion Risk** – Fog obscures potential pedestrians or cyclists near the sidewalk, increasing the risk of an undetected crossing.
+**Severity Score:** **0.5**
+
+#### **Risk 5:**
+**Description:**
+**Misjudged Distance Due to Fog** – Reduced visibility may lead to incorrect perception of distances, increasing the risk of unsafe maneuvers.
+**Severity Score:** **0.7**
+
+---
+### **Summary of Critical Risks:**
+1. **Hydroplaning (0.8)** – Highest priority due to wet conditions.
+2. **Approaching Vehicle Collision (0.7)** – Fog obscures visibility of oncoming traffic.
+3. **Following Vehicle Collision (0.6)** – Close proximity increases rear-end risk.
+4. **Pedestrian/Cyclist Occlusion (0.5)** – Low but present risk due to fog.
+
+**Recommended Actions:**
+- Reduce speed to mitigate hydroplaning risk.
+- Increase following distance from **Vehicle_C**.
+- Use adaptive headlights and fog lights to improve visibility.
+- Monitor blind spots for potential pedestrians/cyclists.

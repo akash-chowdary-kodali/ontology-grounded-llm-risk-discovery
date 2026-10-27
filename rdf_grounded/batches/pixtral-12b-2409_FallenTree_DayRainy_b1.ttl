@@ -1,0 +1,91 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced visibility and traction due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Increased risk of rear-end collision due to slippery roads and reduced braking efficiency" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction from heavy rain and windshield wipers" ;
+    :hasSeverityScore :sev3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets and reduced visibility indicate heavy rain" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi in the right lane" .
+
+:actor2 a :Vehicle ;
+    :description "Gray vehicle ahead in the left lane" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility and traction due to heavy rain
+- **Severity Score:** 0.90
+- **Type:** RoadConditionRisk
+
+**Risk 2:**
+- **Description:** Increased risk of rear-end collision due to slippery roads and reduced braking efficiency
+- **Severity Score:** 0.85
+- **Type:** CollisionRisk (Rear-End Collision Risk)
+
+**Risk 3:**
+- **Description:** Driver distraction from heavy rain and windshield wipers
+- **Severity Score:** 0.70
+- **Type:** DistractionRisk
+
+---
+
+### Explanation:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain (evidence) directly impacts driving conditions and safety risks.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** Heavy rain (`RainyCondition`).
+   - **Actors:** Two vehicles (`Vehicle` subclass) are present in the scene.
+   - **EvidenceIndicator:** Rolling ball indicator (`RollingBallIndicator`) due to water droplets and reduced visibility.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to slippery roads and poor visibility.
+   - **CollisionRisk (Rear-End):** High likelihood of rear-end collisions due to reduced braking efficiency.
+   - **DistractionRisk:** Heavy rain and windshield wipers may distract the driver.
+
+4. **Severity Scores:**
+   - Road condition risk is highest (0.90) due to the direct impact on vehicle control.
+   - Collision risk is slightly lower (0.85) but still critical.
+   - Distraction risk is moderate (0.70) but still significant in adverse weather.

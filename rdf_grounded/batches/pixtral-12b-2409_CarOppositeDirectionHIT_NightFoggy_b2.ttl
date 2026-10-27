@@ -1,0 +1,61 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLot" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadMarkings ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan parked in front of another vehicle" .
+
+:roadMarkings a :RoadObject ;
+    :description "White lane markings and parking lot lines" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to vehicle parked too close to another vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to limited visibility in nighttime parking lot" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Lane intrusion risk due to vehicle occupying space in a narrow parking lane" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision risk due to vehicle parked too close to another vehicle.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Occlusion risk due to limited visibility in nighttime parking lot.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Lane intrusion risk due to vehicle occupying space in a narrow parking lane.
+Severity Score: 0.55
+
+---
+The scene was classified as a **StateAnomaly** because the primary issue is the static positioning of the vehicle, which creates potential risks without any dynamic behavior anomalies. The risks identified are based on the static positioning of the vehicle and the environmental conditions (nighttime).

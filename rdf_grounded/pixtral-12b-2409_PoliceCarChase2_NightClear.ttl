@@ -1,0 +1,216 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Tunnel Lane Change with Slow-Moving Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Slow-moving vehicle in left lane" .
+
+:actor2 a :Vehicle ;
+    :description "Following vehicle (white SUV) attempting lane change" .
+
+:obstacle1 a :RoadObject ;
+    :description "Slow-moving vehicle blocking lane" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban tunnel environment" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Risk of rear-end collision due to sudden braking of lead vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Risk of unsafe lane change into path of oncoming traffic" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:** Risk of rear-end collision due to sudden braking of the lead vehicle (slow-moving vehicle in the tunnel).
+**Severity Score:** 0.75
+
+#### **Risk 2:**
+**Description:** Risk of unsafe lane change into the path of oncoming traffic (white SUV attempting to merge).
+**Severity Score:** 0.65
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - **BehaviorAnomaly** (since the primary issue stems from unpredictable driving behavior: a slow-moving vehicle in a tunnel and a vehicle attempting a risky lane change).
+
+2. **Actors & Obstacles:**
+   - Two **Vehicles** (`actor1` and `actor2`) are identified, with `actor1` acting as an **Obstacle** (`RoadObject`) due to its blocking behavior.
+   - The scene occurs under **NightCondition** (low-light tunnel environment).
+
+3. **Risks:**
+   - **RearEndCollisionRisk** (high severity due to tunnel visibility and braking unpredictability).
+   - **LaneIntrusionRisk** (moderate severity due to potential conflict with oncoming traffic).
+
+4. **Severity Scores:**
+   - Assigned based on:
+     - **Rear-end risk (0.75):** High due to tunnel constraints and braking uncertainty.
+     - **Lane intrusion risk (0.65):** Moderate due to potential conflict but not immediate collision.
+
+This interpretation adheres strictly to the provided ontology and captures the critical safety concerns in the scene. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "StructuralObstacleInParkingGarage" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling or precariously positioned structural beams in parking garage" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Structural beams obstructing forward visibility in parking garage" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk due to falling structural beams" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in enclosed parking garage" .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle navigating parking garage" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle in parking garage" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Structural beams obstructing forward visibility in parking garage
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential collision risk due to falling structural beams
+- **Risk Type:** CollisionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Vehicles:** Two vehicles (`:vehicle1` and `:vehicle2`) are present in the parking garage.
+   - **Obstacle:** The precariously positioned structural beams (`:obstacle1`) act as a `RoadObject` and pose a significant risk.
+   - **WeatherCondition:** The scene occurs under `NightCondition` (`:weather1`), contributing to reduced visibility.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a **StateAnomaly** (`:StateAnomaly`) because the structural beams are in an unstable state, posing an immediate hazard.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The beams obstruct the ego vehicle's forward visibility, making navigation difficult.
+   - **CollisionRisk:** The unstable beams could fall, leading to a collision with vehicles or pedestrians.
+
+4. **Severity Scores:**
+   - The `OcclusionRisk` is assigned a high severity score (0.90) due to the immediate danger of impaired visibility in a low-light environment.
+   - The `CollisionRisk` is slightly lower (0.85) but still critical due to the potential for structural failure.
+
+This interpretation adheres strictly to the provided ontology and captures the key safety concerns in the scene. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Vehicle following another vehicle in a narrow underground parking lane with limited visibility" ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle directly ahead in the same lane" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close proximity to the vehicle ahead" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "High occlusion risk due to limited visibility in underground parking structure" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion risk due to narrow lane width and vehicle proximity" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle in the foreground" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle directly ahead in the same lane" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: High risk of rear-end collision due to close proximity to the vehicle ahead.
+Severity Score: 0.9
+
+**Risk 2:**
+Description: High occlusion risk due to limited visibility in underground parking structure.
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Potential lane intrusion risk due to narrow lane width and vehicle proximity.
+Severity Score: 0.75

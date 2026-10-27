@@ -1,0 +1,32 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Rainy city intersection with reduced visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasActor :actor1 .
+
+:actor1 a :Vehicle ;  # Assuming the yellow vehicle is the main focus
+    :description "A vehicle waiting at the traffic light." .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rainfall causing low visibility." .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "The vehicle might intrude onto another lane due to low visibility." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** The vehicle might intrude onto another lane due to low visibility.
+- **Severity Score:** 0.75

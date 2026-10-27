@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :FoggyCondition .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fog reduces visibility of actors and obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road conditions due to fog" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Streetlights and billboards may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.5"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard with advertisement on left side" .
+```
+
+---
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Fog reduces visibility of actors and obstacles
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Wet road conditions due to fog
+Severity Score: 0.7
+
+**Risk 3:**
+Description: Streetlights and billboards may distract driver
+Severity Score: 0.5
+
+---
+The scene is classified as an **EvidenceBasedAnomaly** due to the foggy conditions acting as an evidence indicator (FallingObjectIndicator, though loosely interpreted here as reduced visibility). The identified risks include **OcclusionRisk**, **RoadConditionRisk**, and **DistractionRisk**. The severity scores reflect the potential danger of each risk in this foggy nighttime scenario.

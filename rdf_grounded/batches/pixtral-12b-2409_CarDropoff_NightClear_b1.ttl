@@ -1,0 +1,80 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Road with Rolling Ball Indicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball indicator detected on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small metallic object (rolling ball) on road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Rolling object may cause sensor occlusion for autonomous vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk with vehicle following too closely in low visibility" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Type:** `OcclusionRisk`
+- **Description:** Rolling object may cause sensor occlusion for autonomous vehicle
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Type:** `CollisionRisk` (general, not subclass-specific due to lack of pedestrian/cyclist involvement)
+- **Description:** Potential collision risk with vehicle following too closely in low visibility
+- **Severity Score:** `0.60`
+
+---
+
+### **Key Observations & Justifications**
+1. **Corner Case Classification:**
+   - The scene is classified as an **`EvidenceBasedAnomaly`** because the primary anomaly is the presence of a **`RollingBallIndicator`** (a small metallic object on the road), which serves as evidence of a potential safety issue.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` (low-light urban environment).
+   - **Obstacle:** `RoadObject` (rolling metallic ball).
+   - **EvidenceIndicator:** `RollingBallIndicator` (detected object).
+   - No **Actors** (pedestrians/cyclists) or **TrafficSigns/Lights** are visible in the provided images.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The rolling object could interfere with sensors (e.g., LiDAR/cameras), leading to reduced perception accuracy.
+   - **CollisionRisk:** The vehicle following too closely in low visibility increases the chance of a rear-end collision if the leading vehicle brakes suddenly.
+
+4. **Severity Scores:**
+   - **OcclusionRisk (0.75):** High due to potential sensor failure in autonomous driving.
+   - **CollisionRisk (0.60):** Moderate due to low visibility and proximity of vehicles.
+
+---
+This interpretation adheres strictly to the provided ontology and rules.

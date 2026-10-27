@@ -1,0 +1,47 @@
+### Scene Analysis
+
+#### 1. Main Entities
+*   **Ego-vehicle:** Red vehicle (POV).
+*   **Target Vehicle:** White SUV.
+*   **Environment:** Underground tunnel with artificial lighting.
+*   **Infrastructure:** Support pillars, tiled walls, lane markings.
+
+#### 2. Relationships
+*   **Ego-vehicle** is approaching the **Target Vehicle**.
+*   **Target Vehicle** is performing an abrupt, uncontrolled lateral maneuver (skidding/spinning).
+*   **Target Vehicle** is intersecting the ego-vehicle's path.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://driving-safety.org/ontology#> .
+
+:EgoVehicle a :Vehicle ;
+    :isAt :TunnelLane .
+
+:WhiteSUV a :Vehicle ;
+    :isAt :TunnelLane ;
+    :isPerforming :AbruptManeuver ;
+    :isCrossing :EgoVehiclePath .
+
+:Tunnel a :Environment ;
+    :hasCondition :LimitedVisibility ;
+    :hasStructure :SupportPillar .
+
+:WhiteSUV :isNear :EgoVehicle .
+:EgoVehicle :approaching :WhiteSUV .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision risk due to sudden uncontrolled lateral motion of the preceding vehicle (skidding/loss of control) in a confined tunnel environment.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Reduced reaction time and visibility constraints due to the artificial lighting and confined geometry of the tunnel environment, potentially hindering emergency braking or evasion.
+*   **Severity Score:** 0.70

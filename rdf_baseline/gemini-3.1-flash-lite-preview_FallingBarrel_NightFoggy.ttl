@@ -1,0 +1,40 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scenario#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+ex:egoVehicle a ex:Vehicle .
+ex:whiteVan a ex:Vehicle .
+ex:pedestrian a ex:Person .
+ex:barrel_moving a ex:Obstacle .
+ex:barrel_stationary a ex:Obstacle .
+ex:environment a ex:WeatherCondition ;
+    ex:type "Foggy" ;
+    ex:visibility "Low" .
+
+# Relationships
+ex:egoVehicle ex:approaching ex:barrel_moving .
+ex:barrel_moving ex:onPath ex:egoVehicle .
+ex:pedestrian ex:near ex:whiteVan .
+ex:whiteVan ex:parkedNear ex:roadEdge .
+ex:pedestrian ex:occludedBy ex:whiteVan .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:** **Collision with Unsecured Obstacle.** A heavy metallic barrel is tumbling/rolling directly into the path of the ego vehicle. Given the low-visibility foggy conditions and the sudden motion of the object, there is an immediate risk of impact, causing potential vehicle damage or loss of control.
+**Severity Score:** 0.92
+
+**Risk 2:**
+**Description:** **Pedestrian Hazard/Obstruction.** A pedestrian is standing immediately adjacent to the edge of the road, partially obscured by a stationary white van. The person is in close proximity to a hazardous/industrial workspace (dolly, barrels). Any sudden movement by the pedestrian into the lane, or a requirement for the ego vehicle to swerve to avoid the tumbling barrel, poses a high risk of striking the pedestrian.
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** **Reduced Perception in Adverse Weather.** The dense fog significantly reduces the detection range and reaction time for the ego vehicle. The combination of environmental lighting (low light) and atmospheric occlusion makes it difficult to distinguish the trajectory of the moving barrel or the full extent of the pedestrian's presence until the vehicle is in immediate proximity.
+**Severity Score:** 0.78

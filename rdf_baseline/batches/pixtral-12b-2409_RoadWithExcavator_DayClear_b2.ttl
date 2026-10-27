@@ -1,0 +1,89 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasLocation ex:UrbanArea ;
+    ex:hasWeatherCondition ex:ClearWeather .
+
+ex:Vehicle1 a ex:HeavyVehicle ;
+    ex:hasEquipment ex:ExcavatorArm ;
+    ex:isPositionedAt ex:RoadIntersection ;
+    ex:isPerformingAction ex:LoadingUnloading .
+
+ex:RoadInfrastructure1 a ex:Road ;
+    ex:hasMarking ex:Crosswalk ;
+    ex:hasMarking ex:DoubleYellowLine ;
+    ex:hasMarking ex:RoadLane ;
+    ex:hasObstacle ex:ConstructionEquipment .
+
+ex:Building1 a ex:Building ;
+    ex:isLocatedAt ex:Background ;
+    ex:hasArchitecture ex:Industrial .
+
+ex:ConstructionEquipment a ex:Obstacle ;
+    ex:isType ex:Excavator ;
+    ex:isPositionedAt ex:RoadIntersection ;
+    ex:isOccluding ex:RoadLane .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isPositionedAt ex:Background ;
+    ex:isPerformingAction ex:Walking ;
+    ex:isOccludedBy ex:ConstructionEquipment .
+
+ex:RoadSign1 a ex:RoadSign ;
+    ex:isType ex:SpeedLimit ;
+    ex:isPositionedAt ex:Background .
+```
+
+---
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:**
+The excavator arm of the heavy vehicle is positioned across the road, partially occluding the lane and potentially obstructing the view of other road users. This creates a risk of collision for vehicles or pedestrians who may not see the excavator arm in time.
+
+**Severity Score:**
+**0.85** (High severity due to the potential for severe accidents involving heavy machinery and other road users)
+
+---
+
+#### Risk 2:
+**Description:**
+The presence of the excavator arm and construction equipment on the road may lead to unexpected movements or sudden changes in the vehicle's position, posing a risk to pedestrians and other vehicles approaching the intersection.
+
+**Severity Score:**
+**0.75** (High severity due to the unpredictability of construction equipment movements)
+
+---
+
+#### Risk 3:
+**Description:**
+Pedestrians in the background may be obscured by the construction equipment and the heavy vehicle, leading to a risk of them crossing or entering the road without being seen by drivers.
+
+**Severity Score:**
+**0.7** (Moderate to high severity due to the risk of pedestrians being overlooked by drivers)
+
+---
+
+#### Risk 4:
+**Description:**
+The road markings (crosswalk, double yellow lines) are partially obscured by the excavator arm and construction equipment, leading to confusion for drivers and pedestrians about permissible road usage.
+
+**Severity Score:**
+**0.6** (Moderate severity due to potential confusion and misinterpretation of road rules)
+
+---
+
+#### Risk 5:
+**Description:**
+The heavy vehicle may not be fully visible to drivers approaching from the opposite direction, especially if the excavator arm extends significantly into the roadway, increasing the risk of a head-on collision.
+
+**Severity Score:**
+**0.8** (High severity due to the potential for a serious head-on collision)
+
+---
+These risks highlight the importance of clear communication and visibility in construction zones, as well as the need for autonomous vehicles to be equipped with advanced sensors and algorithms to detect and respond to such corner-case scenarios.

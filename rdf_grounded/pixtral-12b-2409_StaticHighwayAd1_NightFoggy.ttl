@@ -1,0 +1,226 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFogAndRedLight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility at night" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog obscuring road markings and potential obstacles" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Fog-induced occlusion of traffic signs and road features" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog, increasing risk of collision with unseen obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential rear-end collision due to obscured traffic light and road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on the left side of the intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on the right side of the intersection" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog, increasing risk of collision with unseen obstacles (OcclusionRisk).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential rear-end collision due to obscured traffic light and road conditions (CollisionRisk).
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the fog obscures critical road features (e.g., traffic signs, markings, and potential obstacles), which serves as evidence for the anomaly.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility).
+   - **Obstacle:** RoadObject (fog itself acting as an obstacle).
+   - **EvidenceIndicator:** OcclusionRisk (fog-induced occlusion).
+   - **TrafficLight:** Red traffic light at the intersection.
+   - **Billboard:** Advertisement billboard on the left.
+   - **TrafficSign:** No entry sign on the right.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to fog obscuring critical road features.
+   - **CollisionRisk:** High severity due to obscured traffic light and potential rear-end collision.
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.90 (very high due to extreme visibility reduction).
+   - CollisionRisk: 0.85 (high due to obscured traffic light and fog). Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanRoadWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Low visibility due to fog" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog obscuring visibility beyond 50 meters" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Fog reduces visibility of road signs and potential actors" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fog obscures visibility of traffic signs and pedestrians" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk due to obscured road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on the left side of the road" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on the right side of the road" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Fog obscures visibility of traffic signs and pedestrians
+- **Severity Score:** 0.85
+- **Risk Type:** OcclusionRisk
+
+**Risk 2:**
+- **Description:** Potential collision risk due to obscured road conditions
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (low visibility due to fog)
+   - **Obstacle:** RoadObject (fog obscuring visibility)
+   - **EvidenceIndicator:** OcclusionRisk (fog reduces visibility of road signs and potential actors)
+   - **TrafficSign:** No entry sign
+   - **Billboard:** Advertisement billboard
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The corner case is classified as an evidence-based anomaly because the fog (evidence) directly leads to obscured visibility, which is a known risk factor.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to fog reducing visibility of traffic signs and pedestrians.
+   - **CollisionRisk:** Due to obscured road conditions increasing the likelihood of collisions.
+
+The scene is characterized by nighttime and foggy conditions, which significantly reduce visibility and introduce safety risks. The RDF triples capture these elements and their relationships within the ontology framework. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :occlusionRisk1, :distractionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard with partially visible text 'WAS SOME STUFF'" .
+
+:nightCondition1 a :NightCondition .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Potential occlusion of road features due to low visibility at night" ;
+    :hasSeverityScore :sev1 .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Potential distraction from illuminated billboard in low-light conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion of road features due to low visibility at night
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential distraction from illuminated billboard in low-light conditions
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (`billboard1`) with partially visible text.
+   - The **WeatherCondition** is classified as **NightCondition** (`nightCondition1`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the anomaly arises from the environmental state (low-light night conditions) rather than an actor's behavior or evidence-based indicators.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: Due to low visibility at night, road features (e.g., pedestrians, cyclists, or obstacles) may be harder to detect, increasing the risk of collision.
+   - **DistractionRisk**: The illuminated billboard could distract the driver, leading to reduced focus on the road.
+
+4. **Severity Scores:**
+   - Occlusion risk is assigned a higher severity (0.65) because it directly impacts the ability to perceive and avoid obstacles.
+   - Distraction risk is assigned a lower severity (0.45) as it is less immediate but still relevant in low-light conditions.

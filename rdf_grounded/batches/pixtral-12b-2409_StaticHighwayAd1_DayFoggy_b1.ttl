@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the provided scene images in RDF/Turtle format, adhering strictly to the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene_foggy_road a :Scene ;
+    :scenarioName "FoggyUrbanRoadWithReducedVisibility" ;
+    :hasCornerCaseType :cc_fog_visibility .
+
+:cc_fog_visibility a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggy_condition ;
+    :hasRisk :risk_occlusion ;
+    :hasRisk :risk_road_condition ;
+    :hasEvidence :evidence_fog .
+
+:foggy_condition a :FoggyCondition ;
+    :description "Dense fog reducing visibility beyond 50 meters" .
+
+:risk_occlusion a :OcclusionRisk ;
+    :description "Fog-induced occlusion of road signs, billboards, and potential actors (e.g., pedestrians/cyclists)" ;
+    :hasSeverityScore :sev_occlusion .
+
+:risk_road_condition a :RoadConditionRisk ;
+    :description "Slippery road surface and reduced traction due to fog/moisture" ;
+    :hasSeverityScore :sev_road_condition .
+
+:evidence_fog a :EvidenceIndicator ;
+    :description "Fog density measured at 0.85 (0-1 scale), headlight reflection visible" ;
+    :indicatesPotentialRisk :risk_occlusion ;
+    :indicatesPotentialRisk :risk_road_condition .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard ('IT'S A GO FOR SALE') partially obscured by fog" .
+
+:traffic_sign1 a :TrafficSign ;
+    :description "No Entry sign (red circle with white horizontal bar) partially visible on right side" .
+
+:sev_occlusion a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev_road_condition a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Class:** `:OcclusionRisk`
+**Description:** Fog-induced occlusion of road signs, billboards, and potential actors (e.g., pedestrians/cyclists).
+**Severity Score:** `0.92`
+
+#### Risk 2:
+**Class:** `:RoadConditionRisk`
+**Description:** Slippery road surface and reduced traction due to fog/moisture.
+**Severity Score:** `0.88`
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:**
+   The scene is classified as an **`EvidenceBasedAnomaly`** because the fog density (measured via headlight reflection and visibility metrics) serves as direct evidence of the anomaly, triggering safety risks.
+
+2. **Entities Identified:**
+   - **Obstacles:** Partially obscured `:Billboard` and `:TrafficSign` (No Entry).
+   - **WeatherCondition:** `:FoggyCondition` (dense, reducing visibility).
+   - No explicit actors (e.g., pedestrians/cyclists) are visible due to fog, but the risk of their presence is implied.
+
+3. **Risks Justified:**
+   - **OcclusionRisk:** High severity due to fog obscuring critical road elements.
+   - **RoadConditionRisk:** High severity due to potential slippery surfaces in foggy conditions.
+
+4. **Severity Scores:**
+   Scores are assigned based on:
+   - **OcclusionRisk (0.92):** Near-maximum due to complete obscurity of distant objects.
+   - **RoadConditionRisk (0.88):** High but slightly lower, as traction loss is probabilistic without direct evidence of moisture.

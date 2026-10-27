@@ -1,0 +1,38 @@
+### 1. Scene Entities
+*   **Vehicles:** Ego-vehicle (red, camera perspective), Police Car (ahead), Yellow Taxi (parked on the right).
+*   **Obstacles:** Large fallen tree trunk across the roadway.
+*   **Infrastructure:** Street lighting, residential buildings, sidewalk.
+*   **Environment:** Nighttime, dark, artificial street lighting.
+
+### 2. Entity Relationships
+*   **Ego-vehicle:** Approaching the obstacle and the police car.
+*   **Fallen Tree:** Blocking the road; positioned between the ego-vehicle and the police car.
+*   **Police Car:** Located on the opposite side of the road, facing/near the obstacle.
+*   **Yellow Taxi:** Parked on the right shoulder, partially narrowing the lane.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:egoVehicle ex:approaching ex:fallenTree .
+ex:fallenTree ex:blocks ex:roadway .
+ex:fallenTree ex:isLocatedBetween ex:egoVehicle ;
+               ex:isLocatedBetween ex:policeCar .
+ex:policeCar ex:near ex:fallenTree .
+ex:yellowTaxi ex:parkedOn ex:rightShoulder .
+ex:environment ex:hasLightingCondition "Night" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Roadway obstruction due to a fallen tree. The tree completely blocks the lane, requiring the ego-vehicle to perform an emergency stop or an unauthorized maneuver (like crossing the yellow lines) to bypass it.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Low visibility at night. The combination of darkness and the nature of the obstacle (a dark-colored tree trunk) reduces the sensor range and reaction time for the ego-vehicle.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** Presence of a parked vehicle in a narrow lane. The yellow taxi narrows the navigable space on the right, complicating any potential swerving maneuver to avoid the fallen tree.
+*   **Severity Score:** 0.65

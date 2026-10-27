@@ -1,0 +1,229 @@
+Here is the semantic interpretation of the provided scene images using the given ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeLaneChangeScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle making sudden lane change" .
+
+:actor2 a :Vehicle ;
+    :description "Black SUV following closely behind yellow taxi" .
+
+:obstacle1 a :RoadObject ;
+    :description "White dashed lane marking being crossed by yellow taxi" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime urban environment with street lighting" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Yellow taxi intruding into adjacent lane without signaling" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Black SUV at risk of rear-ending yellow taxi due to sudden lane change" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction for other drivers due to sudden lane change in low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Yellow taxi intruding into adjacent lane without signaling
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Black SUV at risk of rear-ending yellow taxi due to sudden lane change
+- **Risk Type:** RearEndCollisionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Potential distraction for other drivers due to sudden lane change in low visibility
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.65
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The primary corner case here is classified as a **BehaviorAnomaly** because the yellow taxi's sudden lane change without signaling is an unexpected and unsafe driving behavior.
+
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (yellow taxi and black SUV).
+   - **Obstacle:** The white dashed lane marking being crossed.
+   - **WeatherCondition:** Nighttime urban environment.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the taxi's abrupt lane change.
+   - **RearEndCollisionRisk:** High severity due to the close proximity of the black SUV.
+   - **DistractionRisk:** Moderate severity due to the potential confusion for other drivers in low visibility.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeLaneChangeWithTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Unpredictable lane change by lead vehicle in low-light urban setting" ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :vehicle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Lead vehicle (yellow) performing abrupt lane change" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle (black) at risk of collision due to lead vehicle's maneuver" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Vehicle motion blur indicates sudden acceleration/deceleration" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to lead vehicle's abrupt lane change" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Lead vehicle intruding into adjacent lane without clear signaling" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+- **Type:** `:RearEndCollisionRisk`
+- **Description:** High risk of rear-end collision due to the lead vehicle's abrupt lane change in low-light conditions.
+- **Severity Score:** `0.92`
+
+#### **Risk 2:**
+- **Type:** `:LaneIntrusionRisk`
+- **Description:** Lead vehicle intruding into the adjacent lane without clear signaling, increasing the risk of a sideswipe or collision.
+- **Severity Score:** `0.88`
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - `:BehaviorAnomaly` (due to the lead vehicle's unpredictable lane change in a low-light urban setting).
+
+2. **Evidence Indicator:**
+   - `:RollingBallIndicator` (motion blur suggests sudden acceleration/deceleration, supporting the risk assessment).
+
+3. **Weather Condition:**
+   - `:NightCondition` (reduced visibility exacerbates the risks).
+
+4. **Actors & Obstacles:**
+   - `:Vehicle` (lead vehicle performing the maneuver) and `:Vehicle` (following vehicle at risk).
+
+5. **Severity Justification:**
+   - High severity scores reflect the combination of low-light conditions, abrupt maneuvers, and lack of clear signaling. ```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1, :roadObject2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle in foreground" .
+:actor2 a :Vehicle ;
+    :description "Yellow vehicle approaching from right" .
+:actor3 a :Vehicle ;
+    :description "Orange vehicle in distance" .
+
+:roadObject1 a :RoadObject ;
+    :description "Traffic light showing red" .
+:roadObject2 a :Billboard ;
+    :description "Billboard in distance" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to following distance" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk with yellow vehicle at intersection" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to limited visibility at night" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential rear-end collision risk due to following distance
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential collision risk with yellow vehicle at intersection
+Severity Score: 0.70
+
+**Risk 3:**
+Description: Occlusion risk due to limited visibility at night
+Severity Score: 0.55

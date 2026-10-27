@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scenario#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:egoVehicle a ex:Vehicle .
+ex:gorillaFront a ex:LargeAnimal ;
+    ex:locatedIn ex:Road ;
+    ex:isNear ex:egoVehicle .
+
+ex:elephantRight a ex:LargeAnimal ;
+    ex:locatedIn ex:Sidewalk ;
+    ex:isNear ex:egoVehicle .
+
+ex:gorillaBackground a ex:LargeAnimal ;
+    ex:locatedIn ex:Road .
+
+ex:deerLeft a ex:LargeAnimal ;
+    ex:locatedIn ex:GrassArea .
+
+ex:environment a ex:Scene ;
+    ex:lightingCondition "Night" ;
+    ex:weatherCondition "Clear" .
+
+ex:egoVehicle ex:approaching ex:gorillaFront .
+ex:gorillaFront ex:blocking ex:egoVehicle .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:** Uncontrolled Large Animals in the Roadway. The presence of a large, animate, and unpredictable entity (gorilla) directly in the path of the vehicle poses a high collision risk. The animal's behavior is non-standard for an autonomous vehicle's object detection and path-planning algorithms, leading to potential classification failure or erratic braking.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Environmental Distraction and Obstruction. The presence of multiple large exotic animals (elephant, gorilla, deer) in a residential night-time environment creates a high-entropy scene. The elephant on the right is a massive static or semi-static obstacle that restricts the lateral safety buffer, while the deer to the left creates a risk of sudden movement into the ego-vehicle's path.
+**Severity Score:** 0.80
+
+**Risk 3:**
+**Description:** Low Visibility Night-Time Navigation. The scene occurs at night, relying on vehicle headlights. This reduces the depth perception and reaction time available to the autonomous system to identify and classify the large animals, particularly those further in the background or positioned on the periphery of the light cone.
+**Severity Score:** 0.70

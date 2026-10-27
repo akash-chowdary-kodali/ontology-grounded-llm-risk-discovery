@@ -1,0 +1,84 @@
+Here is the semantic interpretation of the provided scene images grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Flooded Tunnel with Following Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :rainyCondition ;
+    :hasObstacle :roadObstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle in flooded tunnel" .
+
+:rainyCondition a :RainyCondition ;
+    :description "Heavy rain causing flooded road surface" .
+
+:roadObstacle1 a :RoadObject ;
+    :description "Flooded road surface with standing water" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and water spray" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery and flooded road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water spray and hydroplaning risk indicated by rolling water" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain and water spray
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Slippery and flooded road conditions
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** A following vehicle (`:vehicle1`) in the tunnel.
+   - **Obstacle:** Flooded road surface (`:roadObstacle1`) acting as a `RoadObject`.
+   - **WeatherCondition:** Heavy rain (`:rainyCondition`) causing the flooding.
+   - No traffic signs, traffic lights, or billboards are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the hazardous state (flooded road) is a result of external conditions (rain) rather than an actor's behavior or evidence-based anomaly.
+
+3. **Evidence Indicator:**
+   - The rolling water and spray (`:evidence1`) are classified as a **RollingBallIndicator**, which indicates potential **RoadConditionRisk** (hydroplaning/slippery conditions).
+
+4. **Risks Identified:**
+   - **OcclusionRisk:** Due to heavy rain and water spray reducing visibility.
+   - **RoadConditionRisk:** Due to the flooded and slippery road surface.
+
+5. **Severity Scores:**
+   - OcclusionRisk is assigned a high severity (0.9) because reduced visibility is critical in tunnels where visibility is already limited.
+   - RoadConditionRisk is assigned a slightly lower but still high severity (0.85) due to the risk of hydroplaning and loss of control.

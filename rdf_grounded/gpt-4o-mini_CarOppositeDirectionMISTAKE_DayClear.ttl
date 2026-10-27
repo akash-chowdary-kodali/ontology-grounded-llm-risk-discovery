@@ -1,0 +1,25 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Intersection with Vehicle" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :clearWeather ;
+    :hasRisk :risk1 .
+:vehicle1 a :Vehicle .
+:clearWeather a :ClearCondition .
+:risk1 a :CollisionRisk ;
+    :description "Vehicle near intersection poses risk of collision" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle near intersection poses risk of collision
+Severity Score: 0.75

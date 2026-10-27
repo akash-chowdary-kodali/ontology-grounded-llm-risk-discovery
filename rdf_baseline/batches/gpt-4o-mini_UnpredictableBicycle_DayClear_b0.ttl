@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix scene: <http://example.org/scene#> .
+@prefix ex: <http://example.org/entity#> .
+@prefix rel: <http://example.org/relationship#> .
+
+# Entities
+ex:vehicle1 a ex:Vehicle ;
+    ex:hasPosition "foreground" .
+
+ex:pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition "midground" ;
+    ex:travelingTo ex:crosswalk .
+
+ex:infrastructure1 a ex:RoadInfrastructure ;
+    ex:location "street" .
+
+# Relationships
+ex:pedestrian1 rel:approaching ex:crosswalk ;
+ex:vehicle1 rel:following ex:pedestrian1 .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Potential collision risk with a cyclist crossing in proximity to the vehicle.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Reduced visibility due to distance and angle from which the cyclist is observed, leading to a potential failure to yield scenario.  
+**Severity Score:** 0.5
+
+#### Risk 3:
+**Description:** Risk of misunderstanding traffic signals or road markings due to the cyclist's positioning relative to the vehicle.  
+**Severity Score:** 0.4

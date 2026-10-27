@@ -1,0 +1,49 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Rainy condition with street obstacles" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Pedestrian .
+:obstacle1 a :RoadObject .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision due to pedestrian near moving vehicle" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Distraction from falling objects on the road" ;
+    :hasSeverityScore :sev2 .
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Reduced visibility and road condition from rain" ;
+    :hasSeverityScore :sev3 .
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision due to pedestrian near moving vehicle
+Severity Score: 0.75
+
+Risk 2:
+Description: Distraction from falling objects on the road
+Severity Score: 0.65
+
+Risk 3:
+Description: Reduced visibility and road condition from rain
+Severity Score: 0.8

@@ -1,0 +1,100 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Pedestrian Near Parked Vehicle with Road Obstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person standing near parked vehicle on roadside" .
+
+:actor2 a :Vehicle ;
+    :description "Parked van with open rear door" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree branch lying across road" .
+
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cone near roadside" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fallen tree branch obstructing road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fallen tree branch partially blocking road visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Pedestrian standing too close to moving traffic path" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Vehicle parked in non-standard position near road hazard" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Fallen tree branch partially blocking road visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Pedestrian standing too close to moving traffic path
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Vehicle parked in non-standard position near road hazard
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the primary concern arises from observable evidence (fallen tree branch and traffic cone) that creates hazardous conditions rather than an actor's anomalous behavior or state.
+
+2. **Entities Identified:**
+   - **Actors:** Pedestrian (standing near parked vehicle) and Vehicle (parked van with open rear door).
+   - **Obstacles:** Fallen tree branch and traffic cone (both classified as `RoadObject`).
+   - **Weather Condition:** `NightCondition` (low visibility).
+   - No traffic signs or billboards are visible in the scene.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The fallen tree branch obstructs visibility, posing a risk to vehicles navigating the road.
+   - **PedestrianCollisionRisk:** The pedestrian is standing dangerously close to the traffic path, increasing the risk of collision.
+   - **LaneIntrusionRisk:** The parked van is positioned near the hazard, potentially blocking or confusing other drivers.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is the highest due to the immediate threat to visibility.
+   - PedestrianCollisionRisk (0.85) is high due to the pedestrian's proximity to traffic.
+   - LaneIntrusionRisk (0.75) is moderate but still significant due to the van's position.

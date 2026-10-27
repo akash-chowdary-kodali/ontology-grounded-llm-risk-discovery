@@ -1,0 +1,151 @@
+Based on the provided images, here's the semantic interpretation grounded in the given ontology:
+
+Scene Description in RDF Triples (Turtle Format):
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRollingBallIndicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion from rolling ball indicator in nighttime conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential occlusion from rolling ball indicator in nighttime conditions (suggesting a small object rolling in the road that could obscure vision or indicate an anomaly)
+Severity Score: 0.75
+
+Analysis:
+1. The scene shows nighttime conditions with a rolling ball indicator (the small bright object in the road)
+2. This is classified as an EvidenceBasedAnomaly because we can observe direct evidence (the rolling ball) that suggests a potential safety issue
+3. The primary risk identified is OcclusionRisk as the rolling object could:
+   - Create temporary visual occlusion
+   - Indicate potential debris or obstacles in the road
+   - Distract the driver's attention
+4. The severity is moderate (0.75) because:
+   - Nighttime conditions reduce visibility
+   - The rolling object could indicate more significant issues (like loose debris)
+   - There's potential for the object to move into the vehicle's path
+5. No actors (pedestrians, cyclists, or vehicles) are clearly visible in these images, so we focus on the environmental evidence and its implications
+
+The ontology doesn't provide specific classes for "rolling object" or "debris," so we use the most appropriate existing class (RollingBallIndicator) to represent this evidence, which then indicates the OcclusionRisk. Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+### Analysis:
+The scene shows a nighttime road with a soccer ball rolling in the path of the vehicle. This is a clear case of a **RollingBallIndicator** (EvidenceIndicator) creating a **CollisionRisk** (specifically a **Rear-End Collision Risk** if the vehicle stops abruptly). The corner case is classified as a **StateAnomaly** (unexpected object on the road) with no actors directly involved but a high risk of collision.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rolling Soccer Ball on Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball rolling on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball detected in vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling soccer ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+```
+
+---
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Potential collision with rolling soccer ball (Rear-End Collision Risk due to sudden braking).
+- **Severity Score:** 0.9 (High risk due to nighttime visibility and unpredictable object).
+
+---
+### Key Observations:
+1. **Corner Case Type:** `StateAnomaly` (unexpected object on the road).
+2. **Evidence Indicator:** `RollingBallIndicator` (soccer ball in path).
+3. **Risk:** `CollisionRisk` (specifically a rear-end collision risk if the vehicle stops).
+4. **Weather Condition:** `NightCondition` (reduces visibility, increasing risk severity).
+5. **Severity:** High (0.9) due to low visibility and unpredictable object behavior.
+
+No actors (pedestrians/cyclists/vehicles) are directly involved, but the rolling ball acts as a dynamic obstacle. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian running on roadway" .
+
+:weather1 a :NightCondition .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball rolling near pedestrian" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian running unexpectedly onto roadway" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Poor visibility due to nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian running unexpectedly onto roadway
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Poor visibility due to nighttime conditions
+Severity Score: 0.75

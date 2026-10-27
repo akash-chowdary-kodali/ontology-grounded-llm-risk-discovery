@@ -1,0 +1,73 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeFoggyRoadWithVehicleBraking" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle braking sharply on a foggy road" .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to < 20 meters" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Wheel lockup and skid marks visible on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog increases risk of collision with unseen obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Ego vehicle braking sharply may cause rear-end collision with following vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog increases risk of collision with unseen obstacles (OcclusionRisk)
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Ego vehicle braking sharply may cause rear-end collision with following vehicles (RearEndCollisionRisk)
+- **Severity Score:** 0.88
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene depicts a **StateAnomaly** because the ego vehicle is in an unexpected state (braking sharply) due to environmental conditions (fog), rather than an intentional behavior anomaly or evidence-based anomaly.
+
+2. **Entities Identified:**
+   - **Actor:** The ego vehicle (`:vehicle1`) is the primary actor in this scenario.
+   - **WeatherCondition:** Heavy fog (`:foggyCondition`) is the dominant environmental factor.
+   - **EvidenceIndicator:** Rolling ball indicator (`:evidence1`) due to wheel lockup and skid marks.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to fog reducing visibility.
+   - **RearEndCollisionRisk:** High severity due to the ego vehicle's abrupt braking.
+
+4. **Severity Scores:**
+   Both risks are assigned high severity scores (0.92 and 0.88) due to the hazardous combination of fog and sudden braking.

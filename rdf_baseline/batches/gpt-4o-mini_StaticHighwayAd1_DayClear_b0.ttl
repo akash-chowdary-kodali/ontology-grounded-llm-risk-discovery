@@ -1,0 +1,47 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/scene#> .
+@prefix ex: <http://example.org/entities#> .
+@prefix risk: <http://example.org/risk#> .
+@prefix rel: <http://example.org/relationships#> .
+
+# Entities
+ex:scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:redCar, ex:billboard1, ex:billboard2, ex:busStop ;
+    ex:isInLocation ex:urbanEnvironment .
+
+ex:redCar a ex:Vehicle ;
+    ex:color "Red" ;
+    ex:movingDirection "forward" .
+
+ex:billboard1 a ex:Billboard ;
+    ex:hasContent "IT'S A GO FOR SALE" .
+
+ex:billboard2 a ex:Billboard ;
+    ex:hasContent "Family Fun Zone" .
+
+ex:busStop a ex:Infrastructure ;
+    ex:locatedAt ex:busStopLocation .
+
+ex:urbanEnvironment a ex:Environment ;
+    ex:weatherCondition "Clear and Sunny" .
+
+# Relationships
+ex:redCar rel:approaching ex:busStop .
+ex:busStop rel:near ex:billboard1 .
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with pedestrians at the bus stop.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Driver distraction due to billboards displaying advertisements.
+- **Severity Score:** 0.5
+
+**Risk 3:**
+- **Description:** Miscommunication of traffic signals due to blockage from infrastructure (overhead structure).
+- **Severity Score:** 0.6

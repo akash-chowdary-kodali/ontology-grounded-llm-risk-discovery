@@ -1,0 +1,125 @@
+### **Scene Analysis: Underground Parking Garage (Nighttime)**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Ego Vehicle (Red car, front view)** – Positioned at the bottom of the image, likely the autonomous vehicle’s perspective.
+  - **Vehicle A (Black sedan, center-left)** – Approaching from the opposite direction in the tunnel.
+  - **Vehicle B (White SUV, right lane)** – Stationary or moving slowly in the adjacent lane.
+- **Road Infrastructure:**
+  - **Tunnel Structure** – Concrete walls, steel beams, and lighting fixtures.
+  - **Road Markings** – Yellow centerline, white lane markings.
+  - **Overhead Lighting** – Illuminates the tunnel but creates glare.
+- **Weather/Occlusions:**
+  - **Low Lighting Conditions** – Tunnel lighting is dim, reducing visibility.
+  - **Glare from Lights** – Headlights and overhead lights cause reflections.
+
+#### **Relationships:**
+- **Vehicle A** is **approaching** the **Ego Vehicle** in the tunnel.
+- **Vehicle B** is **adjacent** to the **Ego Vehicle** in the same lane direction.
+- **Ego Vehicle** is **occluded** by **Vehicle A’s** headlights.
+- **Overhead lighting** creates **visual interference** (glare) for the **Ego Vehicle**.
+
+---
+
+### **2. Scene Description in RDF (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+ex:EgoVehicle a ex:AutonomousVehicle ;
+    ex:hasColor "Red" ;
+    ex:isPositionedInLane "Left" ;
+    ex:hasOcclusion ex:HighBeamGlare ;
+    ex:hasSensorInput ex:Camera .
+
+ex:VehicleA a ex:Vehicle ;
+    ex:hasColor "Black" ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:isInLane "Opposite" ;
+    ex:hasHeadlightsOn true .
+
+ex:VehicleB a ex:Vehicle ;
+    ex:hasColor "White" ;
+    ex:isAdjacentTo ex:EgoVehicle ;
+    ex:isInLane "Right" .
+
+ex:Tunnel a ex:RoadInfrastructure ;
+    ex:hasLighting ex:LowLighting ;
+    ex:hasObstruction ex:SteelBeams ;
+    ex:hasRoadMarking ex:YellowCenterline .
+
+ex:Glare a ex:VisualOcclusion ;
+    ex:causedBy ex:Headlights ;
+    ex:affects ex:EgoVehicle .
+
+# Relationships
+ex:EgoVehicle ex:isIn ex:Tunnel .
+ex:VehicleA ex:isMovingTowards ex:EgoVehicle .
+ex:VehicleB ex:isStationaryOrSlow .
+ex:Tunnel ex:hasWeatherCondition ex:LowLighting .
+ex:EgoVehicle ex:experiences ex:Glare .
+```
+
+---
+
+### **3. Identified Risks**
+#### **Risk 1: Headlight Glare & Low Visibility**
+- **Description:**
+  The **Ego Vehicle** is experiencing **headlight glare** from **Vehicle A**, reducing visibility of the tunnel ahead. Combined with **low lighting**, this increases the risk of misidentifying obstacles or failing to detect **Vehicle B** in time.
+- **Severity Score:** **0.85** (High risk due to reduced perception capability).
+
+#### **Risk 2: Lane Misjudgment Due to Poor Markings**
+- **Description:**
+  The **yellow centerline** is faint, and **Vehicle B** is in an ambiguous position. The **Ego Vehicle** may misjudge lane boundaries, leading to **unintended lane changes** or **collisions with Vehicle B**.
+- **Severity Score:** **0.7** (Moderate risk due to infrastructure limitations).
+
+#### **Risk 3: Tunnel Geometry & Limited Reaction Time**
+- **Description:**
+  The **tunnel structure** restricts visibility, and **Vehicle A** is approaching at an unknown speed. If **Vehicle A** suddenly brakes or swerves, the **Ego Vehicle** may not have enough time to react safely.
+- **Severity Score:** **0.75** (High risk due to confined space and limited sensor range).
+
+#### **Risk 4: Sensor Limitations in Low Light**
+- **Description:**
+  The **Ego Vehicle’s** cameras/LiDAR may struggle in **low lighting**, leading to **false negatives** in object detection (e.g., missing pedestrians or small obstacles).
+- **Severity Score:** **0.6** (Moderate risk due to environmental constraints).
+
+---
+
+### **4. Risk Classifications (RDF Risk Ontology)**
+```turtle
+ex:Risk1 a ex:PerceptionRisk ;
+    ex:hasSeverity "0.85" ;
+    ex:hasDescription "Headlight glare from Vehicle A reduces Ego Vehicle visibility in low-light tunnel." ;
+    ex:affects ex:EgoVehicle .
+
+ex:Risk2 a ex:InfrastructureRisk ;
+    ex:hasSeverity "0.7" ;
+    ex:hasDescription "Faint road markings increase risk of lane misjudgment near Vehicle B." ;
+    ex:affects ex:EgoVehicle .
+
+ex:Risk3 a ex:DynamicRisk ;
+    ex:hasSeverity "0.75" ;
+    ex:hasDescription "Limited tunnel visibility and Vehicle A’s approach reduce reaction time." ;
+    ex:affects ex:EgoVehicle .
+
+ex:Risk4 a ex:SensorRisk ;
+    ex:hasSeverity "0.6" ;
+    ex:hasDescription "Low lighting may cause sensor failures in object detection." ;
+    ex:affects ex:EgoVehicle .
+```
+
+---
+### **Summary of Key Findings**
+- **Primary Hazard:** **Headlight glare + low lighting** (Severity: **0.85**).
+- **Secondary Hazards:** **Lane ambiguity (0.7)**, **Tunnel constraints (0.75)**, **Sensor limitations (0.6)**.
+- **Recommended Actions:**
+  - **Reduce headlight brightness** or use **adaptive lighting**.
+  - **Increase reliance on LiDAR** (less affected by glare).
+  - **Slow down** and **increase following distance** in tunnels.
+  - **Improve lane detection algorithms** for poor-marking conditions.
+
+Would you like additional analysis on potential mitigation strategies?

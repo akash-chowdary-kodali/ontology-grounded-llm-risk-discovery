@@ -1,0 +1,53 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRedReflectionDistraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Strong red light reflection on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Excessive red light reflection causing visual distraction" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Red reflection potentially obscuring road markings and objects" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Excessive red light reflection causing visual distraction
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Red reflection potentially obscuring road markings and objects
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. The primary anomaly is classified as **EvidenceBasedAnomaly** due to the observable red reflection acting as evidence of potential risks.
+2. The scene contains no actors, traffic signs, or traffic lights that can be confidently identified.
+3. The **NightCondition** is inferred from the dark sky and artificial lighting.
+4. The reflection creates two distinct risks:
+   - **DistractionRisk** (high severity) due to the bright reflection potentially impairing the driver's vision.
+   - **OcclusionRisk** (moderate severity) as the reflection may obscure important road features.

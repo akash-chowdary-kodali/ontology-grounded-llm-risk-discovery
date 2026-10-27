@@ -1,0 +1,215 @@
+Here is the semantic interpretation of the provided scene images grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyIntersectionWithRedTrafficLight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to < 50 meters" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring traffic signs, pedestrians, and vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions increasing collision risk due to poor visibility" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog density and visibility degradation acting as evidence for occlusion risk" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No right turn sign partially visible through fog" .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on right side of intersection" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog obscuring traffic signs, pedestrians, and vehicles (OcclusionRisk).
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Foggy conditions increasing collision risk due to poor visibility (WeatherRisk).
+- **Severity Score:** 0.90
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility).
+   - **TrafficLight:** Red traffic light at the intersection.
+   - **TrafficSign:** No right turn sign partially obscured by fog.
+   - **Billboard:** Advertisement billboard on the right side.
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The fog density and visibility degradation serve as evidence for occlusion risk, fitting the `EvidenceBasedAnomaly` subclass.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to fog obscuring critical elements (traffic signs, pedestrians, vehicles).
+   - **WeatherRisk:** Due to foggy conditions increasing collision risk.
+
+4. **Severity Scores:**
+   - OcclusionRisk: **0.95** (high severity due to near-total visibility loss).
+   - WeatherRisk: **0.90** (high severity due to fog-induced hazards).
+
+The scene presents a critical corner case where fog acts as both an evidence indicator (reduced visibility) and a risk multiplier (WeatherRisk). The red traffic light and partially visible sign add to the complexity, but the primary concern is the fog's impact on perception. Here is the semantic interpretation of the provided scene images grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithLimitedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :occlusionRisk ;
+    :hasRisk :roadConditionRisk .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog reducing visibility to less than 50 meters" .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Fog obscures road features, increasing risk of collision with unseen objects" ;
+    :hasSeverityScore :sev1 .
+
+:roadConditionRisk a :RoadConditionRisk ;
+    :description "Slippery road conditions due to potential moisture in fog" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on left side of road" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of road" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Fog obscures road features, increasing risk of collision with unseen objects (e.g., pedestrians, vehicles, or obstacles).
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.90`
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to potential moisture in fog, increasing braking distance and maneuverability risk.
+- **Risk Type:** `RoadConditionRisk`
+- **Severity Score:** `0.75`
+
+---
+
+### Explanation of Ontology Application:
+1. **Scene Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the fog itself is an observable condition (evidence) that directly impacts safety.
+   - The **FoggyCondition** is explicitly modeled as a subclass of `WeatherCondition`.
+
+2. **Risks Identified:**
+   - **OcclusionRisk:** Heavy fog severely limits visibility, making it difficult to detect pedestrians, vehicles, or obstacles in time to avoid collisions.
+   - **RoadConditionRisk:** Fog often correlates with slippery roads (due to moisture or reduced traction), increasing the risk of skidding or loss of control.
+
+3. **Severity Scores:**
+   - Occlusion risk is assigned a high severity (`0.90`) due to the immediate danger of unseen hazards.
+   - Road condition risk is moderate (`0.75`) as it depends on additional factors like vehicle speed and road maintenance.
+
+4. **Entities in Scene:**
+   - **Billboard:** Advertisement sign on the left side (non-critical for safety but part of the scene).
+   - **TrafficSign:** No-entry sign on the right (visible but partially obscured by fog).
+
+5. **No Actors or Obstacles Detected:**
+   - The fog obscures all potential actors (pedestrians, cyclists, vehicles) and obstacles, so they are not explicitly modeled in this RDF. The risks account for their *potential* presence.
+
+This interpretation adheres strictly to the provided ontology and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadVisibilityReduction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road and surroundings" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions reducing overall driving safety" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring road and surroundings
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Foggy conditions reducing overall driving safety
+Severity Score: 0.85
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains no visible actors (e.g., pedestrians, cyclists, or vehicles) or traffic signs/lights, but the primary obstacle is the **foggy weather condition** itself, which acts as a significant environmental factor.
+   - A **billboard** is present but does not pose an immediate risk in this context.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from the environmental state (foggy conditions) rather than an actor's behavior or evidence-based anomaly.
+
+3. **RDF Triples:**
+   - The triples explicitly link the scene to the foggy weather condition and the associated risks (occlusion and general weather risk).
+   - Severity scores are assigned based on the high impact of fog on visibility and safety.
+
+4. **Risks Identified:**
+   - **OcclusionRisk:** Fog severely limits visibility, making it difficult to detect obstacles or actors.
+   - **WeatherRisk:** General risk associated with driving in foggy conditions, which can lead to accidents due to reduced reaction time and poor visibility.

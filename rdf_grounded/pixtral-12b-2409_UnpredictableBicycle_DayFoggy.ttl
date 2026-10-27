@@ -1,0 +1,194 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyCyclistIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :cyclist1 ;
+    :hasWeatherCondition :foggy1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:cyclist1 a :Cyclist ;
+    :description "Cyclist riding in foggy conditions on road" .
+
+:foggy1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Fog causing rolling ball effect in camera view" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist due to reduced visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of cyclist and surroundings" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with cyclist due to reduced visibility
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of cyclist and surroundings
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities in the scene:**
+   - **Actor:** Cyclist (riding a bicycle in foggy conditions)
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility)
+   - **EvidenceIndicator:** RollingBallIndicator (fog causing visual distortion in camera view)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The corner case is classified as such because the fog (evidence) directly impacts visibility and creates a hazardous situation.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High risk due to the cyclist's presence in low-visibility conditions.
+   - **OcclusionRisk:** High risk due to fog obscuring the cyclist and surroundings, making it difficult for the autonomous vehicle to detect and react in time.
+
+The severity scores reflect the high danger posed by the combination of fog and the cyclist's presence on the road. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CyclistInFoggyCondition" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding in foggy conditions" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog obscuring visibility of road and surroundings" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist due to low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of road objects and actors due to fog" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with cyclist due to low visibility
+- **Risk Type:** CollisionRisk (PedestrianCollisionRisk subclass not used since actor is a cyclist)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Occlusion of road objects and actors due to fog
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Cyclist (riding in foggy conditions)
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility)
+   - **EvidenceIndicator:** FallingObjectIndicator (fog obscuring visibility)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to fog acting as evidence of reduced visibility, which is a corner case for autonomous driving).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High due to the cyclist's presence in low-visibility conditions.
+   - **OcclusionRisk:** High due to fog obscuring the road and surrounding objects.
+
+4. **Severity Scores:**
+   - CollisionRisk: 0.90 (high due to cyclist's proximity and fog).
+   - OcclusionRisk: 0.85 (high due to fog's impact on visibility). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanDrivingWithOpenRearHatch" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle with open rear hatch" .
+
+:obstacle1 a :RoadObject ;
+    :description "Open rear hatch of vehicle" .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy visibility conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Open rear hatch obstructing rear visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential collision risk due to obstructed rear view" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Open rear hatch obstructing rear visibility
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision risk due to obstructed rear view
+Severity Score: 0.65

@@ -1,0 +1,91 @@
+Here is the semantic interpretation of the scene images grounded in the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainVisibilityReduction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rain droplets on windshield obstructing forward view" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface increasing hydroplaning risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Obstructed view of traffic signs and signals" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No Parking sign partially obscured by rain" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard partially visible through rain" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Wet road surface increasing hydroplaning risk
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Obstructed view of traffic signs and signals
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.8
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** Heavy rain (`:weather1` of type `:RainyCondition`)
+   - **EvidenceIndicator:** Rain droplets obstructing view (`:evidence1` of type `:RollingBallIndicator`)
+   - **Obstacles:** Partially obscured traffic sign (`:trafficSign1`) and billboard (`:billboard1`)
+
+2. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain and its effects (e.g., rolling ball indicator) provide clear evidence of the anomaly (reduced visibility).
+
+3. **Risks Identified:**
+   - **WeatherRisk:** Due to heavy rain reducing visibility.
+   - **RoadConditionRisk:** Wet road increasing hydroplaning risk.
+   - **OcclusionRisk:** Obstructed view of traffic signs and signals.
+
+4. **Severity Scores:**
+   - Highest severity for **WeatherRisk (0.9)** due to immediate impact on visibility.
+   - Moderate severity for **OcclusionRisk (0.8)** and **RoadConditionRisk (0.75)** due to secondary but significant hazards.

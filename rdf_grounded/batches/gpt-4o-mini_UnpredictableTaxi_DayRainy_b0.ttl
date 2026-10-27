@@ -1,0 +1,28 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "Rainy driving conditions with obstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :RainyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road condition is impacting vehicle handling." .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to reduced visibility and slippery roads." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Risk of collision due to reduced visibility and slippery roads.
+Severity Score: 0.75

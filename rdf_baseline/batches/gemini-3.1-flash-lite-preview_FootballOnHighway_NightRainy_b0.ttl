@@ -1,0 +1,44 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-vehicle:** The observer vehicle (red hood visible at the bottom).
+*   **Obstacle:** A soccer ball airborne/traversing the scene.
+*   **Infrastructure:** Street lamps, brick walls on both sides of the road.
+*   **Environmental Conditions:** Nighttime, low visibility, rainy weather (wet road surface reflecting light).
+
+**2. Relationships:**
+*   **Ball:** Moving across the field of view, potential trajectory intersecting with the ego-vehicle path.
+*   **Infrastructure:** Walls and lamps flanking the road, constraining the driving space.
+*   **Ego-vehicle:** Approaching the area of the detected object.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:SoccerBall a ex:Obstacle .
+ex:RoadSurface a ex:Infrastructure .
+ex:BrickWall a ex:Infrastructure .
+
+ex:Scene ex:hasWeather ex:RainyNight .
+ex:SoccerBall ex:isMovingAcross ex:Path .
+ex:SoccerBall ex:approaching ex:EgoVehicle .
+ex:RoadSurface ex:hasCondition "Wet" .
+ex:EgoVehicle ex:inVicinityOf ex:SoccerBall .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Collision risk due to a sudden airborne object (soccer ball) in low-visibility, high-glare, and wet-road conditions. The presence of a ball strongly implies the presence of a child or pedestrian nearby who may enter the roadway to retrieve it.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Reduced traction and braking efficiency due to the "wet/rainy" road condition, limiting the ego-vehicle's ability to perform an emergency stop or evasive maneuver.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Low visibility at night combined with light reflections on the wet asphalt, which may obscure low-contrast objects or further pedestrians near the path of the soccer ball.
+*   **Severity Score:** 0.65

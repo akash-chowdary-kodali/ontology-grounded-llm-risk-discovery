@@ -1,0 +1,82 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:NightUrbanScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasPosition "Front" ;
+    ex:hasLighting ex:BrakeLightsOn .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurfaceType ex:Wet ;
+    ex:hasLaneMarkings ex:VisibleButFaded .
+
+ex:Building1 a ex:Building ;
+    ex:isLocatedAt ex:LeftSideOfRoad .
+
+ex:Building2 a ex:Building ;
+    ex:isLocatedAt ex:RightSideOfRoad .
+
+ex:TrafficLight a ex:TrafficInfrastructure ;
+    ex:isLocatedAt ex:Intersection ;
+    ex:hasStatus ex:Unclear .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:isFollowing ex:EgoVehicle ;
+    ex:hasLighting ex:BrakeLightsOn .
+
+ex:EgoVehicle ex:isApproaching ex:Intersection ;
+    ex:hasObstacle ex:UnclearTrafficLight .
+
+ex:EgoVehicle ex:hasRelativePositionTo ex:Building1 ;
+    ex:hasRelativePositionTo ex:Building2 .
+
+ex:Risk1 a ex:Risk ;
+    ex:riskType ex:UnclearTrafficLight ;
+    ex:affects ex:EgoVehicle ;
+    ex:affects ex:Vehicle2 .
+
+ex:Risk2 a ex:Risk ;
+    ex:riskType ex:LowVisibility ;
+    ex:affects ex:EgoVehicle .
+
+ex:Risk3 a ex:Risk ;
+    ex:riskType ex:WetRoadSurface ;
+    ex:affects ex:EgoVehicle ;
+    ex:affects ex:Vehicle2 .
+```
+
+```
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: Unclear status of the traffic light at the intersection, which could lead to misinterpretation of traffic rules by the ego vehicle and following vehicles.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Low lighting conditions due to nighttime, reducing visibility of road markings, pedestrians, and other vehicles.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Wet road surface, which could lead to reduced traction and increased stopping distances, posing a risk of skidding or hydroplaning.
+Severity Score: 0.70
+
+**Risk 4:**
+Description: Brake lights of the vehicle in front are on, indicating potential sudden braking or stopping, which could require immediate reaction from the ego vehicle.
+Severity Score: 0.80
+
+**Risk 5:**
+Description: Occlusion of the road ahead by the vehicle in front, making it difficult to assess the intersection and potential obstacles beyond.
+Severity Score: 0.75
+
+These risks collectively highlight the complexity of the scene and the need for robust perception and decision-making capabilities in autonomous driving systems.

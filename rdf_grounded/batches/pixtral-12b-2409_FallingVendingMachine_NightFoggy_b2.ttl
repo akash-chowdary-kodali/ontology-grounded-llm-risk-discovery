@@ -1,0 +1,54 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRedReflectiveRoadSurfaceAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Unusual red reflective road surface causing visual distortion" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :DistractionRisk ;
+    :description "Driver distraction due to unusual road surface reflection" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of real road features due to reflective surface" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime scene with artificial lighting" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Driver distraction due to unusual road surface reflection
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential occlusion of real road features due to reflective surface
+Severity Score: 0.70
+
+---
+**Analysis Notes:**
+1. The scene contains no actors, traffic signs, traffic lights, billboards, or physical obstacles that can be distinctly identified in the ontology classes.
+2. The corner case is classified as **EvidenceBasedAnomaly** because the unusual red reflective road surface acts as evidence of a potential risk scenario.
+3. Two primary risks are identified:
+   - **DistractionRisk** due to the unusual visual effect of the road surface.
+   - **OcclusionRisk** as the reflective surface may obscure real road features, creating ambiguity for the autonomous vehicle.
+4. Severity scores are assigned based on the potential impact of the visual anomaly on autonomous driving perception systems. The scores are moderate-high due to the nighttime setting and the potential for misinterpretation of the road surface.

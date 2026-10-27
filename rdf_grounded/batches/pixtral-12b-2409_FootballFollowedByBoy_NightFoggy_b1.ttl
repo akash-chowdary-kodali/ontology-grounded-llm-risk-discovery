@@ -1,0 +1,72 @@
+Based on the provided images, here's the semantic interpretation grounded in the given ontology:
+
+Scene Description in RDF Triples (Turtle Format):
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:nighttime_soccer_scene a :Scene ;
+    :scenarioName "Nighttime Soccer Ball on Road" ;
+    :hasCornerCaseType :rolling_ball_case .
+
+:rolling_ball_case a :EvidenceBasedAnomaly ;
+    :hasActor :soccer_ball ;
+    :hasWeatherCondition :night_condition ;
+    :hasEvidence :rolling_ball_indicator ;
+    :hasRisk :lane_intrusion_risk ;
+    :hasRisk :occlusion_risk .
+
+:soccer_ball a :Obstacle ;
+    :description "Soccer ball on road surface" .
+
+:rolling_ball_indicator a :RollingBallIndicator ;
+    :description "Soccer ball detected rolling on road" ;
+    :indicatesPotentialRisk :lane_intrusion_risk .
+
+:night_condition a :NightCondition ;
+    :description "Low visibility nighttime conditions" .
+
+:lane_intrusion_risk a :LaneIntrusionRisk ;
+    :description "Soccer ball intruding into vehicle path" ;
+    :hasSeverityScore :lane_severity_07 ;
+    :confidenceScore "0.85"^^xsd:float .
+
+:occlusion_risk a :OcclusionRisk ;
+    :description "Soccer ball may obscure visibility of other road users" ;
+    :hasSeverityScore :occlusion_severity_06 ;
+    :confidenceScore "0.78"^^xsd:float .
+
+:lane_severity_07 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:occlusion_severity_06 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Soccer ball intruding into vehicle path
+Risk Class: LaneIntrusionRisk
+Severity Score: 0.7
+Confidence Score: 0.85
+
+Risk 2:
+Description: Soccer ball may obscure visibility of other road users
+Risk Class: OcclusionRisk
+Severity Score: 0.6
+Confidence Score: 0.78
+
+Analysis:
+1. The scene shows a soccer ball on a road at night, which is classified as an EvidenceBasedAnomaly since we can directly observe the evidence (the rolling ball) that indicates potential risks.
+
+2. Two primary risks are identified:
+   - LaneIntrusionRisk: The ball is in the vehicle's path, potentially causing a collision if not avoided
+   - OcclusionRisk: The ball might obscure visibility of other road users or objects
+
+3. The nighttime conditions (NightCondition) contribute to reduced visibility, which increases the severity of these risks.
+
+4. The severity scores are assigned based on:
+   - Lane intrusion having higher severity (0.7) as it directly affects vehicle path
+   - Occlusion having slightly lower severity (0.6) but still significant due to nighttime conditions
+   - Both risks have high confidence scores (>0.75) based on clear visual evidence

@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasVisibility ex:Poor ;
+    ex:hasRoadInfrastructure ex:TrafficLight ;
+    ex:hasRoadInfrastructure ex:Billboard ;
+    ex:hasRoadInfrastructure ex:BusStop ;
+    ex:hasRoadInfrastructure ex:RoadMarkings ;
+    ex:hasSurfaceCondition ex:WetRoad ;
+    ex:containsEntity ex:Vehicle1, ex:Vehicle2, ex:Pedestrian1 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType ex:Car ;
+    ex:hasPosition ex:NearIntersection ;
+    ex:isMoving ex:ApproachingTrafficLight .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasType ex:Truck ;
+    ex:hasPosition ex:FollowingVehicle1 ;
+    ex:isMoving ex:MovingStraight .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition ex:NearBusStop ;
+    ex:isCrossing ex:RoadMarkings .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain, potentially leading to misjudgment of distances and speeds by drivers.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Water accumulation on the road surface could lead to hydroplaning risks for vehicles.
+- **Severity Score:** 0.7
+
+**Risk 3:**
+- **Description:** Potential conflict with pedestrian crossing near the bus stop, especially if visibility is extremely poor.
+- **Severity Score:** 0.9
+
+**Risk 4:**
+- **Description:** Trucks may have limited maneuverability due to their size, creating challenges in wet conditions.
+- **Severity Score:** 0.6
+
+These different aspects and risks provide a comprehensive view of the driving scenario, highlighting the safety concerns that need to be managed effectively.

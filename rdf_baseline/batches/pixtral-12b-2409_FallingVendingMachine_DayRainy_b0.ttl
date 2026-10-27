@@ -1,0 +1,111 @@
+### **Scene Analysis: Heavy Rain and Road Obstacle Scenario**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - `ego_vehicle` (red car, perspective from windshield)
+  - `white_van` (right side, partially visible)
+- **Road Infrastructure:**
+  - `speed_limit_sign_20` (red, partially obscured by rain)
+  - `road_markings` (lane lines, wet surface)
+  - `urban_road` (curved, multi-lane)
+- **Weather Conditions:**
+  - `heavy_rain` (reduced visibility, water splashes)
+- **Obstacles:**
+  - `water_puddles` (on road surface)
+  - `rain_occlusion` (reduced sensor/visibility range)
+
+#### **Relationships:**
+- `ego_vehicle` **is_driving_on** `urban_road`.
+- `white_van` **is_adjacent_to** `ego_vehicle` (right lane).
+- `speed_limit_sign_20` **is_occluded_by** `heavy_rain`.
+- `heavy_rain` **reduces_visibility_for** `ego_vehicle`.
+- `water_puddles` **increase_slip_risk_for** `ego_vehicle`.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScenario ;
+    :hasWeatherCondition :HeavyRain ;
+    :hasRoadInfrastructure :UrbanRoad ;
+    :hasObstacle :WaterPuddles .
+
+:HeavyRain a :WeatherCondition ;
+    :reducesVisibility "0.4"^^xsd:float ;
+    :causesOcclusion :SpeedLimitSign_20 .
+
+:UrbanRoad a :RoadInfrastructure ;
+    :hasLaneMarkings :RoadMarkings ;
+    :hasSpeedLimit :SpeedLimitSign_20 .
+
+:SpeedLimitSign_20 a :TrafficSign ;
+    :hasValue "20"^^xsd:integer ;
+    :isOccludedBy :HeavyRain .
+
+:EgoVehicle a :Vehicle ;
+    :isDrivingOn :UrbanRoad ;
+    :hasVisibilityConstraint :HeavyRain ;
+    :hasAdjacentVehicle :WhiteVan .
+
+:WhiteVan a :Vehicle ;
+    :isAdjacentTo :EgoVehicle ;
+    :isInLane "right"^^xsd:string .
+
+:WaterPuddles a :Obstacle ;
+    :increasesSlipRisk "high"^^xsd:string .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Risk Class:** `Reduced Visibility Due to Heavy Rain`
+**Description:**
+The `ego_vehicle` experiences **significantly degraded visibility** (estimated **<40% effective range**) due to heavy rain, increasing the risk of **late detection of obstacles, pedestrians, or traffic signs**. The `speed_limit_sign_20` is partially obscured, potentially leading to **unintended speeding** if not detected by other sensors (e.g., radar/LiDAR).
+**Severity Score:** **0.85** *(High – Critical for safe navigation in adverse weather)*
+
+#### **Risk 2:**
+**Risk Class:** `Slippery Road Conditions (Hydroplaning Risk)`
+**Description:**
+The presence of `water_puddles` on the road surface increases the **hydroplaning risk**, especially at higher speeds. Autonomous systems must **adjust braking/throttle response** to prevent loss of control. The `urban_road` curvature exacerbates this risk.
+**Severity Score:** **0.75** *(High – Depends on vehicle dynamics and speed)*
+
+#### **Risk 3:**
+**Risk Class:** `Occluded Traffic Signs (Misinterpretation Risk)`
+**Description:**
+The `speed_limit_sign_20` is **partially obscured by rain**, which may cause the vehicle’s **camera-based perception system to misread or ignore it**. If the sign is not detected by **radar/LiDAR**, the vehicle may **fail to enforce the speed limit**, increasing collision risk.
+**Severity Score:** **0.70** *(High – Depends on sensor fusion reliability)*
+
+#### **Risk 4:**
+**Risk Class:** `Adjacent Vehicle Maneuvering Uncertainty`
+**Description:**
+The `white_van` in the adjacent lane may **suddenly change lanes or brake**, but its **intents are unclear** due to rain-induced sensor noise. The `ego_vehicle` must **maintain a safe following distance** while accounting for potential **unpredictable movements**.
+**Severity Score:** **0.65** *(Moderate-High – Depends on traffic density and vehicle behavior prediction)*
+
+#### **Risk 5:**
+**Risk Class:** `Sensor Fusion Failure (Multi-Sensor Discrepancy)`
+**Description:**
+Heavy rain can cause **discrepancies between cameras, radar, and LiDAR**, leading to **false detections or missed objects**. If the system relies on **a single sensor modality**, it may **fail to detect critical obstacles** (e.g., pedestrians, debris).
+**Severity Score:** **0.80** *(High – Critical for fail-safe perception)*
+
+---
+
+### **Summary of Key Risks & Mitigations**
+| **Risk**                          | **Severity (0-1)** | **Recommended Mitigation**                          |
+|-----------------------------------|-------------------|----------------------------------------------------|
+| Reduced Visibility (Heavy Rain)   | 0.85              | Enable **adaptive cruise control**, **low-speed mode**, and **multi-sensor fusion**. |
+| Slippery Road (Hydroplaning)      | 0.75              | **Reduce speed**, **increase wheel torque control**, and **activate ABS/ESP**. |
+| Occluded Traffic Signs            | 0.70              | **Use radar/LiDAR fallback** for sign detection. |
+| Adjacent Vehicle Uncertainty      | 0.65              | **Expand safety buffer**, **predictive path planning**. |
+| Sensor Fusion Failure             | 0.80              | **Cross-validate sensor inputs**, **fallback to conservative behavior**. |
+
+---
+**Final Assessment:**
+This scenario presents **multiple high-severity risks** due to **adverse weather and sensor limitations**. A robust autonomous system must **prioritize fail-safe perception, dynamic speed adaptation, and multi-modal sensor redundancy** to navigate such conditions safely.

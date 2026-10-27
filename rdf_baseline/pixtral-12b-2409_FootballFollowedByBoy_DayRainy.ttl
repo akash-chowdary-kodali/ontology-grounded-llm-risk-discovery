@@ -1,0 +1,290 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyRain ;
+    :hasVisibility :Low ;
+    :hasRoadCondition :Wet .
+
+:Vehicle1 a :Vehicle ;
+    :hasType "SUV" ;
+    :hasPosition "RightLane" ;
+    :hasSpeed "Moderate" ;
+    :hasHeadlightState "On" ;
+    :hasWindshieldWiperState "Active" .
+
+:Vehicle2 a :Vehicle ;
+    :hasType "Sedan" ;
+    :hasPosition "LeftLane" ;
+    :hasSpeed "Slow" ;
+    :hasHeadlightState "On" ;
+    :hasWindshieldWiperState "Active" .
+
+:Vehicle3 a :Vehicle ;
+    :hasType "Truck" ;
+    :hasPosition "FarBackground" ;
+    :hasSpeed "Slow" ;
+    :hasHeadlightState "On" .
+
+:Pedestrian1 a :Pedestrian ;
+    :hasPosition "NearIntersection" ;
+    :hasVisibility "OccludedByRain" ;
+    :hasAction "Crossing" .
+
+:Obstacle1 a :Obstacle ;
+    :hasType "FlyingObject" ;
+    :hasPosition "CenterOfRoad" ;
+    :hasDescription "Small spherical object (e.g., ball)" .
+
+:Road a :RoadInfrastructure ;
+    :hasType "UrbanStreet" ;
+    :hasLaneMarkings "SolidAndBrokenLines" ;
+    :hasTrafficSigns "NoneVisible" .
+
+:Vehicle1 :isApproaching :Obstacle1 .
+:Vehicle1 :isFollowing :Vehicle2 .
+:Obstacle1 :isOn :Road .
+:Pedestrian1 :isNear :Intersection .
+:Vehicle2 :isOccludedBy :HeavyRain .
+:Vehicle3 :isOccludedBy :HeavyRain .
+:HeavyRain :reduces :Visibility .
+:HeavyRain :increases :RoadSlipRisk .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The small spherical object (e.g., a ball) in the center of the road poses a collision risk for the ego vehicle and other vehicles. Due to heavy rain and reduced visibility, the object may not be detected in time, leading to an accident.
+**Severity Score:** **0.85** *(High risk due to sudden appearance and low visibility)*
+
+#### **Risk 2:**
+**Description:**
+The pedestrian near the intersection is partially occluded by rain and may not be easily detectable by the autonomous vehicle's sensors. If the pedestrian crosses unexpectedly, the vehicle may fail to react in time.
+**Severity Score:** **0.75** *(Moderate-high risk due to pedestrian vulnerability and low visibility)*
+
+#### **Risk 3:**
+**Description:**
+Heavy rain reduces visibility, increasing the risk of misidentifying or missing other vehicles, pedestrians, and obstacles. The ego vehicle and other vehicles may experience delayed reaction times due to poor sensor performance.
+**Severity Score:** **0.90** *(Very high risk due to environmental conditions impairing perception)*
+
+#### **Risk 4:**
+**Description:**
+The wet road conditions increase the risk of hydroplaning and reduced braking efficiency. If the ego vehicle or other vehicles brake suddenly, they may lose control, leading to a collision.
+**Severity Score:** **0.80** *(High risk due to slippery road dynamics)*
+
+#### **Risk 5:**
+**Description:**
+The ego vehicle is following another vehicle (Vehicle2) in low visibility. If Vehicle2 brakes suddenly, the ego vehicle may not have enough time to react, leading to a rear-end collision.
+**Severity Score:** **0.70** *(Moderate-high risk due to reduced sensor range and reaction time)*
+
+---
+### **Summary of Key Risks**
+1. **Undetected small road obstacle (ball)** – Highest immediate risk.
+2. **Occluded pedestrian** – High risk due to vulnerability.
+3. **Heavy rain reducing visibility** – Systemic risk affecting all entities.
+4. **Wet road increasing slip risk** – High risk for dynamic vehicle control.
+5. **Following vehicle in low visibility** – Moderate-high risk for rear-end collision.
+
+This scene represents a **high-severity corner case** for autonomous driving systems, particularly in adverse weather conditions. Here is the structured analysis of the provided scene images:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyFog ;
+    :hasRoadCondition :WetRoad ;
+    :hasVisibilityRange 15.0 .
+
+:EgoVehicle a :Vehicle ;
+    :hasType "SUV" ;
+    :hasPosition :Lane1 ;
+    :hasSpeed 20.0 ;
+    :hasDirection :Forward .
+
+:SoccerBall a :Object ;
+    :hasType "SoccerBall" ;
+    :hasPosition :CenterLane ;
+    :hasDistanceFromEgo 12.0 .
+
+:RedTruck a :Vehicle ;
+    :hasType "Truck" ;
+    :hasColor "Red" ;
+    :hasPosition :Lane2 ;
+    :hasDirection :Forward ;
+    :hasDistanceFromEgo 30.0 .
+
+:SidewalkPedestrian a :Pedestrian ;
+    :hasPosition :SidewalkRight ;
+    :isOccluded true ;
+    :hasDistanceFromEgo 18.0 .
+
+# Relationships
+:EgoVehicle :approaching :SoccerBall .
+:EgoVehicle :following :RedTruck .
+:SoccerBall :on :RoadSurface .
+:RedTruck :in :Lane2 .
+:SidewalkPedestrian :near :EgoVehicle .
+:HeavyFog :reduces :Visibility .
+
+# Risk Classes
+:Risk1 a :Risk ;
+    :riskType :ObjectInPath ;
+    :affectedEntity :SoccerBall ;
+    :severity 0.85 .
+
+:Risk2 a :Risk ;
+    :riskType :ReducedVisibility ;
+    :affectedEntity :HeavyFog ;
+    :severity 0.9 .
+
+:Risk3 a :Risk ;
+    :riskType :OccludedPedestrian ;
+    :affectedEntity :SidewalkPedestrian ;
+    :severity 0.75 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The soccer ball is positioned in the center lane, directly in the path of the ego vehicle. The ball’s presence increases the likelihood of collision if the ego vehicle does not react in time, especially given the reduced visibility due to fog.
+
+**Severity Score:** **0.85**
+
+---
+
+#### **Risk 2:**
+**Description:**
+Heavy fog severely reduces visibility, making it difficult for the ego vehicle to detect objects, pedestrians, or other vehicles in time. This increases the risk of collisions or misjudging distances.
+
+**Severity Score:** **0.9**
+
+---
+
+#### **Risk 3:**
+**Description:**
+A pedestrian is present on the sidewalk but partially occluded by fog and trees. The ego vehicle may not detect the pedestrian in time, especially if they attempt to cross the road unexpectedly.
+
+**Severity Score:** **0.75**
+
+---
+
+### **Summary of Key Observations:**
+1. **Main Entities:**
+   - **Vehicles:** Ego vehicle (SUV), Red truck.
+   - **Objects:** Soccer ball.
+   - **Pedestrians:** Occluded pedestrian on the sidewalk.
+   - **Weather Conditions:** Heavy fog, wet road.
+   - **Road Infrastructure:** Two-lane road, center lane markings.
+
+2. **Relationships:**
+   - The ego vehicle is following the red truck.
+   - The soccer ball is in the center lane, directly in the path of the ego vehicle.
+   - The pedestrian is near the ego vehicle but occluded by fog and trees.
+
+3. **Safety Risks:**
+   - **Object in Path (Soccer Ball):** High risk due to proximity and visibility issues.
+   - **Reduced Visibility (Fog):** Critical risk, as it affects all other risks.
+   - **Occluded Pedestrian:** Moderate to high risk, as the pedestrian may cross unexpectedly.
+
+This scene highlights the challenges of autonomous driving in adverse weather conditions, where sensor limitations and environmental factors significantly increase collision risks. ```plaintext
+---
+Scene Description in RDF Triples (Turtle Format)
+---
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+:Scene1 a :Scene ;
+    :hasWeatherCondition :FoggyWeather ;
+    :hasRoadCondition :WetRoad .
+
+:FoggyWeather a :WeatherCondition ;
+    :visibilityRange "low" ;
+    :hasPrecipitation "none" .
+
+:WetRoad a :RoadCondition ;
+    :surfaceCondition "wet" .
+
+:Vehicle1 a :Vehicle ;
+    :vehicleType "autonomous" ;
+    :position "front" ;
+    :hasDriver "none" ;
+    :hasObstruction :WindshieldObstruction .
+
+:WindshieldObstruction a :Obstruction ;
+    :type "water" ;
+    :location :Windshield .
+
+:Vehicle2 a :Vehicle ;
+    :vehicleType "truck" ;
+    :position "distance" ;
+    :direction "approaching" .
+
+:Pedestrian1 a :Pedestrian ;
+    :position "sidewalk" ;
+    :action "running" ;
+    :direction "crossing" .
+
+:SoccerBall a :Object ;
+    :type "sportsBall" ;
+    :position "road" .
+
+# Relationships
+:Vehicle1 :hasVisibilityRelation :Pedestrian1 ;
+    :visibilityStatus "reduced" .
+
+:Vehicle1 :hasVisibilityRelation :SoccerBall ;
+    :visibilityStatus "reduced" .
+
+:Vehicle1 :hasObstructionRelation :WindshieldObstruction ;
+    :obstructionImpact "high" .
+
+:Pedestrian1 :hasMovementRelation :Vehicle1 ;
+    :movementType "crossing" ;
+    :movementDirection "towards" .
+
+:Vehicle2 :hasMovementRelation :Vehicle1 ;
+    :movementType "following" .
+
+---
+Identified Risks for each risk class
+---
+
+Risk 1:
+Description: Reduced visibility due to fog and water on windshield obstructing the driver's view of the soccer ball and pedestrian.
+Severity Score: 0.9
+    - Justification: High risk due to the combination of low visibility and potential for unexpected pedestrian movement.
+
+Risk 2:
+Description: Wet road conditions increasing the risk of hydroplaning or reduced braking efficiency for :Vehicle1.
+Severity Score: 0.7
+    - Justification: Wet roads generally pose a moderate to high risk for vehicle control and braking.
+
+Risk 3:
+Description: Pedestrian crossing the road unexpectedly while :Vehicle1 has reduced visibility.
+Severity Score: 0.95
+    - Justification: High risk due to the pedestrian's unpredictable movement and the vehicle's limited visibility.
+
+Risk 4:
+Description: Potential for the soccer ball to roll onto the road and obstruct traffic or cause an accident.
+Severity Score: 0.6
+    - Justification: Moderate risk as the soccer ball could be a sudden obstacle, but less immediate than the pedestrian.
+
+---
+```

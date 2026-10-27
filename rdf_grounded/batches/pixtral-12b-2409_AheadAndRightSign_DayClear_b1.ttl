@@ -1,0 +1,74 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanIntersectionDaytime" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadMarkingsObstacle ;
+    :hasWeatherCondition :clearDayCondition ;
+    :hasRisk :laneIntrusionRisk, :occlusionRisk, :distractionRisk .
+
+:roadMarkingsObstacle a :RoadObject ;
+    :description "Faded or unclear road markings at intersection" .
+
+:clearDayCondition a :ClearCondition ;
+    :description "Clear skies and daylight" .
+
+:laneIntrusionRisk a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to unclear road markings" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Potential occlusion from buildings and parked vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:distractionRisk a :DistractionRisk ;
+    :description "Empty intersection may cause driver distraction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential lane intrusion due to unclear road markings
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Potential occlusion from buildings and parked vehicles
+Severity Score: 0.40
+
+**Risk 3:**
+Description: Empty intersection may cause driver distraction
+Severity Score: 0.25
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - The scene contains no actors (no pedestrians, cyclists, or vehicles in motion).
+   - The primary obstacle is the **RoadObject** (faded/unclear road markings).
+   - The weather condition is **ClearCondition** (clear skies and daylight).
+   - No traffic lights, signs, or billboards are visible in the provided image.
+
+2. **Corner Case Classification**:
+   - The scene is classified as a **StateAnomaly** because the issue stems from the state of the road (unclear markings) rather than dynamic behavior or evidence-based anomalies.
+
+3. **Risks Identified**:
+   - **LaneIntrusionRisk**: Due to unclear road markings, drivers may misinterpret lane boundaries.
+   - **OcclusionRisk**: Buildings and parked vehicles could obscure visibility of potential actors (e.g., pedestrians or cyclists) entering the intersection.
+   - **DistractionRisk**: The empty intersection might lead drivers to become distracted or lose focus.
+
+4. **Severity Scores**:
+   - Scores are assigned based on the likelihood and potential impact of each risk. The highest score (0.40) is for occlusion, as it could mask unseen actors, while distraction (0.25) is the lowest due to the absence of dynamic elements in the scene.

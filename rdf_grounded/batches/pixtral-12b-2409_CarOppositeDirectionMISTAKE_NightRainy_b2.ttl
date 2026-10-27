@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLotWithObstructedView" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large structural beams obstructing view of parked vehicles and buildings" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstructed view of parked vehicles and surroundings due to structural beams" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface indicating potential slippery conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to obstructed view and parked vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Parked vehicle partially visible behind structural beams" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Obstructed view of parked vehicles and surroundings due to structural beams
+Severity Score: 0.9
+
+Risk 2:
+Description: Wet road surface indicating potential slippery conditions
+Severity Score: 0.7
+
+Risk 3:
+Description: Potential collision risk due to obstructed view and parked vehicles
+Severity Score: 0.85

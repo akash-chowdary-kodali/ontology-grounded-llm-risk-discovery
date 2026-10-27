@@ -1,0 +1,239 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Tunnel with Wet Road and Following Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Wet road conditions in tunnel with potential hydroplaning risk" ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating standing water" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball effect on wet road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning due to wet road conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Close following distance in low-visibility tunnel" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from tunnel lighting and reflections" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Following vehicle in tunnel" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning due to wet road conditions
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Close following distance in low-visibility tunnel
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Potential distraction from tunnel lighting and reflections
+- **Severity Score:** 0.6
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** because the primary issue stems from the **physical state of the road (wet conditions)** rather than behavioral anomalies or evidence-based anomalies (e.g., open doors, falling objects).
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` (low visibility)
+   - **Obstacle:** `RoadObject` (wet road surface with standing water)
+   - **EvidenceIndicator:** `RollingBallIndicator` (reflective sheen indicating hydroplaning risk)
+   - **Actor:** `Vehicle` (following vehicle in tunnel)
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Hydroplaning due to wet road.
+   - **RearEndCollisionRisk:** Close following distance in low-visibility conditions.
+   - **DistractionRisk:** Tunnel lighting and reflections may distract the driver.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is highest (0.9) due to immediate danger.
+   - Rear-end collision risk is moderate (0.75) due to visibility and distance.
+   - Distraction risk is lower (0.6) but still relevant in tunnels. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Tunnel with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Wet road conditions in a tunnel with poor visibility due to lighting and reflections" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting in tunnel" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning or reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to water reflections and tunnel lighting" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with standing water in tunnel" .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle ahead in tunnel" .
+
+:vehicle2 a :Vehicle ;
+    :description "White vehicle in adjacent lane" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning or reduced traction due to wet road surface.
+- **Severity Score:** 0.88
+- **Confidence Score:** 0.92
+- **Risk Type:** `:RoadConditionRisk`
+
+**Risk 2:**
+- **Description:** Reduced visibility due to water reflections and tunnel lighting.
+- **Severity Score:** 0.75
+- **Confidence Score:** 0.85
+- **Risk Type:** `:OcclusionRisk`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`:vehicle1`, `:vehicle2`) classified under `:Vehicle`.
+   - **Obstacle:** Wet road surface (`:obstacle1`) classified under `:RoadObject`.
+   - **WeatherCondition:** Nighttime with artificial lighting (`:weather1`) classified under `:NightCondition`.
+
+2. **Corner Case Classification:**
+   The scene is classified as a **`:StateAnomaly`** because the primary issue stems from the **physical state of the road (wet surface)** rather than anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **`:RoadConditionRisk`** due to wet road conditions increasing the likelihood of hydroplaning or reduced vehicle control.
+   - **`:OcclusionRisk`** due to poor visibility caused by water reflections and tunnel lighting.
+
+4. **Severity Scores:**
+   - The **`:RoadConditionRisk`** has a high severity score (0.88) because wet roads directly impact vehicle safety.
+   - The **`:OcclusionRisk`** has a moderate severity score (0.75) due to reduced visibility, which can lead to delayed reactions.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "IndoorTestTrackWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small spherical object rolling on track surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object on track" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Unstable track surface due to loose debris" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Indoor lighting with no precipitation" .
+
+:vehicle1 a :Vehicle ;
+    :description "Autonomous vehicle in test track" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential collision with rolling object on track
+Severity Score: 0.75
+Risk Class: CollisionRisk
+
+Risk 2:
+Description: Unstable track surface due to loose debris
+Severity Score: 0.60
+Risk Class: RoadConditionRisk
+
+Justification:
+1. The scene shows an indoor test track with a small spherical object (likely a ball) rolling on the surface, which matches the :RollingBallIndicator evidence type.
+2. The corner case is classified as :EvidenceBasedAnomaly since it's identified through observable evidence (the rolling object).
+3. Two risks are identified:
+   - CollisionRisk due to the rolling object potentially interfering with vehicle movement
+   - RoadConditionRisk due to the unstable surface conditions created by the loose debris
+4. Severity scores are assigned based on:
+   - CollisionRisk (0.75) - High potential for physical contact with the vehicle
+   - RoadConditionRisk (0.60) - Moderate impact on vehicle handling and safety
+5. The scene occurs indoors with clear lighting conditions, matching :ClearCondition
+6. The vehicle is identified as an :Actor of type :Vehicle in the scene

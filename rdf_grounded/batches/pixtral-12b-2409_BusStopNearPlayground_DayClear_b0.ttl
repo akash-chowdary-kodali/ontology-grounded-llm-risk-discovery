@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestriansCrossingUnsignalizedCrosswalk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian running across crosswalk from left to right" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian running alongside first pedestrian" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing unprotected crosswalk without yielding to oncoming traffic" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Traffic light at intersection (red for cross traffic)" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing an unprotected crosswalk without yielding to oncoming traffic, running rather than walking.
+- **Severity Score:** 0.88
+- **Confidence Score:** 0.92
+- **Risk Type:** `:PedestrianCollisionRisk`
+- **Corner Case Type:** `:BehaviorAnomaly` (pedestrians running across a crosswalk without proper caution)
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:**
+   The corner case is classified as a **BehaviorAnomaly** because the pedestrians are running across the crosswalk rather than walking, which deviates from expected pedestrian behavior and increases collision risk.
+
+2. **Entities Identified:**
+   - **Actors:** Two pedestrians crossing the crosswalk.
+   - **Traffic Light:** Present at the intersection (red for cross traffic).
+   - **Weather Condition:** Clear daytime conditions (`:DayCondition`).
+
+3. **Risk Analysis:**
+   The primary risk is **PedestrianCollisionRisk** due to the pedestrians' sudden and unpredictable movement. The severity is high (0.88) because:
+   - The pedestrians are running, not walking.
+   - The crosswalk lacks clear protection (e.g., no traffic signals or barriers).
+   - The vehicle (ego vehicle) is approaching the crosswalk, increasing the likelihood of a collision if the pedestrians do not stop.
+
+4. **Missing Evidence Indicators:**
+   No evidence indicators (e.g., `:OpenDoorIndicator`, `:RollingBallIndicator`) are present in this scene, so they are not included in the RDF.
+
+5. **Occlusion/Road Conditions:**
+   No occlusion or road condition risks are observed in this scene. The weather is clear, and the road appears dry.

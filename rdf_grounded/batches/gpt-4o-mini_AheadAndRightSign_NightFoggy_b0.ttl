@@ -1,0 +1,39 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeDrivingInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Low visibility due to fog, potential distractions from surroundings." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility may lead to inability to react appropriately." ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Low visibility due to fog, potential distractions from surroundings.
+Severity Score: 0.75
+
+Risk 2:
+Description: Reduced visibility may lead to inability to react appropriately.
+Severity Score: 0.80

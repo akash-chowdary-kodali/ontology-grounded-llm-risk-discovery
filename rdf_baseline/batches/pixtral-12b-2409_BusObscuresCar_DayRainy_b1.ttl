@@ -1,0 +1,166 @@
+### **Scene Analysis: Heavy Fog with Limited Visibility**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Vehicle_A (Red car, ego vehicle, partially visible hood)**
+  - **Vehicle_B (Yellow taxi, ahead, right lane)**
+  - **Vehicle_C (Black SUV, right lane, following ego vehicle)**
+  - **Vehicle_D (Black sedan, distant, left lane)**
+  - **Vehicle_E (Black car, distant, left lane)**
+- **Road Infrastructure:**
+  - **Road (multi-lane, wet surface, marked lanes)**
+  - **Traffic Lights (partially visible, obscured by fog)**
+  - **Streetlights (visible but dim due to fog)**
+  - **Sidewalk (partially visible, no pedestrians detected)**
+  - **Buildings (urban environment, multi-story)**
+- **Weather Conditions:**
+  - **Heavy Fog (reduced visibility, <50m)**
+  - **Rain (light, visible on windshield)**
+- **Obstacles:**
+  - **Fog (primary obstacle, obscures visibility)**
+  - **Wet Road (increased hydroplaning risk)**
+
+#### **Relationships:**
+- **Vehicle_B** is **ahead of** **Vehicle_A** in the **right lane**.
+- **Vehicle_C** is **following** **Vehicle_A** in the **right lane**.
+- **Vehicle_D** and **Vehicle_E** are **distant** and **occluded** by fog in the **left lane**.
+- **Fog** **occludes** visibility beyond **~30-50m**.
+- **Rain** **reduces traction** on the **wet road**.
+- **Traffic lights** are **partially visible** but **not clearly readable** due to fog.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyFog, :LightRain ;
+    :hasRoadCondition :WetRoad ;
+    :hasVisibilityRange "30-50m"^^xsd:string .
+
+:HeavyFog a :WeatherCondition ;
+    :reducesVisibilityTo "30-50m"^^xsd:string ;
+    :occludes :Vehicle_D, :Vehicle_E .
+
+:LightRain a :WeatherCondition ;
+    :reducesTractionOn :WetRoad .
+
+:WetRoad a :RoadCondition ;
+    :hasLane :Lane_Left, :Lane_Right ;
+    :hasSurfaceCondition :Slippery .
+
+:Lane_Left a :Lane ;
+    :contains :Vehicle_D, :Vehicle_E .
+
+:Lane_Right a :Lane ;
+    :contains :Vehicle_A, :Vehicle_B, :Vehicle_C .
+
+:Vehicle_A a :Vehicle ;
+    :isEgoVehicle true ;
+    :isInLane :Lane_Right ;
+    :hasFollowingVehicle :Vehicle_C ;
+    :hasAheadVehicle :Vehicle_B .
+
+:Vehicle_B a :Vehicle ;
+    :isInLane :Lane_Right ;
+    :isAheadOf :Vehicle_A ;
+    :isOccludedBy :HeavyFog .
+
+:Vehicle_C a :Vehicle ;
+    :isInLane :Lane_Right ;
+    :isFollowing :Vehicle_A ;
+    :isOccludedBy :HeavyFog .
+
+:Vehicle_D a :Vehicle ;
+    :isInLane :Lane_Left ;
+    :isOccludedBy :HeavyFog .
+
+:Vehicle_E a :Vehicle ;
+    :isInLane :Lane_Left ;
+    :isOccludedBy :HeavyFog .
+
+:TrafficLight a :RoadInfrastructure ;
+    :isPartiallyVisible true ;
+    :isOccludedBy :HeavyFog .
+
+:Streetlight a :RoadInfrastructure ;
+    :hasVisibility "Low"^^xsd:string .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :CollisionRisk ;
+    :description "High risk of rear-end collision due to low visibility and following distance." ;
+    :severity 0.85 .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :LaneDepartureRisk ;
+    :description "Risk of unintended lane change due to obscured lane markings and fog." ;
+    :severity 0.75 .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :HydroplaningRisk ;
+    :description "Increased risk of hydroplaning on wet road surface." ;
+    :severity 0.6 .
+
+:Risk4 a :SafetyRisk ;
+    :riskType :PedestrianRisk ;
+    :description "No visible pedestrians, but high risk of unseen crossing due to fog." ;
+    :severity 0.5 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+High risk of **rear-end collision** due to **low visibility** and **insufficient following distance** between **Vehicle_A (ego)** and **Vehicle_C (following)**. The fog obscures **Vehicle_B (ahead)**, increasing uncertainty in trajectory prediction.
+
+**Severity Score:** **0.85** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+Risk of **unintended lane departure** due to **obscured lane markings** and **fog-induced spatial disorientation**. The ego vehicle (**Vehicle_A**) may misjudge lane boundaries, leading to **accidental lane changes** or **swerving**.
+
+**Severity Score:** **0.75** (High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+Increased risk of **hydroplaning** due to **wet road conditions** combined with **reduced tire grip**. Sudden braking or sharp turns could lead to **loss of control**.
+
+**Severity Score:** **0.6** (Moderate-High)
+
+---
+
+#### **Risk 4:**
+**Description:**
+No visible pedestrians, but **high risk of unseen crossing** due to **fog obscuring sidewalks and intersections**. The ego vehicle may fail to detect pedestrians emerging from obscured areas.
+
+**Severity Score:** **0.5** (Moderate)
+
+---
+
+### **4. Additional Observations**
+- **Sensor Limitations:** Heavy fog significantly degrades **camera, LiDAR, and radar performance**, reducing detection range.
+- **Traffic Light Uncertainty:** The **partially visible traffic light** increases the risk of **misinterpretation**, leading to incorrect stopping/yielding decisions.
+- **Emergency Response:** In case of a sudden stop, **Vehicle_C (following)** may not have enough reaction time due to **limited visibility**.
+
+---
+### **Recommendations for Autonomous System:**
+1. **Reduce Speed** – Maintain **safe following distance** (increase to **3x typical distance**).
+2. **Activate Hazard Lights** – Warn surrounding vehicles of reduced visibility.
+3. **Rely on Radar/LiDAR** – Use **multi-sensor fusion** to compensate for camera limitations.
+4. **Prepare for Emergency Stop** – Assume **worst-case visibility** and maintain **maximum braking readiness**.
+5. **Monitor Lane Keeping** – Use **lane-keeping assist** with **reduced confidence thresholds**.
+6. **Alert Occupant** – If applicable, notify the driver to take over if visibility does not improve.
+
+---
+This analysis provides a structured **RDF-based semantic interpretation** of the scene, highlighting **critical safety risks** and their **severity levels** for autonomous driving systems.

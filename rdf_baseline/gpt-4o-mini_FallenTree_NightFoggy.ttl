@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:YellowTaxi1, ex:YellowTaxi2, ex:PoliceCar, ex:TreeObstacle ;
+    ex:hasWeatherConditions ex:LowVisibility ;
+    ex:hasRoadInfrastructure ex:Road, ex:StreetLights .
+
+ex:YellowTaxi1 a ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:position ex:NearRoadRight .
+
+ex:YellowTaxi2 a ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:position ex:NearRoadLeft .
+
+ex:PoliceCar a ex:Vehicle ;
+    ex:color "blue" ;
+    ex:position ex:MiddleOfRoad .
+
+ex:TreeObstacle a ex:Obstacle ;
+    ex:status "fallen" ;
+    ex:position ex:AcrossRoad .
+
+ex:Road a ex:Infrastructure ;
+    ex:condition "wet" .
+
+ex:StreetLights a ex:Infrastructure ;
+    ex:status "on" .
+
+ex:LowVisibility a ex:WeatherCondition ;
+    ex:description "foggy and dark" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Fallen tree across the road obstructing vehicle paths, increasing potential for collisions.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Low visibility conditions (fog and darkness), which may impair the ability of drivers to notice obstacles in time.
+- **Severity Score:** 0.8
+
+**Risk 3:**
+- **Description:** Presence of parked taxis near the road; potential for sudden movements from taxi drivers.
+- **Severity Score:** 0.5
+
+These risks evaluate the different factors that present safety concerns in the given scenario.

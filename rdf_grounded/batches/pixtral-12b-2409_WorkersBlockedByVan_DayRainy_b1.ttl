@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInHeavyRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasWeatherCondition :rainyCondition ;
+    :hasRisk :pedestrianCollisionRisk1, :occlusionRisk1, :roadConditionRisk1 ;
+    :hasObstacle :roadObject1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Pedestrian crossing road in heavy rain" .
+
+:rainyCondition a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:pedestrianCollisionRisk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing path of vehicle in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Heavy rain reduces visibility of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Flooded road conditions reduce traction" ;
+    :hasSeverityScore :sev3 .
+
+:roadObject1 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing path of vehicle in heavy rain
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Heavy rain reduces visibility of pedestrian
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Flooded road conditions reduce traction
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian crossing the road.
+   - **WeatherCondition:** Heavy rain (`RainyCondition`).
+   - **Obstacle:** Orange traffic cones (`RoadObject`).
+   - No visible `TrafficLight`, `TrafficSign`, or `Billboard` in the scene.
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the road in heavy rain, which is a non-standard behavior for such conditions (high risk of collision and reduced visibility).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrian crossing in heavy rain.
+   - **OcclusionRisk:** High due to reduced visibility from rain.
+   - **RoadConditionRisk:** Moderate due to flooded road conditions.
+
+4. **Severity Scores:**
+   - Assigned based on the urgency and potential impact of each risk (higher for immediate collision risk, lower for road conditions).

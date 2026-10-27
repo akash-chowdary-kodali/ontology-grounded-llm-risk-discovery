@@ -1,0 +1,81 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRainyDayWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:evidence2 a :RoadConditionRisk ;
+    :indicatesPotentialRisk :risk4 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian running on sidewalk" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle in front of ego vehicle" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian running unexpectedly onto road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to fog and rain" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian running unexpectedly onto road
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Potential rear-end collision due to reduced visibility
+Severity Score: 0.70
+
+**Risk 3:**
+Description: Occlusion risk due to fog and rain
+Severity Score: 0.65
+
+**Risk 4:**
+Description: Slippery road conditions due to rain
+Severity Score: 0.75
+
+---
+**Notes:**
+- The corner case is classified as `:EvidenceBasedAnomaly` due to the presence of clear indicators (rolling ball and road conditions) that suggest potential risks.
+- The `:RollingBallIndicator` and `:RoadConditionRisk` are used as evidence indicators.
+- The `:RainyCondition` is identified as the weather condition affecting the scene.
+- Severity scores are assigned based on the potential danger and likelihood of the risks occurring in the given scenario.

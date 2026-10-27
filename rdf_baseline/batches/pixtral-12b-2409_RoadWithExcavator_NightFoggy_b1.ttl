@@ -1,0 +1,114 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A **construction excavator** (partially visible, occupying the right lane).
+  - An **autonomous vehicle (ego vehicle)** (red front visible, approaching the excavator).
+- **Road Infrastructure**:
+  - **Road markings** (double yellow lines, indicating a two-way road).
+  - **Curved road** (moderate bend).
+  - **Warehouse/industrial buildings** (background).
+  - **Overhead lighting** (industrial facility lighting).
+- **Obstacles**:
+  - **Construction excavator** (large, slow-moving, partially blocking the lane).
+- **Weather Conditions**:
+  - **Low-light/nighttime** (poor visibility, artificial lighting).
+- **Other**:
+  - **No pedestrians or cyclists** visible.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **autonomous vehicle** is **approaching** the **construction excavator**.
+- The **excavator** is **partially occupying** the right lane, **occluding** the road ahead.
+- The **ego vehicle** is **following** the curvature of the road while maintaining lane discipline.
+- The **excavator’s bucket** is **positioned near** the road markings, potentially causing a **lane obstruction**.
+- The **low-light conditions** reduce visibility of the excavator’s full extent.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasLocation ex:IndustrialWarehouseArea ;
+    ex:hasTimeCondition ex:NighttimeLowLight .
+
+ex:EgoVehicle a ex:AutonomousVehicle ;
+    ex:hasColor "red" ;
+    ex:isApproaching ex:ConstructionExcavator ;
+    ex:isFollowing ex:RoadCurve .
+
+ex:ConstructionExcavator a ex:HeavyVehicle ;
+    ex:isPositionedIn ex:RightLane ;
+    ex:hasBucketPosition ex:NearRoadMarkings ;
+    ex:isOccluding ex:RoadAhead ;
+    ex:hasMovementType ex:SlowMoving .
+
+ex:RoadCurve a ex:RoadFeature ;
+    ex:hasMarkings ex:DoubleYellowLines ;
+    ex:hasRadius "moderate" .
+
+ex:IndustrialWarehouseArea a ex:Location ;
+    ex:hasLighting ex:ArtificialIndustrialLighting ;
+    ex:hasBuildings ex:WarehouseBuildings .
+
+ex:NighttimeLowLight a ex:WeatherCondition ;
+    ex:reducesVisibility "high" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **construction excavator partially occupies the lane**, creating an **unexpected obstruction** that the autonomous vehicle must navigate. The **low-light conditions** further reduce visibility of the excavator’s full extent, increasing the risk of **misjudging its size and movement**.
+
+**Severity Score:** **0.85**
+*(High risk due to lane obstruction, poor visibility, and potential for collision if the excavator moves unexpectedly.)*
+
+#### **Risk 2:**
+**Description:**
+The **excavator’s bucket is positioned near the road markings**, which could **suddenly extend into the lane** if the excavator moves. This introduces a **dynamic obstacle risk**, where the autonomous vehicle may not have sufficient reaction time to avoid a collision.
+
+**Severity Score:** **0.75**
+*(Moderate-high risk due to potential sudden movement of the excavator’s bucket.)*
+
+#### **Risk 3:**
+**Description:**
+The **low-light conditions** reduce the **perception accuracy** of the autonomous vehicle’s sensors (cameras, LiDAR, radar), increasing the likelihood of **false negatives** (missing the excavator) or **false positives** (misclassifying it as a different object).
+
+**Severity Score:** **0.70**
+*(Moderate risk due to sensor limitations in poor lighting.)*
+
+#### **Risk 4:**
+**Description:**
+The **curved road** combined with the **excavator’s presence** creates a **high-stress maneuvering scenario**, where the autonomous vehicle must **adjust speed and trajectory** while maintaining safety margins.
+
+**Severity Score:** **0.65**
+*(Moderate risk due to reduced maneuverability in a constrained space.)*
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Severity (0-1)** | **Primary Concern** |
+|----------|-------------------|---------------------|
+| Lane Obstruction by Excavator | **0.85** | Collision risk due to poor visibility and unexpected movement |
+| Dynamic Bucket Movement | **0.75** | Sudden extension into the lane |
+| Low-Light Sensor Limitations | **0.70** | Misclassification or missed detection |
+| Curved Road + Obstacle Maneuvering | **0.65** | Reduced reaction time and control |
+
+---
+### **Recommendations for Autonomous Driving System**
+1. **Enhanced Object Detection in Low Light**: Improve sensor fusion (LiDAR + camera + radar) to better detect large, slow-moving obstacles.
+2. **Predictive Path Planning**: Account for **potential sudden movements** of construction vehicles.
+3. **Conservative Speed Adjustment**: Reduce speed in **industrial zones** where heavy machinery is present.
+4. **Human-Machine Interface (HMI) Alerts**: Notify the driver (if present) or request manual intervention in ambiguous scenarios.
+5. **Mapping & HD Localization**: Use **high-definition maps** to identify known construction zones and adjust behavior proactively.
+
+This scene represents a **high-risk corner case** where **sensor limitations, dynamic obstacles, and poor visibility** combine to challenge autonomous driving systems.

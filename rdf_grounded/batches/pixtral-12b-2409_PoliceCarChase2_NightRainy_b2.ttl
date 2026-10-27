@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "IndoorTestTrackWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small spherical object rolling on track surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object on track" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Unstable track surface due to loose debris" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Indoor lighting with no precipitation" .
+
+:vehicle1 a :Vehicle ;
+    :description "Autonomous vehicle in test track" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential collision with rolling object on track
+Severity Score: 0.75
+Risk Class: CollisionRisk
+
+Risk 2:
+Description: Unstable track surface due to loose debris
+Severity Score: 0.60
+Risk Class: RoadConditionRisk
+
+Justification:
+1. The scene shows an indoor test track with a small spherical object (likely a ball) rolling on the surface, which matches the :RollingBallIndicator evidence type.
+2. The corner case is classified as :EvidenceBasedAnomaly since it's identified through observable evidence (the rolling object).
+3. Two risks are identified:
+   - CollisionRisk due to the rolling object potentially interfering with vehicle movement
+   - RoadConditionRisk due to the unstable surface conditions created by the loose debris
+4. Severity scores are assigned based on:
+   - CollisionRisk (0.75) - High potential for physical contact with the vehicle
+   - RoadConditionRisk (0.60) - Moderate impact on vehicle handling and safety
+5. The scene occurs indoors with clear lighting conditions, matching :ClearCondition
+6. The vehicle is identified as an :Actor of type :Vehicle in the scene

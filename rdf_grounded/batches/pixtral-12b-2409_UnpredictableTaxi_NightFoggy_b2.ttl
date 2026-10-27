@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDrivingWithSlowVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow vehicle driving slowly in the lane ahead" .
+
+:weather1 a :NightCondition .
+
+:billboard1 a :Billboard ;
+    :description "Billboard on the right side of the road" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to slow-moving vehicle in front" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime conditions and potential fog" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RearEndCollisionRisk ;
+    :description "Risk of rear-end collision due to sudden braking of the vehicle in front" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential lane intrusion due to slow-moving vehicle in front
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Reduced visibility due to nighttime conditions and potential fog
+Severity Score: 0.55
+
+**Risk 3:**
+Description: Risk of rear-end collision due to sudden braking of the vehicle in front
+Severity Score: 0.70

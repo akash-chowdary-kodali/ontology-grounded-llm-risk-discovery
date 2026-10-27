@@ -1,0 +1,47 @@
+### 1. & 2. Entity Identification and Relationships
+*   **Entities:**
+    *   `Ego_Vehicle`: The observer vehicle (red hood visible at the bottom).
+    *   `Traffic_Light_1`: Suspended traffic light (currently showing a green signal).
+    *   `Road_Surface`: Wet asphalt with reflections.
+    *   `Environment`: Nighttime, rainy/wet conditions, low visibility.
+    *   `Infrastructure`: Street lamps, billboards, brick walls, road markings.
+*   **Relationships:**
+    *   `Ego_Vehicle` is at an intersection.
+    *   `Traffic_Light_1` is above the intersection.
+    *   `Environment` provides low visibility to `Ego_Vehicle`.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+
+ex:Ego_Vehicle a ex:Vehicle .
+ex:Traffic_Light_1 a ex:TrafficSignal ;
+    ex:hasState "Green" ;
+    ex:location "Above_Intersection" .
+
+ex:Environment a ex:Condition ;
+    ex:hasVisibility "Low" ;
+    ex:hasLighting "Night" ;
+    ex:hasWeather "Rainy" .
+
+ex:Road_Surface a ex:Infrastructure ;
+    ex:isWet true ;
+    ex:hasReflections true .
+
+ex:Ego_Vehicle ex:approaching ex:Intersection .
+ex:Traffic_Light_1 ex:signals ex:Ego_Vehicle .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+**Description:** Reduced sensor perception and visibility due to nighttime, low-light conditions, and rain. The reflective road surface can cause glare or "false positives" for computer vision systems, potentially masking obstacles or pedestrians.
+**Severity Score:** 0.65
+
+**Risk 2:**
+**Description:** Slippery road conditions (hydroplaning risk) due to wet asphalt. This significantly increases the braking distance and reduces steering control for the `Ego_Vehicle` if an emergency maneuver is required.
+**Severity Score:** 0.75
+
+**Risk 3:**
+**Description:** Intersection ambiguity. Despite the green light, the low-visibility environment may hide traffic crossing from obscured lanes or pedestrians standing near the bus stop/sidewalk areas, creating a latent hazard if the vehicle enters the intersection at speed.
+**Severity Score:** 0.55

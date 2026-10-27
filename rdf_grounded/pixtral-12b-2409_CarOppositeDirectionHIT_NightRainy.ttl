@@ -1,0 +1,208 @@
+Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithPedestrianOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Blurred pedestrian walking on sidewalk" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large puddle covering road markings" .
+
+:weather1 a :NightCondition ;
+    :description "Dark environment with artificial lighting" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Pedestrian partially obscured by vehicle headlights and reflections" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "High occlusion of pedestrian due to wet road reflections and night lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to large puddle" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High occlusion of pedestrian due to wet road reflections and night lighting
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to large puddle
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian (blurred, walking on sidewalk)
+   - **Obstacle:** RoadObject (large puddle covering road markings)
+   - **WeatherCondition:** NightCondition (dark environment with artificial lighting)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The scene is classified as an evidence-based anomaly because the risk arises from observable evidence (occlusion from reflections and wet road conditions).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The pedestrian is partially obscured by reflections on the wet road and night lighting, making detection difficult for autonomous vehicles.
+   - **RoadConditionRisk:** The large puddle creates slippery conditions, increasing the risk of vehicle skidding or loss of control.
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a high severity score (0.90) due to the critical nature of pedestrian detection in autonomous driving.
+   - RoadConditionRisk is assigned a moderate severity score (0.75) due to the potential impact on vehicle handling. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Flooded Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Flooded roadway with standing water and poor visibility at night" .
+
+:roadObject1 a :RoadObject ;
+    :description "Standing water on road surface, creating a reflective hazard" .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime conditions with limited visibility" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Hydroplaning risk due to standing water on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflective water surface causing visual occlusion of road markers and distant objects" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Hydroplaning risk due to standing water on road
+- **Severity Score:** 0.9
+- **Risk Type:** RoadConditionRisk
+
+**Risk 2:**
+- **Description:** Reflective water surface causing visual occlusion of road markers and distant objects
+- **Severity Score:** 0.8
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Obstacle:** Standing water on the road (`RoadObject`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the scene, so no `Actor` subclass is used.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the hazardous condition (standing water) is a static but dangerous state of the road, not a dynamic behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the flooded road, hydroplaning is a significant concern.
+   - **OcclusionRisk:** The reflective water surface distorts visibility of road markers and distant objects, increasing the risk of misjudging distances or road conditions.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is assigned a high severity (0.9) due to the immediate danger of losing vehicle control.
+   - Occlusion risk is slightly lower (0.8) but still critical for safe navigation. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDrivingWithBlurredVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Blurred vehicle ahead in low-light urban setting" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with limited visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Blurred vehicle ahead reduces visibility of its state and actions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential wet road conditions due to nighttime and lack of visible dryness indicators" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to obscured vehicle and low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Blurred vehicle ahead reduces visibility of its state and actions.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential wet road conditions due to nighttime and lack of visible dryness indicators.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential collision risk due to obscured vehicle and low visibility.
+Severity Score: 0.80
+
+---
+The scene is classified as a **StateAnomaly** due to the obscured state of the vehicle ahead, which is a result of the nighttime conditions and motion blur. The primary risks identified are related to occlusion, road conditions, and collision potential. The severity scores reflect the potential danger posed by these conditions, with the highest score assigned to collision risk due to the obscured vehicle.

@@ -1,0 +1,69 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainOcclusionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain reducing visibility" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Occlusion of distant vehicle due to heavy rain and mist" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility and slippery road conditions due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Occlusion of distant vehicle due to heavy rain and mist
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Reduced visibility and slippery road conditions due to heavy rain
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - The scene features a **rainy condition** (`:weather1`).
+   - No explicit actors (pedestrians, cyclists, or vehicles) are directly interacting in the foreground, but a distant vehicle is partially obscured.
+   - The primary obstacle is the **heavy rain and mist**, which acts as an **evidence indicator** (`:evidence1`) of reduced visibility.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** (`:cc1`) because the risk is inferred from observable evidence (heavy rain and mist) rather than an actor's behavior or state.
+
+3. **Risks Identified:**
+   - **OcclusionRisk** (`:risk1`): The distant vehicle is obscured by rain and mist, posing a risk of late detection.
+   - **WeatherRisk** (`:risk2`): Heavy rain reduces visibility and may cause slippery road conditions, increasing the risk of accidents.
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a high severity (0.90) due to the potential for sudden appearance of the obscured vehicle.
+   - WeatherRisk is assigned a slightly lower but still high severity (0.85) due to the overall hazardous conditions.

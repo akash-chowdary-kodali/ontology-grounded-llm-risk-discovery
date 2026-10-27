@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRedReflectiveSurfaceAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Unusual red reflective surface resembling rolling ball indicator on road" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime scene with low ambient light" .
+
+:risk1 a :DistractionRisk ;
+    :description "Potential driver distraction due to unusual red reflective surface on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential misinterpretation of road surface as an object, causing occlusion of actual road features" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential driver distraction due to unusual red reflective surface on road
+Severity Score: 0.65
+
+Risk 2:
+Description: Potential misinterpretation of road surface as an object, causing occlusion of actual road features
+Severity Score: 0.70
+
+---
+**Analysis Explanation:**
+1. **Entities Identified:**
+   - The scene contains no clear actors (Cyclist/Pedestrian/Vehicle), traffic signs, traffic lights, or billboards.
+   - The primary anomaly is the **red reflective surface** on the road, which acts as an **EvidenceIndicator** (specifically a **RollingBallIndicator** due to its appearance and potential to mislead perception).
+   - The **WeatherCondition** is classified as **NightCondition** due to the low-light environment.
+
+2. **Corner Case Classification:**
+   - The anomaly is classified as an **EvidenceBasedAnomaly** because the red reflective surface provides misleading visual evidence that could lead to incorrect driver interpretation.
+
+3. **Risks Identified:**
+   - **DistractionRisk (0.65):** The unusual reflective pattern may distract drivers, causing them to focus on the road surface instead of the actual path ahead.
+   - **OcclusionRisk (0.70):** The reflective surface might obscure or misrepresent the road, leading to misjudgment of obstacles or road conditions.
+
+4. **Severity Scores:**
+   - Both risks are assigned moderate severity scores due to the potential for confusion but not immediate danger (e.g., no collision risk is evident in this static image). The scores reflect the likelihood of driver error rather than imminent harm.

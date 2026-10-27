@@ -1,0 +1,55 @@
+### 1. Scene Interpretation
+
+**Main Entities:**
+*   **Ego-Vehicle:** Red vehicle (POV).
+*   **Animal:** German Shepherd dog crossing the road.
+*   **Stationary Vehicles:** Multiple cars parked along the right curb.
+*   **Infrastructure:** Urban street with streetlights, lane markings, and residential buildings.
+*   **Weather Conditions:** Nighttime, rainy (wet road surface/reflections).
+
+**Relationships:**
+*   The **Dog** is crossing the path of the **Ego-Vehicle**.
+*   The **Dog** emerges from the vicinity of the **Stationary Vehicles**.
+*   The **Ego-Vehicle** is driving on a wet road surface, which affects traction and visibility.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isMovingTowards ex:StreetCenter .
+
+ex:Dog rdf:type ex:Animal ;
+    ex:isCrossing ex:EgoVehiclePath ;
+    ex:isNear ex:ParkedCars .
+
+ex:ParkedCars rdf:type ex:Obstacle ;
+    ex:location ex:RightRoadside .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:state "Rainy" ;
+    ex:lighting "LowLight" ;
+    ex:surface "Wet" .
+
+ex:SafetyRisk rdf:type ex:Risk .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** Unpredictable animal incursion (Dog crossing). The dog is moving rapidly across the ego-vehicle's lane in low-visibility, nighttime conditions, creating a high risk of collision.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Reduced traction and visibility due to environmental conditions. The rainy weather and wet asphalt reduce braking efficiency and tire grip, making an emergency stop more difficult.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** Occlusion by parked vehicles. The parked cars on the right side of the road restrict the ego-vehicle's sensor range and line of sight, limiting the reaction time available when the dog emerged.
+*   **Severity Score:** 0.55

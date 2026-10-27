@@ -1,0 +1,213 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Debris falling from overhead structure" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen debris on road surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with fallen debris obstructing path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fallen debris may obscure view of other actors" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential collision with fallen debris obstructing path
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Fallen debris may obscure view of other actors
+Severity Score: 0.75
+
+### Analysis:
+1. **Entities Identified**:
+   - The scene contains a **RoadObject** (fallen debris) as the primary obstacle.
+   - The weather condition is **DayCondition** (clear daytime).
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the path, but the debris itself is classified as an **EvidenceBasedAnomaly** due to its potential to cause risks.
+
+2. **Corner Case Classification**:
+   - The corner case is classified as **EvidenceBasedAnomaly** because the debris is an observable indicator of potential risks (collision and occlusion).
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity (0.90) due to the immediate threat of the vehicle hitting the debris.
+   - **OcclusionRisk**: Moderate severity (0.75) as the debris may block visibility of other actors (e.g., pedestrians or vehicles) approaching from other directions.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, and all entities are properly typed and linked. Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithFallingDebris" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling debris from overhead structure" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Debris falling from overhead structure onto road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling debris obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to debris partially blocking view of intersection" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle approaching intersection" .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian near intersection (not directly involved in corner case)" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision risk due to falling debris obstructing road
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Occlusion risk due to debris partially blocking view of intersection
+- **Risk Type:** OcclusionRisk (subtype of Risk)
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The scene depicts an **EvidenceBasedAnomaly** because the falling debris (evidence) from the overhead structure directly indicates a potential safety risk.
+
+2. **Entities Identified:**
+   - **Obstacle:** Falling debris classified as `:RoadObject`.
+   - **Evidence:** `:FallingObjectIndicator` (evidence of debris falling).
+   - **Actors:** A `:Vehicle` approaching the intersection and a `:Pedestrian` near the intersection (though not directly involved in the corner case).
+   - **Weather:** `:DayCondition` (clear daytime).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to debris obstructing the road.
+   - **OcclusionRisk:** Medium severity due to debris blocking the view of the intersection.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a high score (0.90) due to the immediate threat of debris on the road.
+   - Occlusion risk is assigned a medium score (0.75) due to the potential for reduced visibility but not immediate collision. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIndustrialIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Rusty industrial bridge structure obstructing view" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstructed view due to rusty bridge structure" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to unclear road markings under bridge" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Distraction risk from unusual industrial structure" ;
+    :hasSeverityScore :sev3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan driving under bridge" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Obstructed view due to rusty bridge structure
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential lane intrusion due to unclear road markings under bridge
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Distraction risk from unusual industrial structure
+Severity Score: 0.50
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **StateAnomaly** due to the static but unusual industrial structure obstructing the view.
+2. The **Vehicle** class was identified as the black sedan driving under the bridge.
+3. No **TrafficLight**, **TrafficSign**, **Billboard**, **Cyclist**, or **Pedestrian** were detected in this scene.
+4. The **OcclusionRisk** is the highest severity risk due to the bridge obstructing the driver's view.
+5. The **LaneIntrusionRisk** and **DistractionRisk** are secondary concerns due to unclear road markings and the unusual structure.

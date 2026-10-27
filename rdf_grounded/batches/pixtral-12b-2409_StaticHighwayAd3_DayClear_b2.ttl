@@ -1,0 +1,59 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard displaying advertisement with sun and text" .
+
+:weather1 a :ClearCondition, :DayCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard content may distract driver" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of road users by billboard structure" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.2"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Billboard content may distract driver
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Potential occlusion of road users by billboard structure
+Severity Score: 0.2
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - **Obstacle:** Billboard (with advertisement content)
+   - **WeatherCondition:** ClearCondition and DayCondition (based on visible sky and lighting)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene is classified as a StateAnomaly because it represents an unusual or unexpected state (empty urban street with a prominent billboard) that could pose risks despite the absence of active actors (vehicles, pedestrians, or cyclists).
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The billboard content (sun and text) may draw the driver's attention away from the road, even if the street is empty.
+   - **OcclusionRisk:** The billboard structure could obscure the view of road users entering the scene from other directions (e.g., pedestrians or cyclists).
+
+4. **Severity Scores:**
+   - The risks are assigned low severity scores (0.3 and 0.2) because the street is empty, and there are no active actors or dynamic elements (e.g., moving vehicles) to immediately trigger a collision or accident. The risks are more about potential future scenarios.

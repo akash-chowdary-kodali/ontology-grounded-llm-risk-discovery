@@ -1,0 +1,35 @@
+Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Night driving under an overpass" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Vehicle .
+
+:obstacle1 a :RoadObject ;
+    :description "An obstruction caused by ambient lighting under a bridge" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to low visibility under overpass" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision risk due to low visibility under overpass
+Severity Score: 0.75

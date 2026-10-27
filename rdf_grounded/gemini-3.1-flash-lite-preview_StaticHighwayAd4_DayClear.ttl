@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionDistraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :occursInScene :scene1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :ClearCondition, :DayCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "High-contrast commercial billboards potentially distracting driver at intersection" ;
+    :confidenceScore "0.75"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+
+:billboard1 a :Billboard .
+:billboard2 a :Billboard .
+
+Identified Risks for each risk class
+Risk 1:
+Description: High-contrast commercial billboards potentially distracting driver at intersection
+Severity Score: 0.40

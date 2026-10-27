@@ -1,0 +1,109 @@
+### **Scene Analysis: Nighttime Cyclist Crossing Scenario**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Cyclist** (riding a bicycle across the road)
+- **Vehicle** (ego vehicle, perspective from inside)
+- **Road Infrastructure** (road markings, crosswalk, buildings, streetlights)
+- **Weather Conditions** (nighttime, low visibility, artificial lighting)
+
+#### **Relationships:**
+- The cyclist is **crossing the road** in front of the ego vehicle.
+- The cyclist is **not using lights** (potential visibility issue).
+- The ego vehicle is **approaching the cyclist** from behind.
+- The scene occurs at **night**, reducing visibility.
+- The cyclist is **partially occluded** by the ego vehicle’s headlights in the second image.
+
+---
+
+### **2. Scene Description in RDF (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasTime "Night" ;
+    :hasWeatherCondition :LowVisibility ;
+    :hasLightingCondition :ArtificialLighting .
+
+:EgoVehicle a :Vehicle ;
+    :hasPosition "ApproachingCrosswalk" ;
+    :hasSpeed "Moderate" .
+
+:Cyclist1 a :Cyclist ;
+    :hasAction :CrossingRoad ;
+    :hasEquipment :Bicycle ;
+    :hasLightingCondition :NoLights ;
+    :hasPosition "Crosswalk" ;
+    :hasTrajectory :Straight .
+
+:RoadInfrastructure a :Road ;
+    :hasMarking :Crosswalk ;
+    :hasMarking :LaneLines ;
+    :hasSurroundings :UrbanBuildings .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :PedestrianCyclistCollision ;
+    :severity 0.85 ;
+    :description "Cyclist crossing without lights at night increases collision risk." ;
+    :affectedEntities :EgoVehicle, :Cyclist1 .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :VisibilityObscuration ;
+    :severity 0.75 ;
+    :description "Headlights may obscure cyclist visibility for approaching vehicles." ;
+    :affectedEntities :EgoVehicle, :Cyclist1 .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :SuddenTrajectoryChange ;
+    :severity 0.65 ;
+    :description "Cyclist may change direction unexpectedly in low-visibility conditions." ;
+    :affectedEntities :EgoVehicle, :Cyclist1 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The cyclist is crossing the road at night without visible lights, increasing the risk of collision with the ego vehicle or other approaching traffic. Low visibility conditions exacerbate this risk.
+
+**Severity Score:**
+**0.85** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The ego vehicle’s headlights may create glare or obscuration, reducing the cyclist’s visibility to other drivers or increasing the cyclist’s difficulty in being detected. This could lead to misjudgment of distance or speed.
+
+**Severity Score:**
+**0.75** (High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+In low-visibility conditions, the cyclist may make sudden trajectory changes (e.g., swerving, stopping abruptly) without being detected in time by the ego vehicle, leading to a collision.
+
+**Severity Score:**
+**0.65** (Moderate-High)
+
+---
+
+### **4. Additional Observations & Recommendations**
+- **For Autonomous Vehicles:**
+  - Use **high-resolution cameras, LiDAR, and radar** to detect cyclists in low-light conditions.
+  - Implement **predictive collision avoidance** for vulnerable road users.
+  - Ensure **adaptive headlight control** to minimize glare while maintaining visibility.
+
+- **For Cyclists:**
+  - **Use front/rear lights** and **reflective gear** to improve visibility.
+  - **Signal intentions** clearly when crossing or changing direction.
+
+This scenario highlights the importance of **multi-sensor fusion** and **context-aware decision-making** in autonomous driving systems to handle corner cases involving vulnerable road users.

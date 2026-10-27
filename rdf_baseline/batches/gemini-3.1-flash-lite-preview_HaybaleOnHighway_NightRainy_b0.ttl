@@ -1,0 +1,46 @@
+### Semantic Interpretation
+
+**1. Main Entities:**
+*   **Vehicles:** Ego-vehicle (red, camera perspective), target vehicle (dark-colored, parked/stopped on the right shoulder).
+*   **Obstacles:** Large cylindrical hay bale (in motion/unsecured, positioned in the right-side travel lane).
+*   **Road Infrastructure:** Asphalt road surface, lane markings, traffic light signals, street lamps, sidewalk.
+*   **Weather Conditions:** Nighttime, rainy (wet road surface, reflections, rain streaks).
+
+**2. Relationships:**
+*   **Ego-vehicle:** Traveling on a multi-lane road, approaching a hazard.
+*   **Hay Bale:** Positioned directly in the ego-vehicle's path (right lane), potentially airborne or rolling, posing an immediate collision risk.
+*   **Target Vehicle:** Parked/stopped near the right shoulder, occluded or near the hay bale.
+*   **Environment:** Low visibility due to night and rain, increasing the difficulty of obstacle detection.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:egoVehicle a ex:Vehicle .
+ex:hayBale a ex:Obstacle .
+ex:parkedVehicle a ex:Vehicle .
+ex:roadSurface a ex:Infrastructure .
+
+ex:hayBale ex:locatedIn ex:rightLane .
+ex:hayBale ex:isObstacleTo ex:egoVehicle .
+ex:parkedVehicle ex:near ex:hayBale .
+ex:egoVehicle ex:approaching ex:hayBale .
+ex:environment ex:hasCondition "Night" ;
+               ex:hasCondition "Rainy" .
+```
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** High-velocity collision risk with an unsecured, potentially airborne hay bale. The object is situated directly in the ego-vehicle's driving path on a dark, wet road, significantly reducing the available reaction time and maneuverability.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Reduced sensor performance and braking efficiency due to adverse weather conditions (nighttime and heavy rain). The wet road increases stopping distance, while the low light environment makes the hay bale difficult to segment or classify.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Collision risk involving the parked vehicle on the right. An abrupt emergency avoidance maneuver to bypass the hay bale could lead to a secondary collision with the parked vehicle or the infrastructure on the shoulder.
+*   **Severity Score:** 0.60

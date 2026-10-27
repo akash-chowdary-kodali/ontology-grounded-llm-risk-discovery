@@ -1,0 +1,46 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyIncidentScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Cyclist .
+:actor2 a :Pedestrian .
+:obstacle1 a :RoadObject .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Cyclist veering into vehicle's lane" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing unexpectedly in fog" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class
+
+Risk 1:
+Description: Cyclist veering into vehicle's lane
+Severity Score: 0.75
+
+Risk 2:
+Description: Pedestrian crossing unexpectedly in fog
+Severity Score: 0.85

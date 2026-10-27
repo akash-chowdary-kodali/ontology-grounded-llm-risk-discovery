@@ -1,0 +1,48 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Night Driving with Reduced Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :NightCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to night conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion from shadows and unclear sightlines" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:risk3 a :CollisionRisk ;
+    :description "Increased risk of collision due to low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Reduced visibility due to night conditions
+Severity Score: 0.75
+
+Risk 2:
+Description: Potential occlusion from shadows and unclear sightlines
+Severity Score: 0.65
+
+Risk 3:
+Description: Increased risk of collision due to low visibility
+Severity Score: 0.80

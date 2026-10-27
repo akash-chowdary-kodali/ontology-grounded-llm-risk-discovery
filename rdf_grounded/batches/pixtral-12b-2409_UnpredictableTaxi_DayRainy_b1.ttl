@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Difficulty detecting distant objects due to rain" ;
+    :hasSeverityScore :sev3 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi in front" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.92
+- **Type:** WeatherRisk
+
+**Risk 2:**
+- **Description:** Slippery road surface due to rain
+- **Severity Score:** 0.88
+- **Type:** RoadConditionRisk
+
+**Risk 3:**
+- **Description:** Difficulty detecting distant objects due to rain
+- **Severity Score:** 0.85
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** RainyCondition (due to heavy rain and visible raindrops)
+   - **Actor:** Vehicle (yellow taxi in the scene)
+   - **EvidenceIndicator:** FallingObjectIndicator (representing raindrops as evidence of weather conditions)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The scene is classified as an evidence-based anomaly because the heavy rain (evidence) directly impacts driving conditions, creating multiple risks.
+
+3. **Risks Identified:**
+   - **WeatherRisk:** Due to reduced visibility from heavy rain.
+   - **RoadConditionRisk:** Due to slippery road surfaces caused by rain.
+   - **OcclusionRisk:** Due to difficulty detecting distant objects in heavy rain.
+
+4. **Severity Scores:**
+   - High severity scores were assigned due to the critical impact of heavy rain on driving safety.

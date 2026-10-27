@@ -1,0 +1,36 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera perspective), Truck (partially visible on the right), Sedan (parked/stationary in the distance).
+*   **Pedestrians:** Two children jogging/running across the road.
+*   **Road Infrastructure:** Asphalt road with lane markings, traffic light gantry, street lamps, sidewalks.
+*   **Weather Conditions:** Clear, daylight, good visibility.
+
+### 2. Relationships
+*   **Pedestrians** are crossing the road path of the ego-vehicle.
+*   **Truck** is occluding the view of the sidewalk area on the right.
+*   **Ego-vehicle** is approaching the crossing point of the pedestrians.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Pedestrian_1 rdf:type ex:Pedestrian ;
+    ex:isCrossing ex:Road .
+ex:Pedestrian_2 rdf:type ex:Pedestrian ;
+    ex:isCrossing ex:Road .
+ex:Truck rdf:type ex:Vehicle ;
+    ex:occludes ex:SidewalkRight .
+ex:EgoVehicle ex:approaching ex:Pedestrian_1 ;
+    ex:approaching ex:Pedestrian_2 .
+ex:Weather ex:hasCondition "Clear" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Vulnerable road users (pedestrians) crossing the active traffic lane directly in front of the ego-vehicle. The dynamic nature of the children running increases the urgency for braking.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Visual occlusion caused by the large truck parked/moving on the right, which may hide additional pedestrians or hazards entering the road from the right sidewalk.
+*   **Severity Score:** 0.75

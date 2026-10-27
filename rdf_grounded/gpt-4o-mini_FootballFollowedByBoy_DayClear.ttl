@@ -1,0 +1,41 @@
+Here’s the semantic interpretation based on the provided scene images.
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Intersection with Pedestrian and Vehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian running across the street" .
+
+:actor2 a :Vehicle ;
+    :description "Black vehicle in the right lane" .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball in the roadway" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Risk of colliding with the crossing pedestrian" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Risk of colliding with the crossing pedestrian
+Severity Score: 0.90

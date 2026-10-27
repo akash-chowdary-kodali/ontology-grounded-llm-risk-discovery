@@ -1,0 +1,35 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:ego_vehicle :has_location :road_lane .
+:pedestrian_1 rdf:type :human ;
+              :is_crossing :road_lane ;
+              :near :pedestrian_2 .
+:pedestrian_2 rdf:type :human ;
+              :is_crossing :road_lane ;
+              :near :pedestrian_1 .
+:truck_1 rdf:type :vehicle ;
+         :occludes :pedestrian_1 ;
+         :occludes :pedestrian_2 ;
+         :has_location :right_side_of_road .
+:environment :weather_condition :rainy ;
+             :visibility :low ;
+             :surface :wet .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Pedestrian crossing in front of the ego vehicle during low visibility. Two pedestrians are running across the vehicle's path, creating an immediate collision hazard.
+**Severity Score:** 0.98
+
+**Risk 2:**
+**Description:** Visual occlusion by large vehicle. A truck parked/stopped on the right side of the road obscures the pedestrians' entry into the lane, reducing the ego vehicle's reaction time.
+**Severity Score:** 0.92
+
+**Risk 3:**
+**Description:** Adverse weather conditions (Heavy rain and fog). Low visibility and wet road surface significantly increase braking distance and reduce the effectiveness of sensors/human perception.
+**Severity Score:** 0.85

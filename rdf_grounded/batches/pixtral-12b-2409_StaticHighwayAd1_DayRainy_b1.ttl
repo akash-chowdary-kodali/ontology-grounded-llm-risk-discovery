@@ -1,0 +1,67 @@
+Here is the semantic interpretation of the provided scene images grounded in the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainVisibilityReduction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain, increasing risk of collision with unseen actors" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road conditions increasing hydroplaning and braking distance risks" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain droplets and potential debris on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Billboard partially obscured by rain" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No Entry sign visible on right side" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain, increasing risk of collision with unseen actors (e.g., pedestrians, cyclists, or vehicles).
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Wet road conditions increasing hydroplaning and braking distance risks.
+- **Severity Score:** 0.8
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain and its effects (e.g., reduced visibility, wet roads) serve as observable evidence for potential risks.
+2. **Actors:** No explicit actors (pedestrians, cyclists, or vehicles) are visible in the scene, but the risk of unseen actors is implied due to reduced visibility.
+3. **Obstacles:** The wet road surface and potential debris (falling objects) are inferred as obstacles contributing to the risks.
+4. **Weather Condition:** The scene is explicitly marked as **RainyCondition** with heavy rain.
+5. **Evidence Indicator:** The heavy rain droplets and potential debris are modeled as **FallingObjectIndicator**, which directly indicates the **OcclusionRisk**.
+6. **Severity Scores:** High severity is assigned to visibility-related risks (0.9) and moderate severity to road condition risks (0.8).

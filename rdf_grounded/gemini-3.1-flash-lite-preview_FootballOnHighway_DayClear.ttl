@@ -1,0 +1,29 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RollingBallScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :ball1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:ball1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :ClearCondition, :DayCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Rolling ball indicates potential child or pedestrian running into road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: A ball rolling into the roadway serves as an evidence indicator for potential child-related collision risks, as children often follow rolling objects into traffic.
+Severity Score: 0.75

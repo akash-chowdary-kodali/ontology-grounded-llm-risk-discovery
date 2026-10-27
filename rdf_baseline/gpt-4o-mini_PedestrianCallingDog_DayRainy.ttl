@@ -1,0 +1,59 @@
+## Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle_Car_Red ;
+    ex:hasEntity ex:Vehicle_Car_Green ;
+    ex:hasEntity ex:Vehicle_Car_Blue ;
+    ex:hasEntity ex:Vehicle_Car_Brown ;
+    ex:hasEntity ex:Pedestrian_Dog ;
+    ex:hasEntity ex:Road_Infrastructure ;
+    ex:hasEntity ex:Weather_Snowy ;
+    ex:hasEntity ex:Weather_Rainy .
+
+ex:Vehicle_Car_Red a ex:Vehicle ;
+    ex:isNear ex:Pedestrian_Dog ;
+    ex:approaching ex:Pedestrian_Dog .
+
+ex:Vehicle_Car_Green a ex:Vehicle ;
+    ex:following ex:Vehicle_Car_Red .
+
+ex:Vehicle_Car_Blue a ex:Vehicle ;
+    ex:following ex:Vehicle_Car_Green .
+
+ex:Vehicle_Car_Brown a ex:Vehicle ;
+    ex:crossing ex:Pedestrian_Dog .
+
+ex:Pedestrian_Dog a ex:Pedestrian ;
+    ex:crossing ex:Road_Infrastructure ;
+    ex:near ex:Vehicle_Car_Red .
+
+ex:Road_Infrastructure a ex:Infrastructure ;
+    ex:hasConditions ex:Weather_Snowy, ex:Weather_Rainy .
+
+ex:Weather_Snowy a ex:WeatherCondition ;
+    ex:hasVisibility "Low" .
+
+ex:Weather_Rainy a ex:WeatherCondition ;
+    ex:hasVisibility "Low" .
+```
+
+## Identified Risks for each risk class
+
+### Risk 1:
+**Description:** The presence of a dog crossing the road in low visibility conditions due to snow and rain increases the likelihood of a collision with vehicles.  
+**Severity Score:** 0.9
+
+### Risk 2:
+**Description:** Multiple vehicles are in close proximity, and one vehicle is following another, which may lead to abrupt braking scenarios in adverse weather conditions.  
+**Severity Score:** 0.7
+
+### Risk 3:
+**Description:** The combination of snow and rain reduces traction on the road, increasing the risk of vehicle skidding or losing control while maneuvering.  
+**Severity Score:** 0.8
+
+### Risk 4:
+**Description:** Poor visibility due to weather conditions makes it difficult for drivers to notice pedestrians or other road obstacles timely.  
+**Severity Score:** 0.85

@@ -1,0 +1,51 @@
+Based on the provided scene images, here is the analysis:
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene_1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle_A, ex:Vehicle_B, ex:WeatherCondition ;
+    ex:hasRoad ex:Road_1 ;
+    ex:hasObstacle ex:Obstacle_A .
+
+ex:Vehicle_A a ex:Vehicle ;
+    ex:vehicleType "Car" .
+
+ex:Vehicle_B a ex:Vehicle ;
+    ex:vehicleType "Stationary Vehicle" .
+
+ex:WeatherCondition a ex:Weather ;
+    ex:condition "Heavy Rain" ;
+    ex:visibility "Poor" .
+
+ex:Road_1 a ex:Road ;
+    ex:roadType "Urban" ;
+    ex:hasLane ex:Lane_1 .
+
+ex:Lane_1 a ex:Lane ;
+    ex:laneType "Split" .
+
+ex:Obstacle_A a ex:Obstacle ;
+    ex:obstacleType "Hay Bale" ;
+    ex:location "Near road edge" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+**Description:** Poor visibility due to heavy rain can lead to misjudgment of distances and detection of obstacles.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** The presence of a stationary vehicle (Vehicle B) could lead to a potential collision if not detected timely.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** Loose hay bale (Obstacle A) on the road could cause loss of traction or collision risk for vehicles maneuvering around it.  
+**Severity Score:** 0.5
+
+### Summary
+
+The analysis identifies three primary risks influenced by weather conditions and the presence of entities on the road. Each risk is quantified with a severity score to assess its potential impact on driving safety.

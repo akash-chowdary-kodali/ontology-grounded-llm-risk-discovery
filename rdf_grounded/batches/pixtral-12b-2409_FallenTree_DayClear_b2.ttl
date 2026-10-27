@@ -1,0 +1,64 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanLaneFollowingWithYellowTaxi" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle in right lane" .
+:actor2 a :Vehicle ;
+    :description "Gray vehicle ahead in left lane" .
+
+:obstacle1 a :RoadObject ;
+    :description "Debris or object on road surface near front of ego vehicle" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather, daytime" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to following distance" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential hazard from road debris" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.60"^^xsd:float .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion by gray vehicle" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.55"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to following distance
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential hazard from road debris
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential lane intrusion by gray vehicle
+Severity Score: 0.55

@@ -1,0 +1,45 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** The red vehicle from which the scene is captured.
+*   **Infrastructure:** Roadway, traffic light (overhead), overhead highway structure, brick walls, billboards, bus stop/shelter, traffic signs.
+*   **Environment:** Urban setting, clear weather conditions, sunny, daylight.
+*   **Dynamic Agents:** None visible in the immediate field of view (empty intersection).
+
+### 2. Relationships
+*   **Ego-Vehicle** is positioned at an intersection.
+*   **Traffic Light** is overhead and influencing the Ego-Vehicle.
+*   **Brick Walls** are flanking the right side of the road.
+*   **Billboards** are positioned above the roadway/sidewalk.
+*   **Bus Shelter** is occluded by the palm trees/vegetation on the right.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:TrafficLight a ex:Infrastructure ;
+    ex:state "Red" ;
+    ex:location "Overhead" .
+ex:BrickWall a ex:Infrastructure ;
+    ex:location "RightSide" .
+ex:Billboard a ex:Infrastructure ;
+    ex:content "Advertising" .
+ex:BusShelter a ex:Infrastructure ;
+    ex:isOccludedBy ex:Vegetation .
+
+ex:EgoVehicle ex:atIntersection ex:UrbanRoad .
+ex:TrafficLight ex:regulates ex:EgoVehicle .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+**Description:** Potential for occluded road users at the bus shelter. The dense vegetation and structure near the bus stop create a "blind spot" where pedestrians might emerge suddenly onto the roadway.
+**Severity Score:** 0.45
+
+**Risk 2:**
+**Description:** Signal compliance and intersection vigilance. As the vehicle is at a controlled intersection, there is a risk of intersection encroachment if the signal transitions or if the vehicle fails to perceive cross-traffic dynamics from the obstructed sides.
+**Severity Score:** 0.30
+
+**Risk 3:**
+**Description:** Distraction from environmental stimuli. The multiple high-contrast advertisements (billboards) positioned near the driver's line of sight could potentially distract automated visual perception systems or lead to misinterpretation of signage.
+**Severity Score:** 0.20

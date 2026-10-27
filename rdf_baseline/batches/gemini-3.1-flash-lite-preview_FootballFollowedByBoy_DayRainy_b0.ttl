@@ -1,0 +1,47 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The observer vehicle (red hood visible).
+*   **Other Vehicles:** A dark pickup truck (right, foreground), a distant truck (center, background), and other cars in the distance.
+*   **Pedestrian:** A child running into the street from behind the pickup truck.
+*   **Obstacle:** A soccer ball rolling in the middle of the road.
+*   **Road Infrastructure:** Streetlights, residential houses, picket fences, curb.
+*   **Weather Conditions:** Heavy rain and significant fog/mist reducing visibility.
+
+### 2. Relationships
+*   **Ego-vehicle:** Moving forward on the road.
+*   **Pickup Truck:** Stationary or slow-moving on the right, acting as a visual occluder.
+*   **Pedestrian (Child):** Emerging from behind the occluding pickup truck, crossing the path of the ego-vehicle.
+*   **Soccer Ball:** Located in the lane, indicating a high probability of a child following it.
+*   **Visibility:** Environmentally occluded due to fog and heavy rain.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:movingAlong ex:Road .
+ex:PickupTruck ex:occluding ex:Pedestrian .
+ex:Pedestrian ex:crossingPath ex:EgoVehicle .
+ex:SoccerBall ex:locatedOn ex:Road .
+ex:Weather ex:hasCondition "HeavyRain" ;
+           ex:hasCondition "DenseFog" .
+ex:PickupTruck ex:near ex:Pedestrian .
+ex:Child ex:type "Pedestrian" .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1: Potential Pedestrian Collision**
+*   **Description:** A child has entered the roadway from behind an occluding vehicle (pickup truck) while distracted (chasing a ball). The low visibility due to rain and fog significantly reduces the detection window for the autonomous system and the driver.
+*   **Severity Score:** 0.95
+
+**Risk 2: Visual Occlusion by Infrastructure/Objects**
+*   **Description:** The pickup truck on the right side of the road creates a blind spot, effectively hiding the child until they are already in the lane of travel. 
+*   **Severity Score:** 0.85
+
+**Risk 3: Adverse Weather Conditions**
+*   **Description:** Heavy rain and fog diminish sensor effectiveness (camera contrast, LiDAR signal noise) and increase braking distance due to slippery road surfaces, exacerbating the response time to the emerging pedestrian.
+*   **Severity Score:** 0.80
+
+**Risk 4: Unpredictable Dynamic Object**
+*   **Description:** A rolling soccer ball serves as a precursor to child presence; the lack of immediate stop/maneuver detection regarding this object increases risk.
+*   **Severity Score:** 0.70

@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Following Yellow Vehicle with Potential Rear-End Risk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :vehicle2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Ego vehicle following another vehicle at night" .
+
+:vehicle2 a :Vehicle ;
+    :description "Yellow vehicle ahead with brake lights illuminated" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance and brake lights" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction from vehicle lights and nighttime glare" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Brake lights illuminated on vehicle ahead" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: High risk of rear-end collision due to close following distance and brake lights illuminated on the yellow vehicle ahead.
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Potential distraction from vehicle lights and nighttime glare, which may reduce visibility and reaction time.
+Severity Score: 0.65
+
+### Analysis:
+1. **Entities Identified**:
+   - Two `Vehicle` instances (ego vehicle and yellow vehicle ahead)
+   - `NightCondition` as the weather condition
+   - `RollingBallIndicator` (brake lights) as evidence
+
+2. **Corner Case Classification**:
+   - Classified as `StateAnomaly` because the primary issue stems from the state of the vehicles (brake lights illuminated + close following distance) rather than behavioral or evidence-based anomalies.
+
+3. **Risks Identified**:
+   - **RearEndCollisionRisk**: Highest priority due to illuminated brake lights and close proximity.
+   - **DistractionRisk**: Secondary concern due to nighttime glare and vehicle lights.
+
+The RDF strictly adheres to the provided ontology vocabulary and rules. The severity scores reflect the criticality of each risk in this nighttime driving scenario.

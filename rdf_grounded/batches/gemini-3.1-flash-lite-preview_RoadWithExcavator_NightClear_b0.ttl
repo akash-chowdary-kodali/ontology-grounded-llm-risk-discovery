@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionZoneObstruction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :occursInScene :scene1 ;
+    :hasObstacle :excavator1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:excavator1 a :RoadObject ;
+    :description "Large construction excavator obstructing the lane at night" .
+
+:night1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Excavator bucket encroaching into vehicle travel lane" ;
+    :confidenceScore "0.95"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Excavator bucket encroaching into vehicle travel lane
+Severity Score: 0.80

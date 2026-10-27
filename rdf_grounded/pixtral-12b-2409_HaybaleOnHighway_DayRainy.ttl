@@ -1,0 +1,219 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (e.g., hay bale) in road" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling/rolling object in road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling/rolling object (e.g., hay bale) in the road.
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk (subtype of Risk)
+- **Evidence:** FallingObjectIndicator (large cylindrical object in road)
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain, increasing risk of accidents.
+- **Severity Score:** 0.85
+- **Type:** WeatherRisk (subtype of Risk)
+- **Evidence:** RainyCondition (heavy rain with fog-like effect)
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the primary risk stems from observable evidence (falling/rolling object + heavy rain).
+2. **Actors/Obstacles:** The hay bale is modeled as a **RoadObject** (subclass of Obstacle), and the weather is explicitly represented as **RainyCondition**.
+3. **Risks:** Two high-severity risks are identified:
+   - **CollisionRisk** due to the object in the road.
+   - **WeatherRisk** due to heavy rain reducing visibility.
+4. **Severity Scores:** Both risks are assigned high scores (0.90 and 0.85) due to the immediate danger posed by the object and the hazardous weather conditions. Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator ;
+    :hasWeatherCondition :foggyCondition ;
+    :hasRisk :roadConditionRisk, :occlusionRisk, :fallingObjectRisk ;
+    :occursInScene :scene1 .
+
+:fallingObjectIndicator a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :fallingObjectRisk .
+
+:foggyCondition a :FoggyCondition .
+
+:roadConditionRisk a :RoadConditionRisk ;
+    :description "Reduced visibility and slippery road due to fog and rain" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Fog obscures visibility of traffic signs and other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:fallingObjectRisk a :CollisionRisk ;
+    :description "Falling object (e.g., tire) may collide with vehicle" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "Roundabout sign partially obscured by fog" .
+
+:fallingObject a :Obstacle ;
+    :description "Falling tire on road" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility and slippery road due to fog and rain
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Fog obscures visibility of traffic signs and other vehicles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Falling object (e.g., tire) may collide with vehicle
+- **Risk Type:** CollisionRisk (generalized due to ontology constraints; could be mapped to a more specific subclass if available)
+- **Severity Score:** 0.80
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the falling object (tire) serves as direct evidence of an unexpected hazard in the environment.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (due to heavy fog reducing visibility).
+   - **Obstacle:** Falling tire (classified as a RoadObject under Obstacle).
+   - **TrafficLight:** Red traffic light at the intersection.
+   - **TrafficSign:** Roundabout sign (partially obscured by fog).
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** High severity due to slippery roads and poor visibility.
+   - **OcclusionRisk:** High severity due to fog obscuring critical road signs and traffic lights.
+   - **CollisionRisk:** High severity due to the falling tire posing a direct collision threat.
+
+4. **Severity Scores:**
+   Scores are assigned based on the potential danger to the autonomous vehicle and other road users. Fog and falling objects are critical hazards in this scenario. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainFallingObjectScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasWeatherCondition :rainyCondition1 ;
+    :hasRisk :roadConditionRisk1, :collisionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:rainyCondition1 a :RainyCondition .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Potential collision risk due to falling object on road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road conditions due to heavy rain
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision risk due to falling object on road
+Severity Score: 0.80
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - **WeatherCondition**: `:rainyCondition1` (RainyCondition)
+   - **EvidenceIndicator**: `:fallingObjectIndicator1` (FallingObjectIndicator)
+   - **CornerCase**: `:cc1` (EvidenceBasedAnomaly) due to the presence of a falling object in adverse weather.
+
+2. **Corner Case Classification**:
+   - `:cc1` is classified as an **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (falling object) rather than an actor's behavior or state.
+
+3. **Risks Identified**:
+   - **RoadConditionRisk**: Due to heavy rain causing slippery roads.
+   - **CollisionRisk**: Due to the falling object potentially causing a collision.
+
+4. **Severity Scores**:
+   - Road conditions (0.75) and collision risk (0.80) are both high due to the hazardous combination of rain and a falling object.

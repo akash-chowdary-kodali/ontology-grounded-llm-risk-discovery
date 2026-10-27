@@ -1,0 +1,99 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+ex:egoVehicle a ex:Vehicle ;
+    ex:hasColor "red" ;
+    ex:hasPosition "intersection, lane-right" ;
+    ex:hasSpeed "0 km/h (stopped)" .
+
+ex:yellowTaxi a ex:Vehicle ;
+    ex:hasColor "yellow" ;
+    ex:hasPosition "intersection, lane-left" ;
+    ex:hasSpeed "10 km/h (approaching)" .
+
+ex:whiteVan a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:hasPosition "background, left lane" ;
+    ex:hasSpeed "5 km/h (slow)" .
+
+ex:pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition "sidewalk, near buildings" ;
+    ex:hasAction "walking" .
+
+ex:trafficLight1 a ex:TrafficLight ;
+    ex:hasColor "green" ;
+    ex:hasPosition "above intersection" .
+
+ex:building1 a ex:Building ;
+    ex:hasType "residential/commercial" ;
+    ex:hasPosition "right side of intersection" .
+
+ex:constructionSite a ex:Obstacle ;
+    ex:hasType "temporary structure" ;
+    ex:hasPosition "left side of intersection" .
+
+# Relationships
+ex:egoVehicle ex:isNear ex:yellowTaxi .
+ex:yellowTaxi ex:isApproaching ex:intersection .
+ex:whiteVan ex:isFollowing ex:yellowTaxi .
+ex:pedestrian1 ex:isNear ex:building1 .
+ex:trafficLight1 ex:controls ex:intersection .
+ex:constructionSite ex:occludes ex:whiteVan .
+
+# Environment
+ex:intersection a ex:RoadInfrastructure ;
+    ex:hasType "4-way" ;
+    ex:hasTrafficLight ex:trafficLight1 ;
+    ex:hasWeather "clear" .
+
+ex:weather a ex:WeatherCondition ;
+    ex:hasType "sunny" ;
+    ex:hasVisibility "high" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1: Potential Collision with Yellow Taxi**
+- **Description**:
+  The ego vehicle is stopped in the intersection, while the yellow taxi is approaching from the left lane. If the ego vehicle fails to yield or the taxi misjudges the ego's intent, a side collision may occur.
+- **Severity Score**: **0.85** (High risk due to proximity and movement).
+
+#### **Risk 2: Occlusion by Construction Site**
+- **Description**:
+  The white van is partially occluded by the construction site's temporary structures, making it difficult for the ego vehicle to detect its presence and speed accurately.
+- **Severity Score**: **0.70** (Moderate risk due to reduced visibility).
+
+#### **Risk 3: Pedestrian Misjudgment Near Buildings**
+- **Description**:
+  The pedestrian near the buildings may suddenly cross or enter the intersection, especially if distracted by the construction activity.
+- **Severity Score**: **0.65** (Moderate risk due to unpredictable pedestrian behavior).
+
+#### **Risk 4: Traffic Light Misinterpretation**
+- **Description**:
+  If the ego vehicle misreads the green traffic light (e.g., due to glare or sensor failure), it may incorrectly proceed into the intersection, risking a collision with the approaching yellow taxi.
+- **Severity Score**: **0.75** (High risk due to critical traffic control failure).
+
+#### **Risk 5: Construction Zone Unpredictability**
+- **Description**:
+  The construction site introduces unexpected obstacles (e.g., debris, workers) that may suddenly appear in the path of vehicles, increasing the risk of rear-end or side collisions.
+- **Severity Score**: **0.60** (Moderate risk due to dynamic hazards).
+
+---
+### **Summary of Key Observations**
+1. **High-Risk Scenario**: The ego vehicle is stopped in an intersection with an approaching vehicle (yellow taxi), requiring precise intent prediction.
+2. **Occlusion & Sensor Limitations**: The construction site reduces visibility, making it harder to detect the white van and potential pedestrians.
+3. **Traffic Light Reliability**: Misinterpretation of traffic signals could lead to critical errors.
+4. **Pedestrian & Construction Activity**: Unpredictable movement near the construction zone adds complexity.
+
+This analysis highlights the need for **robust object detection**, **intent prediction models**, and **adaptive traffic rule interpretation** in autonomous driving systems for such corner cases.

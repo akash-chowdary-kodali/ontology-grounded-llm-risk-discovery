@@ -1,0 +1,27 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy and Rainy Conditions with Low Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain affecting visibility and road conditions" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential for vehicles to lose control due to wet conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential for vehicles to lose control due to wet conditions
+Severity Score: 0.75

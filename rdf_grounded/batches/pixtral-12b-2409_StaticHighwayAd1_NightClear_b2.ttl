@@ -1,0 +1,61 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on right side of road" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Bright billboard may cause visual distraction" ;
+    :hasSeverityScore :sevDistraction1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Dark surroundings may obscure potential actors" ;
+    :hasSeverityScore :sevOcclusion1 .
+
+:sevDistraction1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sevOcclusion1 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Bright billboard may cause visual distraction
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Dark surroundings may obscure potential actors
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The illuminated billboard is classified as `:Billboard`.
+   - The nighttime condition is classified as `:NightCondition`.
+   - No actors, traffic signs, or traffic lights are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the primary concern arises from the **state of the environment** (darkness + bright billboard) rather than anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The bright billboard may distract the driver, reducing situational awareness.
+   - **OcclusionRisk:** The dark surroundings increase the likelihood of missing potential actors (e.g., pedestrians or cyclists) due to poor visibility.
+
+4. **Severity Scores:**
+   - The **distraction risk** is assigned a lower severity (0.35) because while it is a concern, it is not immediately critical.
+   - The **occlusion risk** is higher (0.60) because obscured actors pose a direct collision hazard in low-visibility conditions.

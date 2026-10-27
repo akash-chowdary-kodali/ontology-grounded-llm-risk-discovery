@@ -1,0 +1,59 @@
+### Semantic Interpretation of the Environment
+
+**1. Main Entities:**
+*   **Ego-Vehicle:** Red vehicle (hood visible at the bottom).
+*   **Road Infrastructure:** Multi-lane urban road, traffic signal gantries, street lighting, curb, lane markings (yellow center line, white dashed lane dividers).
+*   **Environmental Context:** Nighttime, rainy conditions (indicated by wet, reflective road surface and puddles), urban setting with multi-story buildings.
+
+**2. Relationships:**
+*   **Ego-Vehicle** is following the road path.
+*   **Road Infrastructure** (Street lights) provides illumination for the scene.
+*   **Road Surface** is wet and reflective due to rain.
+*   **Traffic Signals** are present in the distance.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:color "red" ;
+    ex:location ex:Roadway .
+
+ex:Roadway a ex:Infrastructure ;
+    ex:surfaceCondition "wet" ;
+    ex:lighting "lowLight" ;
+    ex:weather "rainy" .
+
+ex:TrafficSignal a ex:Infrastructure ;
+    ex:state "unknown" ;
+    ex:positionedAt ex:Intersection .
+
+ex:Building a ex:Infrastructure ;
+    ex:adjacentTo ex:Roadway .
+
+# Relationships
+ex:EgoVehicle ex:onSurface ex:Roadway .
+ex:Roadway ex:hasWeather ex:Rain .
+ex:Roadway ex:hasSurface ex:Reflective .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Reduced visibility and sensor degradation due to nighttime rain and low lighting conditions. The wet, reflective road surface can cause glare from artificial light, potentially obscuring lane markings or small obstacles.
+*   **Severity Score:** 0.65
+
+**Risk 2:**
+*   **Description:** Hydroplaning/Reduced Traction. The wet road surface significantly increases the risk of loss of vehicle control, especially during cornering or sudden braking maneuvers.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Ambiguous Signal State. At an intersection under low-light and rainy conditions, perception systems may struggle to correctly identify the status of distant traffic signals, potentially leading to intersection navigation errors.
+*   **Severity Score:** 0.55

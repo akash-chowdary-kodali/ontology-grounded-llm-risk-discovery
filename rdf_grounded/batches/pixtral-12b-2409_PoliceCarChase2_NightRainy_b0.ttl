@@ -1,0 +1,92 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Tunnel with Wet Road and Following Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Wet road conditions in tunnel with potential hydroplaning risk" ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating standing water" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball effect on wet road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning due to wet road conditions" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Close following distance in low-visibility tunnel" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from tunnel lighting and reflections" ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Following vehicle in tunnel" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning due to wet road conditions
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Close following distance in low-visibility tunnel
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Potential distraction from tunnel lighting and reflections
+- **Severity Score:** 0.6
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** because the primary issue stems from the **physical state of the road (wet conditions)** rather than behavioral anomalies or evidence-based anomalies (e.g., open doors, falling objects).
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` (low visibility)
+   - **Obstacle:** `RoadObject` (wet road surface with standing water)
+   - **EvidenceIndicator:** `RollingBallIndicator` (reflective sheen indicating hydroplaning risk)
+   - **Actor:** `Vehicle` (following vehicle in tunnel)
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Hydroplaning due to wet road.
+   - **RearEndCollisionRisk:** Close following distance in low-visibility conditions.
+   - **DistractionRisk:** Tunnel lighting and reflections may distract the driver.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is highest (0.9) due to immediate danger.
+   - Rear-end collision risk is moderate (0.75) due to visibility and distance.
+   - Distraction risk is lower (0.6) but still relevant in tunnels.

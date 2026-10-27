@@ -1,0 +1,110 @@
+### **Analysis of the Scene**
+
+#### **1. Identified Entities in the Scene**
+- **Vehicles**:
+  - **Ego Vehicle** (black sedan, front view, likely autonomous).
+  - **Static Vehicle** (black sedan parked in the background).
+- **Road Infrastructure**:
+  - Road markings (lane lines, parking spaces).
+  - Curbs and sidewalks.
+  - Overhead structure (wooden beams, possibly a covered parking area).
+  - Buildings (residential/commercial structures).
+- **Obstacles**:
+  - None directly blocking the path (but low visibility due to lighting).
+- **Weather Conditions**:
+  - Nighttime (low ambient light, artificial lighting).
+- **Pedestrians/Cyclists**:
+  - None visible in the provided images.
+
+---
+
+#### **2. Relationships Between Entities**
+- The **ego vehicle** is **approaching** the **static vehicle** in the background.
+- The **static vehicle** is **parked** in a designated parking space.
+- The **road markings** define **lane boundaries** and **parking zones**.
+- The **overhead structure** provides **partial illumination** (artificial lighting).
+- The **buildings** are **adjacent** to the road, forming a **closed environment**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasLightingCondition :NighttimeLowLight ;
+    :hasWeatherCondition :ClearNight .
+
+:EgoVehicle a :Vehicle ;
+    :hasColor "black" ;
+    :hasType "sedan" ;
+    :isApproaching :StaticVehicle ;
+    :isInLocation :RoadLane .
+
+:StaticVehicle a :Vehicle ;
+    :hasColor "black" ;
+    :hasType "sedan" ;
+    :isParkedIn :ParkingSpace1 ;
+    :isOccludedBy :OverheadStructure .
+
+:RoadLane a :RoadInfrastructure ;
+    :hasMarking :LaneLines ;
+    :hasAdjacentArea :Sidewalk .
+
+:ParkingSpace1 a :RoadInfrastructure ;
+    :isDesignatedFor :Vehicle ;
+    :isLocatedNear :Building1 .
+
+:OverheadStructure a :RoadInfrastructure ;
+    :providesLighting :ArtificialLighting ;
+    :occludes :StaticVehicle .
+
+:Building1 a :Building ;
+    :isAdjacentTo :RoadLane .
+
+:ArtificialLighting a :LightingCondition ;
+    :illuminates :RoadLane .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **ego vehicle** may **misinterpret the static vehicle’s motion** due to **low lighting and shadows**, leading to a **potential collision** if the static vehicle suddenly moves (e.g., a parked car pulling out).
+**Severity Score:** **0.8** (High risk due to nighttime conditions and lack of clear visibility).
+
+#### **Risk 2:**
+**Description:**
+The **overhead structure** creates **shadows and glare**, which may **occlude or distort** the perception of the **static vehicle** and **road markings**, increasing the risk of **misjudging distances or lane boundaries**.
+**Severity Score:** **0.7** (Moderate-high risk due to lighting artifacts affecting sensor perception).
+
+#### **Risk 3:**
+**Description:**
+The **absence of pedestrians/cyclists** does not eliminate the risk entirely—**unseen actors** (e.g., a pedestrian stepping out from behind a building) could suddenly appear, leading to a **sudden braking or collision scenario**.
+**Severity Score:** **0.6** (Moderate risk due to potential hidden actors in low-visibility conditions).
+
+#### **Risk 4:**
+**Description:**
+The **ego vehicle’s sensors (cameras/LiDAR)** may struggle with **reflections from artificial lighting**, leading to **false detections or missed objects** in the scene.
+**Severity Score:** **0.7** (Moderate-high risk due to sensor limitations in low-light environments).
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Description** | **Severity (0-1)** |
+|----------|----------------|-------------------|
+| **Misinterpreted Static Vehicle Motion** | Low-light conditions may cause the ego vehicle to misjudge if the parked car moves. | **0.8** |
+| **Shadows & Glare from Overhead Structure** | Distorted perception of road markings and vehicles due to lighting artifacts. | **0.7** |
+| **Hidden Pedestrians/Cyclists** | Potential unseen actors emerging from low-visibility areas. | **0.6** |
+| **Sensor Reflection & False Detections** | Artificial lighting may cause sensor errors in object detection. | **0.7** |
+
+---
+### **Recommendations for Autonomous Driving Systems**
+1. **Enhanced Night Vision & Adaptive Lighting Compensation** – Improve sensor fusion to handle glare and shadows.
+2. **Predictive Motion Modeling** – Assume parked vehicles may move unexpectedly in low-visibility conditions.
+3. **Increased Pedestrian/Cyclist Monitoring** – Use multi-sensor fusion (radar + camera) to detect hidden actors.
+4. **Dynamic Risk Assessment** – Adjust speed and braking distance based on lighting conditions.
+
+Would you like additional refinements or a deeper dive into any specific risk?

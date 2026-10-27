@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnusualAnimalCrossingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology, so we use :Actor as parent class
+    :description "Large elephant crossing road" .
+:actor2 a :Actor ;
+    :description "Small dog crossing road" .
+:actor3 a :Actor ;
+    :description "Second small dog crossing road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Elephant blocking road" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with elephant crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Elephant obstructing view of other actors (dogs)" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: High risk of collision with elephant crossing road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Elephant obstructing view of other actors (dogs)
+Severity Score: 0.75
+
+---
+
+### Explanation:
+1. **Entities in the scene**:
+   - **Actors**: Three animals (an elephant and two dogs) are crossing the road. Since the ontology does not explicitly include "AnimalActor," I used the parent class `:Actor` with descriptions to clarify the type of actor.
+   - **Obstacle**: The elephant is classified as a `:RoadObject` since it is blocking the road.
+   - **WeatherCondition**: The scene is clear, so `:ClearCondition` is used.
+
+2. **Corner Case Classification**:
+   - The scenario is classified as a `:StateAnomaly` because the presence of animals (especially an elephant) crossing the road is an unusual state for an urban driving environment.
+
+3. **Risks**:
+   - **CollisionRisk**: The elephant crossing the road poses a high risk of collision with vehicles.
+   - **OcclusionRisk**: The elephant obstructs the view of other actors (the dogs), which could lead to additional risks if not detected properly.
+
+4. **Severity Scores**:
+   - The collision risk with the elephant is assigned a high severity score of 0.95 due to the size and unpredictability of the animal.
+   - The occlusion risk is assigned a severity score of 0.75, as it affects the perception of other actors but is less immediately dangerous than a direct collision.

@@ -1,0 +1,230 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small spherical object (e.g., ball) rolling in the road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Rolling object may distract driver or passengers" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling object in vehicle path
+- **Severity Score:** 0.75
+- **Type:** CollisionRisk (subtype of Risk)
+
+**Risk 2:**
+- **Description:** Rolling object may distract driver or passengers
+- **Severity Score:** 0.45
+- **Type:** DistractionRisk (subtype of Risk)
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - The rolling spherical object (e.g., ball) is classified as a **RoadObject** (subclass of Obstacle).
+   - The scene occurs under **DayCondition** (clear daytime).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting with the object, so the focus is on the **EvidenceBasedAnomaly** (evidence being the rolling object).
+
+2. **Corner Case Classification:**
+   - The corner case is classified as **EvidenceBasedAnomaly** because the rolling object provides observable evidence of a potential hazard.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the object's unpredictable path and potential to enter the vehicle's trajectory.
+   - **DistractionRisk:** Lower severity but still relevant, as the object may draw attention away from the road.
+
+4. **Severity Scores:**
+   - CollisionRisk: **0.75** (high due to direct threat to vehicle safety).
+   - DistractionRisk: **0.45** (moderate, as distraction is less immediate but still a concern). Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithObstructedView" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Vehicle obstructing view of oncoming traffic due to parked position in intersection" ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle parked in intersection, blocking cross-traffic visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle acting as an obstacle in intersection" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstructed view of oncoming traffic due to parked vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Vehicle partially occupying intersection, risk of lane intrusion by other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Obstructed view of oncoming traffic due to parked vehicle
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Vehicle partially occupying intersection, risk of lane intrusion by other vehicles
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.65
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** A `Vehicle` parked in the intersection, obstructing visibility.
+   - **Obstacle:** The same `Vehicle` acting as a `RoadObject` due to its position.
+   - **WeatherCondition:** `DayCondition` (clear daytime).
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The vehicle's position in the intersection is an anomalous state (not moving, blocking traffic flow).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the vehicle blocking the view of oncoming traffic.
+   - **LaneIntrusionRisk:** The vehicle partially occupies the intersection, increasing the risk of other vehicles intruding into lanes.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.75): High due to potential collision risk from unseen traffic.
+   - LaneIntrusionRisk (0.65): Moderate due to the vehicle's position in the intersection.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanStreetDrivingWithObstructedView" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan driving on urban street" .
+
+:obstacle1 a :RoadObject ;
+    :description "Overhead structure partially obstructing view" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Partial obstruction of view due to overhead structure" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to limited visibility of surrounding vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver may be distracted by navigating through obstructed area" ;
+    :hasSeverityScore :sev3 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float ;
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Partial obstruction of view due to overhead structure
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential lane intrusion due to limited visibility of surrounding vehicles
+Severity Score: 0.55
+
+**Risk 3:**
+Description: Driver may be distracted by navigating through obstructed area
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The black sedan is classified as a `:Vehicle`.
+   - The overhead structure is classified as a `:RoadObject` under `:Obstacle`.
+   - The weather condition is `:DayCondition` under `:WeatherCondition`.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the anomaly arises from the physical state of the environment (obstruction) rather than an actor's behavior or evidence-based inference.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the overhead structure obstructing the view.
+   - **LaneIntrusionRisk:** Limited visibility increases the chance of unintentionally drifting into another lane.
+   - **DistractionRisk:** The driver may be distracted by navigating through the obstructed area.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.65): High due to direct impact on visibility.
+   - LaneIntrusionRisk (0.55): Moderate due to potential unintended lane changes.
+   - DistractionRisk (0.45): Lower but still relevant due to the complexity of the environment.

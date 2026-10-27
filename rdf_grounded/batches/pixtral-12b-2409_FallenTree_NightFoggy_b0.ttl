@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNightTrafficWithTailgating" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Leading yellow taxi in traffic" .
+:vehicle2 a :Vehicle ;
+    :description "Following yellow taxi tailgating the leading vehicle" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with street lighting" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to tailgating in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential driver distraction from following too closely" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to tailgating in low visibility (nighttime).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential driver distraction from following too closely, increasing cognitive load.
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The primary corner case here is **BehaviorAnomaly** (tailgating behavior by the following vehicle), which is unsafe and violates typical traffic norms.
+
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (both yellow taxis).
+   - **WeatherCondition:** NightCondition (low visibility).
+   - No pedestrians, cyclists, traffic signs, or billboards are visible in this scene.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** Due to the close following distance and nighttime conditions.
+   - **DistractionRisk:** Following too closely may distract the driver from monitoring the road ahead.
+
+4. **Severity Scores:**
+   - Rear-end collision risk is assigned the highest severity (0.90) due to immediate danger.
+   - Distraction risk is slightly lower (0.75) but still significant in this context.

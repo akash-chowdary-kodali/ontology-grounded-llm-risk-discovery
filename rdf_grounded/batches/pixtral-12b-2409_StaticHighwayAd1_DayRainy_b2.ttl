@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainyDrivingScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Heavy rain reducing visibility and creating road condition hazards" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface increasing braking distance" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Limited visibility of distant objects due to rain" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to heavy rain
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Slippery road surface increasing braking distance
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Limited visibility of distant objects due to rain
+Severity Score: 0.8
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** because the hazardous conditions (rain) are environmental and affect the state of the driving scene rather than the behavior of actors.
+2. No **Actors**, **Obstacles**, **TrafficSigns**, **TrafficLights**, or **Billboards** were identified in the image due to the heavy fog/rain obscuring visibility.
+3. The **WeatherCondition** was classified as **RainyCondition** based on visible raindrops and overall scene appearance.
+4. The **OcclusionRisk** and **RoadConditionRisk** are direct consequences of the **RainyCondition**.

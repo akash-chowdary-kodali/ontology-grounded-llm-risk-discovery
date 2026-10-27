@@ -1,0 +1,82 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Highway Exit with Electronic Signage" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Electronic sign displaying dynamic traffic information (e.g., speed limit changes)" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Electronic billboard displaying variable speed limit (90 km/h)" .
+
+:risk1 a :DistractionRisk ;
+    :description "Driver distraction due to electronic signage displaying dynamic traffic information" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential confusion from conflicting or rapidly changing speed limit signs" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions affecting visibility of signs and road markings" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Electronic billboard displaying dynamic traffic information (e.g., speed limit changes)" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "Permanent traffic sign indicating no parking" .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Traffic light system (visible in background but not active in this scene)" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Driver distraction due to electronic signage displaying dynamic traffic information (e.g., rapidly changing speed limits or messages).
+- **Severity Score:** 0.65
+
+**Risk 2:**
+- **Description:** Potential confusion from conflicting or rapidly changing speed limit signs, leading to misinterpretation of road conditions.
+- **Severity Score:** 0.70
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the primary concern arises from the presence of dynamic electronic signage (evidence indicator: `RollingBallIndicator`), which introduces risks not typically present in static road environments.
+
+2. **Key Entities:**
+   - **Obstacle:** The electronic billboard (`:obstacle1`) acts as a dynamic road object that may distract drivers.
+   - **WeatherCondition:** Nighttime conditions (`:weather1`) reduce visibility, exacerbating the risks posed by the electronic signage.
+   - **TrafficSigns/Lights:** Static signs (e.g., no parking) and traffic lights are present but not directly contributing to the corner case.
+
+3. **Risks:**
+   - **DistractionRisk:** Caused by the electronic signage displaying variable information.
+   - **RoadConditionRisk:** Arises from potential confusion over rapidly changing speed limits or messages, which may mislead drivers.
+
+4. **Severity Justification:**
+   - The severity scores (0.65–0.70) reflect moderate-high risk due to the combination of nighttime conditions and dynamic signage, which can overwhelm drivers' attention. The risks are not immediate collision threats but could lead to unsafe driving behaviors (e.g., sudden braking or lane deviations).

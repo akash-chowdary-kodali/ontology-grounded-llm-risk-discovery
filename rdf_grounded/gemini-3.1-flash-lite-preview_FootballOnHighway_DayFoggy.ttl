@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :fog1 ;
+    :hasEvidence :indicator1 ;
+    :hasRisk :risk1 .
+
+:fog1 a :FoggyCondition .
+
+:indicator1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "A ball rolling into the road in low visibility conditions." .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Rolling ball indicates high likelihood of child or pedestrian chasing it into vehicle path." ;
+    :confidenceScore "0.92"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: LaneIntrusionRisk: The presence of a rolling ball suggests a sudden intrusion into the lane by a child or pedestrian who may follow the ball, creating a significant hazard in poor visibility.
+Severity Score: 0.85

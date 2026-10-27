@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:HeavyRain ;
+    ex:hasVisibility ex:LowVisibility ;
+    ex:hasRoadInfrastructure ex:Billboard, ex:BusStop, ex:TrafficLight ;
+    ex:hasVehicle ex:Car ;
+    ex:hasObstacle ex:WaterPuddle ;
+    ex:hasPedestrian ex:None ;
+    ex:hasCyclist ex:None ;
+    ex:hasRoad ex:MainRoad, ex:Lanes, ex:Sidewalk .
+
+ex:Car a ex:Vehicle ;
+    ex:hasState ex:MovingForward ;
+    ex:interactsWith ex:TrafficLight, ex:WaterPuddle .
+
+ex:TrafficLight a ex:TrafficControl ;
+    ex:hasState ex:YellowLight .
+
+ex:Billboard a ex:RoadInfrastructure ;
+    ex:hasVisibility ex:Obstructed .
+
+ex:BusStop a ex:PublicTransportInfrastructure ;
+    ex:hasPassengerWaiting ex:None .
+
+ex:WaterPuddle a ex:Obstacle ;
+    ex:hasLocation ex:Road .
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Poor visibility due to heavy rain can lead to difficulties in detecting other road users and infrastructure.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** The combination of a yellow traffic light and wet road conditions increases the risk of skidding or abrupt stops.
+- **Severity Score:** 0.7
+
+**Risk 3:**
+- **Description:** Water pooling on the road can lead to hydroplaning, increasing the risk of loss of vehicle control.
+- **Severity Score:** 0.6

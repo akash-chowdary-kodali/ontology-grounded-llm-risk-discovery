@@ -1,0 +1,108 @@
+### **Scene Analysis: Heavy Fog with Cyclist Crossing**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - `ego_vehicle` (red car, partially visible, bottom of frame)
+- **Road Users**:
+  - `cyclist_1` (wearing dark clothing, riding a bicycle across the road)
+- **Road Infrastructure**:
+  - `road_markings` (lane markings, partially visible)
+  - `street_lights` (multiple poles with lights)
+  - `sidewalk` (right side, with greenery)
+  - `buildings` (background, residential/commercial)
+- **Weather/Occlusions**:
+  - `fog` (dense, reducing visibility)
+  - `rain` (light, visible on road surface)
+
+---
+
+### **2. Relationships Between Entities**
+- `ego_vehicle` **approaching** `cyclist_1` (from behind, in same lane).
+- `cyclist_1` **crossing** `road_markings` (moving from sidewalk to opposite side).
+- `fog` **occluding** `cyclist_1` (reducing visibility of cyclist).
+- `street_lights` **near** `ego_vehicle` (alongside road).
+- `buildings` **surrounding** `road` (urban environment).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Fog ;
+    :hasWeatherCondition :Rain ;
+    :hasRoadUser :Cyclist1 ;
+    :hasVehicle :EgoVehicle .
+
+:EgoVehicle a :Vehicle ;
+    :hasPosition "Approaching from behind" ;
+    :hasSpeed "Moderate" ;
+    :hasVisibilityConstraint :Fog .
+
+:Cyclist1 a :RoadUser ;
+    :hasActivity :CrossingRoad ;
+    :hasPosition "Center of road" ;
+    :hasVisibilityConstraint :Fog .
+
+:RoadMarkings a :RoadInfrastructure ;
+    :hasType "LaneMarkings" ;
+    :isOccludedBy :Fog .
+
+:StreetLights a :RoadInfrastructure ;
+    :hasType "UrbanStreetLights" ;
+    :isNear :EgoVehicle .
+
+:Buildings a :RoadInfrastructure ;
+    :hasType "ResidentialCommercial" ;
+    :surrounds :Road .
+
+:Fog a :WeatherCondition ;
+    :reducesVisibility "High" ;
+    :affects :Cyclist1 ;
+    :affects :EgoVehicle .
+
+:Rain a :WeatherCondition ;
+    :affectsSurface :Road .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Risk Class:** `VisibilityObstruction`
+**Description:**
+The dense fog severely reduces visibility of the cyclist, increasing the risk of late detection by the ego vehicle. The cyclist may also have limited awareness of surrounding traffic due to fog.
+**Severity Score:** **0.95**
+
+#### **Risk 2:**
+**Risk Class:** `UnexpectedRoadUserBehavior`
+**Description:**
+The cyclist is crossing the road in an area with poor visibility, which may not be expected by the ego vehicle’s perception system. The cyclist’s trajectory is unpredictable due to reduced situational awareness.
+**Severity Score:** **0.90**
+
+#### **Risk 3:**
+**Risk Class:** `EnvironmentalPerceptionFailure`
+**Description:**
+The combination of fog and rain may cause sensor failures (e.g., LiDAR dropouts, camera glare) in the ego vehicle, leading to incorrect object detection or tracking.
+**Severity Score:** **0.85**
+
+#### **Risk 4:**
+**Risk Class:** `CollisionRisk`
+**Description:**
+The ego vehicle is approaching the cyclist from behind in low-visibility conditions, increasing the likelihood of a rear-end collision if the cyclist suddenly changes direction or the ego vehicle fails to detect them in time.
+**Severity Score:** **0.92**
+
+#### **Risk 5:**
+**Risk Class:** `ReducedReactionTime`
+**Description:**
+The ego vehicle’s driver (or autonomous system) may have insufficient time to react due to delayed detection of the cyclist, especially if braking or swerving is required.
+**Severity Score:** **0.88**
+
+---
+### **Summary of Key Risks**
+The scene presents **high-severity risks** due to **fog-induced visibility loss**, **unpredictable cyclist behavior**, and **sensor limitations**. The most critical risks are **collision potential (0.92)** and **visibility obstruction (0.95)**, requiring immediate adaptive measures (e.g., emergency braking, hazard lights, or reduced speed).

@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingWithObstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking across road without crosswalk" .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cones placed in pedestrian's path" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing road in front of vehicle with no crosswalk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones partially obstructing view of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing road in front of vehicle with no crosswalk
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Traffic cones partially obstructing view of pedestrian
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian walking across the road.
+   - **Obstacle:** Orange traffic cones placed in the pedestrian's path (classified as `RoadObject`).
+   - **WeatherCondition:** Clear (no adverse weather conditions).
+
+2. **Corner Case Classification:**
+   The pedestrian is crossing the road outside of a designated crosswalk, which is classified as a **BehaviorAnomaly** (unexpected pedestrian behavior).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian's unexpected crossing.
+   - **OcclusionRisk:** Moderate severity due to the traffic cones partially blocking the view of the pedestrian.
+
+4. **Severity Scores:**
+   - The pedestrian collision risk is high (0.90) because the pedestrian is crossing in an unsafe manner.
+   - The occlusion risk is moderate (0.75) because the cones may partially obscure the pedestrian from the vehicle's perspective.

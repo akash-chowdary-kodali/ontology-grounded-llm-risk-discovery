@@ -1,0 +1,92 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRoadWithBillboardAndSpeedLimitSign" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Nighttime road with low visibility due to foggy conditions and potential distraction from billboards" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Bright billboards may distract driver attention" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog reduces visibility of road signs and potential obstacles" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet or reflective road surface may affect vehicle traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:obstacle1 a :RoadObject ;
+    :description "Speed limit sign (90 km/h) partially obscured by fog" .
+
+:billboard1 a :Billboard ;
+    :description "Restaurant advertisement billboard on left side of road" .
+
+:speedLimitSign1 a :TrafficSign ;
+    :description "Speed limit sign (90 km/h) partially visible" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Bright billboards may distract driver attention.
+- **Severity Score:** 0.75
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Fog reduces visibility of road signs and potential obstacles.
+- **Severity Score:** 0.80
+- **Risk Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Wet or reflective road surface may affect vehicle traction.
+- **Severity Score:** 0.60
+- **Risk Type:** RoadConditionRisk
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (fog) and road state (wet/reflective surface), which are not directly tied to actor behavior or evidence-based anomalies.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (due to low visibility and light scattering).
+   - **Obstacle:** RoadObject (speed limit sign partially obscured by fog).
+   - **TrafficSign:** Speed limit sign (90 km/h).
+   - **Billboard:** Restaurant advertisement billboard.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Caused by bright billboards in low-visibility conditions.
+   - **OcclusionRisk:** Due to fog obscuring critical road signs and potential hazards.
+   - **RoadConditionRisk:** Wet/reflective road surface may reduce traction.
+
+4. **Severity Scores:**
+   - DistractionRisk (0.75): High due to nighttime and fog exacerbating visual distractions.
+   - OcclusionRisk (0.80): Highest priority due to direct impact on situational awareness.
+   - RoadConditionRisk (0.60): Moderate, as wet roads are common but traction loss is a secondary concern here.

@@ -1,0 +1,77 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRoundaboutWithMovingVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle moving unexpectedly into roundabout" .
+
+:roadObject1 a :RoadObject ;
+    :description "Debris or object on road surface near roundabout" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation or fog" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle intruding into roundabout path, potentially causing collision" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Debris/object partially obscuring roundabout markings, increasing collision risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Vehicle intruding into roundabout path, potentially causing collision.
+- **Severity Score:** 0.9
+- **Risk Type:** `LaneIntrusionRisk`
+
+**Risk 2:**
+- **Description:** Debris/object partially obscuring roundabout markings, increasing collision risk.
+- **Severity Score:** 0.7
+- **Risk Type:** `OcclusionRisk`
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene depicts a **BehaviorAnomaly** because the vehicle appears to be moving unpredictably into the roundabout, deviating from expected traffic behavior.
+
+2. **Entities Identified:**
+   - **Actor:** A `Vehicle` moving unexpectedly.
+   - **Obstacle:** A `RoadObject` (debris/object) on the road surface.
+   - **WeatherCondition:** `ClearCondition` (no adverse weather).
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the vehicle's unexpected movement into the roundabout.
+   - **OcclusionRisk:** Moderate severity due to the debris/object partially obscuring road markings.
+
+4. **Severity Scores:**
+   - **LaneIntrusionRisk (0.9):** High due to immediate collision potential.
+   - **OcclusionRisk (0.7):** Moderate due to reduced visibility of road markings.
+
+The RDF triples strictly adhere to the provided ontology vocabulary and rules.

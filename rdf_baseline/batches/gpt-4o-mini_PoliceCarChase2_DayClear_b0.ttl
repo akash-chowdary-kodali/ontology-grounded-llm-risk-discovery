@@ -1,0 +1,48 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Infrastructure1 ;
+    ex:hasWeather ex:ClearWeather ;
+    ex:hasRoad ex:MainRoad .
+
+ex:Vehicle1 a ex:Car ;
+    ex:hasType "Sedan" ;
+    ex:hasColor "Black" ;
+    ex:hasPosition ex:NearCenterLane ;
+    ex:isMoving ex:Approaching .
+
+ex:Vehicle2 a ex:Car ;
+    ex:hasType "Mini" ;
+    ex:hasColor "White" ;
+    ex:hasPosition ex:NearRightLane ;
+    ex:isMoving ex:Stationary .
+
+ex:Infrastructure1 a ex:Overpass ;
+    ex:hasMaterial "Steel" ;
+    ex:hasPosition ex:AboveRoad ;
+    ex:hasCondition "Stable" .
+
+ex:MainRoad a ex:RoadType ;
+    ex:hasLane ex:TwoLanes ;
+    ex:hasTrafficFlow "Forward" .
+
+ex:ClearWeather a ex:WeatherCondition ;
+    ex:hasVisibility "Good" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision risk between Vehicle1 (Black Sedan) and Vehicle2 (White Mini) as they occupy adjacent lanes with Vehicle1 approaching close to Vehicle2.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Risk of obstruction due to Infrastructure1 (Steel Overpass) blocking the view of vehicles approaching from either side under the overpass.
+- **Severity Score:** 0.5
+
+**Risk 3:**
+- **Description:** Risk of unexpected behavior from Vehicle1 if it suddenly veers to avoid collision, potentially impacting both adjacent lanes.
+- **Severity Score:** 0.6

@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyPedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking on flooded road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing flooded road in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Flooded road conditions affecting vehicle maneuverability" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing flooded road in low visibility
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Fog obscuring visibility of pedestrian
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Flooded road conditions affecting vehicle maneuverability
+Severity Score: 0.75
+
+---
+**Justification:**
+1. The scene contains a **Pedestrian** walking on a flooded road in heavy fog, which is classified as an **EvidenceBasedAnomaly** due to observable evidence of poor visibility and hazardous conditions.
+2. The **FoggyCondition** is explicitly identified as the weather condition reducing visibility.
+3. Three risks are identified:
+   - **PedestrianCollisionRisk** (highest severity) due to the pedestrian's unexpected presence on the road.
+   - **OcclusionRisk** due to fog obscuring the pedestrian.
+   - **RoadConditionRisk** due to flooding affecting vehicle control.
+4. Severity scores reflect the criticality of each risk, with pedestrian collision being the most severe.

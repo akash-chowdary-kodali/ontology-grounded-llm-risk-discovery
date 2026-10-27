@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Vehicle following too closely at night with potential lane intrusion risk" ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :laneIntrusionRisk1, :occlusionRisk1 ;
+    :hasObstacle :roadObject1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle in front (ego vehicle)" .
+
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle in the distance" .
+
+:roadObject1 a :RoadObject ;
+    :description "Yellow lane markings and road surface" .
+
+:nightCondition a :NightCondition .
+
+:laneIntrusionRisk1 a :LaneIntrusionRisk ;
+    :description "Risk of unintended lane drift due to poor visibility and close following distance" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Risk of obscured pedestrians or cyclists due to nighttime conditions" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.60"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Risk of unintended lane drift due to poor visibility and close following distance
+- **Risk Type:** `LaneIntrusionRisk`
+- **Severity Score:** `0.70`
+- **Confidence Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Risk of obscured pedestrians or cyclists due to nighttime conditions
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.55`
+- **Confidence Score:** `0.60`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`Vehicle` class) are present in the scene.
+   - **Obstacle:** Road markings and surface (`RoadObject` subclass of `Obstacle`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No `TrafficLight`, `TrafficSign`, `Billboard`, `Pedestrian`, or `Cyclist` were detected in this specific frame.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the primary issue stems from the state of the environment (nighttime) and the behavior of the ego vehicle (close following distance), which increases the risk of unintended lane drift.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** Due to the close following distance and potential for lane drift in low-visibility conditions.
+   - **OcclusionRisk:** Due to nighttime obscuring pedestrians or cyclists that may be present but not visible.
+
+4. **Severity Scores:**
+   - The `LaneIntrusionRisk` has a higher severity score (`0.70`) due to its immediate threat to lane discipline.
+   - The `OcclusionRisk` has a lower severity score (`0.55`) but remains significant due to the potential for unseen actors.

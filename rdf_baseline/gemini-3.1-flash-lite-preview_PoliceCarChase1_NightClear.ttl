@@ -1,0 +1,31 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:TunnelEnvironment a ex:Infrastructure .
+ex:SUV a ex:Vehicle ;
+    ex:maneuver ex:UnsafeLaneChange ;
+    ex:position ex:TunnelRoad .
+
+ex:EgoVehicle ex:following ex:SUV .
+ex:SUV ex:crossingLane ex:LaneMarking .
+ex:TunnelEnvironment ex:hasCondition "LowLight" .
+ex:SUV ex:near ex:EgoVehicle .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** The lead SUV is performing a sudden, erratic lateral maneuver (lane change/swerve) across lane markings within a confined tunnel environment. This unexpected movement presents a high risk of side-swipe or rear-end collision, particularly because the tunnel architecture limits escape routes.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Environmental constraint (Tunnel/Low Light). The lighting conditions and the geometry of the tunnel (columns, wall reflections) create visual artifacts and potential sensor noise (as seen in the flickering/ghosting of the SUV in the image sequence), which reduces the perception system's confidence in tracking the SUV's exact trajectory.
+*   **Severity Score:** 0.60
+
+**Risk 3:**
+*   **Description:** Proximity and Closing Speed. The ego vehicle is approaching an unstable actor at a high enough speed that the sudden lateral movement of the SUV significantly reduces the Time-to-Collision (TTC) buffer.
+*   **Severity Score:** 0.75

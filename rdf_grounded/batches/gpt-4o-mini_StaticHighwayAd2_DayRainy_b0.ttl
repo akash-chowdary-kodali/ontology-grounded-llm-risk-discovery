@@ -1,0 +1,31 @@
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy Environment with Obscured Visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to fog and rain" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 .
+
+:obstacle1 a :Billboard .
+
+```
+Identified Risks for each risk class
+Risk 1:
+Description: Limited visibility due to fog and rain
+Severity Score: 0.75

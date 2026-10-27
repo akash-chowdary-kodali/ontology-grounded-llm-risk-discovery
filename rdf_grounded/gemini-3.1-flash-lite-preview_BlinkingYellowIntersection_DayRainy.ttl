@@ -1,0 +1,32 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyIntersectionIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Other vehicle passing through intersection" .
+
+:vehicle2 a :Vehicle ;
+    :description "Vehicle in close proximity/lane intrusion" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle performing an unsafe close maneuver in poor visibility" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Lane Intrusion Risk due to the proximity of the red vehicle to the ego-vehicle's path in extremely low visibility conditions caused by fog and rain.
+Severity Score: 0.75

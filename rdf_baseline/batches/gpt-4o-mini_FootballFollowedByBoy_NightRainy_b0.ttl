@@ -1,0 +1,45 @@
+## Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Pedestrian1, ex:RoadInfrastructure1, ex:WeatherCondition1 ;
+    ex:hasRelationship ex:Pedestrian1 ex:crossing ex:Vehicle1 ;
+    ex:hasWeatherCondition ex:WeatherCondition1 ;
+    ex:hasRoadInfrastructure ex:RoadInfrastructure1 .
+    
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:status "approaching" .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasType "Truck" ;
+    ex:status "following" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasAction "running" ;
+    ex:location "near the road" .
+
+ex:RoadInfrastructure1 a ex:RoadInfrastructure ;
+    ex:hasType "Road" ;
+    ex:hasCondition "wet" .
+
+ex:WeatherCondition1 a ex:WeatherCondition ;
+    ex:hasType "Rain" ;
+    ex:hasVisibility "low" .
+```
+
+## Identified Risks for Each Risk Class
+
+### Risk 1:
+**Description:** Pedestrian running unexpectedly near the road in low visibility conditions.  
+**Severity Score:** 0.8
+
+### Risk 2:
+**Description:** Vehicles approaching each other in a scenario with wet road conditions which can affect braking distances.  
+**Severity Score:** 0.7
+
+### Risk 3:
+**Description:** Low visibility due to rain presenting a risk of collision.  
+**Severity Score:** 0.9

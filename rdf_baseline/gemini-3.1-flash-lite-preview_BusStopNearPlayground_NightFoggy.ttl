@@ -1,0 +1,40 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera perspective), Truck (partially visible on the right).
+*   **Pedestrians:** Two children running across the road.
+*   **Infrastructure:** Roadway, traffic lights (red), street lamps, buildings/houses.
+*   **Weather/Environment:** Nighttime, low visibility/hazy conditions.
+
+### 2. Relationships
+*   **Pedestrians crossing:** The children are crossing the road directly in front of the ego-vehicle.
+*   **Truck occluding:** The truck on the right is a potential source of occlusion that may have concealed the pedestrians as they entered the road.
+*   **Near:** The children are in very close proximity to the front of the ego-vehicle.
+*   **Red Light:** Traffic signals are red, indicating the ego-vehicle should be stopped or approaching a stop.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaching ex:Intersection .
+ex:Pedestrian_1 ex:crossing ex:Road .
+ex:Pedestrian_2 ex:crossing ex:Road .
+ex:Pedestrian_1 ex:near ex:EgoVehicle .
+ex:Truck ex:occluding ex:Pedestrian_1 .
+ex:Truck ex:occluding ex:Pedestrian_2 .
+ex:TrafficLight ex:state "Red" .
+ex:Environment ex:condition "Night_LowVisibility" .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1: Vulnerable Road User (VRU) Collision**
+*   **Description:** Two children are running across the path of the ego-vehicle at night. Their sudden appearance and rapid movement create a high risk of impact, compounded by low visibility.
+*   **Severity Score:** 0.95
+
+**Risk 2: Visual Occlusion**
+*   **Description:** The large truck parked or moving on the right side of the road restricts the ego-vehicle’s line of sight, potentially masking the pedestrians as they moved from the sidewalk into the street.
+*   **Severity Score:** 0.85
+
+**Risk 3: Environmental Low Visibility**
+*   **Description:** The nighttime lighting and haze conditions reduce the detection range for the ego-vehicle's sensors and cameras, limiting the reaction time available to avoid the pedestrians.
+*   **Severity Score:** 0.70

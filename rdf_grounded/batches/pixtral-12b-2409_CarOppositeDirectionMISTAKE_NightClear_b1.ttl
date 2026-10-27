@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Vehicle and Potential Occlusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Debris or collapsed structure partially blocking the parking lot" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in a parking lot at night" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Partial occlusion of the parking lot due to structural debris" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Risk of collision due to obscured visibility of the parking lot" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk with the parked vehicle or debris" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Risk of collision due to obscured visibility of the parking lot (OcclusionRisk).
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Potential collision risk with the parked vehicle or debris (CollisionRisk).
+- **Severity Score:** 0.60
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **Obstacle:** The debris/collapsed structure is classified as a `:RoadObject` under `:Obstacle`.
+   - **WeatherCondition:** The scene is under `:NightCondition` due to low-light conditions.
+   - No actors (pedestrians, cyclists, or vehicles in motion) are present, but a parked vehicle is visible. Since it is stationary, it is not classified as an `:Actor` but rather as part of the static scene.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a `:StateAnomaly` because the primary issue is the **static state of the environment** (debris blocking visibility), rather than dynamic behavior or evidence-based anomalies.
+
+3. **Evidence Indicator:**
+   - The `:OcclusionRisk` is linked to the debris as evidence (`:evidence1`), indicating potential risk due to obscured visibility.
+
+4. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the debris blocking parts of the parking lot, reducing visibility.
+   - **CollisionRisk:** Moderate severity due to the parked vehicle and debris, which could pose a hazard if another vehicle were to navigate the area.
+
+5. **Severity Scores:**
+   - OcclusionRisk (0.75) is higher than CollisionRisk (0.60) because obscured visibility is a more immediate and critical hazard in this context.

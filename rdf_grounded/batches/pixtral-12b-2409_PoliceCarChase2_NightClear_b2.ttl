@@ -1,0 +1,61 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Vehicle following another vehicle in a narrow underground parking lane with limited visibility" ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle directly ahead in the same lane" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close proximity to the vehicle ahead" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "High occlusion risk due to limited visibility in underground parking structure" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion risk due to narrow lane width and vehicle proximity" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle in the foreground" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle directly ahead in the same lane" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: High risk of rear-end collision due to close proximity to the vehicle ahead.
+Severity Score: 0.9
+
+**Risk 2:**
+Description: High occlusion risk due to limited visibility in underground parking structure.
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Potential lane intrusion risk due to narrow lane width and vehicle proximity.
+Severity Score: 0.75

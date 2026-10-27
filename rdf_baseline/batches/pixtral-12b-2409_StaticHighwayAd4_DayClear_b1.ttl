@@ -1,0 +1,137 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+#### **1. Identified Main Entities**
+- **Vehicles**: None visible in the immediate scene (empty road).
+- **Pedestrians**: None visible.
+- **Cyclists**: None visible.
+- **Road Infrastructure**:
+  - Road markings (lane lines, dashed centerline).
+  - Traffic signs (left-turn mandatory, no entry, speed limit 90 km/h).
+  - Overhead billboards (advertisements).
+  - Streetlights.
+  - Sidewalk with a bus stop shelter.
+  - Brick wall and greenery (trees, bushes).
+- **Obstacles**: None apparent (road appears clear).
+- **Weather Conditions**: Clear, sunny day (no rain, fog, or adverse conditions).
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **ego vehicle** (red car) is **traveling straight** on a **multi-lane road**.
+- The **left-turn mandatory sign** indicates a **mandatory left turn** at the next intersection.
+- The **no-entry sign** suggests restricted entry from the opposite direction.
+- The **speed limit (90 km/h)** applies to the road.
+- The **billboards** are positioned above the road, not obstructing visibility.
+- The **bus stop shelter** is located on the right sidewalk, adjacent to the road.
+- The **brick wall and greenery** form a boundary on the right side of the road.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasRoadCondition ex:DryRoad ;
+    ex:hasLightingCondition ex:Daylight .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isTravelingOn ex:MainRoad ;
+    ex:hasSpeedLimit 90 ;
+    ex:hasSpeedUnit "km/h" .
+
+ex:MainRoad a ex:Road ;
+    ex:hasLaneMarkings ex:SolidAndDashedLines ;
+    ex:hasTrafficSign ex:LeftTurnMandatory ;
+    ex:hasTrafficSign ex:NoEntry ;
+    ex:hasSpeedLimit 90 ;
+    ex:hasSpeedUnit "km/h" .
+
+ex:LeftTurnMandatory a ex:TrafficSign ;
+    ex:isLocatedAt ex:Intersection1 ;
+    ex:hasDirection "Left" .
+
+ex:NoEntry a ex:TrafficSign ;
+    ex:isLocatedAt ex:OppositeDirection .
+
+ex:Intersection1 a ex:Intersection ;
+    ex:hasSign ex:LeftTurnMandatory ;
+    ex:hasApproachingRoad ex:MainRoad .
+
+ex:BusStop a ex:Infrastructure ;
+    ex:isLocatedOn ex:Sidewalk ;
+    ex:hasShelter ex:BusStopShelter .
+
+ex:Sidewalk a ex:RoadFeature ;
+    ex:isAdjacentTo ex:MainRoad ;
+    ex:hasBoundary ex:BrickWall .
+
+ex:BrickWall a ex:Obstacle ;
+    ex:isPartOf ex:SidewalkBoundary .
+
+ex:Greenery a ex:Obstacle ;
+    ex:isLocatedOn ex:RightSideOfRoad .
+
+ex:Billboards a ex:Infrastructure ;
+    ex:arePositionedAbove ex:MainRoad ;
+    ex:doNotObstruct ex:Visibility .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **ego vehicle is approaching a mandatory left turn intersection**, but there is **no visible traffic** in the scene. However, **hidden vehicles or pedestrians** may emerge from the **right side (opposite direction)**, especially if drivers ignore the **no-entry sign** or misinterpret traffic rules. This could lead to a **side collision** if the ego vehicle proceeds straight without checking for oncoming traffic.
+
+**Severity Score:** **0.6** (Moderate risk due to potential human error in traffic rule interpretation)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **ego vehicle may misinterpret the traffic signs** (e.g., confusing the **no-entry sign** with a **one-way sign**). If the ego vehicle **incorrectly assumes the road is one-way**, it may **fail to check for oncoming traffic**, increasing collision risk.
+
+**Severity Score:** **0.5** (Moderate risk due to sign misinterpretation)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **ego vehicle’s perception system may fail to detect hidden pedestrians or cyclists** near the **bus stop or behind greenery** due to **occlusions**. If the vehicle does not account for potential **unseen road users**, it may **fail to yield** at the intersection.
+
+**Severity Score:** **0.4** (Low-Moderate risk due to sensor limitations)
+
+---
+
+#### **Risk 4:**
+**Description:**
+The **billboards and streetlights** may cause **glare or reflections** in the ego vehicle’s camera sensors, leading to **temporary vision impairment** and **reduced object detection accuracy**.
+
+**Severity Score:** **0.3** (Low risk, but possible in bright sunlight)
+
+---
+
+### **Summary of Risks**
+| **Risk ID** | **Description** | **Severity (0-1)** |
+|-------------|----------------|-------------------|
+| Risk 1      | Hidden vehicles from opposite direction (no-entry sign misinterpretation) | 0.6 |
+| Risk 2      | Misinterpretation of traffic signs (no-entry vs. one-way) | 0.5 |
+| Risk 3      | Occluded pedestrians/cyclists near bus stop | 0.4 |
+| Risk 4      | Sensor glare from billboards/streetlights | 0.3 |
+
+---
+### **Recommendations for Autonomous Driving System**
+1. **Enhanced Traffic Sign Recognition**: Ensure robust detection of **no-entry vs. one-way signs** to avoid misinterpretation.
+2. **Occlusion Handling**: Use **multi-sensor fusion (LiDAR + cameras)** to detect hidden pedestrians/cyclists near bus stops.
+3. **Glare Mitigation**: Implement **adaptive exposure control** in cameras to reduce glare from billboards/streetlights.
+4. **Intersection Safety Protocol**: At mandatory left turns, **default to yielding** unless traffic rules confirm otherwise.
+
+This analysis ensures the autonomous system remains **defensive and adaptive** in corner-case scenarios.

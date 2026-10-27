@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithObstructedView" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large delivery box obstructing rear view of following vehicle" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Obstructed view due to large object in rear view" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstructed rear view of following traffic due to large object" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to obstructed view" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime visibility" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Obstructed rear view of following traffic due to large object
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential rear-end collision risk due to obstructed view
+- **Risk Type:** RearEndCollisionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - The large delivery box (obstructing view) is classified as a **RoadObject** (subclass of Obstacle).
+   - The weather condition is **DayCondition** (clear visibility).
+   - No actors (pedestrians, cyclists, or vehicles) are directly involved in the corner case, but the **OpenDoorIndicator** evidence type is used to represent the obstructed view.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a **StateAnomaly** because the issue arises from a physical obstruction (the delivery box) that alters the expected state of the scene (unobstructed rear view).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the complete obstruction of the rear view, making it difficult for the following vehicle to see the taxi.
+   - **RearEndCollisionRisk:** Derived from the occlusion, with slightly lower severity but still critical.
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.90 (high due to immediate impact on perception).
+   - RearEndCollisionRisk: 0.85 (high but slightly mitigated by the taxi's braking lights and daytime visibility).

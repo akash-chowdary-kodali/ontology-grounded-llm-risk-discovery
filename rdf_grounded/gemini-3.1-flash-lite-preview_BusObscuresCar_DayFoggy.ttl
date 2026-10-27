@@ -1,0 +1,42 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2, :vehicle3 ;
+    :hasWeatherCondition :fog1 ;
+    :hasRisk :risk1, :risk2 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle parked on the right" .
+:vehicle2 a :Vehicle ;
+    :description "Yellow vehicle parked ahead" .
+:vehicle3 a :Vehicle ;
+    :description "Distant vehicle in opposing lane" .
+
+:fog1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Visibility significantly reduced by dense fog" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Risk of collision with parked vehicles or lane drift due to low visibility" ;
+    :hasSeverityScore :sev2 .
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Occlusion risk caused by dense fog severely limiting the sensor range and visibility of the driving environment.
+Severity Score: 0.75
+
+Risk 2:
+Description: Lane intrusion risk due to reduced situational awareness and potential proximity to parked vehicles at the edge of the lane in low visibility.
+Severity Score: 0.65

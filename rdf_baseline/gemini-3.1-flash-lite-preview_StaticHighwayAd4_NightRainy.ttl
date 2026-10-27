@@ -1,0 +1,55 @@
+This scene analysis focuses on the environmental hazards and infrastructure present in an adverse weather, low-light urban driving scenario.
+
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red hood visible).
+*   **Infrastructure:** Traffic light (signal), streetlights, billboards, bus stop shelter, road markings (stop line), speed limit sign (90), "No Trucks/Heavy Vehicles" restriction sign.
+*   **Environmental:** Rainy weather (wet pavement/reflections), nighttime lighting conditions.
+
+### 2. Relationships
+*   **Ego-vehicle:** Stationary at the intersection/stop line.
+*   **Infrastructure:** Traffic light is positioned above the lane; signage is placed along the roadside near the bus stop.
+*   **Environment:** Rain creating reflective surfaces on the road, impacting visibility and friction coefficients.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix traffic: <http://example.org/traffic#> .
+
+ex:EgoVehicle a traffic:Vehicle ;
+    traffic:status "stationary" ;
+    traffic:position "at_stop_line" .
+
+ex:Environment a traffic:Condition ;
+    traffic:weather "rainy" ;
+    traffic:lighting "low_light_night" ;
+    traffic:surface "wet_reflective_asphalt" .
+
+ex:TrafficSignal a traffic:Infrastructure ;
+    traffic:state "unknown_visibility" ;
+    traffic:location "intersection_ahead" .
+
+ex:RoadSign a traffic:RestrictionSign ;
+    traffic:type "no_heavy_vehicles" ;
+    traffic:location "right_roadside" .
+
+ex:BusStop a traffic:Infrastructure ;
+    traffic:near ex:RoadSign .
+```
+
+### 4. Identified Risks
+**Risk 1: Reduced Tire-Road Friction**
+*   **Description:** The wet road surface significantly reduces the coefficient of friction, increasing braking distance and risk of hydroplaning during acceleration or emergency braking.
+*   **Severity Score:** 0.75
+
+**Risk 2: Impaired Visibility**
+*   **Description:** Low-light conditions combined with rain-induced glare from streetlights and road reflections reduce the sensor range (LiDAR, camera) and detection accuracy for pedestrians or obstacles.
+*   **Severity Score:** 0.85
+
+**Risk 3: Signal Occlusion/Conspicuity**
+*   **Description:** The traffic light is located at a high elevation; in heavy rain or low visibility, it may be difficult for sensors or human drivers to discern the current signal state, leading to potential signal violations.
+*   **Severity Score:** 0.60
+
+**Risk 4: Unseen Vulnerable Road Users (VRU) at Bus Stop**
+*   **Description:** The bus stop structure creates a potential "blind spot." In poor lighting, a pedestrian exiting or waiting at the stop might be camouflaged by the environment, creating a high risk of collision during turns or maneuvers.
+*   **Severity Score:** 0.90

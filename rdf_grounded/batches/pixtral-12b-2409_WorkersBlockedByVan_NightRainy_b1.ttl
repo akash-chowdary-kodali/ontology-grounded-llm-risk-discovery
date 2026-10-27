@@ -1,0 +1,69 @@
+Here is the semantic interpretation of the scene in RDF/Turtle format, following the strict ontology rules:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Pedestrian Crossing with Road Obstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObstacle1 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person crossing road at night without proper lighting" .
+
+:roadObstacle1 a :RoadObject ;
+    :description "Orange traffic cones creating unexpected path obstruction" .
+
+:nightCondition a :NightCondition ;
+    :description "Low visibility conditions at night" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Pedestrian crossing road in front of vehicle with poor visibility" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High risk of collision with pedestrian crossing in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones create partial occlusion of pedestrian path" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+**Identified Risks:**
+
+**Risk 1:**
+Description: High risk of collision with pedestrian crossing in vehicle path
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Traffic cones create partial occlusion of pedestrian path
+Severity Score: 0.75
+
+**Analysis Justification:**
+1. The scene shows a **BehaviorAnomaly** because the pedestrian is crossing in an unexpected manner (nighttime, poor visibility) combined with road obstacles (cones)
+2. Two primary risks identified:
+   - **PedestrianCollisionRisk** (highest severity) due to the pedestrian crossing directly in front of the vehicle
+   - **OcclusionRisk** from the traffic cones that partially obscure the pedestrian's path
+3. The nighttime conditions (NightCondition) significantly increase the severity scores
+4. The cones are classified as RoadObject under Obstacle class
+5. The pedestrian's crossing behavior serves as evidence (EvidenceIndicator) for the collision risk
+
+The high severity scores reflect the dangerous combination of:
+- Nighttime conditions reducing visibility
+- Pedestrian crossing behavior
+- Road obstacles creating confusion
+- Potential for sudden collision with insufficient reaction time

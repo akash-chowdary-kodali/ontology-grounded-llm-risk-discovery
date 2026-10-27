@@ -1,0 +1,37 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red, camera-equipped), yellow taxi (lead vehicle), red delivery van (distance), additional distant vehicles.
+*   **Infrastructure:** Multi-lane urban road, street lighting, buildings, sidewalk, digital display/billboard.
+*   **Conditions:** Nighttime, artificial street lighting, dry road surface.
+
+### 2. Relationships
+*   **Ego-vehicle** is **following** the **Yellow Taxi**.
+*   **Yellow Taxi** is **centered** in the ego-vehicle's lane.
+*   **Yellow Taxi** is **occluding** the road ahead of the ego-vehicle.
+*   **Red van** is **approaching** from the opposite direction or parked at a distance.
+*   **Environment** is **static** (urban setting).
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix traffic: <http://example.org/traffic#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+traffic:EgoVehicle traffic:following traffic:YellowTaxi .
+traffic:YellowTaxi traffic:isLocatedIn traffic:LaneCenter .
+traffic:NightTime traffic:hasLighting traffic:StreetLamps .
+traffic:YellowTaxi traffic:occludes traffic:RoadAhead .
+traffic:Environment traffic:hasCondition "Nighttime" .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Inadequate Following Distance / Lead Vehicle Braking.** At night, the ego-vehicle is following the taxi closely. If the taxi performs an emergency stop, the ego-vehicle may have insufficient reaction time due to reduced visibility and potential latency in sensor perception.
+*   **Severity Score:** 0.65
+
+**Risk 2:**
+*   **Description:** **Limited Visibility / Detection Latency.** The night environment significantly reduces the contrast of objects beyond the range of street lights and vehicle headlights. Obstacles or pedestrians appearing from the shadows (occluded by the taxi or buildings) present a high risk due to the lack of ambient light.
+*   **Severity Score:** 0.55
+
+**Risk 3:**
+*   **Description:** **Tail-End Collision during unexpected maneuvers.** The yellow taxi appears to be moving or idling. If the taxi initiates an abrupt turn or lane change to avoid an obstacle (unseen due to occlusion), the ego-vehicle could suffer a collision if not maintaining a sufficient safety buffer.
+*   **Severity Score:** 0.45

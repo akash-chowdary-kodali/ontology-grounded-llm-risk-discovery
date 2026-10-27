@@ -1,0 +1,69 @@
+Here's the semantic interpretation of the provided scene images based on the given ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:parkingLotScene a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Vehicle Door Hazard" ;
+    :hasCornerCaseType :doorHazardCase .
+
+:doorHazardCase a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :openDoorObstacle ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :rearEndRisk ;
+    :hasRisk :occlusionRisk ;
+    :hasWeatherCondition :nightCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Stationary vehicle with open rear door in parking lot" .
+
+:openDoorObstacle a :RoadObject ;
+    :description "Open rear door of vehicle blocking parking space exit" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Visible open rear door creating potential hazard" ;
+    :indicatesPotentialRisk :rearEndRisk .
+
+:rearEndRisk a :RearEndCollisionRisk ;
+    :description "Risk of rear-end collision due to vehicle exiting parking space with open door" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Risk of occlusion from open door blocking view of parking space" ;
+    :hasSeverityScore :sev2 .
+
+:nightCondition a :NightCondition ;
+    :description "Low-light conditions in parking lot" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Risk of rear-end collision due to vehicle exiting parking space with open door
+Risk Class: RearEndCollisionRisk
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of occlusion from open door blocking view of parking space
+Risk Class: OcclusionRisk
+Severity Score: 0.60
+
+Analysis:
+1. The scene shows a nighttime parking lot with a vehicle that has its rear door open, creating a corner case.
+2. The corner case is classified as a StateAnomaly because it represents an abnormal state (open door) rather than behavior or evidence-based anomaly.
+3. Two primary risks are identified:
+   - Rear-end collision risk from the open door blocking the path
+   - Occlusion risk from the door obstructing visibility
+4. The nighttime conditions (NightCondition) are noted but don't create additional risks beyond what's already present.
+5. Severity scores are assigned based on:
+   - 0.75 for rear-end collision (high probability of another vehicle exiting)
+   - 0.60 for occlusion (moderate impact on visibility)

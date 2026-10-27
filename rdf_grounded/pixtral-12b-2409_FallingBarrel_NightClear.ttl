@@ -1,0 +1,207 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Road Construction with Pedestrian Near Open Vehicle Door" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian standing near open vehicle door" .
+
+:obstacle1 a :RoadObject ;
+    :description "Road construction barrels and equipment on roadside" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Vehicle door open with pedestrian standing nearby" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian near open vehicle door in path of traffic" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Construction barrels partially obstructing view of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.78"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian near open vehicle door in path of traffic
+- **Severity Score:** 0.92
+- **Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Construction barrels partially obstructing view of pedestrian
+- **Severity Score:** 0.78
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The scene is classified as a **StateAnomaly** because the anomalous state arises from the open vehicle door and the pedestrian's proximity to traffic, which is an unexpected and hazardous situation.
+2. **Entities Identified:**
+   - **Actor:** Pedestrian standing near the open vehicle door.
+   - **Obstacle:** Road construction barrels and equipment on the roadside.
+   - **Evidence Indicator:** OpenDoorIndicator (open vehicle door with pedestrian nearby).
+   - **Weather Condition:** NightCondition (low visibility).
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian's proximity to traffic and the open door.
+   - **OcclusionRisk:** Moderate severity due to construction barrels partially blocking visibility of the pedestrian. Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Road Obstacle with Falling Barrier" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person standing near fallen barrier" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen cylindrical barrier on road" .
+
+:obstacle2 a :RoadObject ;
+    :description "Upright cylindrical barrier near fallen one" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Falling barrier creating road hazard" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fallen barrier obstructing road visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with vehicle due to road obstruction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Fallen barrier obstructing road visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+- **Evidence:** FallingObjectIndicator (fallen barrier)
+
+**Risk 2:**
+- **Description:** Potential collision with vehicle due to road obstruction
+- **Risk Type:** CollisionRisk (general, not subclass-specific due to lack of pedestrian/vehicle interaction)
+- **Severity Score:** 0.85
+- **Evidence:** StateAnomaly (fallen barrier creating hazardous road state)
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian (standing near fallen barrier)
+   - **Obstacles:** Two RoadObjects (fallen barrier and upright barrier)
+   - **WeatherCondition:** NightCondition (low-light environment)
+   - **EvidenceIndicator:** FallingObjectIndicator (fallen barrier)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly** (the scene represents an abnormal road state due to the fallen barrier).
+
+3. **Risks Identified:**
+   - **OcclusionRisk** (high severity due to nighttime and barrier obstructing visibility).
+   - **CollisionRisk** (secondary risk due to potential vehicle collision with the barrier).
+
+4. **Severity Scores:**
+   - OcclusionRisk: 0.90 (high due to low-light conditions and obstruction).
+   - CollisionRisk: 0.85 (high but slightly lower as it depends on vehicle interaction). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeOpenDoorAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Open door of a parked vehicle" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Open vehicle door obstructing view of cyclist" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with cyclist due to obstructed view" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Open vehicle door obstructing view of cyclist
+Class: OcclusionRisk
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential collision with cyclist due to obstructed view
+Class: CollisionRisk
+Severity Score: 0.88

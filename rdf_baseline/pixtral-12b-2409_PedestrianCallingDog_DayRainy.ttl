@@ -1,0 +1,420 @@
+Below is the structured analysis of the provided scene images, including **RDF triples in Turtle format**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:HeavyFog ;
+    ex:hasRoadCondition ex:WetRoad ;
+    ex:hasTrafficLight ex:TrafficLight1 ;
+    ex:hasTrafficLight ex:TrafficLight2 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasColor "red" ;
+    ex:hasPosition "lane1" ;
+    ex:hasSpeed "slow" ;
+    ex:hasOcclusionLevel "low" .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasColor "yellow" ;
+    ex:hasPosition "lane2" ;
+    ex:hasSpeed "slow" ;
+    ex:hasOcclusionLevel "low" .
+
+ex:Vehicle3 a ex:Vehicle ;
+    ex:hasColor "green" ;
+    ex:hasPosition "parked" ;
+    ex:hasSpeed "stationary" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition "crosswalk" ;
+    ex:hasAction "crossing" ;
+    ex:hasVisibility "low" ;
+    ex:hasOcclusionLevel "high" .
+
+ex:Dog1 a ex:Animal ;
+    ex:hasPosition "road" ;
+    ex:hasAction "running" ;
+    ex:hasVisibility "low" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:hasState "red" ;
+    ex:hasVisibility "low" .
+
+ex:TrafficLight2 a ex:TrafficLight ;
+    ex:hasState "red" ;
+    ex:hasVisibility "low" .
+
+ex:Road a ex:Road ;
+    ex:hasLaneMarking "solid" ;
+    ex:hasSurfaceCondition "wet" .
+
+ex:Building1 a ex:Building ;
+    ex:hasPosition "left" .
+
+ex:Building2 a ex:Building ;
+    ex:hasPosition "right" .
+
+# Relationships
+ex:Vehicle1 ex:isNear ex:Pedestrian1 .
+ex:Vehicle1 ex:isFollowing ex:Vehicle2 .
+ex:Pedestrian1 ex:isCrossing ex:Road .
+ex:Dog1 ex:isNear ex:Vehicle2 .
+ex:TrafficLight1 ex:isOccludedBy ex:HeavyFog .
+ex:TrafficLight2 ex:isOccludedBy ex:HeavyFog .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1: Pedestrian Crossing in Low Visibility**
+- **Description:**
+  A pedestrian is crossing the road in heavy fog, reducing visibility. The autonomous vehicle (ex:Vehicle1) may not detect the pedestrian in time due to occlusion and poor lighting.
+- **Severity Score:** **0.95**
+  *(High risk due to low visibility, potential collision with vulnerable road user.)*
+
+#### **Risk 2: Animal on Road (Dog Running)**
+- **Description:**
+  A dog is running on the road, which could suddenly enter the path of vehicles. The autonomous system may struggle to detect small, fast-moving objects in foggy conditions.
+- **Severity Score:** **0.85**
+  *(High risk due to unpredictable movement and low visibility.)*
+
+#### **Risk 3: Occluded Traffic Lights**
+- **Description:**
+  Traffic lights are partially obscured by fog, increasing the risk of misinterpretation by the autonomous vehicle. This could lead to incorrect lane changes or speed adjustments.
+- **Severity Score:** **0.80**
+  *(Moderate-high risk due to potential misinterpretation of traffic signals.)*
+
+#### **Risk 4: Wet Road Conditions**
+- **Description:**
+  The road is wet, increasing the risk of hydroplaning and reduced braking efficiency. Autonomous vehicles must adjust speed and braking distance accordingly.
+- **Severity Score:** **0.70**
+  *(Moderate risk due to slippery conditions affecting vehicle control.)*
+
+#### **Risk 5: Following Vehicle in Low Visibility**
+- **Description:**
+  The autonomous vehicle (ex:Vehicle1) is following another vehicle (ex:Vehicle2) in heavy fog. Reduced visibility increases the risk of rear-end collisions if braking distances are misjudged.
+- **Severity Score:** **0.75**
+  *(Moderate-high risk due to limited visibility and potential misjudgment of distance.)*
+
+---
+### **Summary of Key Risks**
+| **Risk**                     | **Severity (0-1)** |
+|------------------------------|-------------------|
+| Pedestrian crossing in fog   | 0.95              |
+| Animal on road (dog)         | 0.85              |
+| Occluded traffic lights      | 0.80              |
+| Wet road conditions          | 0.70              |
+| Following vehicle in fog      | 0.75              |
+
+### **Recommendations for Autonomous Driving Systems**
+1. **Enhanced Sensor Fusion:** Use LiDAR, radar, and camera data to improve object detection in low-visibility conditions.
+2. **Conservative Speed Adjustment:** Reduce speed in fog and wet conditions to account for longer braking distances.
+3. **Predictive Pedestrian/Animal Detection:** Implement AI models trained to detect small, fast-moving objects in adverse weather.
+4. **Traffic Light Redundancy:** Use alternative sensors (e.g., radar-based traffic light detection) if visual cues are obscured.
+5. **Driver Alert System:** Notify the driver (if present) of potential hazards in low-visibility scenarios.
+
+This analysis provides a structured approach to identifying and mitigating risks in autonomous driving corner cases. ### **Scene Analysis: Semantic Interpretation of the Environment**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - Red sports car (right lane, moving forward).
+  - Green hatchback (right lane, moving forward).
+  - Gray sedan (right lane, moving forward).
+  - Black sedan (left lane, stationary or slow-moving).
+  - Additional vehicles in the distance (occluded by fog).
+- **Pedestrian/Animal**:
+  - A dog (likely a German Shepherd) running across the road.
+  - A person (partially visible, lying or crouching near the dog).
+- **Road Infrastructure**:
+  - Wet asphalt road with visible lane markings.
+  - Tram tracks embedded in the road.
+  - Traffic lights (visible but not clearly readable).
+  - Streetlights and utility poles.
+  - Buildings on both sides of the road.
+- **Weather/Occlusions**:
+  - Heavy fog reducing visibility.
+  - Rain (evident from wet surfaces).
+
+---
+
+### **2. Relationships Between Entities**
+- The **dog** is **crossing** the road from the left lane toward the right lane.
+- The **person** is **near** the dog, possibly controlling or interacting with it.
+- The **red sports car** is **approaching** the dog’s crossing path.
+- The **green hatchback** and **gray sedan** are **following** the red car in the right lane.
+- The **black sedan** is **stationary or slow-moving** in the left lane.
+- **Fog** is **occluding** visibility of distant vehicles and infrastructure.
+- **Rain** is **affecting** road traction and visibility.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:HeavyFog ;
+    ex:hasWeatherCondition ex:Rain ;
+    ex:hasRoadCondition ex:WetRoad .
+
+ex:Dog1 a ex:Animal ;
+    ex:isCrossing ex:Road ;
+    ex:hasLocation ex:LeftLaneToRightLane ;
+    ex:hasAssociatedPerson ex:Person1 .
+
+ex:Person1 a ex:Pedestrian ;
+    ex:isNear ex:Dog1 ;
+    ex:hasAction ex:Crouching .
+
+ex:RedCar a ex:Vehicle ;
+    ex:hasType "SportsCar" ;
+    ex:hasColor "Red" ;
+    ex:isInLane ex:RightLane ;
+    ex:isApproaching ex:Dog1 .
+
+ex:GreenCar a ex:Vehicle ;
+    ex:hasType "Hatchback" ;
+    ex:hasColor "Green" ;
+    ex:isInLane ex:RightLane ;
+    ex:isFollowing ex:RedCar .
+
+ex:GrayCar a ex:Vehicle ;
+    ex:hasType "Sedan" ;
+    ex:hasColor "Gray" ;
+    ex:isInLane ex:RightLane ;
+    ex:isFollowing ex:GreenCar .
+
+ex:BlackCar a ex:Vehicle ;
+    ex:hasType "Sedan" ;
+    ex:hasColor "Black" ;
+    ex:isInLane ex:LeftLane ;
+    ex:hasSpeed "Slow" .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasLaneMarkings ex:DoubleYellowLines ;
+    ex:hasSurfaceCondition ex:Wet ;
+    ex:hasEmbeddedTracks ex:TramTracks .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isVisible "False" ;
+    ex:isOccludedBy ex:HeavyFog .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:AnimalCrossing ;
+    ex:affectedEntity ex:RedCar ;
+    ex:severity 0.95 .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:ReducedVisibility ;
+    ex:affectedEntity ex:AllVehicles ;
+    ex:severity 0.85 .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianInteraction ;
+    ex:affectedEntity ex:Dog1 ;
+    ex:severity 0.75 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **dog is crossing the road unpredictably**, and the **red sports car is approaching its path at high speed**. The dog’s sudden movement, combined with the vehicle’s speed, poses a high collision risk. The person near the dog may not be able to control it in time.
+
+**Severity Score:** **0.95**
+
+---
+
+#### **Risk 2:**
+**Description:**
+**Heavy fog and rain severely reduce visibility**, making it difficult for drivers to detect the dog, the person, and other vehicles in time. This increases the likelihood of late braking or missed detections by autonomous systems.
+
+**Severity Score:** **0.85**
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **person near the dog may attempt to intervene**, but their position (crouching/lying) suggests they might be **unable to effectively control the dog**. If the dog panics or the person moves unpredictably, it could lead to **secondary hazards** (e.g., the person being hit or the dog running into traffic from a different angle).
+
+**Severity Score:** **0.75**
+
+---
+
+#### **Risk 4 (Additional):**
+**Description:**
+**Wet road conditions** increase the risk of **hydroplaning or skidding**, especially if vehicles brake suddenly. Combined with reduced visibility, this could lead to **loss of vehicle control** and multi-vehicle collisions.
+
+**Severity Score:** **0.70**
+
+---
+### **Summary of Critical Risks:**
+1. **Animal crossing + high-speed vehicle approach (0.95)** – Immediate collision risk.
+2. **Reduced visibility due to fog/rain (0.85)** – Delays in detection and reaction.
+3. **Uncontrolled pedestrian-animal interaction (0.75)** – Potential for secondary hazards.
+4. **Wet road + sudden braking risk (0.70)** – Loss of traction and multi-vehicle accidents.
+
+### **Recommended Actions for Autonomous Systems:**
+- **Emergency braking** if the dog’s trajectory suggests a collision.
+- **Hazard lights activation** to alert surrounding vehicles.
+- **Acoustic/visual warnings** (e.g., horn, sudden brake lights) to deter the dog.
+- **Reduced speed** in low-visibility conditions.
+- **Real-time communication** with nearby vehicles (if V2X is available) to coordinate avoidance.
+
+This scenario highlights the challenges of **unpredictable road users, adverse weather, and infrastructure limitations** in autonomous driving safety. ### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:FoggyCondition ;
+    ex:hasRoadCondition ex:WetRoadCondition .
+
+ex:FoggyCondition a ex:WeatherCondition ;
+    ex:visibilityRange "Low" .
+
+ex:WetRoadCondition a ex:RoadCondition ;
+    ex:surfaceCondition "Slippery" .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:vehicleColor "Red" ;
+    ex:position "ForegroundRight" ;
+    ex:direction "Stationary" .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:vehicleColor "Green" ;
+    ex:position "Midground" ;
+    ex:direction "MovingForward" .
+
+ex:Vehicle3 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:vehicleColor "Gray" ;
+    ex:position "MidgroundLeft" ;
+    ex:direction "Stationary" .
+
+ex:Vehicle4 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:vehicleColor "Black" ;
+    ex:position "BackgroundLeft" ;
+    ex:direction "MovingForward" .
+
+ex:Building1 a ex:Building ;
+    ex:position "LeftSide" ;
+    ex:occlusionLevel "High" .
+
+ex:Building2 a ex:Building ;
+    ex:position "RightSide" ;
+    ex:occlusionLevel "High" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:position "Midground" ;
+    ex:status "Unclear" .
+
+ex:Lane1 a ex:Lane ;
+    ex:laneType "DrivingLane" ;
+    ex:laneMarking "YellowAndWhite" .
+
+ex:Lane2 a ex:Lane ;
+    ex:laneType "DrivingLane" ;
+    ex:laneMarking "White" .
+
+ex:Vehicle1 ex:isNear ex:Vehicle2 .
+ex:Vehicle2 ex:isFollowing ex:Vehicle3 .
+ex:Vehicle4 ex:isApproaching ex:Vehicle3 .
+ex:Building1 ex:occludes ex:Vehicle4 .
+ex:FoggyCondition ex:reducesVisibilityOf ex:TrafficLight1 .
+ex:Vehicle1 ex:isIn ex:Lane2 .
+ex:Vehicle2 ex:isIn ex:Lane1 .
+```
+
+---
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:**
+The foggy weather condition severely reduces visibility, making it difficult to discern traffic lights, lane markings, and other vehicles clearly. This increases the risk of misjudging distances and speeds, leading to potential collisions.
+
+**Severity Score:**
+**0.95**
+
+```turtle
+ex:Risk1 a ex:VisibilityRisk ;
+    ex:description "Foggy weather severely reduces visibility of traffic lights, lane markings, and other vehicles." ;
+    ex:severityScore "0.95" ;
+    ex:affectedEntity ex:FoggyCondition .
+```
+
+#### Risk 2:
+**Description:**
+The slippery road conditions due to wetness increase the risk of skidding or losing control of the vehicle, especially during braking or sharp turns.
+
+**Severity Score:**
+**0.85**
+
+```turtle
+ex:Risk2 a ex:RoadConditionRisk ;
+    ex:description "Slippery road conditions increase the risk of skidding or losing control of the vehicle." ;
+    ex:severityScore "0.85" ;
+    ex:affectedEntity ex:WetRoadCondition .
+```
+
+#### Risk 3:
+**Description:**
+The unclear status of the traffic light due to fog can lead to confusion among drivers, causing potential traffic violations or accidents.
+
+**Severity Score:**
+**0.80**
+
+```turtle
+ex:Risk3 a ex:TrafficSignalRisk ;
+    ex:description "Unclear traffic light status due to fog can cause confusion and potential accidents." ;
+    ex:severityScore "0.80" ;
+    ex:affectedEntity ex:TrafficLight1 .
+```
+
+#### Risk 4:
+**Description:**
+Vehicles following too closely in low-visibility conditions increase the risk of rear-end collisions.
+
+**Severity Score:**
+**0.88**
+
+```turtle
+ex:Risk4 a ex:FollowingDistanceRisk ;
+    ex:description "Vehicles following too closely in low-visibility conditions increase the risk of rear-end collisions." ;
+    ex:severityScore "0.88" ;
+    ex:affectedEntities ( ex:Vehicle2 ex:Vehicle3 ) .
+```
+
+#### Risk 5:
+**Description:**
+Occlusion by buildings and fog can obscure the view of other vehicles and pedestrians, leading to unexpected obstacles and potential collisions.
+
+**Severity Score:**
+**0.82**
+
+```turtle
+ex:Risk5 a ex:OcclusionRisk ;
+    ex:description "Occlusion by buildings and fog can obscure the view of other vehicles and pedestrians." ;
+    ex:severityScore "0.82" ;
+    ex:affectedEntities ( ex:Building1 ex:Building2 ex:FoggyCondition ) .
+```

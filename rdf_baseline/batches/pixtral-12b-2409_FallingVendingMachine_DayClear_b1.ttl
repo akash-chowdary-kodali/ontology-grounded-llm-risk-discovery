@@ -1,0 +1,133 @@
+### **Scene Analysis: Semantic Interpretation of Corner Case Scenario**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Red car (ego vehicle)** – Partially visible, approaching a roadblock.
+  - **White van** – Stationary on the right, near a pedestrian.
+  - **Red car (background)** – Moving in the distance.
+- **Pedestrians:**
+  - **Person on e-scooter** – Near the white van, partially occluded.
+- **Road Infrastructure:**
+  - **Roadblock (red barriers)** – Blocking the road, with text in a non-Latin script.
+  - **Traffic cones** – Positioned near the barriers.
+  - **Streetlights** – Visible along the road.
+  - **Buildings** – Multi-story residential/commercial structures.
+- **Obstacles:**
+  - **Red barriers** – Acting as an unexpected roadblock.
+- **Weather Conditions:**
+  - **Clear** – No adverse weather observed.
+
+#### **Relationships:**
+- The **red car (ego vehicle)** is **approaching** the **roadblock**.
+- The **white van** is **stationary** near the **pedestrian on e-scooter**.
+- The **roadblock** is **occluding** the road, forcing potential detours.
+- The **pedestrian on e-scooter** is **near** the **white van** and may be **crossing** or **moving alongside** it.
+- The **background red car** is **following** the road but not directly interacting with the roadblock.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasRoadInfrastructure ex:Roadblock, ex:TrafficCones, ex:Streetlights, ex:Buildings .
+
+ex:RedCar1 a ex:Vehicle ;
+    ex:hasColor "red" ;
+    ex:isEgoVehicle true ;
+    ex:isApproaching ex:Roadblock ;
+    ex:hasPosition "front" .
+
+ex:WhiteVan1 a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:isStationary true ;
+    ex:isNear ex:Pedestrian1 .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:isRiding ex:EScooter ;
+    ex:isNear ex:WhiteVan1 ;
+    ex:mayCross ex:Road .
+
+ex:Roadblock a ex:Obstacle ;
+    ex:blocks ex:Road ;
+    ex:hasText "Non-Latin script" ;
+    ex:hasColor "red" .
+
+ex:EScooter a ex:Vehicle ;
+    ex:hasType "E-Scooter" ;
+    ex:isRiddenBy ex:Pedestrian1 .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:UnexpectedRoadblock ;
+    ex:affects ex:RedCar1, ex:Pedestrian1 ;
+    ex:severity 0.85 .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianVehicleInteraction ;
+    ex:affects ex:Pedestrian1, ex:WhiteVan1 ;
+    ex:severity 0.75 .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:OccludedPath ;
+    ex:affects ex:RedCar1 ;
+    ex:severity 0.9 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **roadblock** is an **unexpected obstacle** that forces the **ego vehicle (red car)** to **stop or deviate**, increasing collision risk with the **barrier** or **pedestrians** attempting to navigate around it. The **text on the barrier** suggests a possible **cultural or language barrier**, complicating interpretation for drivers unfamiliar with the script.
+
+**Severity Score:** **0.9**
+*(High risk due to sudden stopping requirement and potential confusion.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **pedestrian on an e-scooter** is **near the stationary white van**, which may **occlude visibility** for the ego vehicle. If the pedestrian **crosses in front of the van** or **moves unpredictably**, the ego vehicle may **fail to detect them in time**, leading to a **collision**.
+
+**Severity Score:** **0.75**
+*(Moderate-high risk due to pedestrian vulnerability and potential blind spots.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **roadblock partially occludes the path**, forcing the ego vehicle to **replan its route abruptly**. If the vehicle **misinterprets the barrier as a temporary obstruction** (e.g., construction) and **does not slow down in time**, it may **collide with the barrier** or **swerve into oncoming traffic**.
+
+**Severity Score:** **0.85**
+*(High risk due to sudden path obstruction and potential loss of control.)*
+
+---
+
+### **4. Additional Observations**
+- **Cultural/Language Risk:** The **non-Latin script on the barrier** may confuse drivers, delaying reaction time.
+- **Pedestrian Behavior Uncertainty:** The **e-scooter rider’s intent** (crossing, merging, or stopping) is unclear, increasing unpredictability.
+- **Infrastructure Ambiguity:** The **lack of clear signage** (e.g., "Road Closed" in a universally understood language) exacerbates risk.
+
+---
+### **Conclusion**
+This scene presents **multiple high-severity risks**, primarily due to:
+1. **Unexpected roadblocks** (forcing sudden braking).
+2. **Pedestrian-vehicle interactions** (blind spots, e-scooter unpredictability).
+3. **Occluded paths** (forcing abrupt route changes).
+
+**Recommendations for Autonomous Systems:**
+- **Enhanced obstacle detection** (especially for non-standard barriers).
+- **Multi-modal pedestrian tracking** (to predict e-scooter movements).
+- **Fallback routing** (pre-planned detours for roadblocks).
+- **Cultural/language-agnostic sign recognition** (to interpret barriers regardless of script).
+
+Would you like further refinement on any specific risk or entity?

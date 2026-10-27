@@ -1,0 +1,41 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The observer vehicle (partially visible hood).
+*   **Van:** White delivery-style van parked or stopped on the side of the road.
+*   **Pedestrian:** A person in a yellow shirt standing next to the van.
+*   **Obstacle:** A large metal drum/barrel that is airborne and trajectory-bound toward the ego-vehicle.
+*   **Infrastructure:** Roadway, lane markings, curb, and surrounding residential environment (trees, houses).
+*   **Weather:** Clear daylight conditions, good visibility.
+
+### 2. Relationships
+*   **Ego-vehicle approaching:** The ego-vehicle is moving toward the van, pedestrian, and the airborne barrel.
+*   **Pedestrian near:** The pedestrian is standing in close proximity to the van and road edge.
+*   **Obstacle collision course:** The flying barrel is in a direct trajectory to impact the ego-vehicle.
+*   **Obstacle originating:** The barrel appears to have been dislodged from the area near the van.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaching ex:Van .
+ex:EgoVehicle ex:inPathOf ex:FlyingBarrel .
+ex:Van ex:parkedNear ex:Pedestrian .
+ex:Pedestrian ex:standingNear ex:Road .
+ex:FlyingBarrel ex:state "Airborne" .
+ex:FlyingBarrel ex:movingTowards ex:EgoVehicle .
+ex:Scene ex:hasWeather "Clear" .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+**Description:** High-velocity projectile (flying barrel) on an immediate collision trajectory with the ego-vehicle, likely to cause significant structural damage and loss of vehicle control.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Proximity of a pedestrian to an active roadway and a potentially unstable cargo/loading zone (the van), posing a risk of secondary collision if the pedestrian reacts to the flying object or steps into the lane.
+**Severity Score:** 0.65
+
+**Risk 3:**
+**Description:** Potential presence of hazardous materials (indicated by warning signs on remaining drums) if the airborne barrel were to breach or spill contents upon impact, creating an environmental or toxicity hazard.
+**Severity Score:** 0.70

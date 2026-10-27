@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainFloodedRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rainfall causing flooding on road surface" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Visible water droplets and potential debris in heavy rain" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Flooded road surface reducing traction and visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Heavy rain reducing visibility and increasing hydroplaning risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Flooded road surface reducing traction and visibility
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Heavy rain reducing visibility and increasing hydroplaning risk
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - The scene primarily features **weather conditions** (heavy rain/flooding) and no explicit actors, obstacles, traffic signs, or traffic lights are visible in the provided images.
+   - The **weather condition** is classified as `:RainyCondition` with flooding implications.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:EvidenceBasedAnomaly` because the heavy rain and flooding are observable evidence-based risks rather than behavioral or state anomalies.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the flooded road surface, which significantly impacts traction and visibility.
+   - **WeatherRisk:** Due to heavy rain, which reduces visibility and increases the risk of hydroplaning.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.92 and 0.88) due to the immediate danger posed by flooding and heavy rain to autonomous driving systems.

@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Parking Lot with Vehicle and Pedestrian" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Vehicle parked in a manner that may obstruct pedestrian movement in a poorly lit parking lot" ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle parked in the middle of the parking lot" .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle acting as an obstacle in pedestrian path" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Poor lighting and vehicle obstructing view of potential pedestrians" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Vehicle obstructs view of potential pedestrians due to poor lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Potential collision risk if pedestrians emerge from poorly lit areas" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Vehicle obstructs view of potential pedestrians due to poor lighting.
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Potential collision risk if pedestrians emerge from poorly lit areas.
+- **Risk Type:** `PedestrianCollisionRisk`
+- **Severity Score:** `0.80`
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the vehicle is parked in a way that could obstruct pedestrian movement, which is not typical behavior in a parking lot.
+
+2. **Entities Identified:**
+   - **Actor:** A **Vehicle** parked in the middle of the parking lot.
+   - **Obstacle:** The **Vehicle** itself acts as a **RoadObject** obstructing pedestrian paths.
+   - **WeatherCondition:** **NightCondition** due to low visibility.
+   - **EvidenceIndicator:** **OcclusionRisk** (poor lighting and vehicle obstructing view).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the vehicle blocking visibility in a poorly lit area.
+   - **PedestrianCollisionRisk:** Potential for pedestrians to emerge unexpectedly from poorly lit zones.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.75 and 0.80) due to the combination of poor lighting and the vehicle's position, which could lead to accidents if pedestrians are present.

@@ -1,0 +1,62 @@
+```
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "StreetSceneWithPedestrianAndBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person running towards ball on street" .
+:actor2 a :Vehicle ;
+    :description "Red vehicle approaching from behind" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball rolling on road" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :OpenDoorIndicator ;
+    :description "Potential door opening anomaly from parked vehicle" ;
+    :indicatesPotentialRisk :risk3 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with daylight" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian may enter vehicle path due to ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Risk of collision with vehicle behind due to sudden stop" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion from parked vehicle door" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian may enter vehicle path due to ball
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of collision with vehicle behind due to sudden stop
+Severity Score: 0.60
+
+Risk 3:
+Description: Potential lane intrusion from parked vehicle door
+Severity Score: 0.45
+```

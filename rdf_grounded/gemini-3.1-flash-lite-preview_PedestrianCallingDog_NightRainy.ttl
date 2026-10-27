@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "AnimalCrossingNightRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :animal1 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1 ;
+    :occursInScene :scene1 .
+
+:animal1 a :Actor ;
+    :description "German Shepherd dog running across the street" .
+
+:rainy1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Collision risk with animal crossing the vehicle path during low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Collision risk with animal crossing the vehicle path during low visibility
+Severity Score: 0.75

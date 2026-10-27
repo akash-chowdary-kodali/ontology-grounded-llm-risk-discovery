@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Tunnel_Lateral_Intrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle ;
+    :description "White vehicle performing an abrupt lateral maneuver across the lane" .
+
+:night1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle unexpectedly intruding into the ego vehicle's lane in a tunnel environment" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle unexpectedly intruding into the ego vehicle's lane in a tunnel environment.
+Severity Score: 0.90

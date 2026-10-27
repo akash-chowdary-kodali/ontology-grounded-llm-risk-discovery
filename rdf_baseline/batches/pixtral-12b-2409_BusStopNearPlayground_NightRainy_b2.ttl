@@ -1,0 +1,77 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene a ex:NighttimeScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasLightingCondition ex:LowLighting .
+
+ex:Road a ex:Road ;
+    ex:hasLaneMarking ex:DoubleYellowLine ;
+    ex:hasCrosswalk ex:ZebraCrosswalk ;
+    ex:hasTrafficSignal ex:TrafficLightRed .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:isPositionedAt ex:Road ;
+    ex:hasFieldOfView ex:FrontView ;
+    ex:hasSpeedLimit xsd:decimal("0") .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isWearing ex:DarkClothing ;
+    ex:isCarrying ex:Backpack ;
+    ex:isCrossing ex:ZebraCrosswalk ;
+    ex:isMovingTowards ex:TrafficLightRed .
+
+ex:Bus a ex:PublicTransportVehicle ;
+    ex:isPositionedAt ex:RightSideOfRoad ;
+    ex:hasColor ex:BlueAndWhite .
+
+ex:Building1 a ex:ResidentialBuilding ;
+    ex:isPositionedAt ex:LeftSideOfRoad .
+
+ex:StreetLight a ex:StreetLight ;
+    ex:isPositionedAt ex:Road ;
+    ex:hasLightingCondition ex:On .
+
+ex:Pedestrian1 ex:isNear ex:Vehicle1 .
+ex:Pedestrian1 ex:isApproaching ex:TrafficLightRed .
+ex:Vehicle1 ex:isFollowing ex:Bus .
+ex:Bus ex:isOccluding ex:Pedestrian1 .
+ex:Pedestrian1 ex:isCrossing ex:Road .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: Pedestrian in dark clothing crossing a poorly lit crosswalk in rainy conditions, increasing the risk of being undetected by the autonomous vehicle.
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Autonomous vehicle's limited visibility due to low lighting and rain, potentially leading to delayed detection of the pedestrian.
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Pedestrian crossing against the red traffic signal, which may lead to unpredictable behavior and potential conflict with vehicles.
+Severity Score: 0.8
+
+**Risk 4:**
+Description: Occlusion of the pedestrian by the bus, which may obstruct the autonomous vehicle's view of the pedestrian.
+Severity Score: 0.75
+
+**Risk 5:**
+Description: Wet road conditions increasing the risk of reduced traction and longer stopping distances for the autonomous vehicle.
+Severity Score: 0.7
+
+**Risk 6:**
+Description: Autonomous vehicle's potential failure to accurately interpret the pedestrian's intentions due to the dark clothing and low visibility.
+Severity Score: 0.88
+
+These risks highlight the importance of robust sensor fusion, advanced object detection algorithms, and adaptive behavior planning in autonomous vehicles to handle such corner-case scenarios.

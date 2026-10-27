@@ -1,0 +1,77 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:HeavyRain ;
+    ex:hasRoadCondition ex:WetRoad .
+
+ex:HeavyRain a ex:WeatherCondition ;
+    rdfs:label "Heavy Rain" ;
+    ex:visibilityLevel "Low" ;
+    ex:precipitationType "Rain" .
+
+ex:WetRoad a ex:RoadCondition ;
+    rdfs:label "Wet Road" ;
+    ex:surfaceCondition "Slippery" .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:position "On Road" ;
+    ex:viewPoint "Front" ;
+    ex:hasWindshieldWiperState "Active" .
+
+ex:RoadInfrastructure1 a ex:RoadInfrastructure ;
+    ex:hasRoadMarkings ex:DoubleWhiteLine ;
+    ex:hasTrafficSign ex:SpeedLimitSign ;
+    ex:hasTrafficLight ex:NoneVisible .
+
+ex:Building1 a ex:Building ;
+    ex:location "RightSide" ;
+    ex:distanceFromVehicle "Close" .
+
+ex:PalmTree1 a ex:Vegetation ;
+    ex:location "RightSide" ;
+    ex:occlusionLevel "Partial" .
+
+ex:Vehicle1 ex:isNear ex:Building1 .
+ex:Vehicle1 ex:hasWeatherCondition ex:HeavyRain .
+ex:Vehicle1 ex:hasRoadCondition ex:WetRoad .
+ex:Building1 ex:occludes ex:PalmTree1 .
+ex:PalmTree1 ex:occludesPartially ex:TrafficSign .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: Reduced visibility due to heavy rain, which can impair the autonomous vehicle's ability to detect and respond to obstacles, pedestrians, and other vehicles.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Slippery road conditions due to wetness, increasing the risk of skidding or loss of vehicle control.
+Severity Score: 0.80
+
+**Risk 3:**
+Description: Potential occlusion of traffic signs and signals by vegetation (e.g., palm trees), leading to missed or delayed recognition of important traffic information.
+Severity Score: 0.70
+
+**Risk 4:**
+Description: Windshield wiper functionality is active, but heavy rain may still cause temporary visual obstructions or streaks, affecting sensor inputs like cameras.
+Severity Score: 0.75
+
+**Risk 5:**
+Description: Limited or no visible traffic lights, which may lead to uncertainty in right-of-way situations, especially in intersections not visible in the image.
+Severity Score: 0.65
+
+**Risk 6:**
+Description: Potential for other road users (e.g., pedestrians, cyclists) to be obscured by rain or obscured by the vehicle itself, leading to missed detections.
+Severity Score: 0.80
+
+These risks should be considered in the context of the autonomous vehicle's sensor suite, software algorithms, and safety protocols to ensure robust performance in adverse weather conditions.

@@ -1,0 +1,41 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The car capturing the scene (red hood visible).
+*   **Obstacle:** A dog (German Shepherd) running across the road.
+*   **Vehicles:** Several parked cars on the right side of the road (red coupe, green hatchback, others).
+*   **Infrastructure:** Street lamps, road markings (double yellow lines), multi-story residential/commercial buildings.
+*   **Weather/Environment:** Dense fog (extremely low visibility).
+
+### 2. Entity Relationships
+*   **Dog is crossing** the road from right to left, directly in front of the ego-vehicle.
+*   **Parked cars are occluding** the sidewalk area, potentially hiding the origin of the dog.
+*   **Fog is obscuring** the far-field environment, reducing reaction time for the ego-vehicle.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex: <http://autonomous-driving.org/schema#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Dog rdf:type ex:Animal .
+ex:ParkedCars rdf:type ex:Vehicle .
+
+ex:Dog ex:isCrossing ex:Road .
+ex:Dog ex:inFrontOf ex:EgoVehicle .
+ex:ParkedCars ex:occludes ex:Sidewalk .
+ex:Environment ex:hasWeather ex:DenseFog .
+ex:DenseFog ex:reducesVisibility ex:EgoVehicle .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Immediate collision risk due to an animal (dog) crossing the ego-vehicle's path with limited reaction time caused by heavy fog.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Poor visibility due to atmospheric conditions (dense fog) severely degrading sensor performance and human/AI situational awareness.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Potential for further occluded hazards (pedestrians or more animals) exiting from behind the row of parked cars on the right.
+*   **Severity Score:** 0.70

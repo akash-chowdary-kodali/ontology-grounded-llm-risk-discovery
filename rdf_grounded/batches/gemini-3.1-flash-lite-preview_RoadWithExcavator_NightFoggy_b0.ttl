@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentObstacle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large excavator bucket extending into the active lane" .
+
+:night1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with heavy construction machinery encroaching on driving path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential for high-impact collision with heavy construction equipment (excavator bucket) that is not clearly delineated or is partially occluding the lane in low-light conditions.
+Severity Score: 0.90

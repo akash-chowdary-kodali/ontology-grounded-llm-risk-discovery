@@ -1,0 +1,67 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndercarriageDamageInParkingStructure" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Visible red debris on vehicle undercarriage" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:actor1 a :Vehicle ;
+    :description "White SUV with visible undercarriage damage" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Potential obstruction or damage to vehicle undercarriage from debris" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Debris on undercarriage may obstruct sensors or cameras" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Daytime lighting conditions" ;
+    :hasWeatherCondition :weather1 .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential obstruction or damage to vehicle undercarriage from debris.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Debris on undercarriage may obstruct sensors or cameras.
+Severity Score: 0.65
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - **Actor:** The white SUV is classified as a `:Vehicle`.
+   - **EvidenceIndicator:** The red debris on the undercarriage is classified as a `:FallingObjectIndicator`.
+   - **WeatherCondition:** The scene is under `:DayCondition`.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:EvidenceBasedAnomaly` because the risk is inferred from visible evidence (debris on the undercarriage).
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** The debris could cause further damage or obstruction to the vehicle.
+   - **OcclusionRisk:** The debris may obstruct sensors or cameras, impacting autonomous driving functionality.
+
+4. **Severity Scores:**
+   - **RoadConditionRisk** is assigned a severity score of 0.75 due to the potential for mechanical issues or reduced vehicle performance.
+   - **OcclusionRisk** is assigned a severity score of 0.65 as sensor obstruction could impair the autonomous system but is not immediately critical.

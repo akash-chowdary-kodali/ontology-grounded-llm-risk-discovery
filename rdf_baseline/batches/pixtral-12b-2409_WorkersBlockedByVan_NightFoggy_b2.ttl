@@ -1,0 +1,87 @@
+```
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:timeStamp "2023-10-05T23:45:00"^^xsd:dateTime ;
+    ex:location ex:UrbanStreet .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:location ex:StreetCrosswalk ;
+    ex:clothing ex:YellowShirtAndLightPants ;
+    ex:action ex:CrossingRoad ;
+    ex:position "RightSide" ;
+    ex:distanceFromCamera "15 meters" .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType ex:AutonomousCar ;
+    ex:position ex:OnRoad ;
+    ex:action ex:Driving ;
+    ex:fieldOfView ex:FrontView .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:location ex:LeftSideOfRoad ;
+    ex:status ex:On .
+
+ex:Building1 a ex:Building ;
+    ex:location ex:RightSideOfRoad ;
+    ex:distanceFromCamera "20 meters" .
+
+ex:Road1 a ex:Road ;
+    ex:surfaceType ex:Asphalt ;
+    ex:condition ex:Dry ;
+    ex:lightingCondition ex:LowLighting .
+
+ex:Vehicle1 ex:hasFieldOfView ex:Pedestrian1 .
+ex:Pedestrian1 ex:isNear ex:Vehicle1 .
+ex:Vehicle1 ex:isApproaching ex:Pedestrian1 .
+ex:Pedestrian1 ex:isCrossing ex:Road1 .
+ex:StreetLight1 ex:illuminates ex:Road1 .
+ex:Building1 ex:isAdjacentTo ex:Road1 .
+```
+
+```
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The pedestrian is crossing the road in low-light conditions wearing light-colored clothing, which reduces visibility and increases the risk of the autonomous vehicle failing to detect the pedestrian in time.
+
+Severity Score:
+0.9 (High Severity)
+
+**Risk 2:**
+Description:
+The autonomous vehicle's field of view is limited by the low lighting, which may hinder the detection of other potential pedestrians, cyclists, or obstacles in the vicinity.
+
+Severity Score:
+0.8 (High Severity)
+
+**Risk 3:**
+Description:
+The pedestrian is crossing from the right side of the road relative to the vehicle's perspective, which may be a blind spot or an area with limited sensor coverage, increasing the risk of late detection.
+
+Severity Score:
+0.85 (High Severity)
+
+**Risk 4:**
+Description:
+The potential for misjudgment of the pedestrian’s speed and trajectory due to the low-light conditions and the pedestrian's light-colored attire, leading to a higher risk of collision.
+
+Severity Score:
+0.8 (High Severity)
+
+**Risk 5:**
+Description:
+The street lighting is insufficient to ensure optimal visibility for both the autonomous vehicle and the pedestrian, increasing the risk of accidents.
+
+Severity Score:
+0.75 (High Severity)
+
+These risks highlight the importance of robust sensor systems, effective lighting, and advanced pedestrian detection algorithms in autonomous vehicles, especially in low-light conditions.

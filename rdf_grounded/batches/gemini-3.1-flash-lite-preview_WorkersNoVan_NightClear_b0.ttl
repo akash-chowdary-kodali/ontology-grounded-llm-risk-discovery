@@ -1,0 +1,32 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:pedestrian1 a :Pedestrian .
+:roadObject1 a :RoadObject ;
+    :description "Traffic cones in the roadway" .
+:night1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing directly in front of the vehicle at night" ;
+    :confidenceScore "0.95"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian crossing directly in front of the vehicle at night
+Severity Score: 0.95

@@ -1,0 +1,44 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Intersection with Multiple Vehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasActor :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:vehicle1 a :Vehicle .
+:vehicle2 a :Vehicle .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to sudden stopping" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Other vehicle encroaching into lane" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential rear-end collision due to sudden stopping
+Severity Score: 0.75
+
+Risk 2:
+Description: Other vehicle encroaching into lane
+Severity Score: 0.60

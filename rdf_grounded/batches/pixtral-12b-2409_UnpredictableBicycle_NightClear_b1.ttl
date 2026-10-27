@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding across the road at night without proper lighting" .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime environment with artificial lighting" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision due to cyclist crossing road in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction risk for vehicle occupants due to cyclist's erratic movement" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: High risk of collision due to cyclist crossing road in low visibility
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Potential distraction risk for vehicle occupants due to cyclist's erratic movement
+Severity Score: 0.65
+
+---
+
+### Analysis:
+1. **Entities Identified**:
+   - **Actor**: Cyclist (riding across the road at night)
+   - **WeatherCondition**: NightCondition (low visibility)
+   - No explicit TrafficSign, TrafficLight, Billboard, or Obstacle were detected in the scene.
+
+2. **Corner Case Classification**:
+   - **BehaviorAnomaly**: The cyclist is riding across the road in a manner that could be considered unexpected or unsafe, particularly given the low visibility of the nighttime environment.
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High due to the cyclist's presence in the vehicle's path with limited visibility.
+   - **DistractionRisk**: Moderate due to the cyclist's movement potentially drawing attention away from the road.
+
+4. **Severity Scores**:
+   - CollisionRisk: 0.92 (Very high due to immediate threat of collision)
+   - DistractionRisk: 0.65 (Moderate due to potential distraction from the cyclist's movement)

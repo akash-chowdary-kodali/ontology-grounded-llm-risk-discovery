@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CyclistCrossingIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :cyclist1 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1 .
+
+:cyclist1 a :Cyclist ;
+    :description "Cyclist traversing path of vehicle in low light conditions" .
+
+:rainy1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with cyclist due to poor visibility and intersection presence" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Collision Risk with cyclist in the vehicle's immediate path during rainy, low-visibility night conditions.
+Severity Score: 0.95

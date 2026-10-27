@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Van ;
+    ex:hasEntity ex:Pedestrian ;
+    ex:hasEntity ex:TrafficBarrel ;
+    ex:hasEntity ex:RoadInfrastructure ;
+    ex:hasCondition ex:WeatherCondition .
+
+ex:Van a ex:Vehicle ;
+    ex:locatedAt ex:Location1 ;
+    ex:hasState ex:State1 .
+
+ex:Pedestrian a ex:Person ;
+    ex:locatedAt ex:Location2 ;
+    ex:facing ex:Direction1 .
+
+ex:TrafficBarrel a ex:Obstacle ;
+    ex:locatedAt ex:Location3 ;
+    ex:hasState ex:State2 .
+
+ex:RoadInfrastructure a ex:Infrastructure ;
+    ex:locatedAt ex:Location4 .
+
+ex:WeatherCondition a ex:Condition ;
+    ex:hasType "rainy" ;
+    ex:hasVisibility "low" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Pedestrian near a vehicle in low visibility due to weather conditions.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** Moving traffic barrels could create obstacles unexpectedly for approaching vehicles.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** Reduced road traction due to rain increases the likelihood of loss of vehicle control.  
+**Severity Score:** 0.6

@@ -1,0 +1,66 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanStreetWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Grey suitcase falling from vehicle roof" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to falling suitcase" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to handling falling object" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with daylight" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision due to falling suitcase
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Driver distraction risk due to handling falling object
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The falling suitcase is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene's weather is `:ClearCondition` under `:WeatherCondition`.
+   - The corner case is classified as `:EvidenceBasedAnomaly` due to observable evidence (falling object) indicating potential risks.
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (falling suitcase) rather than inferred behavior or state.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the falling suitcase potentially obstructing the road or causing an accident.
+   - **DistractionRisk** as the driver appears to be handling the falling object, which could divert attention from driving.
+
+4. **Severity Scores:**
+   - Collision risk is rated higher (0.75) due to its immediate threat to safety.
+   - Distraction risk is rated lower (0.60) but still significant as it could lead to secondary incidents.

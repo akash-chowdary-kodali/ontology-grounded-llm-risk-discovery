@@ -1,0 +1,28 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CloseProximityOvertaking" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+:weather1 a :ClearCondition ;
+    :description "Clear day conditions" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Vehicle in adjacent lane encroaching into ego vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle in adjacent lane encroaching into ego vehicle path
+Severity Score: 0.75

@@ -1,0 +1,109 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:ClearDay ;
+    ex:hasRoadMarking ex:CrosswalkAndLaneMarkings .
+
+ex:RedCar a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isPositionedAt ex:Foreground ;
+    ex:isMoving ex:Forward .
+
+ex:YellowCar a ex:Vehicle ;
+    ex:hasColor "Yellow" ;
+    ex:isPositionedAt ex:Midground ;
+    ex:isMoving ex:Forward .
+
+ex:Building1 a ex:Building ;
+    ex:hasArchitecture ex:Modern ;
+    ex:isPositionedAt ex:Background .
+
+ex:Building2 a ex:Building ;
+    ex:hasArchitecture ex:Traditional ;
+    ex:isPositionedAt ex:BackgroundRight .
+
+ex:StreetLamp1 a ex:RoadInfrastructure ;
+    ex:isPositionedAt ex:BackgroundLeft .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasType ex:UrbanRoad ;
+    ex:hasCondition ex:Dry .
+
+ex:RedCar ex:isApproaching ex:YellowCar .
+ex:RedCar ex:isFollowing ex:None .
+ex:YellowCar ex:isFollowing ex:None .
+ex:RedCar ex:isNear ex:Crosswalk .
+ex:YellowCar ex:isNear ex:Crosswalk .
+ex:Building1 ex:isOccluding ex:PartialViewOfBackground .
+ex:Building2 ex:isOccluding ex:PartialViewOfBackgroundRight .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The red car in the foreground is close to the crosswalk, potentially obscuring the view of pedestrians or cyclists who might be crossing. This could lead to a collision if pedestrians or cyclists are not visible due to the car's position.
+Severity Score: 0.7
+
+**Risk 2:**
+Description: The yellow car in the midground is approaching the crosswalk, which could be a potential crossing point for pedestrians or cyclists. The autonomous system should ensure it is prepared to stop for any unseen pedestrians or cyclists.
+Severity Score: 0.6
+
+**Risk 3:**
+Description: The buildings in the background partially occlude the view of other vehicles and potential pedestrians, creating blind spots. This could lead to unexpected obstacles or entities entering the field of view suddenly.
+Severity Score: 0.5
+
+**Risk 4:**
+Description: The road infrastructure, including street lamps and buildings, may cast shadows or create glare, potentially affecting the autonomous vehicle's sensors and cameras.
+Severity Score: 0.4
+
+**Risk 5:**
+Description: The lack of visible pedestrians or cyclists does not necessarily mean they are absent; they could be out of the frame or obscured, leading to potential unseen crossing scenarios.
+Severity Score: 0.6
+
+**Risk 6:**
+Description: The autonomous vehicle's sensors might misinterpret the shadows or reflections on the road, potentially leading to incorrect detection of obstacles or road conditions.
+Severity Score: 0.5
+
+```plaintext
+RDF Risk Class
+```
+
+```turtle
+@prefix risk: <http://example.org/autonomous-driving/risk#> .
+
+risk:Risk1 a risk:SafetyRisk ;
+    risk:description "Red car obscures potential pedestrian/cyclist crossing at crosswalk" ;
+    risk:severityScore 0.7 .
+
+risk:Risk2 a risk:SafetyRisk ;
+    risk:description "Yellow car approaching crosswalk, potential unseen pedestrian/cyclist" ;
+    risk:severityScore 0.6 .
+
+risk:Risk3 a risk:SafetyRisk ;
+    risk:description "Buildings create blind spots and occlude view of other vehicles/pedestrians" ;
+    risk:severityScore 0.5 .
+
+risk:Risk4 a risk:SafetyRisk ;
+    risk:description "Shadows or glare from infrastructure may affect sensor performance" ;
+    risk:severityScore 0.4 .
+
+risk:Risk5 a risk:SafetyRisk ;
+    risk:description "Absence of visible pedestrians/cyclists does not guarantee their non-existence" ;
+    risk:severityScore 0.6 .
+
+risk:Risk6 a risk:SafetyRisk ;
+    risk:description "Sensors may misinterpret shadows/reflections on the road" ;
+    risk:severityScore 0.5 .
+```

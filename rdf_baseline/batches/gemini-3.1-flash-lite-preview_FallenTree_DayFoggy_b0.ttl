@@ -1,0 +1,48 @@
+### 1. Main Entities
+*   **Ego-vehicle:** Red vehicle (camera perspective).
+*   **Vehicles:** Multiple yellow taxi-style vehicles parked on the side of the road, one stationary dark sedan partially visible in the middle distance.
+*   **Obstacles:** A large fallen tree trunk spanning across the road.
+*   **Road Infrastructure:** Streetlights, lane markings.
+*   **Weather Conditions:** Heavy fog/mist, low visibility, rainy conditions.
+
+### 2. Entity Relationships
+*   **Ego-vehicle approaching:** The obstacle (fallen tree) and the stationary sedan.
+*   **Obstacle occluding:** The fallen tree is blocking the entire width of the road ahead.
+*   **Vehicles parked:** Taxis are located on the side of the road, potentially restricting lane width.
+*   **Environment limiting:** Dense fog is severely limiting the perception range of the ego-vehicle.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isApproaching ex:FallenTree .
+
+ex:FallenTree rdf:type ex:Obstacle ;
+    ex:isLocatedOn ex:Road ;
+    ex:blocksRoad true .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:visibility ex:VeryLow ;
+    ex:type ex:Fog .
+
+ex:StationarySedan rdf:type ex:Vehicle ;
+    ex:isBehind ex:FallenTree .
+
+ex:Taxi_1 rdf:type ex:Vehicle ;
+    ex:isParkedOn ex:RoadSide .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+**Description:** High-speed collision risk due to an unlit, large physical obstacle (fallen tree) across the lane. The poor visibility conditions (fog) drastically reduce the ego-vehicle's detection distance, leaving insufficient time for safe braking or emergency maneuvers.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Restricted maneuverability and pathing issues. Parked vehicles on the roadside combined with a full-width road blockage force the ego-vehicle into a potential dangerous detour or an immediate emergency stop, increasing the risk of rear-end collisions from following traffic.
+**Severity Score:** 0.75
+
+**Risk 3:**
+**Description:** Environmental impairment of onboard sensors (LiDAR/Camera). The heavy fog creates noise/backscatter, which may lead to delayed classification of the fallen tree as a static obstacle, potentially causing the autonomous system to fail to initiate a braking sequence in time.
+**Severity Score:** 0.85

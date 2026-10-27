@@ -1,0 +1,321 @@
+### **Scene Analysis: Heavy Fog and Rain Corner Case Scenario**
+
+---
+
+### **1. Identified Entities in the Scene**
+#### **Vehicles**
+- **Ego Vehicle (Red car)** – Positioned at the front of the scene, driving in heavy rain and fog.
+- **No other vehicles visible** (due to extreme fog and rain).
+
+#### **Pedestrians**
+- **No visible pedestrians** (occluded by fog and rain).
+
+#### **Cyclists**
+- **No visible cyclists** (occluded by fog and rain).
+
+#### **Road Infrastructure**
+- **Road Markings** – Centerline and lane markings faintly visible.
+- **Traffic Signs** – A **"No Parking"** sign visible on the right.
+- **Streetlights** – Multiple streetlights present but obscured by fog.
+- **Sidewalk** – Partially visible on the right.
+- **Buildings & Fences** – Blurred due to fog and rain.
+
+#### **Obstacles**
+- **Fog & Rain** – Severe visibility reduction (primary obstacle).
+- **Potential hidden obstacles** (e.g., pedestrians, cyclists, debris) due to poor visibility.
+
+#### **Weather Conditions**
+- **Heavy Rain** – Raindrops visible on the windshield.
+- **Dense Fog** – Extremely low visibility, obscuring most of the scene beyond ~20 meters.
+
+---
+
+### **2. Relationships Between Entities**
+- **Ego Vehicle** `isDrivingOn` `Road` (wet surface, reduced traction).
+- **Ego Vehicle** `isAffectedBy` `HeavyRain` (reduced visibility, hydroplaning risk).
+- **Ego Vehicle** `isAffectedBy` `DenseFog` (visibility < 10m, high collision risk).
+- **TrafficSign** `isLocatedOn` `RightSidewalk` (partially visible).
+- **Streetlights** `areObscuredBy` `Fog` (reduced illumination).
+- **RoadMarkings** `areFadedDueTo` `RainAndFog` (difficult to detect).
+- **PotentialHiddenObstacles** `existNear` `EgoVehicle` (due to fog, undetectable by sensors).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:isDrivingOn ex:Road ;
+    ex:hasColor "Red" ;
+    ex:isAffectedBy ex:HeavyRain ;
+    ex:isAffectedBy ex:DenseFog ;
+    ex:hasVisibilityRange "5-10 meters" .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurfaceCondition "Wet" ;
+    ex:hasRoadMarkings ex:FadedMarkings ;
+    ex:hasTrafficSign ex:NoParkingSign .
+
+ex:HeavyRain a ex:WeatherCondition ;
+    ex:reducesVisibility ;
+    ex:increasesHydroplaningRisk .
+
+ex:DenseFog a ex:WeatherCondition ;
+    ex:reducesVisibilityTo "LessThan10Meters" ;
+    ex:causesSensorOcclusion .
+
+ex:NoParkingSign a ex:TrafficSign ;
+    ex:isLocatedOn ex:RightSidewalk ;
+    ex:isPartiallyVisible .
+
+ex:PotentialHiddenObstacle a ex:Obstacle ;
+    ex:existsNear ex:EgoVehicle ;
+    ex:isUndetectableDueTo ex:FogAndRain .
+
+ex:Streetlight a ex:RoadInfrastructure ;
+    ex:isObscuredBy ex:Fog ;
+    ex:reducesIllumination .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+**Reduced Visibility Due to Dense Fog and Heavy Rain**
+- The ego vehicle’s sensors (cameras, LiDAR, radar) are severely impaired, increasing the risk of collision with undetected obstacles (pedestrians, cyclists, or other vehicles).
+- **Severity Score:** **0.95** (Critical risk due to near-zero visibility in a dynamic environment).
+
+#### **Risk 2:**
+**Description:**
+**Hydroplaning Risk on Wet Road**
+- Wet road conditions increase the likelihood of hydroplaning, leading to loss of vehicle control.
+- **Severity Score:** **0.75** (High risk, but depends on vehicle speed and tire condition).
+
+#### **Risk 3:**
+**Description:**
+**Failure to Detect Traffic Signs and Road Markings**
+- Faded and obscured road markings and traffic signs may lead to incorrect lane-keeping or missed regulatory information.
+- **Severity Score:** **0.65** (Moderate risk, but critical for navigation and compliance).
+
+#### **Risk 4:**
+**Description:**
+**Sensor Occlusion Leading to False Negatives**
+- Fog and rain can cause sensors to miss critical objects (e.g., a pedestrian stepping into the road), leading to delayed or failed detection.
+- **Severity Score:** **0.90** (Critical risk, as it directly impacts collision avoidance).
+
+#### **Risk 5:**
+**Description:**
+**Reduced Illumination from Obscured Streetlights**
+- Poor visibility at night or in low-light conditions increases the risk of misidentifying objects.
+- **Severity Score:** **0.50** (Moderate risk, but compounded by other factors).
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Severity (0-1)** | **Mitigation Strategy** |
+|----------|-------------------|------------------------|
+| Dense Fog + Heavy Rain (Visibility) | **0.95** | Slow down, use adaptive cruise control, rely on high-definition maps, and activate hazard lights. |
+| Hydroplaning | **0.75** | Reduce speed, ensure proper tire pressure, and use ABS if available. |
+| Undetected Obstacles (Sensor Occlusion) | **0.90** | Combine sensor fusion (LiDAR + radar + cameras), use predictive algorithms for hidden object detection. |
+| Faded Road Markings & Signs | **0.65** | Use V2X (Vehicle-to-Infrastructure) communication for real-time road condition updates. |
+| Reduced Illumination | **0.50** | Increase headlight brightness, use infrared sensors if available. |
+
+---
+### **Final Assessment**
+This scene represents an **extreme corner case** for autonomous driving due to **near-zero visibility** combined with **wet road conditions**. The primary risks are **collision with undetected obstacles** and **loss of vehicle control**. Immediate mitigation involves **reducing speed, enhancing sensor fusion, and relying on high-definition maps** to navigate safely. If the system cannot guarantee safe operation, **fallback to manual control or emergency braking** should be considered. ### **Analysis of the Scene**
+
+#### **1. Identified Main Entities**
+- **Weather Conditions**:
+  - Heavy fog/rain reducing visibility (low visibility, wet road).
+- **Road Infrastructure**:
+  - Road markings (double white lines, dashed lines).
+  - Traffic signs (speed limit sign "90", no entry sign).
+  - Bus stop shelter.
+  - Roadside barriers and brick walls.
+- **Vehicles**:
+  - No visible vehicles in the immediate scene (but potential unseen vehicles due to fog).
+- **Pedestrians**:
+  - One pedestrian visible in the second image, walking near the bus stop.
+- **Obstacles**:
+  - Fog as a dynamic obstacle reducing sensor perception.
+  - Wet road surface increasing hydroplaning risk.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **pedestrian** is **near** the **bus stop shelter** and **crossing** the road (potential crossing).
+- The **fog** **occludes** visibility beyond ~50 meters, making it difficult to detect distant vehicles or pedestrians.
+- The **wet road** **increases risk** of hydroplaning for vehicles.
+- The **no-entry sign** indicates restricted movement for certain vehicles, but its visibility is impaired by fog.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyFog ;
+    :hasRoadCondition :WetRoad ;
+    :hasVisibilityRange "50"^^xsd:integer ;
+    :hasPedestrian :Pedestrian1 ;
+    :hasTrafficSign :SpeedLimit90 ;
+    :hasTrafficSign :NoEntrySign ;
+    :hasRoadMarking :DoubleWhiteLines .
+
+:HeavyFog a :WeatherCondition ;
+    :reducesVisibility true ;
+    :occludesEntities true .
+
+:WetRoad a :RoadCondition ;
+    :increasesHydroplaningRisk true .
+
+:Pedestrian1 a :Pedestrian ;
+    :location :BusStopArea ;
+    :action :CrossingRoad ;
+    :distanceFromVehicle "30"^^xsd:integer .
+
+:SpeedLimit90 a :TrafficSign ;
+    :type "SpeedLimit" ;
+    :value "90"^^xsd:integer ;
+    :visibilityStatus :Impaired .
+
+:NoEntrySign a :TrafficSign ;
+    :type "NoEntry" ;
+    :visibilityStatus :Impaired .
+
+:DoubleWhiteLines a :RoadMarking ;
+    :type "DoubleSolidLine" ;
+    :indicates "NoOvertaking" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+**Reduced visibility due to heavy fog** impairs sensor perception (cameras, LiDAR, radar), increasing the risk of **collision with unseen pedestrians or vehicles**.
+
+**Severity Score:** **0.95**
+*(High risk due to fog obscuring critical objects beyond short range.)*
+
+#### **Risk 2:**
+**Description:**
+**Wet road conditions** increase the risk of **hydroplaning**, leading to loss of vehicle control, especially at higher speeds.
+
+**Severity Score:** **0.85**
+*(Moderate-high risk, dependent on vehicle speed and tire conditions.)*
+
+#### **Risk 3:**
+**Description:**
+**Pedestrian crossing near bus stop** in low-visibility conditions increases the risk of **late detection**, leading to potential **pedestrian-vehicle collision**.
+
+**Severity Score:** **0.90**
+*(High risk due to pedestrian being in a blind spot and fog reducing early detection.)*
+
+#### **Risk 4:**
+**Description:**
+**Impaired visibility of traffic signs** (e.g., no-entry, speed limit) may lead to **misinterpretation of road rules**, increasing the risk of **illegal maneuvers or speeding**.
+
+**Severity Score:** **0.75**
+*(Moderate risk, as signs may be missed but not entirely invisible.)*
+
+---
+### **Summary of Key Risks**
+| **Risk** | **Severity (0-1)** | **Mitigation Strategy** |
+|----------|-------------------|------------------------|
+| Heavy fog reducing visibility | **0.95** | Slow down, use adaptive cruise control, rely on radar/LiDAR fusion, activate hazard lights. |
+| Wet road increasing hydroplaning | **0.85** | Reduce speed, ensure proper tire pressure, use ABS/ESC systems. |
+| Pedestrian crossing in low visibility | **0.90** | Increase scanning frequency, use ultrasonic sensors, prepare for emergency braking. |
+| Impaired traffic sign visibility | **0.75** | Assume conservative speed limits, rely on GPS/HD maps for sign verification. |
+
+---
+This analysis highlights the **high-risk nature of the scenario** due to **fog and wet conditions**, requiring **defensive driving strategies** to mitigate potential accidents. ```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:HeavyFog ;
+    ex:hasRoadCondition ex:WetRoad .
+
+ex:HeavyFog a ex:WeatherCondition ;
+    ex:visibilityRange "low"^^xsd:string ;
+    ex:obscures ex:RoadMarkings, ex:Signs, ex:Buildings .
+
+ex:WetRoad a ex:RoadCondition ;
+    ex:surfaceCondition "slippery"^^xsd:string .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:positionedOn ex:Lane1 ;
+    ex:hasWindshieldWiperState ex:On ;
+    ex:hasHeadlightState ex:On .
+
+ex:Lane1 a ex:RoadLane ;
+    ex:hasRoadMarking ex:DoubleWhiteLine ;
+    ex:isPartOf ex:RoadSection1 .
+
+ex:RoadSection1 a ex:RoadSection ;
+    ex:hasTrafficSign ex:SpeedLimitSign ;
+    ex:hasTrafficLight ex:None .
+
+ex:SpeedLimitSign a ex:TrafficSign ;
+    ex:obscuredBy ex:HeavyFog .
+
+ex:Buildings a ex:Infrastructure ;
+    ex:locatedOn ex:RightSideOfRoad .
+
+ex:PedestrianCrossing a ex:RoadFeature ;
+    ex:potentiallyOccludedBy ex:HeavyFog ;
+    ex:locatedAt ex:Intersection .
+
+ex:Intersection a ex:RoadFeature ;
+    ex:hasVisibility "reduced"^^xsd:string .
+```
+
+---
+
+**Identified Risks for each risk class:**
+
+**Risk 1:**
+Description:
+The autonomous vehicle's sensors and cameras are significantly impaired by heavy fog, reducing visibility of road markings, traffic signs, and potential pedestrians or obstacles. This increases the risk of misidentifying lane boundaries, missing traffic signs, and failing to detect pedestrians or other vehicles in time to avoid collisions.
+
+Severity Score: 0.9
+
+---
+
+**Risk 2:**
+Description:
+The slippery road conditions due to wetness combined with heavy fog can lead to reduced traction and longer stopping distances. This increases the risk of skidding or hydroplaning, especially during braking or sharp turns.
+
+Severity Score: 0.8
+
+---
+
+**Risk 3:**
+Description:
+The obscured traffic signs and road markings due to heavy fog can lead to incorrect interpretation of the road layout and traffic rules. The autonomous vehicle might misread or fail to recognize speed limits, stop signs, or other critical information.
+
+Severity Score: 0.85
+
+---
+
+**Risk 4:**
+Description:
+The potential presence of pedestrians or cyclists at the intersection, which is obscured by fog, poses a risk of unexpected crossing or presence. The autonomous vehicle may not detect them in time, leading to potential accidents.
+
+Severity Score: 0.9
+
+---
+These risks highlight the importance of robust sensor fusion, redundancy in sensor systems, and advanced predictive algorithms to handle corner-case scenarios like heavy fog and wet road conditions.

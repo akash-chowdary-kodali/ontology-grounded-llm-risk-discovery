@@ -1,0 +1,33 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanTrafficScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :taxi1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:taxi1 a :Vehicle .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree obstructing the road" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Obstruction on the roadway due to fallen tree" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Obstruction on the roadway due to fallen tree
+Severity Score: 0.75

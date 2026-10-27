@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Construction Zone with Traffic Cone" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cone on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Traffic cone indicates potential lane obstruction" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in tunnel/underpass" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Traffic cone obstructing lane, potential collision with vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and tunnel structure" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Type:** LaneIntrusionRisk
+- **Description:** Traffic cone obstructing lane, potential collision with vehicle
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Type:** OcclusionRisk
+- **Description:** Limited visibility due to nighttime and tunnel structure
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Traffic cone (`RoadObject` subclass of `Obstacle`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the scene.
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The traffic cone serves as evidence of an anomalous situation (lane obstruction) that requires attention.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High due to the traffic cone's placement in the lane.
+   - **OcclusionRisk:** Moderate due to low-light conditions and tunnel structure reducing visibility.
+
+4. **Severity Scores:**
+   - Lane intrusion is scored higher (0.75) because it directly impacts vehicle movement.
+   - Occlusion is scored lower (0.60) but still significant due to reduced situational awareness.

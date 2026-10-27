@@ -1,0 +1,43 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFogDrivingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :vehicle1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :risk1, :risk2 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan ahead in foggy conditions" .
+
+:foggyCondition1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog, leading to potential misidentification of obstacles or actors" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk due to obscured visibility of other vehicles, pedestrians, or road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog, leading to potential misidentification of obstacles or actors.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Potential collision risk due to obscured visibility of other vehicles, pedestrians, or road conditions.
+Severity Score: 0.75

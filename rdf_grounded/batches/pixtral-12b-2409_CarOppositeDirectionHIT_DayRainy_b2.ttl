@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanDrivingWithFogAndVehicleAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan driving in foggy conditions" .
+
+:foggyCondition1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog, increasing risk of collision with unseen obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk due to limited visibility of surrounding vehicles and pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road conditions due to fog, increasing risk of skidding or loss of vehicle control" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog, increasing risk of collision with unseen obstacles
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potential collision risk due to limited visibility of surrounding vehicles and pedestrians
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Wet road conditions due to fog, increasing risk of skidding or loss of vehicle control
+Severity Score: 0.75
+
+---
+The scene is classified as a **StateAnomaly** due to the foggy conditions causing reduced visibility and potential hazardous driving conditions. The primary risks identified are **OcclusionRisk**, **CollisionRisk**, and **RoadConditionRisk**. The severity scores reflect the high risk associated with foggy conditions, particularly in urban driving scenarios.

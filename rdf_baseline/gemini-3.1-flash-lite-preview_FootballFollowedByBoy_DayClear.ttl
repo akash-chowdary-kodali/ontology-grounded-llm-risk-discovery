@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:ChildPedestrian rdf:type ex:Pedestrian .
+ex:SoccerBall rdf:type ex:Obstacle .
+ex:ParkedVehicle1 rdf:type ex:Vehicle .
+ex:ParkedVehicle2 rdf:type ex:Vehicle .
+ex:DistantTruck rdf:type ex:Vehicle .
+
+ex:ChildPedestrian ex:near ex:ParkedVehicle1 .
+ex:ChildPedestrian ex:crossing ex:Road .
+ex:ParkedVehicle1 ex:occluding ex:ChildPedestrian .
+ex:SoccerBall ex:on ex:Road .
+ex:EgoVehicle ex:approaching ex:SoccerBall .
+ex:EgoVehicle ex:approaching ex:ChildPedestrian .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:** **Child Pedestrian Dart-out.** A child is running from behind a parked large vehicle (Cybertruck) into the active traffic lane. This represents a high-risk "hidden child" scenario often associated with a ball rolling into the street.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** **Distraction/Secondary Hazard.** The presence of a soccer ball in the middle of the road is a classic indicator that children are in the vicinity and likely to enter the roadway unexpectedly.
+**Severity Score:** 0.70
+
+**Risk 3:**
+**Description:** **Visual Occlusion.** The large parked vehicle on the right significantly obstructs the Ego vehicle's view of the sidewalk and the area from which the pedestrian emerged, reducing the reaction time available to the autonomous system.
+**Severity Score:** 0.85

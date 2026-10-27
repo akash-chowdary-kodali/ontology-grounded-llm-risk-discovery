@@ -1,0 +1,209 @@
+Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithOpenDoorRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi with open rear door" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Rear door of taxi is open while vehicle is moving" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision due to open rear door of taxi" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Potential collision due to open rear door of taxi while vehicle is moving.
+- **Severity Score:** 0.90
+- **Risk Type:** `:CollisionRisk` (subtype of `:Risk`)
+
+---
+
+### **Analysis Justification**
+1. **Entities Identified:**
+   - **Actor:** A yellow taxi (`:Vehicle`) with an open rear door.
+   - **Evidence Indicator:** Open rear door (`:OpenDoorIndicator`).
+   - **Weather Condition:** Clear daytime (`:DayCondition`).
+   - **Corner Case:** State anomaly (`:StateAnomaly`) due to the vehicle's door being open while in motion.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`:StateAnomaly`** because the open door represents an unexpected state of the vehicle (a taxi door should not be open while the vehicle is moving).
+
+3. **Risk Identification:**
+   - The primary risk is **`:CollisionRisk`** due to the open door, which could cause a pedestrian or cyclist to collide with the door or the vehicle itself. The severity is high (0.90) because this is a common and dangerous scenario in urban driving.
+
+4. **Ontology Compliance:**
+   - All terms used are from the provided ontology vocabulary.
+   - The RDF triples strictly adhere to the hierarchy and property constraints. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithTrafficLightConflict" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Vehicle ;
+    :description "Red car approaching intersection from right" .
+:actor2 a :Vehicle ;
+    :description "Yellow car moving forward at intersection" .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction debris or loose materials near intersection" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Potential falling debris from construction site" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Yellow car may collide with red car if traffic light is ignored" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Falling debris from construction site may hit vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Yellow car may collide with red car if traffic light is ignored (Rear-End Collision Risk).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Falling debris from construction site may hit vehicles (Collision Risk).
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The scene is classified as a **BehaviorAnomaly** because the primary risk stems from vehicles potentially ignoring traffic signals or failing to react appropriately to construction hazards.
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (red car approaching intersection, yellow car moving forward).
+   - **Obstacle:** Construction debris or loose materials near the intersection.
+   - **Evidence Indicator:** FallingObjectIndicator (potential debris from construction site).
+   - **Weather Condition:** ClearCondition (no adverse weather).
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** High severity due to the potential for a rear-end collision if the yellow car fails to yield.
+   - **CollisionRisk:** Moderate severity due to falling debris from the construction site. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithStationaryVehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle partially blocking intersection" .
+
+:vehicle2 a :Vehicle ;
+    :description "Yellow vehicle moving forward in intersection" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather, daylight" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential rear-end collision due to stationary red vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Yellow vehicle intruding into intersection" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Red vehicle causing occlusion of other vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to stationary red vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Yellow vehicle intruding into intersection
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Red vehicle causing occlusion of other vehicles
+Severity Score: 0.55
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - Two `Vehicle` instances (red stationary vehicle and yellow moving vehicle).
+   - `ClearCondition` for weather (daytime, no adverse conditions).
+   - No `TrafficLight`, `TrafficSign`, `Billboard`, `Pedestrian`, or `Cyclist` detected in this frame.
+
+2. **Corner Case Classification:**
+   - `:StateAnomaly` due to the stationary red vehicle creating an unexpected obstruction in the intersection.
+
+3. **Risks Identified:**
+   - **CollisionRisk (Rear-End):** Highest severity due to the red vehicle blocking the intersection.
+   - **LaneIntrusionRisk:** Yellow vehicle entering the intersection while the red vehicle is stationary.
+   - **OcclusionRisk:** The red vehicle partially obscures visibility of other vehicles in the scene.

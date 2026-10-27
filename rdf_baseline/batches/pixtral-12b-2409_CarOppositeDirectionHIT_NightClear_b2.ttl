@@ -1,0 +1,95 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasMake "Lamborghini" ;
+    ex:hasModel "Huracán" ;
+    ex:hasColor "Black" ;
+    ex:hasPosition ex:FrontOfScene ;
+    ex:hasSpeed "0 km/h" ;
+    ex:isApproaching ex:False .
+
+ex:Road1 a ex:Road ;
+    ex:hasSurfaceType ex:Asphalt ;
+    ex:hasMarking ex:Crosswalk ;
+    ex:hasCondition ex:Dry .
+
+ex:Building1 a ex:Building ;
+    ex:hasLocation ex:LeftSideOfRoad ;
+    ex:hasMaterial ex:StoneBrick .
+
+ex:Building2 a ex:Building ;
+    ex:hasLocation ex:RightSideOfRoad ;
+    ex:hasMaterial ex:Wood .
+
+ex:Structure1 a ex:Structure ;
+    ex:hasType ex:WoodenBeam ;
+    ex:hasLocation ex:AboveRoad ;
+    ex:isOccluding ex:True .
+
+ex:Vehicle1 ex:isNear ex:Road1 .
+ex:Vehicle1 ex:isNear ex:Building2 .
+ex:Structure1 ex:occludes ex:Vehicle1 .
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:Road1 .
+ex:Scene1 ex:contains ex:Building1 .
+ex:Scene1 ex:contains ex:Building2 .
+ex:Scene1 ex:contains ex:Structure1 .
+```
+
+---
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:**
+The scene depicts a low-light environment with a vehicle positioned under a potentially occluding wooden structure. The lighting condition could obscure the visibility of the vehicle's surroundings, increasing the risk of collision with unseen obstacles or pedestrians. The wooden beams may also obstruct the vehicle’s sensors (e.g., cameras, LiDAR), leading to inaccurate perception of the environment.
+
+**Severity Score:**
+**0.85** (High)
+
+---
+
+#### Risk 2:
+**Description:**
+The road markings, including the crosswalk, are faint and not well-lit, which could confuse an autonomous vehicle's object detection and lane-keeping systems. Misidentification of road markings may lead to incorrect navigation decisions.
+
+**Severity Score:**
+**0.75** (High)
+
+---
+
+#### Risk 3:
+**Description:**
+The presence of a wooden structure above the road could pose a risk if it were to collapse or if it obstructs the vehicle's sensors. This scenario is particularly risky if the vehicle relies on overhead sensors for navigation or traffic monitoring.
+
+**Severity Score:**
+**0.65** (Moderate-High)
+
+---
+
+#### Risk 4:
+**Description:**
+The low-light conditions may reduce the effectiveness of the vehicle's camera-based systems, leading to poor object detection and tracking. This could result in delayed responses to pedestrians, cyclists, or other vehicles entering the scene.
+
+**Severity Score:**
+**0.80** (High)
+
+---
+
+#### Risk 5:
+**Description:**
+The scene lacks visible pedestrians or cyclists, but the environment's low lighting and potential sensor occlusion create a high-risk scenario for unseen entities entering the roadway. The autonomous vehicle may not detect them in time to avoid a collision.
+
+**Severity Score:**
+**0.70** (High)
+
+---
+These risks highlight the importance of robust sensor fusion, adaptive lighting, and real-time environmental perception in autonomous driving systems, especially in low-light and occluded environments.

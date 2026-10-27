@@ -1,0 +1,62 @@
+This scene depicts a high-risk autonomous driving scenario characterized by low-visibility conditions and a dynamic obstacle in the ego-vehicle's path.
+
+### 1. Main Entities
+*   **Ego-Vehicle:** The vehicle from which the camera view originates.
+*   **Van:** A stationary or slow-moving commercial van parked on the right shoulder.
+*   **Pedestrian:** A human standing near the van.
+*   **Obstacle:** A large metal barrel (appears to be rolling or falling across the road).
+*   **Infrastructure:** Road surface, lane markings, street lamps.
+*   **Weather Condition:** Thick, dense fog significantly reducing visibility.
+
+### 2. Relationships
+*   **Obstacle (Barrel) is approaching:** The barrel is moving across the lane directly in the path of the ego-vehicle.
+*   **Van is occluding:** The van is stationary on the right, potentially creating a blind spot or restricting lateral clearance.
+*   **Pedestrian is near:** The human is positioned near the van, close to the roadway.
+*   **Ego-Vehicle is following:** The ego-vehicle is moving toward the area where the obstacle is entering its path.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:approaching ex:Barrel .
+
+ex:Barrel rdf:type ex:Obstacle ;
+    ex:position ex:InLane ;
+    ex:movingAcross ex:EgoVehiclePath .
+
+ex:Van rdf:type ex:Vehicle ;
+    ex:status ex:Stationary ;
+    ex:position ex:RoadShoulder .
+
+ex:Pedestrian rdf:type ex:Human ;
+    ex:near ex:Van .
+
+ex:Environment rdf:type ex:Weather ;
+    ex:condition ex:HeavyFog ;
+    ex:visibility ex:Low .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Collision with a moving obstacle (barrel). The object is entering the ego-vehicle's lane, posing an immediate physical threat to the vehicle and potential damage.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Low visibility due to heavy fog. The environmental conditions significantly reduce the sensor range and reaction time for the ego-vehicle to detect and classify the obstacle.
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** Proximity of vulnerable road user (pedestrian). The pedestrian is standing in close proximity to the road and the van; sudden evasive maneuvers by the ego-vehicle could inadvertently endanger them.
+**Severity Score:** 0.70
+
+**Risk 4:**
+**Description:** Lateral space restriction. The presence of the parked van limits the lane width, preventing the ego-vehicle from performing a safe lateral avoidance maneuver to steer around the barrel.
+**Severity Score:** 0.65

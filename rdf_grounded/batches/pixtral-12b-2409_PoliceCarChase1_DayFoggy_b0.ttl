@@ -1,0 +1,87 @@
+Here is the semantic interpretation of the provided tunnel scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "TunnelLaneIntrusionWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :fogObstacle ;
+    :hasEvidence :fogEvidence ;
+    :hasRisk :laneIntrusionRisk ;
+    :hasRisk :occlusionRisk ;
+    :hasWeatherCondition :foggyCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle ahead in tunnel" .
+
+:fogObstacle a :RoadObject ;
+    :description "Fog reducing visibility in tunnel" .
+
+:fogEvidence a :FallingObjectIndicator ;
+    :description "Fog density reducing visibility range" ;
+    :indicatesPotentialRisk :occlusionRisk .
+
+:laneIntrusionRisk a :LaneIntrusionRisk ;
+    :description "Vehicle ahead may drift into lane due to poor visibility" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Fog obscures vehicle ahead, increasing collision risk" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.85"^^xsd:float .
+
+:foggyCondition a :FoggyCondition ;
+    :description "Heavy fog in tunnel" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Vehicle ahead may drift into lane due to poor visibility
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.70
+- **Confidence Score:** 0.75
+
+**Risk 2:**
+- **Description:** Fog obscures vehicle ahead, increasing collision risk
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.80
+- **Confidence Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Vehicle ahead in tunnel (`:vehicle1` as `:Vehicle`)
+   - **Obstacle:** Fog reducing visibility (`:fogObstacle` as `:RoadObject`)
+   - **WeatherCondition:** Heavy fog (`:foggyCondition` as `:FoggyCondition`)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to fog evidence reducing visibility, which is observable and measurable).
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** The vehicle ahead may drift into the lane due to poor visibility caused by fog.
+   - **OcclusionRisk:** The fog obscures the vehicle ahead, increasing the risk of collision due to reduced visibility.
+
+4. **Severity Scores:**
+   - Lane intrusion risk is assigned a severity of **0.70** (moderate-high risk).
+   - Occlusion risk is assigned a severity of **0.80** (high risk).
+
+The scene is classified as an **EvidenceBasedAnomaly** because the fog is observable and measurable, directly contributing to the identified risks.

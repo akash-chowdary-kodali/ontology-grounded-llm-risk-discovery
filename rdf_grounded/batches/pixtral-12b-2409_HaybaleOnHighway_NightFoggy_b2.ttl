@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large falling object (debris) on road surface" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Object appears to be falling or lying on the road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to debris on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Debris may obstruct driver's view of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Scene captured during nighttime" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision risk due to debris on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Debris may obstruct driver's view of other road users
+Severity Score: 0.75
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - **Obstacle**: The large falling object (debris) on the road is classified as a `:RoadObject`.
+   - **WeatherCondition**: The scene is under `:NightCondition`.
+   - **EvidenceIndicator**: The falling object is identified as a `:FallingObjectIndicator`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (the debris on the road).
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity (0.9) due to the debris lying directly in the path of vehicles.
+   - **OcclusionRisk**: Moderate severity (0.75) because the debris may partially obscure visibility of other road users or objects.
+
+This RDF representation adheres strictly to the provided ontology vocabulary and rules.

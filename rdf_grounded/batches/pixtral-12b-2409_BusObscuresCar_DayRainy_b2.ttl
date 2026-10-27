@@ -1,0 +1,67 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyFogUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road and vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential slippery road conditions due to unseen wetness or debris" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Increased risk of collision due to limited visibility of other vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog as an obstacle reducing visibility" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle in front of ego vehicle" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle on the right side of ego vehicle" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring road and vehicles
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potential slippery road conditions due to unseen wetness or debris
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Increased risk of collision due to limited visibility of other vehicles
+Severity Score: 0.85
+
+---
+**Notes:**
+- The scene is classified as an **EvidenceBasedAnomaly** due to the fog being a clear indicator of reduced visibility and potential hazards.
+- The **OcclusionRisk** and **RoadConditionRisk** are directly related to the foggy conditions.
+- The **CollisionRisk** is inferred from the combination of fog and the presence of other vehicles.
+- Severity scores are assigned based on the potential impact of each risk in a foggy urban driving scenario.

@@ -1,0 +1,33 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Vehicle Encountering a Falling Object in Fog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasObstacle :fallingObject1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle .
+
+:foggyCondition1 a :FoggyCondition .
+
+:fallingObject1 a :RoadObject .
+
+:risk1 a :DistractionRisk ;
+    :description "Potential distraction due to falling object" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential distraction due to falling object
+Severity Score: 0.7

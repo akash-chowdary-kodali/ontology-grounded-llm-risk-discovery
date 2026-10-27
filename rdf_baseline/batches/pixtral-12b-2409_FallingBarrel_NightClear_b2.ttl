@@ -1,0 +1,101 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:timeStamp "2023-10-05T23:45:00Z"^^xsd:dateTime ;
+    ex:location ex:UrbanRoadway .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:makeModel "Unknown" ;
+    ex:position ex:FrontRightLane ;
+    ex:hasHeadlight ex:On ;
+    ex:hasTaillight ex:On .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:makeModel "Van" ;
+    ex:position ex:OppositeLane ;
+    ex:hasHeadlight ex:On .
+
+ex:RoadObstacle1 a ex:RoadObstacle ;
+    ex:type ex:Barrier ;
+    ex:position ex:CenterDivide ;
+    ex:color ex:OrangeAndWhite ;
+    ex:orientation ex:Diagonal .
+
+ex:RoadSurface a ex:RoadSurface ;
+    ex:condition ex:Wet ;
+    ex:reflectivity ex:Low .
+
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:Vehicle2 .
+ex:Scene1 ex:contains ex:RoadObstacle1 .
+ex:Scene1 ex:contains ex:RoadSurface .
+
+ex:Vehicle1 ex:isApproaching ex:RoadObstacle1 .
+ex:Vehicle2 ex:isFollowing ex:Vehicle1 .
+ex:RoadObstacle1 ex:isOccluding ex:Vehicle2 .
+ex:RoadSurface ex:isAffecting ex:Vehicle1 .
+ex:RoadSurface ex:isAffecting ex:Vehicle2 .
+
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The autonomous vehicle (ex:Vehicle1) is approaching a diagonal road barrier (ex:RoadObstacle1) that is occluding the view of an oncoming vehicle (ex:Vehicle2) in the opposite lane. The wet road surface (ex:RoadSurface) increases the risk of reduced traction and visibility, compounding the difficulty in assessing the scene accurately.
+
+Severity Score: 0.95
+
+**Risk 2:**
+Description:
+The low reflectivity and wet road conditions (ex:RoadSurface) may lead to poor visibility of the road markings and other vehicles, increasing the risk of misidentifying lane boundaries and potential collisions.
+
+Severity Score: 0.85
+
+**Risk 3:**
+Description:
+The diagonal positioning of the road barrier (ex:RoadObstacle1) creates an unexpected obstacle that may not be recognized by standard object detection algorithms, potentially leading to an incorrect path planning decision by the autonomous vehicle.
+
+Severity Score: 0.90
+
+**Risk 4:**
+Description:
+The oncoming vehicle (ex:Vehicle2) is following too closely to ex:Vehicle1, and the occluding barrier (ex:RoadObstacle1) could lead to a delayed reaction time for both vehicles, increasing the risk of a collision.
+
+Severity Score: 0.80
+
+```plaintext
+Risk Classifications in RDF Format
+```
+
+```turtle
+ex:Risk1 a ex:SafetyRisk ;
+    ex:description "Approaching occluded vehicle with wet road conditions" ;
+    ex:severity 0.95 ;
+    ex:riskClass ex:CollisionRisk .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:description "Poor visibility due to wet road surface" ;
+    ex:severity 0.85 ;
+    ex:riskClass ex:PerceptionRisk .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:description "Unexpected obstacle detection failure" ;
+    ex:severity 0.90 ;
+    ex:riskClass ex:PathPlanningRisk .
+
+ex:Risk4 a ex:SafetyRisk ;
+    ex:description "Delayed reaction time due to occluded vehicle" ;
+    ex:severity 0.80 ;
+    ex:riskClass ex:CollisionRisk .
+```

@@ -1,0 +1,52 @@
+### 1. & 2. Entity Identification and Relationships
+*   **Entities:**
+    *   **Ego-Vehicle:** A red sedan (camera perspective).
+    *   **Leading Vehicle:** A yellow taxi (car) directly in front of the ego-vehicle.
+    *   **Distant Vehicle:** A red vehicle visible further down the road.
+    *   **Infrastructure:** Multi-lane road, street lamps, sidewalk, street sign/billboard.
+    *   **Weather Conditions:** Heavy fog/low visibility.
+*   **Relationships:**
+    *   **Leading Vehicle** is *following* the lane path and is *ahead of* the **Ego-Vehicle**.
+    *   **Ego-Vehicle** is *approaching* the **Leading Vehicle**.
+    *   **Fog** is *occluding* distant environmental details.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:color "red" ;
+    ex:isFollowing ex:Taxi .
+
+ex:Taxi rdf:type ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:isAheadOf ex:EgoVehicle ;
+    ex:isLocatedIn ex:LaneOne .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:type "HeavyFog" ;
+    ex:impact "ReducedVisibility" .
+
+ex:RoadInfrastructure rdf:type ex:Infrastructure ;
+    ex:hasObstacleVisibility "Low" .
+```
+
+---
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Reduced Visibility Due to Adverse Weather (Heavy Fog).** The dense fog significantly limits the sensing range of the ego-vehicle's perception systems (LiDAR, Cameras), making it difficult to detect sudden stops by the lead vehicle or obstacles on the road.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** **Rear-End Collision Risk.** Due to the low-visibility environment, the ego-vehicle may fail to detect a sudden braking maneuver by the yellow taxi in time to react, leading to a high-speed collision.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** **Undetected Infrastructure or Static Obstacles.** The fog obscures road signs, lane markings, and potential static hazards (like debris or road work) beyond the immediate vicinity of the ego-vehicle.
+*   **Severity Score:** 0.60

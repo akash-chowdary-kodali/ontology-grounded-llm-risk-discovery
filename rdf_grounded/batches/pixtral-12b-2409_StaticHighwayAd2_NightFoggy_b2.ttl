@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:billboard1 a :Billboard ;
+    :description "Illuminated billboard with Dr. Carla advertisement" .
+
+:nightCondition1 a :NightCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Potential distraction from illuminated billboard" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and lack of other actors" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road surface potentially reducing traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.4"^^xsd:float ;
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.2"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential distraction from illuminated billboard
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Limited visibility due to nighttime and lack of other actors
+Severity Score: 0.4
+
+**Risk 3:**
+Description: Wet road surface potentially reducing traction
+Severity Score: 0.2
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **StateAnomaly** due to the static but potentially distracting presence of the illuminated billboard in a low-visibility nighttime environment.
+2. No **Actors** (Pedestrian, Cyclist, Vehicle) or **EvidenceIndicators** were detected in the image.
+3. The **Billboard** was identified as the primary **Obstacle** in this context.
+4. Three risks were identified:
+   - **DistractionRisk** from the bright billboard.
+   - **OcclusionRisk** due to nighttime conditions.
+   - **RoadConditionRisk** inferred from the wet road surface (evident from reflections).
+5. Severity scores were assigned based on the likelihood and impact of each risk in this specific scenario. The billboard distraction was deemed moderately low due to its static nature, while visibility and road conditions were also low-risk in this empty scene.

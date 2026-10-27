@@ -1,0 +1,53 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-vehicle:** Red vehicle (POV).
+*   **Other Vehicles:** Black sedan (oncoming), White hatchback (to the right).
+*   **Road Infrastructure:** Two-lane road with a double yellow line, overhead bridge/underpass structure with concrete pillars.
+*   **Weather/Environment:** Nighttime, rain (wet road surface with reflections), low-light conditions.
+
+**2. Relationships:**
+*   **Black Sedan:** Approaching the ego-vehicle head-on, currently crossing or drifting over the centerline into the ego-vehicle’s lane.
+*   **White Hatchback:** Following/adjacent to the ego-vehicle on the right.
+*   **Ego-vehicle:** Surrounded by traffic, constrained by the underpass structure and the encroaching black sedan.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:BlackSedan rdf:type ex:Vehicle ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:isCrossing ex:CenterLine ;
+    ex:isOccupying ex:EgoVehicleLane .
+
+ex:WhiteHatchback rdf:type ex:Vehicle ;
+    ex:isNear ex:EgoVehicle .
+
+ex:Underpass rdf:type ex:Infrastructure ;
+    ex:hasPart ex:ConcretePillar .
+
+ex:Environment rdf:type ex:Condition ;
+    ex:isNight true ;
+    ex:isRaining true ;
+    ex:hasWetRoadSurface true .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1: Head-on Collision**
+*   **Description:** The black sedan is encroaching into the ego-vehicle's lane while traveling in the opposite direction. This creates a high risk of a frontal impact, especially given the low-visibility, wet-road conditions.
+*   **Severity Score:** 0.95
+
+**Risk 2: Lane Constraint/Sideswipe**
+*   **Description:** The ego-vehicle is navigating a narrow underpass with a vehicle on the right and an encroaching vehicle on the left, leaving little room for emergency maneuvering or deviation from the path.
+*   **Severity Score:** 0.75
+
+**Risk 3: Reduced Traction and Visibility**
+*   **Description:** The wet road surface, combined with night conditions and the complex lighting of the underpass, reduces tire-to-road friction (braking distance) and sensor perception accuracy.
+*   **Severity Score:** 0.60

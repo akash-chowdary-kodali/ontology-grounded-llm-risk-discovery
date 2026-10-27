@@ -1,0 +1,199 @@
+Here is the semantic interpretation of the provided underground parking garage scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingGarageNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Low-visibility environment with parked vehicles and potential occlusion risks" .
+
+:obstacle1 a :RoadObject ;
+    :description "Parked vehicles in underground garage" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Parked vehicles may obscure moving vehicles or pedestrians" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright artificial lighting may distract driver attention" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Parked vehicles may obscure moving vehicles or pedestrians
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Bright artificial lighting may distract driver attention
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.50
+
+---
+
+### Analysis Justification:
+1. **Scene Classification**:
+   - The underground parking garage is classified as a **StateAnomaly** because the primary issue stems from the environment's inherent characteristics (low visibility, artificial lighting) rather than dynamic behavior or evidence-based anomalies.
+
+2. **Entities Identified**:
+   - **Obstacle**: Parked vehicles (`:obstacle1` as `:RoadObject`)
+   - **WeatherCondition**: Nighttime with artificial lighting (`:weather1` as `:NightCondition`)
+
+3. **Risks Identified**:
+   - **OcclusionRisk (0.75)**: Parked vehicles create blind spots where other vehicles or pedestrians may be obscured.
+   - **DistractionRisk (0.50)**: The bright artificial lighting (common in underground garages) may distract drivers, reducing situational awareness.
+
+4. **Severity Scores**:
+   - Occlusion risk is rated higher (0.75) due to the potential for sudden collisions if moving vehicles are obscured.
+   - Distraction risk is moderate (0.50) as it depends on driver sensitivity to lighting changes.
+
+No actors (pedestrians/cyclists) or traffic signs/lights were visible in the provided images. The focus is on the environmental and structural risks inherent to the scene. Here's the semantic interpretation of the provided underground parking garage scenes using the given ontology:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingGarageTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle in underground parking garage" .
+
+:obstacle1 a :RoadObject ;
+    :description "Stationary vehicle blocking lane change path" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions in underground garage" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Vehicle ahead appears to be preparing for lane change" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion from vehicle ahead preparing to change lanes" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to garage structure and night conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+**Identified Risks:**
+
+Risk 1:
+Description: Potential lane intrusion from vehicle ahead preparing to change lanes
+Severity Score: 0.75
+Risk Type: LaneIntrusionRisk
+
+Risk 2:
+Description: Limited visibility due to garage structure and night conditions
+Severity Score: 0.60
+Risk Type: OcclusionRisk
+
+**Scene Analysis:**
+1. The scene shows an underground parking garage with night conditions (low lighting)
+2. The corner case is classified as a StateAnomaly because it involves a vehicle's state (preparing to change lanes) that creates a potential hazardous situation
+3. Key entities identified:
+   - Vehicle (following vehicle)
+   - RoadObject (stationary vehicle blocking path)
+   - NightCondition (weather condition)
+   - OpenDoorIndicator (evidence of potential lane change)
+4. Two primary risks identified:
+   - Lane intrusion risk from the vehicle ahead
+   - Occlusion risk due to limited visibility in the garage
+5. The severity scores reflect moderate risk levels (0.75 for lane intrusion, 0.60 for occlusion) appropriate for this underground parking scenario
+
+The analysis focuses on the potential lane change maneuver that could lead to collision if not properly executed, combined with the inherent visibility challenges of underground parking structures. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Red liquid splatter on lower edge of camera view" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Red liquid splatter on road surface" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Potential slippery road condition due to liquid splatter" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Visual distraction from unusual liquid splatter in camera view" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime conditions in underground parking" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential slippery road condition due to liquid splatter
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Visual distraction from unusual liquid splatter in camera view
+Severity Score: 0.40
+
+---
+**Analysis Notes:**
+1. The scene contains no actors (pedestrians, cyclists, or vehicles in motion), traffic signs, traffic lights, or billboards.
+2. The corner case is classified as **EvidenceBasedAnomaly** due to the observable evidence (red liquid splatter) indicating a potential hazard.
+3. Two risks are identified:
+   - **RoadConditionRisk** due to the liquid splatter potentially creating slippery conditions.
+   - **DistractionRisk** from the unusual visual anomaly in the camera's field of view.
+4. Severity scores are assigned based on the likelihood of immediate danger (slippery road) and potential distraction (visual anomaly). The slippery road condition is rated higher due to its direct impact on vehicle safety.

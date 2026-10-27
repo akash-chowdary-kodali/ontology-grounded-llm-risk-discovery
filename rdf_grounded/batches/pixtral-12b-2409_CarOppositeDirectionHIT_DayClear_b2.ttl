@@ -1,0 +1,79 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanStreetDrivingWithObstructedView" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan driving on urban street" .
+
+:obstacle1 a :RoadObject ;
+    :description "Overhead structure partially obstructing view" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Partial obstruction of view due to overhead structure" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to limited visibility of surrounding vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver may be distracted by navigating through obstructed area" ;
+    :hasSeverityScore :sev3 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float ;
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Partial obstruction of view due to overhead structure
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Potential lane intrusion due to limited visibility of surrounding vehicles
+Severity Score: 0.55
+
+**Risk 3:**
+Description: Driver may be distracted by navigating through obstructed area
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The black sedan is classified as a `:Vehicle`.
+   - The overhead structure is classified as a `:RoadObject` under `:Obstacle`.
+   - The weather condition is `:DayCondition` under `:WeatherCondition`.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the anomaly arises from the physical state of the environment (obstruction) rather than an actor's behavior or evidence-based inference.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the overhead structure obstructing the view.
+   - **LaneIntrusionRisk:** Limited visibility increases the chance of unintentionally drifting into another lane.
+   - **DistractionRisk:** The driver may be distracted by navigating through the obstructed area.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.65): High due to direct impact on visibility.
+   - LaneIntrusionRisk (0.55): Moderate due to potential unintended lane changes.
+   - DistractionRisk (0.45): Lower but still relevant due to the complexity of the environment.

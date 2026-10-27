@@ -1,0 +1,73 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeGorillaObstacleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Multiple gorilla-like creatures on road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Gorilla-like creatures crossing road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Partial occlusion of road by large gorilla-like creature" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual road actors may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Gorilla-like creatures crossing road unexpectedly
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Partial occlusion of road by large gorilla-like creature
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Unusual road actors may distract driver
+Severity Score: 0.75
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The gorilla-like creatures are classified as **Obstacles** (specifically **RoadObjects**) since they are not human actors but are blocking the road.
+   - The scene occurs under **NightCondition**.
+
+2. **Corner Case Classification:**
+   - The scenario is classified as a **BehaviorAnomaly** because the creatures' presence and behavior (crossing the road) are highly unusual and unpredictable.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk** due to the unexpected crossing of the creatures.
+   - **OcclusionRisk** because the large creature partially blocks the road.
+   - **DistractionRisk** as the unusual actors may divert the driver's attention.
+
+4. **Severity Scores:**
+   - Highest severity (0.92) for **PedestrianCollisionRisk** due to the immediate threat of collision.
+   - Moderate-high severity (0.88) for **OcclusionRisk** due to visibility impairment.
+   - Moderate severity (0.75) for **DistractionRisk** as it is less immediate but still significant.

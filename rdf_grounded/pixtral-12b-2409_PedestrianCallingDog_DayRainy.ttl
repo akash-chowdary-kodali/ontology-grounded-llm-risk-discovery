@@ -1,0 +1,244 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFoggyStreetWithDog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running across the street" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dog's movement indicates potential collision risk" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into the path of vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures visibility of other vehicles and pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road conditions increase braking distance" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Dog running into the path of vehicles
+- **Severity Score:** 0.9
+- **Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscures visibility of other vehicles and pedestrians
+- **Severity Score:** 0.8
+- **Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Wet road conditions increase braking distance
+- **Severity Score:** 0.7
+- **Type:** RoadConditionRisk
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** A dog (classified as a `Pedestrian` since it is an unconstrained road user).
+   - **WeatherCondition:** Heavy fog (`FoggyCondition`).
+   - **EvidenceIndicator:** The dog's movement (`RollingBallIndicator`).
+   - No explicit `TrafficLight`, `TrafficSign`, or `Billboard` are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the dog's unpredictable movement (evidence) suggests a potential risk that is not immediately obvious (e.g., a dog running into traffic).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the dog's sudden movement.
+   - **OcclusionRisk:** High severity due to fog reducing visibility.
+   - **RoadConditionRisk:** Moderate severity due to wet roads increasing braking distance.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the immediacy and potential impact of each risk (e.g., collision with a dog is more severe than wet roads). Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreetInRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running into street" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into street with oncoming vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy rain reducing visibility of dog and other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain droplets creating visual occlusion" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Dog running into street with oncoming vehicles
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Heavy rain reducing visibility of dog and other vehicles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** Dog (modeled as a `Pedestrian` since it is an unexpected road user).
+   - **WeatherCondition:** `RainyCondition` (due to heavy rain and reduced visibility).
+   - **EvidenceIndicator:** `FallingObjectIndicator` (representing rain droplets causing occlusion).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the dog's unexpected behavior (running into the street) deviates from typical pedestrian/actor behavior.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the dog's unpredictable movement and proximity to vehicles.
+   - **OcclusionRisk:** Moderate severity due to heavy rain reducing visibility of the dog and other road users.
+
+4. **Severity Scores:**
+   - The `PedestrianCollisionRisk` has a high severity score (0.95) due to the immediate threat of collision.
+   - The `OcclusionRisk` has a slightly lower severity score (0.80) but still significant due to impaired visibility. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFoggyDrivingWithReducedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :description "Reduced visibility due to foggy conditions on urban roadway" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Foggy conditions reducing visibility and increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures vehicles and obstacles beyond 50 meters" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road surface increases braking distance and skid risk" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RearEndCollisionRisk ;
+    :description "Reduced visibility increases risk of rear-end collisions" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Green vehicle in center lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle in right lane" .
+
+:vehicle3 a :Vehicle ;
+    :description "White vehicle in center lane" .
+
+:actor1 a :Vehicle ;
+    :description "Red vehicle in foreground (ego vehicle)" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Foggy conditions reducing visibility and increasing collision risk
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Fog obscures vehicles and obstacles beyond 50 meters
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Wet road surface increases braking distance and skid risk
+Severity Score: 0.75
+
+**Risk 4:**
+Description: Reduced visibility increases risk of rear-end collisions
+Severity Score: 0.8
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** due to the environmental condition (fog) creating hazardous driving conditions.
+2. No actors (pedestrians/cyclists) were detected in the scene, so no pedestrian-related risks were identified.
+3. The **WeatherRisk** and **OcclusionRisk** were prioritized due to the fog's impact on visibility.
+4. The **RoadConditionRisk** was included due to the wet road surface, which is implied by the foggy conditions.
+5. The **RearEndCollisionRisk** was identified as a significant concern in low-visibility scenarios.

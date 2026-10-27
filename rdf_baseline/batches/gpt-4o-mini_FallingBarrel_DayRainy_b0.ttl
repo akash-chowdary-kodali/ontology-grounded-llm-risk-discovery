@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 
+    ex:hasWeatherCondition "rainy" ; 
+    ex:hasVisibility "poor" ; 
+    ex:hasEntity ex:van, ex:barrel, ex:person ; 
+    ex:hasLocation ex:road1 .
+
+ex:van 
+    ex:hasType "vehicle" ; 
+    ex:hasAction "stopped" ; 
+    ex:near ex:barrel .
+
+ex:barrel 
+    ex:hasType "obstacle" ; 
+    ex:hasState "falling" ; 
+    ex:approaching ex:van ; 
+    ex:near ex:person .
+
+ex:person 
+    ex:hasType "pedestrian" ; 
+    ex:hasAction "standing" ; 
+    ex:near ex:barrel .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling barrel while vehicle is approaching a stopped van.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Limited visibility due to heavy rain can lead to delayed reactions from the driver.
+- **Severity Score:** 0.7
+
+**Risk 3:**
+- **Description:** Potential for the pedestrian to be struck by the falling barrel or distracted by road hazards.
+- **Severity Score:** 0.6
+
+### Summary
+
+The scene presents multiple risks primarily related to the falling barrel, poor visibility, and the presence of a pedestrian near moving vehicles. The severity scores reflect the urgency and potential danger associated with these risks.

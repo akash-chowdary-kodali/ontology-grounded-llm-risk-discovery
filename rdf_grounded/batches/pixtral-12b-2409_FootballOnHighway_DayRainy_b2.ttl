@@ -1,0 +1,63 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainOnRoadScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Poor visibility and slippery road surface due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of road signs and other vehicles due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Poor visibility and slippery road surface due to heavy rain
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Reduced visibility of road signs and other vehicles due to rain
+Severity Score: 0.8
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The primary entity in this scene is the **WeatherCondition** subclassified as `:RainyCondition`.
+   - No actors (e.g., pedestrians, cyclists, or vehicles) or static objects (e.g., traffic signs, billboards) are clearly visible due to the heavy rain and occlusion.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the anomalous state is caused by the environmental condition (heavy rain) rather than any behavioral or evidence-based anomaly.
+
+3. **Evidence Indicator:**
+   - The heavy rain and its effect on visibility are represented as a `:FallingObjectIndicator` (simplified to represent the falling raindrops and their impact on the scene).
+
+4. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the slippery and wet road surface, which can lead to loss of vehicle control.
+   - **OcclusionRisk:** Due to reduced visibility of road signs, other vehicles, and pedestrians, increasing the risk of collisions.
+
+5. **Severity Scores:**
+   - The **RoadConditionRisk** is assigned a severity score of 0.9 because slippery roads significantly increase the risk of accidents.
+   - The **OcclusionRisk** is assigned a severity score of 0.8 because reduced visibility is a major hazard but slightly less severe than immediate road conditions.

@@ -1,0 +1,30 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WildlifeEncounterInRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :gorilla1 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1 .
+
+:gorilla1 a :Actor ;
+    :description "Gorilla moving across the road" .
+
+:rainy1 a :RainyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Large animal obstructing the lane of travel" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Lane intrusion caused by a large animal (gorilla) crossing the road in poor weather conditions, creating a high risk of collision.
+Severity Score: 0.95

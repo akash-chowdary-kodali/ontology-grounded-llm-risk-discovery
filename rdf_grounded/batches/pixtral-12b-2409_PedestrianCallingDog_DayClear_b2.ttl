@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanStreetDrivingWithLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2, :vehicle3 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in right lane, partially blocking" .
+:vehicle2 a :Vehicle ;
+    :description "Green vehicle in right lane, moving forward" .
+:vehicle3 a :Vehicle ;
+    :description "White vehicle in right lane, moving forward" .
+:roadObject1 a :RoadObject ;
+    :description "White lane markings and road surface" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather, daytime" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Red vehicle partially occupying left lane" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to stopped or slow-moving vehicles" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.60"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to vehicles blocking view of further traffic" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.55"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Red vehicle partially occupying left lane, potentially causing lane intrusion.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential rear-end collision risk due to stopped or slow-moving vehicles in the right lane.
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Occlusion risk due to vehicles blocking the view of further traffic ahead.
+Severity Score: 0.55

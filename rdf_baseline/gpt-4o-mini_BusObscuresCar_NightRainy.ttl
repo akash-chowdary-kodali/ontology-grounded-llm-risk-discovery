@@ -1,0 +1,48 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition "Wet" ;
+    ex:hasTime "Night" ;
+    ex:hasRoadInfrastructure ex:StreetLights, ex:TrafficSignals ;
+    ex:hasVehicle ex:Bus, ex:Taxi, ex:Sedan ;
+    ex:hasObstacle ex:Puddle ;
+    ex:hasPedestrian ex:None .
+
+ex:Bus a ex:Vehicle ;
+    ex:hasType "Bus" ;
+    ex:hasPosition "Near the curb" .
+
+ex:Taxi a ex:Vehicle ;
+    ex:hasType "Taxi" ;
+    ex:hasPosition "Near the curb" .
+
+ex:Sedan a ex:Vehicle ;
+    ex:hasType "Sedan" ;
+    ex:hasPosition "Near the curb" .
+
+ex:StreetLights a ex:Infrastructure ;
+    ex:hasStatus "On" .
+
+ex:TrafficSignals a ex:Infrastructure ;
+    ex:hasStatus "Operational" .
+
+ex:Puddle a ex:Obstacle ;
+    ex:hasLocation "On the road" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Wet road conditions increasing the likelihood of vehicle skidding.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Limited visibility due to night-time conditions which can hinder perception of pedestrians and cyclists.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** Presence of vehicles parked too close to the roadway, potentially leading to obstruction and collision risks.  
+**Severity Score:** 0.5

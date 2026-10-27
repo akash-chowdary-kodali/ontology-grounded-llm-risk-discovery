@@ -1,0 +1,70 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnusualAnimalCrossingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology; using :Pedestrian as closest fit (since ontology lacks animal-specific class)
+    :description "Large elephant crossing road" .
+:actor2 a :Pedestrian ;
+    :description "Small animal (likely dog) crossing road" .
+:actor3 a :Pedestrian ;
+    :description "Another small animal (likely dog) crossing road" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Animals blocking roadway" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with large elephant crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Animals obstructing view of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision with large elephant crossing road
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Animals obstructing view of other road users
+- **Severity Score:** 0.80
+
+---
+
+### Notes:
+1. **Corner Case Classification:** The scene is classified as a **StateAnomaly** because the presence of animals (elephant and dogs) crossing the road is an unexpected and abnormal state for a typical driving scenario.
+2. **Actor Typing:** The ontology lacks a specific class for animals, so I used `:Pedestrian` as the closest fit (though not ideal). If animals were part of the ontology, they would be better represented.
+3. **Weather Condition:** The scene clearly depicts heavy rain, so `:RainyCondition` is used.
+4. **Obstacle:** The animals are classified as a `:RoadObject` since they obstruct the roadway.
+5. **Risks:** The primary risks identified are:
+   - **CollisionRisk** due to the elephant crossing the road.
+   - **OcclusionRisk** due to the animals blocking visibility of other road users.
+
+---

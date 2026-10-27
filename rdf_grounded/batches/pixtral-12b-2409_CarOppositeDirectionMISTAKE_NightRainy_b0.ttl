@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Flooded Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :roadConditionRisk1, :occlusionRisk1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Flooded road surface with standing water" .
+
+:nightCondition a :NightCondition ;
+    :description "Dark nighttime environment with limited visibility" .
+
+:roadConditionRisk1 a :RoadConditionRisk ;
+    :description "Hydroplaning risk due to flooded road surface" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Limited visibility of parked vehicle due to water reflections and nighttime" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Parked vehicle partially submerged in water" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Water puddles acting as reflective surfaces" ;
+    :indicatesPotentialRisk :occlusionRisk1 .
+
+:cc1 :hasEvidence :evidence1 .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Hydroplaning risk due to flooded road surface
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Limited visibility of parked vehicle due to water reflections and nighttime
+Severity Score: 0.75
+
+### Analysis:
+1. **Entities Identified**:
+   - **Obstacle**: Flooded road surface (RoadObject)
+   - **Actor**: Parked vehicle (Vehicle)
+   - **WeatherCondition**: NightCondition
+   - **EvidenceIndicator**: FallingObjectIndicator (water puddles acting as reflective surfaces)
+
+2. **Corner Case Classification**:
+   - **StateAnomaly**: The flooded road surface and nighttime conditions create an abnormal state for driving.
+
+3. **Risks Identified**:
+   - **RoadConditionRisk**: High severity due to hydroplaning potential from standing water.
+   - **OcclusionRisk**: Moderate severity due to water reflections and limited visibility in nighttime conditions.
+
+The RDF triples capture the key elements of the scene while adhering strictly to the provided ontology vocabulary. The severity scores reflect the potential danger of hydroplaning (0.90) and the visibility issues caused by water reflections (0.75).

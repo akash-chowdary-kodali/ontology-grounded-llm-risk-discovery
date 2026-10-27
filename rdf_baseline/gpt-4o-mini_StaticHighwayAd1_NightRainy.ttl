@@ -1,0 +1,54 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#>.
+
+ex:scene1 a ex:Scene ;
+    ex:hasWeather ex:WeatherCondition ;
+    ex:hasTrafficLight ex:TrafficLight ;
+    ex:hasRoadInfrastructure ex:RoadInfrastructure ;
+    ex:containsEntity ex:Vehicle, ex:RoadUser .
+
+ex:WeatherCondition a ex:Weather ;
+    ex:state "Rainy" ;
+    ex:visibility "Low" .
+
+ex:TrafficLight a ex:TrafficLightStatus ;
+    ex:isRed true .
+
+ex:RoadInfrastructure a ex:InfrastructureType ;
+    ex:hasBillboard ex:Billboard ;
+    ex:hasBusStop ex:BusStop .
+
+ex:Billboard a ex:Advertisement ;
+    ex:text "It's a good for sale" .
+
+ex:BusStop a ex:PublicTransport ;
+    ex:isLocatedAt ex:Location .
+
+ex:Vehicle a ex:Entity ;
+    ex:type "Car" ;
+    ex:position "Stationary" .
+
+ex:RoadUser a ex:Entity ;
+    ex:type "Pedestrian" ;
+    ex:position "Not present" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High visibility due to rain and potential low light conditions increase risk of collision with unseen obstacles or road users.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** The red traffic light indicates a potential risk of running the light if other road users fail to stop.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** The proximity of the bus stop could pose a risk if a pedestrian unexpectedly enters the road.
+- **Severity Score:** 0.5
+
+**Risk 4:**
+- **Description:** Static advertisements may distract drivers leading to compromised attentiveness.
+- **Severity Score:** 0.4

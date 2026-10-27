@@ -1,0 +1,75 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Vehicle ahead with open rear door" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to following distance" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to vehicle ahead" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion from open rear door" ;
+    :hasSeverityScore :sev3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in front with open rear door" .
+
+:vehicle2 a :Vehicle ;
+    :description "Black vehicle in current lane" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to following distance
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Limited visibility due to vehicle ahead
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential lane intrusion from open rear door
+Severity Score: 0.50
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - Two `Vehicle` instances (`vehicle1` and `vehicle2`) were identified.
+   - The scene is classified under `NightCondition` due to the lighting.
+   - The primary `Obstacle` is the vehicle ahead with an open rear door (`obstacle1`).
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a `StateAnomaly` because the anomaly arises from the physical state of the vehicle (open rear door) rather than behavior or evidence-based indicators.
+
+3. **Risks Identified:**
+   - **Rear-End Collision Risk:** Due to the close following distance in a low-visibility environment.
+   - **Occlusion Risk:** Limited visibility caused by the vehicle ahead.
+   - **Lane Intrusion Risk:** Potential for the open rear door to intrude into the lane.

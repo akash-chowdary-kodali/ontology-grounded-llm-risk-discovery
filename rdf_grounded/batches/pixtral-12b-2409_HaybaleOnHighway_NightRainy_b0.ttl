@@ -1,0 +1,82 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFloodedRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Flooded intersection with standing water and reduced visibility at night" .
+
+:weather1 a :NightCondition, :RainyCondition ;
+    :description "Nighttime with recent rain, leading to standing water on road" .
+
+:roadObject1 a :RoadObject ;
+    :description "Standing water in intersection, potentially obscuring road markings and creating hydroplaning risk" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Hydroplaning risk due to standing water on road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of road markings and potential obstacles due to water reflections" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision with unseen pedestrians or vehicles due to poor visibility in rainy night conditions" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Hydroplaning risk due to standing water on road surface
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Reduced visibility of road markings and potential obstacles due to water reflections
+- **Severity Score:** 0.8
+
+**Risk 3:**
+- **Description:** Potential collision with unseen pedestrians or vehicles due to poor visibility in rainy night conditions
+- **Severity Score:** 0.75
+
+---
+
+### Explanation:
+1. **Scene Analysis:**
+   - The scene depicts a nighttime intersection with standing water, likely from recent rain.
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the immediate path, but the environment suggests potential risks due to the conditions.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a **StateAnomaly** because the primary issue stems from the **state of the road** (flooded) rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk (Hydroplaning):** High severity due to standing water.
+   - **OcclusionRisk (Visibility):** Medium-high severity due to water reflections obscuring road details.
+   - **CollisionRisk (Unseen Actors):** Medium severity due to poor visibility increasing the chance of collisions with unseen actors.
+
+4. **WeatherCondition:**
+   - The scene is classified as both **NightCondition** and **RainyCondition** to capture the dual environmental factors contributing to the risks.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

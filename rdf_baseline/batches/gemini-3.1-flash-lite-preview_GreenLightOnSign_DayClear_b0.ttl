@@ -1,0 +1,55 @@
+### Analysis of Autonomous Driving Scenario
+
+#### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (partial hood visible).
+*   **Road Infrastructure:** Multi-lane urban intersection, traffic signal (overhead), street lamps, brick walls on the periphery.
+*   **Signage:** Billboard (advertisement featuring a traffic light icon), bus stop sign/pole, circular road sign.
+*   **Environment:** Clear weather, daylight, urban setting with an elevated structure/bridge in the background.
+
+#### 2. Entity Relationships
+*   **Ego-Vehicle:** Positioned at the stop line of an intersection.
+*   **Traffic Signal:** Directly overhead, facing the ego-vehicle.
+*   **Billboard:** Located near the intersection; contains a visual distraction (a green traffic light icon in the advertisement).
+*   **Infrastructure:** The brick walls create a semi-enclosed corridor effect.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:isAt ex:StopLine .
+
+ex:TrafficSignal a ex:Infrastructure ;
+    ex:state "Unknown" ;
+    ex:isAbove ex:Intersection .
+
+ex:Billboard a ex:Infrastructure ;
+    ex:containsDistraction "GreenTrafficLightIcon" ;
+    ex:isNear ex:Intersection .
+
+ex:Intersection a ex:RoadInfrastructure .
+
+ex:VisualDistraction rdf:subject ex:Billboard ;
+    rdf:predicate ex:imitates ;
+    rdf:object ex:TrafficSignal .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** **False Positive Trigger/Distraction.** The billboard displays a large green traffic light icon. An autonomous system using computer vision might misinterpret the billboard's icon as the actual traffic signal state, potentially leading to an unsafe intersection entry (e.g., accelerating through a red light).
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** **Signal Ambiguity.** The overhead traffic signal is not clearly resolved in the image perspective, and the existence of a high-contrast distracting graphic nearby increases the cognitive/processing load on the perception stack.
+**Severity Score:** 0.60
+
+**Risk 3:**
+**Description:** **Occlusion and Infrastructure Complexity.** The elevated bridge structure and complex background patterns (brick walls and busy billboards) create a high-clutter environment, which may increase the probability of false object detection or signal detection errors.
+**Severity Score:** 0.45

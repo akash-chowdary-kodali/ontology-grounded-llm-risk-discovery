@@ -1,0 +1,82 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianWalkingThroughFloodedRoadAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person walking through flooded roadway" .
+
+:obstacle1 a :RoadObject ;
+    :description "Flooded road surface with standing water" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Orange traffic cones placed near pedestrian path" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking into vehicle path at night" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Flooded roadway with potential hydroplaning risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian walking into vehicle path at night
+- **Risk Type:** `:PedestrianCollisionRisk`
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Flooded roadway with potential hydroplaning risk
+- **Risk Type:** `:RoadConditionRisk`
+- **Severity Score:** 0.80
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The pedestrian is walking through a flooded roadway at night, which is an **unexpected behavior** (`:BehaviorAnomaly`) given the hazardous conditions (flooded road + nighttime).
+
+2. **Entities Identified:**
+   - **Actor:** `:Pedestrian` (walking through the road).
+   - **Obstacle:** `:RoadObject` (flooded road surface).
+   - **WeatherCondition:** `:NightCondition` (low visibility, artificial lighting).
+   - **EvidenceIndicator:** `:FallingObjectIndicator` (orange traffic cones suggest a warning or hazard zone).
+
+3. **Risks:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian's unexpected presence in the vehicle's path at night.
+   - **RoadConditionRisk:** Moderate severity due to the flooded road, which could cause hydroplaning or reduced traction.
+
+4. **Severity Scores:**
+   - Pedestrian collision risk is assigned the highest score (0.95) due to immediate danger.
+   - Road condition risk is slightly lower (0.80) but still critical for vehicle stability.

@@ -1,0 +1,47 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:contains ex:Person1, ex:Person2, ex:Obstacle1, ex:TrafficCone1, ex:TrafficCone2 ;
+    ex:hasWeatherCondition ex:Night ;
+    ex:hasRoadInfrastructure ex:Sidewalk, ex:Building1 .
+
+ex:Person1 a ex:Pedestrian ;
+    ex:hasAction ex:Walking ;
+    ex:isWearing ex:SafetyVest .
+
+ex:Person2 a ex:Pedestrian ;
+    ex:hasAction ex:Sitting ;
+    ex:isWearing ex:SafetyVest .
+
+ex:Obstacle1 a ex:Barrier ;
+    ex:hasType ex:Roadwork .
+
+ex:TrafficCone1 a ex:TrafficCone ;
+    ex:hasLocation ex:NearRoadside .
+
+ex:TrafficCone2 a ex:TrafficCone ;
+    ex:hasLocation ex:NearRoadside .
+
+ex:Building1 a ex:Building ;
+    ex:hasColor ex:Red .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1:
+- **Description:** A pedestrian is walking close to the roadway at night, reducing visibility for drivers.
+- **Severity Score:** 0.7
+
+#### Risk 2:
+- **Description:** Two pedestrians are near a roadwork area, indicating potential conflict with moving vehicles.
+- **Severity Score:** 0.8
+
+#### Risk 3:
+- **Description:** Traffic cones indicating an obstacle ahead could confuse drivers if they do not notice them in time.
+- **Severity Score:** 0.6
+
+### Summary
+In this corner case scenario, pedestrians are present in a low-visibility, night-time setting where roadwork is ongoing, creating several risks associated with visibility and potential vehicle-pedestrian interactions.

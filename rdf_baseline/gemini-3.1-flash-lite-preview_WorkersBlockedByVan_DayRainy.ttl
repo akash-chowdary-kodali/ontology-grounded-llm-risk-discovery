@@ -1,0 +1,48 @@
+This scene presents a high-risk autonomous driving scenario characterized by adverse weather conditions and vulnerable road users (VRUs).
+
+### 1. Entities
+*   **Ego-vehicle:** The car capturing the images.
+*   **Pedestrians:** One pedestrian on the left near the construction, one pedestrian crossing the road on the right.
+*   **Vehicles:** A white van positioned on the right side.
+*   **Road Infrastructure:** Traffic cones, construction barriers, road markings, street lamps.
+*   **Weather Conditions:** Heavy rain, low visibility (fog/mist), wet road surface.
+
+### 2. Relationships
+*   **Pedestrian (Right):** Currently crossing the road in front of the ego-vehicle.
+*   **Van:** Occluding the view of the pedestrian on the right (partially) and potentially blocking the sidewalk.
+*   **Pedestrian (Left):** Standing near construction infrastructure, currently stationary.
+*   **Environment:** Low visibility environment (heavy rain) significantly increasing stopping distance and reaction requirements.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:EgoVehicle ex:hasState "Moving" .
+ex:Pedestrian_Right ex:action "Crossing" ;
+                   ex:proximityTo ex:EgoVehicle "Near" .
+ex:Van ex:type "Obstacle" ;
+       ex:occludes ex:Pedestrian_Right .
+ex:Weather ex:condition "HeavyRain" ;
+           ex:visibility "Low" .
+ex:RoadSurface ex:condition "Wet" ;
+               ex:friction "Reduced" .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Collision with pedestrian crossing the road in limited visibility. The pedestrian is in the direct path of the ego-vehicle, and the heavy rain significantly hampers sensor performance and increases braking distance on the wet road surface.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Limited perception due to adverse weather. Heavy rain creates high noise in radar/LiDAR systems and obscures camera vision, potentially masking the presence of other pedestrians near the construction area or the white van.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** Occlusion by the stationary white van. The van creates a blind spot on the right side, hiding the trajectory of the pedestrian from the ego-vehicle until they enter the road path.
+*   **Severity Score:** 0.75
+
+**Risk 4:**
+*   **Description:** Reduced traction on wet road surface. Combined with the necessity for emergency braking, the wet road significantly increases the risk of the ego-vehicle losing control or failing to stop in time.
+*   **Severity Score:** 0.70

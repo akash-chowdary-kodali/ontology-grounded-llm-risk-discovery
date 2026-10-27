@@ -1,0 +1,97 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadConstructionWorkers" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Construction worker bending over near road obstacle" .
+:actor2 a :Pedestrian ;
+    :description "Construction worker walking across road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large concrete barrier on roadside" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Orange traffic cones indicating construction zone" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :OpenDoorIndicator ;
+    :description "Construction worker moving into vehicle path" ;
+    :indicatesPotentialRisk :risk2 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog and construction debris" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :PedestrianCollisionRisk ;
+    :description "Construction worker walking into vehicle path" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :RoadConditionRisk ;
+    :description "Uneven road surface and obstacles near construction zone" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float ;
+    :confidenceScore "0.92"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to fog and construction debris
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Construction worker walking into vehicle path
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.85
+- **Confidence Score:** 0.92
+
+**Risk 3:**
+- **Description:** Uneven road surface and obstacles near construction zone
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.70
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (traffic cones, worker behavior, and fog) rather than an inherent state or behavioral anomaly.
+
+2. **Entities Identified:**
+   - **Actors:** Two Pedestrians (construction workers).
+   - **Obstacle:** Concrete barrier (RoadObject).
+   - **Evidence Indicators:** RollingBallIndicator (traffic cones) and OpenDoorIndicator (worker entering path).
+   - **WeatherCondition:** FoggyCondition.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to fog and construction debris reducing visibility.
+   - **PedestrianCollisionRisk:** High priority due to workers entering the road.
+   - **RoadConditionRisk:** Uneven surface and obstacles pose a secondary risk.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is critical due to fog.
+   - PedestrianCollisionRisk (0.85) is high due to active worker movement.
+   - RoadConditionRisk (0.70) is moderate due to static obstacles.

@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://autonomous-driving.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:ego_vehicle rdf:type :Vehicle ;
+    :near :excavator .
+
+:excavator rdf:type :ConstructionEquipment ;
+    :locatedIn :ConstructionZone ;
+    :occluding :RoadView .
+
+:traffic_cone rdf:type :RoadInfrastructure ;
+    :near :excavator .
+
+:underpass rdf:type :Infrastructure ;
+    :contains :ego_vehicle, :excavator .
+
+:environment rdf:type :NightTime ;
+    :condition :LowLight .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:** **Obstruction of Drivable Path:** The excavator arm/bucket is protruding significantly into the lane or the immediate safety buffer of the ego vehicle. In a low-light, underpass environment, this creates a high risk of collision with unlit or partially lit construction machinery.
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** **Limited Visibility (Environmental Factor):** The scene is set under an underpass at night, creating high-contrast lighting conditions and shadows. The construction zone infrastructure may be difficult for object detection systems to classify accurately, especially if the excavator is stationary or partially blending with the structure of the underpass.
+**Severity Score:** 0.70
+
+**Risk 3:**
+**Description:** **Unpredictable Construction Work Area:** The presence of a cone near the excavator indicates a construction zone. There is a high probability of hidden hazards, such as uneven road surfaces, workers on foot, or additional debris/equipment not fully captured in the immediate field of view, potentially requiring an emergency stop or lane deviation.
+**Severity Score:** 0.60

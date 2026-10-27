@@ -1,0 +1,87 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:timeStamp "2023-10-05T23:45:00"^^xsd:dateTime ;
+    ex:location "Urban Road" ;
+    ex:weatherCondition ex:Night .
+
+ex:Road1 a ex:Road ;
+    ex:hasLaneMarkings ex:DoubleSolidWhite ;
+    ex:hasCurveDegree ex:SlightCurve ;
+    ex:hasLighting ex:StreetLighting .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType ex:AutonomousCar ;
+    ex:isPositionedAt ex:Road1 ;
+    ex:isMoving ex:Forward ;
+    ex:hasSpeed "30"^^xsd:decimal .
+
+ex:Billboard1 a ex:Billboard ;
+    ex:isPositionedAt ex:RoadsideRight ;
+    ex:hasContent "DAWSON'S STOP!" .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isPositionedAt ex:Road1 ;
+    ex:isOn ex:True .
+
+ex:PalmTrees1 a ex:Vegetation ;
+    ex:isPositionedAt ex:RoadsideRight .
+
+ex:Building1 a ex:Building ;
+    ex:isPositionedAt ex:RoadsideRight .
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:isType ex:UnknownObject ;
+    ex:isPositionedAt ex:RoadsideRight ;
+    ex:isOccluding ex:False .
+
+ex:Vehicle1 ex:approaching ex:Billboard1 .
+ex:Vehicle1 ex:following ex:NoVehicle .
+ex:PalmTrees1 ex:near ex:Building1 .
+ex:StreetLight1 ex:illuminates ex:Road1 .
+ex:Obstacle1 ex:near ex:RoadsideRight .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: **Low Visibility Due to Nighttime and Poor Lighting**
+The scene is captured at night, and while street lights are on, the lighting might not be sufficient to clearly illuminate the entire road, especially around curves and potential obstacles. This could lead to reduced visibility of pedestrians, cyclists, or unexpected obstacles.
+
+Severity Score: **0.6**
+
+**Risk 2:**
+Description: **Potential Occlusion by Vegetation**
+The presence of palm trees and other vegetation on the right side of the road could occlude potential obstacles, pedestrians, or cyclists, especially if they are moving parallel to the road.
+
+Severity Score: **0.5**
+
+**Risk 3:**
+Description: **Unknown Object on Roadside**
+The presence of an unknown object on the roadside could indicate potential debris or an unmarked obstacle that might be overlooked by the autonomous vehicle's sensors.
+
+Severity Score: **0.7**
+
+**Risk 4:**
+Description: **Lack of Pedestrians and Cyclists Visibility**
+There are no visible pedestrians or cyclists in the image, but the absence of such entities does not guarantee their non-existence. The autonomous vehicle must be prepared for the possibility of pedestrians or cyclists crossing or moving along the road.
+
+Severity Score: **0.5**
+
+**Risk 5:**
+Description: **Curve in the Road**
+The road has a slight curve, which can be a challenge for autonomous vehicles in terms of maintaining proper lane position and anticipating potential hazards around the bend.
+
+Severity Score: **0.4**
+
+These risks are assessed based on the visible elements in the image and potential unseen factors that could affect autonomous driving safety.

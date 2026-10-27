@@ -1,0 +1,109 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime RoadWorkWithFlooding" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Worker near flooded roadwork area" .
+:actor2 a :Pedestrian ;
+    :description "Worker near flooded roadwork area" .
+
+:obstacle1 a :RoadObject ;
+    :description "Flooded road surface" .
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cones" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Water splashing from roadwork area" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and flooding" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Flooded road surface poses hydroplaning risk" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Splashing water may distract driver" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Limited visibility due to nighttime and flooding
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.85`
+- **Confidence Score:** `0.92`
+
+**Risk 2:**
+- **Description:** Flooded road surface poses hydroplaning risk
+- **Risk Type:** `RoadConditionRisk`
+- **Severity Score:** `0.90`
+- **Confidence Score:** `0.88`
+
+**Risk 3:**
+- **Description:** Splashing water may distract driver
+- **Risk Type:** `DistractionRisk`
+- **Severity Score:** `0.65`
+- **Confidence Score:** `0.75`
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   The scene is classified as a **`StateAnomaly`** because the flooding and roadwork create an unexpected hazardous state of the road, rather than an intentional behavior anomaly or evidence-based anomaly.
+
+2. **Actors:**
+   Two workers (`Pedestrian`) are present near the flooded roadwork area.
+
+3. **Obstacles:**
+   - Flooded road surface (`RoadObject`)
+   - Orange traffic cones (`RoadObject`)
+
+4. **Weather Condition:**
+   `NightCondition` due to low-light visibility.
+
+5. **Evidence Indicator:**
+   `FallingObjectIndicator` (splashing water) suggests a potential distraction risk.
+
+6. **Risks Identified:**
+   - **OcclusionRisk** (nighttime + flooding reduces visibility)
+   - **RoadConditionRisk** (hydroplaning hazard from flooding)
+   - **DistractionRisk** (splashing water may distract the driver)
+
+This interpretation adheres strictly to the provided ontology vocabulary.

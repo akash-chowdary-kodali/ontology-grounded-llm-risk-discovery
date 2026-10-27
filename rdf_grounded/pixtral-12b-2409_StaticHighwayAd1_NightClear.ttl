@@ -1,0 +1,220 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithDistractionRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:evidence1 a :DistractionRisk ;
+    :description "Bright billboard and sale sign may distract driver" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion from trees and parked vehicles on right side" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright billboard and sale sign may cause driver distraction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard advertising sale" .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light at intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of intersection" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential occlusion from trees and parked vehicles on the right side of the intersection, which may obscure visibility of pedestrians or cyclists.
+- **Severity Score:** 0.65
+
+**Risk 2:**
+- **Description:** Bright billboard and sale sign may cause driver distraction, increasing the likelihood of missing traffic signals or other road users.
+- **Severity Score:** 0.75
+
+---
+
+### Explanation of Corner Case Classification:
+The scene is classified as a **BehaviorAnomaly** because the primary concern is not a physical state anomaly (e.g., a fallen object) or an evidence-based anomaly (e.g., a rolling ball indicator), but rather a behavioral risk introduced by the driver's potential distraction due to the bright billboard and sale sign. This aligns with the ontology's definition of **BehaviorAnomaly** as a corner case where an actor's (in this case, the driver's) behavior deviates from expected norms due to external stimuli.
+
+The **OcclusionRisk** is also present due to the trees and parked vehicles on the right side, which could obscure visibility of pedestrians or cyclists. The **DistractionRisk** is explicitly tied to the billboard, which serves as an **EvidenceIndicator** for this risk. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanRoadWithBillboards" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Nighttime road with potential distraction from bright billboards and speed limit sign" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:weather1 a :NightCondition .
+
+:billboard1 a :Billboard ;
+    :description "Bright advertisement billboard on left side of road" .
+
+:billboard2 a :Billboard ;
+    :description "Bright colorful billboard near intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of road" .
+
+:speedLimitSign a :TrafficSign ;
+    :description "Speed limit 90 km/h sign" .
+
+:risk1 a :DistractionRisk ;
+    :description "Bright billboards may distract driver" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Speed limit sign may cause driver to look away from road" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Dark night conditions may obscure pedestrians or cyclists" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Bright billboards may distract driver
+- **Severity Score:** 0.75
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Speed limit sign may cause driver to look away from road
+- **Severity Score:** 0.60
+- **Risk Type:** DistractionRisk
+
+**Risk 3:**
+- **Description:** Dark night conditions may obscure pedestrians or cyclists
+- **Severity Score:** 0.80
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (nighttime) and static elements (billboards, signs) that create potential risks rather than dynamic actor behavior or evidence-based anomalies.
+
+2. **Key Entities Identified:**
+   - Two **Billboards** (bright advertisements)
+   - Two **TrafficSigns** (no-entry sign and speed limit sign)
+   - **NightCondition** (weather condition)
+
+3. **Risks Identified:**
+   - **DistractionRisk** from bright billboards and speed limit signs.
+   - **OcclusionRisk** due to low visibility in nighttime conditions.
+
+4. **Severity Scores:**
+   - The risks are assigned scores based on their potential impact:
+     - Billboard distraction (0.75): High due to brightness and potential for prolonged distraction.
+     - Speed limit sign distraction (0.60): Moderate, as drivers typically glance at signs briefly.
+     - Occlusion risk (0.80): High due to the inherent danger of obscured pedestrians/cyclists in low light.
+
+This interpretation adheres strictly to the provided ontology and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on right side of road" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Bright billboard may cause visual distraction" ;
+    :hasSeverityScore :sevDistraction1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Dark surroundings may obscure potential actors" ;
+    :hasSeverityScore :sevOcclusion1 .
+
+:sevDistraction1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sevOcclusion1 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Bright billboard may cause visual distraction
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Dark surroundings may obscure potential actors
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The illuminated billboard is classified as `:Billboard`.
+   - The nighttime condition is classified as `:NightCondition`.
+   - No actors, traffic signs, or traffic lights are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the primary concern arises from the **state of the environment** (darkness + bright billboard) rather than anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The bright billboard may distract the driver, reducing situational awareness.
+   - **OcclusionRisk:** The dark surroundings increase the likelihood of missing potential actors (e.g., pedestrians or cyclists) due to poor visibility.
+
+4. **Severity Scores:**
+   - The **distraction risk** is assigned a lower severity (0.35) because while it is a concern, it is not immediately critical.
+   - The **occlusion risk** is higher (0.60) because obscured actors pose a direct collision hazard in low-visibility conditions.

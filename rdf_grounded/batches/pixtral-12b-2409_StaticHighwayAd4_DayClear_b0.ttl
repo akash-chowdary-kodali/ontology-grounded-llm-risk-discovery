@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the provided scene using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithBillboardDistraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Large electronic billboard displaying dynamic content" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime with good visibility" .
+
+:risk1 a :DistractionRisk ;
+    :description "Large billboard may distract driver's attention from traffic signals and signs" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Billboard partially obscures view of traffic signs and pedestrians on the right side" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light visible in the scene" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign partially obscured by billboard" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Large billboard may distract driver's attention from traffic signals and signs.
+- **Severity Score:** 0.75
+- **Risk Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Billboard partially obscures view of traffic signs and pedestrians on the right side.
+- **Severity Score:** 0.60
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Billboard:** Large electronic billboard displaying dynamic content (classified as `:Billboard`).
+   - **Traffic Light:** Green traffic light (classified as `:TrafficLight`).
+   - **Traffic Sign:** No entry sign (classified as `:TrafficSign`).
+   - **Weather Condition:** Clear daytime (classified as `:DayCondition`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** (`:BehaviorAnomaly`) because the presence of the large billboard introduces a distraction risk, which is an anomalous behavior in the context of autonomous driving safety.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Due to the large billboard potentially diverting the driver's attention from critical traffic elements.
+   - **OcclusionRisk:** Due to the billboard partially obscuring traffic signs and potential pedestrians.
+
+4. **Severity Scores:**
+   - The distraction risk is assigned a higher severity score (0.75) because it directly impacts the driver's ability to focus on the road.
+   - The occlusion risk is assigned a lower severity score (0.60) because it is less immediate but still poses a risk of missing important road signs or pedestrians.

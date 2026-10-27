@@ -1,0 +1,42 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Pedestrian1, ex:Pedestrian2, ex:RoadInfrastructure1 ;
+    ex:hasRoad ex:Road1 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType "Bus" ;
+    ex:location "Left Side" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:age "YoungAdult" ;
+    ex:location "Crossing" ;
+    ex:status "Running" .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:age "YoungAdult" ;
+    ex:location "Crossing" ;
+    ex:status "Running" .
+
+ex:RoadInfrastructure1 a ex:TrafficSignal ;
+    ex:status "Green" .
+
+ex:Road1 a ex:Road ;
+    ex:roadType "Urban" ;
+    ex:laneCount "2" ;
+    ex:weatherCondition "Clear" ;
+    ex:timeCondition "Day" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians (two young adults) crossing the road in front of a large vehicle (bus) while running, presenting a potential for collision.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** The bus approaching the crossing pedestrians may not be able to stop in time if they continue without awareness of the vehicle.
+- **Severity Score:** 0.7

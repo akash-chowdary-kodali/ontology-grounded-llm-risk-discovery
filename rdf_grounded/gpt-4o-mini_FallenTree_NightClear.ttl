@@ -1,0 +1,29 @@
+Here is the semantic interpretation of the scene images grounded in the provided ontology vocabulary:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime scene with fallen tree" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree blocking the road" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Obstacle in vehicle's lane" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Obstacle in vehicle's lane
+Severity Score: 0.75

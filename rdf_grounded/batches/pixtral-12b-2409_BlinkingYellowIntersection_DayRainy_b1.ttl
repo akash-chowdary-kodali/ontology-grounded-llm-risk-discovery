@@ -1,0 +1,96 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainIntersectionApproach" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and traction" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reduced friction" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water splashing indicates poor traction" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of rear-end collision due to reduced visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy rain occludes visibility of other vehicles and pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road conditions increase braking distance" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light partially visible through rain" .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in foreground approaching intersection" .
+
+:vehicle2 a :Vehicle ;
+    :description "Yellow vehicle in distance, partially obscured by rain" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to reduced visibility.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Heavy rain occludes visibility of other vehicles and pedestrians.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Slippery road conditions increase braking distance.
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Scene Analysis:**
+   - The scene depicts a rainy urban intersection with poor visibility and wet road conditions.
+   - The corner case is classified as **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (e.g., water splashing, reduced visibility).
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `RainyCondition` (heavy rain).
+   - **Obstacle:** `RoadObject` (wet road surface).
+   - **EvidenceIndicator:** `RollingBallIndicator` (water splashing).
+   - **Actors:** Two vehicles (`Vehicle` class) and implied pedestrians (not visible but risk is inferred).
+
+3. **Risks Identified:**
+   - **CollisionRisk (Rear-End):** High due to reduced visibility.
+   - **OcclusionRisk:** Heavy rain obscures visibility of other actors.
+   - **RoadConditionRisk:** Slippery roads increase braking distance.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the severity of each risk in the given context (e.g., rear-end collision is highest due to immediate danger).

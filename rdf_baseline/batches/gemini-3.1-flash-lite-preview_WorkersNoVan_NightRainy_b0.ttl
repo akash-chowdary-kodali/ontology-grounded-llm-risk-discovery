@@ -1,0 +1,51 @@
+This analysis is based on the provided visual sequence of an autonomous vehicle approaching a pedestrian in a low-visibility, rainy urban environment.
+
+### 1. Main Entities
+*   **Ego-Vehicle:** The red vehicle from which the footage is captured.
+*   **Pedestrian:** A human male in a yellow shirt crossing the road.
+*   **Road Infrastructure:** Traffic cones, road surface, street lighting, and urban building structures.
+*   **Obstacles:** Miscellaneous road debris/barriers near the cones.
+*   **Weather:** Nighttime, heavy rain, low visibility conditions.
+
+### 2. Entity Relationships
+*   **Pedestrian** is *crossing* the path of the **Ego-Vehicle**.
+*   **Pedestrian** is *near* **Traffic Cones**.
+*   **Ego-Vehicle** is *approaching* the **Pedestrian**.
+*   **Weather** is *occluding* clear visibility of the road ahead.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://driving-safety.org/ontology#> .
+
+:EgoVehicle a :Vehicle ;
+    :approaching :Pedestrian .
+
+:Pedestrian a :Human ;
+    :crossing :Road ;
+    :near :TrafficCone .
+
+:Environment a :WeatherCondition ;
+    :type "Rainy" ;
+    :visibility "Low" ;
+    :timeOfDay "Night" .
+
+:TrafficCone a :RoadInfrastructure ;
+    :position "Roadside" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Collision risk due to a pedestrian unexpectedly crossing the road in front of the vehicle.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Poor visibility caused by nighttime and heavy rain conditions, increasing the sensor latency for detecting small or low-contrast objects.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Hazardous road conditions (wet pavement/standing water) reducing tire friction and increasing braking distance in the event of an emergency stop.
+*   **Severity Score:** 0.80
+
+**Risk 4:**
+*   **Description:** Potential presence of additional obscured pedestrians or debris behind the traffic cones or construction zone markers.
+*   **Severity Score:** 0.65

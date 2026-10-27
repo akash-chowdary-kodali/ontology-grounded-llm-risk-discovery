@@ -1,0 +1,77 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBillboardOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling billboard obstructing road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Billboard falling onto road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling billboard" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of road by fallen billboard" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling billboard
+- **Severity Score:** 0.95
+- **Risk Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Occlusion of road by fallen billboard
+- **Severity Score:** 0.88
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Falling billboard (`RoadObject` subclass of `Obstacle`)
+   - **Evidence Indicator:** Falling object (`FallingObjectIndicator`)
+   - **Weather Condition:** Daytime (`DayCondition`)
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the falling billboard provides clear evidence of an abnormal event that poses a risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate threat of the billboard falling onto the road.
+   - **OcclusionRisk:** High severity due to the obstruction of the road, which could lead to accidents if vehicles cannot navigate around the obstacle.
+
+4. **Severity Scores:**
+   - Collision risk is assigned the highest score (0.95) due to the immediate danger.
+   - Occlusion risk is slightly lower (0.88) but still critical due to the potential for secondary collisions.

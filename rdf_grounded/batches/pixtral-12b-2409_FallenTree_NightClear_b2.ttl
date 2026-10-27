@@ -1,0 +1,70 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle in adjacent lane" .
+:actor2 a :Vehicle ;
+    :description "Police vehicle ahead in same lane" .
+
+:obstacle1 a :RoadObject ;
+    :description "Fallen tree branches obstructing sidewalk" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to sudden braking by police vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Yellow taxi in adjacent lane may intrude into current lane" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Fallen tree branches may occlude pedestrians or cyclists" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to sudden braking by police vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Yellow taxi in adjacent lane may intrude into current lane
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Fallen tree branches may occlude pedestrians or cyclists
+Severity Score: 0.50
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **BehaviorAnomaly** due to the police vehicle's potential sudden braking behavior and the taxi's lane proximity.
+2. Three risks were identified: **RearEndCollisionRisk** (highest priority), **LaneIntrusionRisk**, and **OcclusionRisk**.
+3. Severity scores were assigned based on:
+   - Immediate braking threat (0.75)
+   - Lane proximity (0.60)
+   - Occlusion potential (0.50)
+4. The night condition was noted but not directly assigned a risk since no weather-related hazards were evident.

@@ -1,0 +1,48 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "SkateboardOnRoadAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Skateboard lying on road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Skateboard appears to have fallen from a vehicle" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with skateboard on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Skateboard obstructing lane, causing potential lane intrusion risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:weather1 a :DayCondition, :ClearCondition .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential collision with skateboard on road
+Severity Score: 0.75
+
+Risk 2:
+Description: Skateboard obstructing lane, causing potential lane intrusion risk
+Severity Score: 0.65

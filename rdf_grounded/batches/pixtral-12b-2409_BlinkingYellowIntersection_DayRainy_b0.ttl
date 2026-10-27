@@ -1,0 +1,79 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to heavy rain, increasing braking distance and reducing tire traction" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and spray, obscuring pedestrians, cyclists, and other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to slippery conditions and reduced visibility" ;
+    :hasSeverityScore :sev3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Slippery road surface due to heavy rain, increasing braking distance and reducing tire traction.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain and spray, obscuring pedestrians, cyclists, and other vehicles.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Potential rear-end collision risk due to slippery conditions and reduced visibility.
+- **Severity Score:** 0.8
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **WeatherCondition:** `:weather1` is classified as `:RainyCondition` due to the heavy rain and spray.
+   - No explicit actors (pedestrians, cyclists, or vehicles) are directly interacting in a corner-case manner, but the environment itself poses risks.
+   - Traffic lights are present but not explicitly modeled as corner cases since they are functioning normally.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:EvidenceBasedAnomaly` because the risks are inferred from observable evidence (heavy rain, spray, and reduced visibility).
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to slippery roads from rain.
+   - **OcclusionRisk:** Due to reduced visibility from rain and spray.
+   - **CollisionRisk (Rear-End):** Due to the combination of slippery roads and reduced visibility.
+
+4. **Severity Scores:**
+   - The scores reflect the high risk of accidents in these conditions, with road conditions being the most severe.

@@ -1,0 +1,55 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-Vehicle:** The perspective vehicle.
+*   **Van:** A white commercial van parked/stopped on the right side.
+*   **Obstacle/Billboard:** A large, fallen "Coca-Cola" sign/panel lying on the road.
+*   **Pedestrian:** A person standing near the side of the van, potentially interacting with it.
+*   **Infrastructure:** Road surface, street lighting, surrounding buildings.
+*   **Weather Conditions:** Heavy rain, low visibility (fog/mist), wet road surface.
+
+**2. Entity Relationships:**
+*   **Ego-Vehicle:** Approaching the fallen obstacle.
+*   **Van:** Occluding the pedestrian from the ego-vehicle's direct line of sight; positioned on the right.
+*   **Obstacle:** Lying directly in the path of the ego-vehicle.
+*   **Pedestrian:** Near the van and the edge of the road, potentially entering the roadway.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:approaching ex:FallenSign ;
+    ex:environmentConditions "HeavyRain" .
+
+ex:FallenSign rdf:type ex:Obstacle ;
+    ex:locatedOn ex:Roadway ;
+    ex:blocking ex:DrivingPath .
+
+ex:Van rdf:type ex:Vehicle ;
+    ex:positionedAt ex:RightSide ;
+    ex:occluding ex:Pedestrian .
+
+ex:Pedestrian rdf:type ex:Human ;
+    ex:near ex:Van ;
+    ex:potentiallyNear ex:Roadway .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision with the large fallen object (billboard) obstructing the travel lane in conditions of poor visibility.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Pedestrian stepping out from behind the occluding van into the path of the ego-vehicle. Visibility is significantly impaired by heavy rain.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Hydroplaning or loss of control due to the wet road surface while attempting an emergency maneuver to avoid the obstacle.
+*   **Severity Score:** 0.70

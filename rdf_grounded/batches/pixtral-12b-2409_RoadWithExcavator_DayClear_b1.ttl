@@ -1,0 +1,62 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large construction crane arm extending into roadway" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with construction equipment obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Construction equipment intruding into vehicle lane" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential collision with construction equipment obstructing road
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Construction equipment intruding into vehicle lane
+Severity Score: 0.88
+
+### Analysis:
+1. **Entities Identified**:
+   - The primary obstacle is the **RoadObject** (construction crane arm) extending into the roadway.
+   - Weather condition is **DayCondition** (clear daytime).
+   - No actors (pedestrians, cyclists, or vehicles) are directly involved in this frame, but the construction equipment acts as a static obstacle.
+
+2. **Corner Case Classification**:
+   - **StateAnomaly**: The crane arm is in an unexpected state for a roadway (it is not a moving vehicle or pedestrian, but a static object that violates normal road conditions).
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity due to the large, unexpected obstacle in the path of vehicles.
+   - **LaneIntrusionRisk**: High severity as the crane arm occupies part of the lane, forcing vehicles to maneuver around it.
+
+4. **Severity Scores**:
+   - Both risks are assigned high scores (0.92 and 0.88) due to the immediate and significant hazard posed by the construction equipment. The **CollisionRisk** is slightly higher because it directly threatens vehicle safety.

@@ -1,0 +1,197 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball rolling into lane" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling ball in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:** Potential collision with rolling ball in vehicle path
+**Severity Score:** 0.9
+**Risk Type:** `:CollisionRisk`
+
+#### **Risk 2:**
+**Description:** Reduced visibility due to fog obscuring road ahead
+**Severity Score:** 0.8
+**Risk Type:** `:OcclusionRisk`
+
+---
+
+### **Analysis Justification**
+1. **Entities Identified:**
+   - **Obstacle:** A soccer ball rolling into the lane (`:RoadObject`).
+   - **Weather Condition:** Heavy fog (`:FoggyCondition`).
+   - No actors (pedestrians/cyclists/vehicles) are directly interacting in the scene, but the rolling ball is treated as an obstacle.
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` because the rolling ball (`:RollingBallIndicator`) provides clear evidence of a potential hazard.
+
+3. **Risks Identified:**
+   - **Collision Risk:** High severity (0.9) due to the ball's unpredictable path in the lane.
+   - **Occlusion Risk:** High severity (0.8) due to fog reducing visibility of the road ahead.
+
+4. **Severity Scores:**
+   - Collision risk is prioritized slightly higher than occlusion risk because the ball is an immediate, dynamic obstacle.
+
+--- Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Soccer ball rolling unpredictably in the road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball on the road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog combined with unpredictable rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Reduced visibility due to fog combined with an unpredictable rolling ball (soccer ball) on the road, creating an occlusion risk for vehicles.
+- **Severity Score:** 0.92
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **WeatherCondition:** `FoggyCondition` (heavy fog reducing visibility).
+   - **Obstacle:** `RoadObject` (soccer ball on the road).
+   - **EvidenceIndicator:** `RollingBallIndicator` (unpredictable rolling ball).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly**: The scene is classified as an evidence-based anomaly because the rolling ball (evidence) directly indicates a potential risk (occlusion).
+
+3. **Risk Identification:**
+   - **OcclusionRisk**: The combination of fog and the rolling ball creates a high risk of occlusion, where the vehicle's perception system may fail to detect the ball or other potential hazards in time.
+
+4. **Severity Score:**
+   - The severity score is high (0.92) due to the combination of poor visibility and an unpredictable object on the road, which could lead to a collision if not addressed promptly. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "StreetGameFogScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Child playing with ball on street" .
+:actor2 a :Vehicle ;
+    :description "Vehicle stopped on road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Child may run into street path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog reduces visibility of surroundings" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Ball on road may cause lane intrusion" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Child may run into street path
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Fog reduces visibility of surroundings
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Ball on road may cause lane intrusion
+Severity Score: 0.70

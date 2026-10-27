@@ -1,0 +1,71 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInBasketballCourt" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Excavator bucket positioned on basketball court" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Excavator bucket obstructing view of court area" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Equipment intruding into potential pedestrian path" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision with unexpected equipment" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Excavator bucket obstructing view of court area
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Equipment intruding into potential pedestrian path
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Potential collision with unexpected equipment
+Severity Score: 0.80
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The excavator bucket is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene is under `:NightCondition` as inferred from the lighting.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the unexpected presence of heavy machinery in a non-industrial setting (a basketball court) represents an anomalous state of the environment.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The excavator bucket obstructs the view of the court, posing a risk to autonomous vehicle perception systems.
+   - **LaneIntrusionRisk:** The equipment intrudes into a space where pedestrians or cyclists might be present, increasing the risk of intrusion.
+   - **CollisionRisk:** The unexpected placement of the equipment poses a direct collision risk to any vehicle or pedestrian navigating the area.
+
+4. **Severity Scores:**
+   - The scores reflect the potential danger and unpredictability of the situation, with higher scores for risks involving direct collision or severe perception issues.

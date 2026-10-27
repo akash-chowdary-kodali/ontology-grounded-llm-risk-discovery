@@ -1,0 +1,33 @@
+Here’s the RDF output based on the provided scene images and the ontology vocabulary:
+
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy weather with low visibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Road objects affected by fog" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision due to low visibility and fog" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+
+Risk 1:
+Description: Potential collision due to low visibility and fog
+Severity Score: 0.75

@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "IntersectionSideImpactRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Other vehicle crossing intersection path" .
+
+:night1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential side-impact collision at intersection due to low visibility" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential side-impact collision at intersection due to low visibility
+Severity Score: 0.85

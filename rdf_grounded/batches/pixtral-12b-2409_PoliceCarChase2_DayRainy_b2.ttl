@@ -1,0 +1,69 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "AutomaticCarWashUnderAdverseConditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Water spray from automatic car wash system" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy water spray simulating rainy conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to water spray obstructing view" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to water accumulation" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction due to intense water spray" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to water spray obstructing view
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Slippery road conditions due to water accumulation
+Severity Score: 0.8
+
+**Risk 3:**
+Description: Driver distraction due to intense water spray
+Severity Score: 0.7
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The water spray from the car wash system is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene's weather condition is classified as `:RainyCondition` due to the heavy water spray simulating adverse weather.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a `:StateAnomaly` because the water spray creates an unexpected and hazardous state for driving, rather than an anomaly in behavior or evidence.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The water spray significantly reduces visibility, posing a high risk.
+   - **RoadConditionRisk:** The water accumulation on the road increases the likelihood of skidding or loss of control.
+   - **DistractionRisk:** The intense water spray can distract the driver, affecting their focus on the road.

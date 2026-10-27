@@ -1,0 +1,50 @@
+### Semantic Interpretation
+
+**1. Main Entities:**
+*   **Ego-vehicle:** The car from which the scene is captured.
+*   **Small Object (Soccer ball):** A spherical object moving/airborne in the scene.
+*   **Environment:** Urban road, brick wall, street lamps, overpass structure.
+*   **Weather Conditions:** Heavy fog/mist, low visibility, rain.
+
+**2. Relationships:**
+*   **Ego-vehicle:** Traveling on the road, approaching the location of the object.
+*   **Soccer ball:** Moving/airborne, directly in the path of the ego-vehicle.
+*   **Visibility:** Environment occludes long-distance view; fog creates poor sensor reliability.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isTravelingOn ex:Road .
+
+ex:SoccerBall rdf:type ex:Obstacle ;
+    ex:isLocatedIn ex:PathAhead ;
+    ex:isAirborne true .
+
+ex:WeatherCondition rdf:type ex:HeavyFog ;
+    ex:causes ex:LowVisibility .
+
+ex:EgoVehicle ex:approaching ex:SoccerBall .
+ex:HeavyFog ex:occludes ex:RoadSurface .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** High-speed impact with a small, unpredictable object (soccer ball). The presence of a ball often indicates that a child or pedestrian may follow it into the road, creating an immediate collision risk.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Severe environmental degradation (Heavy Fog). The extremely low visibility significantly reduces the "Reaction Time" for the ego-vehicle's perception system to detect hazards or changing road conditions.
+*   **Severity Score:** 0.95
+
+**Risk 3:**
+*   **Description:** Sensor Blindness. The weather conditions might cause false negatives in LiDAR or camera-based depth perception, leading the vehicle to miscalculate the distance to the obstacle.
+*   **Severity Score:** 0.75

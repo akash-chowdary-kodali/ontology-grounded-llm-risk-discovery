@@ -1,0 +1,22 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "Vehicle encountered stopped car in tunnel" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+:actor1 a :Vehicle .
+:weather1 a :ClearCondition .
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential risk of rear-end collision due to stopped vehicle" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential risk of rear-end collision due to stopped vehicle
+Severity Score: 0.75

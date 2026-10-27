@@ -1,0 +1,33 @@
+Here's the RDF output based on the provided scene descriptions:
+
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RainyScene with Billboard and Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard displaced due to strong winds" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard may distract or obstruct view of drivers" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Billboard may distract or obstruct view of drivers
+- **Severity Score:** 0.75

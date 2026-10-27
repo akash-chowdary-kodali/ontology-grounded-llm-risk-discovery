@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingRoadObstacleInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasObstacle :roadObstacle1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :collisionRisk1, :occlusionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :description "Orange road sign falling into the path" ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:roadObstacle1 a :RoadObject ;
+    :description "Falling orange road sign (20MPH)" .
+
+:foggyCondition1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Risk of collision with falling road sign" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling road sign
+- **Severity Score:** 0.95
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of road ahead
+- **Severity Score:** 0.80
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Falling road sign (`RoadObject` subclass of `Obstacle`)
+   - **Weather Condition:** Heavy fog (`FoggyCondition` subclass of `WeatherCondition`)
+   - **Evidence Indicator:** Falling object (`FallingObjectIndicator`)
+
+2. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the falling road sign (evidence) directly indicates a potential collision risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate threat of the falling sign.
+   - **OcclusionRisk:** Moderate severity due to reduced visibility from fog.
+
+4. **Severity Scores:**
+   - Collision risk is assigned the highest score (0.95) due to the immediate danger.
+   - Occlusion risk is slightly lower (0.80) but still critical for safe navigation.

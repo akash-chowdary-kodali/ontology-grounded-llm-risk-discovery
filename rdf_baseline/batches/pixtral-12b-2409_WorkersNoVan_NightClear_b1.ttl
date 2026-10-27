@@ -1,0 +1,94 @@
+### **Analysis of the Scene**
+
+#### **1. Identified Main Entities**
+- **Pedestrian**: A person walking on the road (center of the scene).
+- **Vehicles**: The viewpoint is from inside a vehicle (bottom of the images).
+- **Obstacles**:
+  - Orange traffic cones (scattered on the road).
+  - A small red object (possibly a fire extinguisher or barrier) on the left.
+- **Road Infrastructure**:
+  - Road markings (lane lines).
+  - Sidewalk and buildings on the right.
+  - Streetlights.
+- **Weather Conditions**: Nighttime, clear visibility (no rain, fog, or snow).
+
+---
+
+#### **2. Relationships Between Entities**
+- The **pedestrian** is **walking across the road** (potentially jaywalking).
+- The **vehicle** (viewpoint) is **approaching the pedestrian** from behind.
+- The **orange cones** are **scattered on the road**, possibly indicating a construction zone or hazard.
+- The **pedestrian is near the cones**, suggesting they may be unaware of the obstacles.
+- The **streetlights** illuminate the scene, but visibility may be reduced due to nighttime conditions.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:NighttimeClear ;
+    ex:hasRoadMarkings ex:LaneLines ;
+    ex:hasStreetLight ex:StreetLight1 .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isWalkingOn ex:Road ;
+    ex:isNear ex:TrafficCone1 ;
+    ex:isNear ex:TrafficCone2 ;
+    ex:hasClothing ex:YellowShirtBlueJeans .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasViewpoint ex:DriverPerspective ;
+    ex:isApproaching ex:Pedestrian1 .
+
+ex:TrafficCone1 a ex:Obstacle ;
+    ex:isLocatedOn ex:Road ;
+    ex:hasColor ex:Orange .
+
+ex:TrafficCone2 a ex:Obstacle ;
+    ex:isLocatedOn ex:Road ;
+    ex:hasColor ex:Orange .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianCollision ;
+    ex:severityScore "0.9"^^xsd:float ;
+    ex:description "Pedestrian walking across road in front of approaching vehicle." .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:ObstacleCollision ;
+    ex:severityScore "0.7"^^xsd:float ;
+    ex:description "Scattered traffic cones on road may cause vehicle to swerve or brake suddenly." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The pedestrian is walking across the road in front of the approaching vehicle, increasing the risk of a collision. The pedestrian may not be fully visible due to nighttime conditions, and the vehicle may not have enough reaction time to avoid impact.
+
+**Severity Score:**
+**0.9** (High risk due to potential fatal collision)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The scattered traffic cones on the road may cause the vehicle to swerve or brake suddenly, leading to a loss of control or a secondary collision with the pedestrian or other obstacles.
+
+**Severity Score:**
+**0.7** (Moderate to high risk due to sudden maneuvering)
+
+---
+
+### **Additional Observations**
+- The scene represents a **corner case** where an autonomous vehicle must detect and react to both a pedestrian and unexpected obstacles (cones) in low-light conditions.
+- The **pedestrian’s unpredictable movement** (walking across the road) combined with **poor visibility** increases the complexity of safe navigation.
+- The **vehicle’s perception system** must reliably detect the pedestrian and cones while maintaining safe speed and trajectory.
+
+Would you like further refinement of the RDF schema or additional risk factors considered?

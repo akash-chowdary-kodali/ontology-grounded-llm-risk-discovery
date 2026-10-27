@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRollingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "White spherical object on road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling spherical object detected on road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rolling object may partially obscure view of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with rolling object on road
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Rolling object may partially obscure view of road ahead
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. The white spherical object on the road is classified as a `:RoadObject` under `:Obstacle`.
+2. The corner case is classified as `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (the rolling object).
+3. Two risks are identified:
+   - **CollisionRisk** due to the rolling object being in the vehicle's path.
+   - **OcclusionRisk** as the object may partially block the driver's view of the road ahead.
+4. Severity scores are assigned based on the potential impact of the rolling object:
+   - Collision risk is higher (0.75) due to direct threat to vehicle safety.
+   - Occlusion risk is moderate (0.60) as it may impair situational awareness.

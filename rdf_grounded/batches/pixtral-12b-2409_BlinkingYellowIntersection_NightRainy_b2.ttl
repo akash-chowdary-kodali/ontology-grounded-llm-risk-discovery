@@ -1,0 +1,66 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeParkingLotOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large parked vehicle partially obstructing view of parking lot exit" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Partial occlusion of parking lot exit by parked vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to limited visibility of exit" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction from parked vehicle's rear lights" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Partial occlusion of parking lot exit by parked vehicle
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential rear-end collision due to limited visibility of exit
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Driver distraction from parked vehicle's rear lights
+Severity Score: 0.55
+
+---
+**Analysis Notes:**
+1. The scene features a **StateAnomaly** due to the parked vehicle creating a static occlusion hazard.
+2. No actors (pedestrians/cyclists) or dynamic behaviors are present, so no **BehaviorAnomaly** applies.
+3. The **NightCondition** is inferred from the dark lighting and visible artificial illumination.
+4. The parked vehicle is classified as a **RoadObject** under **Obstacle**.
+5. Three risks are identified:
+   - **OcclusionRisk** (highest severity) due to the parked vehicle blocking the exit.
+   - **RearEndCollisionRisk** (secondary) from limited visibility of the exit path.
+   - **DistractionRisk** (lowest) from the parked vehicle's rear lights.
+6. Severity scores reflect the likelihood and immediacy of each risk in this context.

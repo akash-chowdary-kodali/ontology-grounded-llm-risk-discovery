@@ -1,0 +1,35 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "GorillaObstacleNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obs1 ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Pedestrian ;
+    :description "Gorilla moving on the roadway" .
+
+:obs1 a :RoadObject ;
+    :description "Large gorilla occupying the center of the lane" .
+
+:night1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High probability of collision with large animal on road in low light" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Collision risk due to unexpected presence and erratic movement of a large animal on the road in nighttime visibility conditions.
+Severity Score: 0.95

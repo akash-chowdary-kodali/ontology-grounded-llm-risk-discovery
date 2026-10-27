@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianNearVehicleNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking near vehicle with unusual proximity" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking too close to vehicle, potential collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver may be distracted by pedestrian's proximity and movement" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian walking too close to vehicle, potential collision risk
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Driver may be distracted by pedestrian's proximity and movement
+Severity Score: 0.75
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The pedestrian is classified as an `:Actor` of type `:Pedestrian`.
+   - The scene's weather condition is `:NightCondition`.
+
+2. **Corner Case Classification:**
+   - The corner case is classified as `:BehaviorAnomaly` because the pedestrian is walking unusually close to the vehicle, which deviates from expected pedestrian behavior in such proximity to a moving or stationary vehicle.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk**: The pedestrian's proximity to the vehicle poses a high risk of collision, especially in low-light conditions.
+   - **DistractionRisk**: The driver may be distracted by the pedestrian's movement, increasing the likelihood of an accident.
+
+4. **Severity Scores:**
+   - The **PedestrianCollisionRisk** is assigned a high severity score of **0.90** due to the immediate danger of collision.
+   - The **DistractionRisk** is assigned a severity score of **0.75**, reflecting a moderate but significant risk of driver distraction.

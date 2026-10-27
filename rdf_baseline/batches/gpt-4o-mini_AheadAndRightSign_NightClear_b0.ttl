@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#>.
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Building1, ex:StreetLight1, ex:Road1 ;
+    ex:environment ex:Night ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:position ex:FrontView ;
+    ex:state ex:Moving .
+
+ex:Building1 a ex:Building ;
+    ex:position ex:LeftSide .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:position ex:RightSide ;
+    ex:state ex:On .
+
+ex:Road1 a ex:Road ;
+    ex:condition ex:Clear .
+
+ex:Night a ex:WeatherCondition ;
+    ex:visibility ex:Low .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to night conditions increases the risk of not detecting pedestrians or obstacles.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Potential misinterpretation of road markings leading to unsafe maneuvers.
+- **Severity Score:** 0.5
+
+**Risk 3:**
+- **Description:** Obstructions (i.e. buildings, other vehicles) may occlude pedestrians or cyclists.
+- **Severity Score:** 0.8
+
+### Summary
+- The scene includes a vehicle moving at night with reduced visibility. The environment consists of buildings and streetlights, which present potential risks for visibility and road marking interpretation. The risk scores indicate varying levels of concern, with visibility being the most significant issue.

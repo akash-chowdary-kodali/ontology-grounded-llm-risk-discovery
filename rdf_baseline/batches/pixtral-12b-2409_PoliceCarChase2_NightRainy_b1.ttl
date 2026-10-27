@@ -1,0 +1,135 @@
+### **Scene Analysis: Tunnel Underpass with Wet Road Conditions**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Vehicle_A (Red car, ego vehicle)** – Positioned at the front, driving through the tunnel.
+  - **Vehicle_B (Black car)** – Following closely behind Vehicle_A.
+  - **Vehicle_C (White SUV)** – Approaching from the opposite direction (right side of the image).
+- **Road Infrastructure:**
+  - **Tunnel Structure** – Overhead beams, concrete walls, and lighting.
+  - **Wet Road Surface** – Reflective water, indicating recent rain.
+  - **Road Markings** – Double yellow lines (centerline) and lane boundaries.
+- **Weather Conditions:**
+  - **Rain** – Wet pavement, reflections, and possible reduced visibility.
+- **Obstacles:**
+  - **None directly visible**, but **water accumulation** may reduce traction.
+
+#### **Relationships:**
+- **Vehicle_A** is **preceding** **Vehicle_B** (following too closely).
+- **Vehicle_C** is **approaching from the opposite direction** (potential oncoming traffic).
+- **Vehicle_A** is **occluded partially** by **Vehicle_B** in the second image.
+- **Wet road** affects **traction** for all vehicles.
+- **Tunnel lighting** may cause **glare** or **reduced visibility** for drivers.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:Rain ;
+    ex:hasRoadCondition ex:WetRoad ;
+    ex:hasLightingCondition ex:TunnelLighting .
+
+ex:Vehicle_A a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isEgoVehicle true ;
+    ex:hasPosition ex:FrontOfTunnel ;
+    ex:hasSpeed "Moderate" ;
+    ex:hasFollowingVehicle ex:Vehicle_B .
+
+ex:Vehicle_B a ex:Vehicle ;
+    ex:hasColor "Black" ;
+    ex:hasPosition ex:FollowingVehicle_A ;
+    ex:hasDistanceToVehicle_A "1-2 meters" ;
+    ex:hasSpeed "SimilarToVehicle_A" .
+
+ex:Vehicle_C a ex:Vehicle ;
+    ex:hasColor "White" ;
+    ex:hasPosition ex:OppositeLane ;
+    ex:hasDirection ex:ApproachingFromRight .
+
+ex:TunnelStructure a ex:RoadInfrastructure ;
+    ex:hasOverheadBeams true ;
+    ex:hasLighting ex:ArtificialTunnelLighting ;
+    ex:hasRoadMarkings ex:DoubleYellowLines .
+
+ex:WetRoad a ex:RoadCondition ;
+    ex:reducesTraction true ;
+    ex:causesReflections true .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:FollowingTooClosely ;
+    ex:affectedEntities ex:Vehicle_A, ex:Vehicle_B ;
+    ex:severityScore "0.85"^^xsd:float .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:ReducedVisibilityDueToGlare ;
+    ex:affectedEntities ex:Vehicle_A ;
+    ex:severityScore "0.70"^^xsd:float .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:ReducedTractionDueToWetRoad ;
+    ex:affectedEntities ex:Vehicle_A, ex:Vehicle_B, ex:Vehicle_C ;
+    ex:severityScore "0.65"^^xsd:float .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+- **Following Too Closely (Rear-End Collision Risk)**
+  - **Vehicle_B** is following **Vehicle_A** at a dangerously short distance (1-2 meters), increasing the risk of a rear-end collision if sudden braking occurs.
+  - **Tunnel conditions** (reduced visibility, glare) exacerbate this risk.
+
+**Severity Score:** **0.85** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+- **Reduced Visibility Due to Glare & Tunnel Lighting**
+  - **Vehicle_A** (ego vehicle) may experience **headlight glare** from oncoming traffic (**Vehicle_C**) combined with **tunnel lighting reflections**, impairing depth perception.
+  - **Wet road reflections** further obscure road markings and obstacles.
+
+**Severity Score:** **0.70** (High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+- **Reduced Traction Due to Wet Road**
+  - **All vehicles** are at risk of **hydroplaning** or **loss of control** due to standing water on the road.
+  - **Sudden braking or swerving** could lead to skidding, especially in a confined tunnel where escape routes are limited.
+
+**Severity Score:** **0.65** (Moderate-High)
+
+---
+
+### **4. Additional Observations (Potential Corner Cases)**
+- **Occlusion Risk:** **Vehicle_B** partially obscures **Vehicle_A** in the second image, which could confuse perception systems in autonomous driving.
+- **Emergency Vehicle Response:** If an emergency vehicle were to enter the tunnel, **visibility and reaction time** would be severely compromised.
+- **Pedestrian/Cyclist Risk:** While none are visible, tunnels often have **limited pedestrian zones**, increasing vulnerability if someone were to cross unexpectedly.
+
+---
+### **Conclusion**
+This scene presents **multiple high-severity risks** due to:
+✅ **Close following** (rear-end collision)
+✅ **Reduced visibility** (glare, reflections)
+✅ **Wet road conditions** (hydroplaning, loss of control)
+
+**Recommended Actions for Autonomous Systems:**
+- **Increase following distance** (adaptive cruise control adjustment).
+- **Reduce speed** in tunnels with poor lighting.
+- **Enhance sensor fusion** (LiDAR + camera) to detect wet road conditions.
+- **Activate hazard lights** to alert surrounding vehicles.
+
+Would you like a deeper dive into any specific risk mitigation strategy?

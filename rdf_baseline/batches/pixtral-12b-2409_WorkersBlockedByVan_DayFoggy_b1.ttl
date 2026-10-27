@@ -1,0 +1,112 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix risk: <http://example.org/risk#> .
+
+# Entities
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:Foggy ;
+    ex:hasTimeStamp "2023-10-15T14:30:00"^^xsd:dateTime .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasLocation ex:CrosswalkZone ;
+    ex:hasTrajectory ex:CrossingRoad ;
+    ex:hasAction ex:Running ;
+    ex:hasClothingColor "Yellow" ;
+    ex:hasPosition [ ex:latitude 48.8584 ; ex:longitude 2.2945 ] .
+
+ex:TrafficCone1 a ex:Obstacle ;
+    ex:hasLocation ex:LeftLane ;
+    ex:hasColor "Orange" ;
+    ex:hasHeight 0.5 .
+
+ex:TrafficCone2 a ex:Obstacle ;
+    ex:hasLocation ex:RightLane ;
+    ex:hasColor "Orange" ;
+    ex:hasHeight 0.5 .
+
+ex:Barrier a ex:Obstacle ;
+    ex:hasLocation ex:LeftSidewalk ;
+    ex:hasType "RoadBlock" ;
+    ex:hasMaterial "Plastic" .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasPosition ex:BehindBarrier ;
+    ex:hasFieldOfView ex:ObstructedByFog ;
+    ex:hasSensorType "Camera" .
+
+ex:Building1 a ex:RoadInfrastructure ;
+    ex:hasLocation ex:RightSide ;
+    ex:hasType "Residential" .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasType "UrbanStreet" ;
+    ex:hasLaneMarking ex:DoubleWhiteLine .
+
+# Relationships
+ex:Pedestrian1 ex:isNear ex:TrafficCone2 .
+ex:Vehicle1 ex:hasObstructedView ex:Pedestrian1 .
+ex:Pedestrian1 ex:isCrossing ex:Road .
+ex:Barrier ex:occludes ex:Vehicle1 .
+ex:Foggy ex:reducesVisibility ex:Pedestrian1 .
+ex:TrafficCone1 ex:isPlacedOn ex:LeftLane .
+ex:TrafficCone2 ex:isPlacedOn ex:RightLane .
+
+# Risk Statements
+ex:Risk1 a risk:Risk ;
+    risk:hasType risk:PedestrianCollision ;
+    risk:hasSeverity 0.95 ;
+    risk:hasDescription "Pedestrian crossing road in fog with obstructed visibility." ;
+    risk:affects ex:Vehicle1 .
+
+ex:Risk2 a risk:Risk ;
+    risk:hasType risk:ObstacleCollision ;
+    risk:hasSeverity 0.7 ;
+    risk:hasDescription "Vehicle may collide with traffic cones due to poor visibility." ;
+    risk:affects ex:Vehicle1 .
+
+ex:Risk3 a risk:Risk ;
+    risk:hasType risk:SensorFailure ;
+    risk:hasSeverity 0.6 ;
+    risk:hasDescription "Fog may impair camera-based detection of pedestrians and obstacles." ;
+    risk:affects ex:Vehicle1 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+A pedestrian is crossing the road in a foggy environment, significantly reducing visibility for the autonomous vehicle. The vehicle’s sensors (e.g., cameras) may fail to detect the pedestrian in time, leading to a collision.
+
+**Severity Score:** **0.95**
+
+---
+
+#### **Risk 2:**
+**Description:**
+Traffic cones are placed on the road, partially obstructing the lane. Due to fog, the autonomous vehicle may not detect them in time, leading to a collision with the cones or an unintended lane deviation.
+
+**Severity Score:** **0.7**
+
+---
+
+#### **Risk 3:**
+**Description:**
+The foggy conditions severely degrade sensor performance, particularly for camera-based systems. This increases the risk of false negatives in pedestrian and obstacle detection, leading to potential safety-critical failures.
+
+**Severity Score:** **0.6**
+
+---
+
+### **Summary of Key Observations:**
+1. **Primary Risk:** Pedestrian collision due to poor visibility.
+2. **Secondary Risks:** Obstacle collision (cones) and sensor failure.
+3. **Environmental Factor:** Fog significantly worsens detection capabilities.
+4. **Infrastructure Factor:** Road barriers and cones introduce unexpected obstacles.
+
+This scenario highlights the importance of **multi-modal sensor fusion (LiDAR + radar + cameras)** and **adaptive speed control** in low-visibility conditions.

@@ -1,0 +1,42 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:TrafficScene ;
+    ex:contains ex:vehicle1, ex:vehicle2, ex:infrastructure1 .
+
+ex:vehicle1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:hasColor "Black" ;
+    ex:isApproaching ex:vehicle2 .
+
+ex:vehicle2 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:hasColor "White" ;
+    ex:isNear ex:vehicle1 .
+
+ex:infrastructure1 a ex:Infrastructure ;
+    ex:hasType "Overpass" ;
+    ex:locatedAt ex:location1 .
+
+ex:location1 a ex:Location ;
+    ex:hasCoordinates "x:0.0, y:0.0" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Potential collision between the approaching black car and the nearby white car due to close proximity on the road.  
+**Severity Score:** 0.7  
+
+#### Risk 2:
+**Description:** Obstruction from the low-hanging overpass which may affect visibility for both vehicles.  
+**Severity Score:** 0.5  
+
+#### Risk 3:
+**Description:** Low light conditions that could impair driver awareness and response time for both vehicles.  
+**Severity Score:** 0.6  
+
+### Summary
+The scene presents multiple vehicles, an overpass as infrastructure, and various safety risks linked to close proximity, potential visibility obstruction, and low light conditions.

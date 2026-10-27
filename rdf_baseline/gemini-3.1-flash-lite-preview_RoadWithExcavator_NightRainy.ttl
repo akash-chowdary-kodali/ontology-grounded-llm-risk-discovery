@@ -1,0 +1,34 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scenario#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:ego_vehicle rdf:type ex:Vehicle .
+ex:excavator rdf:type ex:HeavyMachinery .
+ex:traffic_cone rdf:type ex:Obstacle .
+ex:road_surface rdf:type ex:Infrastructure .
+ex:underpass rdf:type ex:Infrastructure .
+
+ex:ego_vehicle ex:approaching ex:excavator .
+ex:excavator ex:near ex:ego_vehicle .
+ex:traffic_cone ex:marking ex:excavator .
+ex:road_surface ex:condition "wet/rainy" .
+ex:underpass ex:occluding ex:lighting .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1: Collision with Construction Equipment**
+*   **Description:** The ego vehicle is approaching a large, stationary construction vehicle (excavator) that is partially occupying the driving lane or the immediate shoulder. The presence of the excavator, combined with low-light/nighttime conditions, creates a high risk of impact.
+*   **Severity Score:** 0.85
+
+**Risk 2: Reduced Visibility and Traction**
+*   **Description:** The scene is characterized by nighttime, low-light underpass conditions, and a wet road surface. The rain/wet pavement reduces tire-road adhesion (hydroplaning risk) and decreases the visibility range for sensors and cameras, making it harder to identify the boundaries of the construction site.
+*   **Severity Score:** 0.65
+
+**Risk 3: Unmarked/Poorly Defined Work Zone**
+*   **Description:** While a traffic cone is visible, the construction area lacks sufficient warning lighting or barricades typical for nighttime road work. The sudden encroachment of the excavator arm into the vehicle's path is a critical hazard, especially if the sensor suite fails to classify the non-standard geometry of the machinery correctly.
+*   **Severity Score:** 0.75

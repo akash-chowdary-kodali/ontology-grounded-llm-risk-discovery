@@ -1,0 +1,68 @@
+Here is the semantic interpretation of the scene in RDF/Turtle format, following the provided ontology constraints:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainPedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road in heavy rain" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road in vehicle path during heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy rain reducing visibility of pedestrians and surroundings" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Heavy rain creating water droplets that obscure vision" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+### Identified Risks:
+
+**Risk 1:**
+Description: Pedestrians crossing road in vehicle path during heavy rain
+Severity Score: 0.92
+Risk Type: PedestrianCollisionRisk
+
+**Risk 2:**
+Description: Heavy rain reducing visibility of pedestrians and surroundings
+Severity Score: 0.88
+Risk Type: OcclusionRisk
+
+### Analysis:
+1. **Entities Identified**:
+   - Pedestrians (Actor → Pedestrian)
+   - Heavy rain (WeatherCondition → RainyCondition)
+   - No visible traffic signs, traffic lights, or billboards in this particular frame
+
+2. **Corner Case Classification**:
+   - **BehaviorAnomaly**: The pedestrians are crossing in heavy rain, which is a behavior that increases risk during adverse conditions.
+
+3. **Evidence Indicator**:
+   - **RollingBallIndicator**: Represents the heavy rain creating water droplets that obscure vision, directly contributing to the occlusion risk.
+
+4. **Severity Scores**:
+   - The pedestrian collision risk is rated higher (0.92) due to the immediate threat of impact.
+   - The occlusion risk (0.88) is slightly lower but still critical as it exacerbates the collision risk by reducing visibility.

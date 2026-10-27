@@ -1,0 +1,35 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Intersection with Billboard and Traffic Signs" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :ClearCondition .
+
+:actor1 a :Billboard ;
+    :description "Billboard with advertisement for 'IT'S A GO FOR SAFE'" .
+
+:obstacle1 a :TrafficSign ;
+    :description "Traffic sign indicating a speed limit of 30" .
+
+:risk1 a :DistractionRisk ;
+    :description "Potential distraction from the billboard while driving" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential distraction from the billboard while driving
+Severity Score: 0.60

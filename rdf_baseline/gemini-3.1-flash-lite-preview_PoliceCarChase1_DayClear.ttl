@@ -1,0 +1,36 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (observed from the hood).
+*   **Other Vehicles:** A white SUV performing a lane change/maneuver.
+*   **Road Infrastructure:** Multi-lane tunnel, concrete support pillars, lane markings.
+*   **Environment:** Indoor tunnel lighting, clear visibility.
+
+### 2. Entity Relationships
+*   **Ego-Vehicle** is following the **White SUV**.
+*   **White SUV** is performing a lane change across the path of the **Ego-Vehicle**.
+*   **Tunnel Pillars** are bordering the left side of the road.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://driving-safety.org/schema#> .
+
+:EgoVehicle rdf:type :Vehicle .
+:WhiteSUV rdf:type :Vehicle .
+:Tunnel rdf:type :Environment .
+:Pillar rdf:type :Infrastructure .
+
+:WhiteSUV :isPerforming :UnsafeLaneChange .
+:WhiteSUV :isBlocking :EgoVehicle .
+:EgoVehicle :isFollowing :WhiteSUV .
+:WhiteSUV :isNear :TunnelWall .
+:WhiteSUV :isLocatedIn :Tunnel .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Aggressive or abrupt lane change by the white SUV directly in front of the ego-vehicle. This reduces the time-to-collision (TTC) and forces the ego-vehicle to perform an emergency braking maneuver or evasive steering within the confined space of a tunnel.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Environmental constraint due to the tunnel structure. The presence of concrete pillars and walls limits the shoulder space, leaving no room for the ego-vehicle to maneuver if the SUV swerves or stops suddenly.
+*   **Severity Score:** 0.70

@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionVehicleWithFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction vehicle with extended bucket arm" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road objects" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential slippery road conditions due to fog" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision with construction vehicle due to obscured visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring road objects
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Potential slippery road conditions due to fog
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Potential collision with construction vehicle due to obscured visibility
+Severity Score: 0.85
+
+---
+The scene is classified as a **StateAnomaly** because the anomalous state is due to the environmental condition (fog) and the physical state of the construction vehicle's extended arm, rather than an actor's behavior or evidence-based inference. The risks identified are **OcclusionRisk**, **RoadConditionRisk**, and **CollisionRisk**. The severity scores reflect the high risk associated with reduced visibility and potential collision in foggy conditions.

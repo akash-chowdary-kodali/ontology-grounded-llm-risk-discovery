@@ -1,0 +1,48 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Foggy Intersection Scenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to limited visibility." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Risk of collision due to obstructed view of traffic signs." ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:risk3 a :DistractionRisk ;
+    :description "Distraction risk from billboards in dense fog." ;
+    :hasSeverityScore :sev3 .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential lane intrusion due to limited visibility.
+Severity Score: 0.7
+
+Risk 2:
+Description: Risk of collision due to obstructed view of traffic signs.
+Severity Score: 0.8
+
+Risk 3:
+Description: Distraction risk from billboards in dense fog.
+Severity Score: 0.6

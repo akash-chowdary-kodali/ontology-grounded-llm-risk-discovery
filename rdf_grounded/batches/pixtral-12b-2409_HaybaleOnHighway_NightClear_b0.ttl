@@ -1,0 +1,79 @@
+Here is the semantic interpretation of the scene images using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Road with Falling Object" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (e.g., barrel) rolling onto road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Object appears to have fallen from a truck or elevated position" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with artificial lighting" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Falling object may obstruct vehicle path and cause collision" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with vehicle due to unexpected road obstruction" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle approaching intersection with red light" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard on the right side of the road" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Falling object may obstruct vehicle path and cause collision (OcclusionRisk).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential collision with vehicle due to unexpected road obstruction (CollisionRisk).
+- **Severity Score:** 0.85
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the falling object (likely a barrel or similar) provides clear evidence of an unexpected hazard.
+2. **Entities Identified:**
+   - **Obstacle:** Large cylindrical object (RoadObject).
+   - **Evidence:** FallingObjectIndicator (object appears to have fallen from a truck or elevated position).
+   - **Weather:** NightCondition (low-light environment).
+   - **TrafficLight:** Red light at the intersection.
+   - **Vehicle:** Vehicle approaching the intersection.
+   - **Billboard:** Billboard on the right side of the road.
+3. **Risks:**
+   - **OcclusionRisk:** High severity due to the object obstructing the road.
+   - **CollisionRisk:** High severity due to the potential for a vehicle to collide with the object.

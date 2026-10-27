@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Illuminated billboard on the right side of the road" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Potential distraction due to illuminated billboard in low-light conditions" ;
+    :hasSeverityScore :sevDistraction1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Potential occlusion of road features due to nighttime darkness" ;
+    :hasSeverityScore :sevOcclusion1 .
+
+:sevDistraction1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sevOcclusion1 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential distraction due to illuminated billboard in low-light conditions
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Potential occlusion of road features due to nighttime darkness
+Severity Score: 0.50
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - The illuminated billboard is classified as `:Billboard`.
+   - The scene's weather condition is classified as `:NightCondition`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as a `:StateAnomaly` because the primary issue stems from the inherent state of the environment (nighttime darkness and illuminated billboard) rather than dynamic behavior or evidence-based anomalies.
+
+3. **Risks Identified**:
+   - **DistractionRisk**: The illuminated billboard could distract drivers, especially in low-light conditions.
+   - **OcclusionRisk**: The darkness of the nighttime environment may obscure road features, increasing the risk of missing obstacles or pedestrians.
+
+4. **Severity Scores**:
+   - The distraction risk is assigned a severity score of **0.35** (moderate concern due to potential distraction).
+   - The occlusion risk is assigned a severity score of **0.50** (higher concern due to the inherent difficulty of seeing road features in darkness).

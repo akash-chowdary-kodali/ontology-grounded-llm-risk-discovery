@@ -1,0 +1,93 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyRain ;
+    :hasVisibility :LowVisibility ;
+    :hasRoadCondition :WetRoad .
+
+:HeavyRain a :WeatherCondition ;
+    :hasIntensity "High" ;
+    :reducesVisibility .
+
+:LowVisibility a :EnvironmentalFactor ;
+    :visibilityRange "10-20 meters"^^xsd:string .
+
+:WetRoad a :RoadCondition ;
+    :hasSurfaceCondition "Slippery" ;
+    :increasesBrakingDistance .
+
+:TrafficLight1 a :TrafficLight ;
+    :location :Intersection ;
+    :status "Red" ;
+    :occludedBy :HeavyRain .
+
+:NoEntrySign a :TrafficSign ;
+    :location :RightSideOfRoad ;
+    :type "NoEntry" .
+
+:Vehicle1 a :Vehicle ;
+    :position "ApproachingIntersection" ;
+    :hasSensorData :LimitedPerception .
+
+:PedestrianCrossingZone a :RoadInfrastructure ;
+    :location :Intersection ;
+    :hasVisibility "Occluded" .
+
+:Obstacle1 a :Obstacle ;
+    :type "FogHaze" ;
+    :affects :ObjectDetection .
+
+:Vehicle1 :hasRelationship :TrafficLight1 ;
+    :relationshipType :Approaching .
+
+:Vehicle1 :hasRelationship :Obstacle1 ;
+    :relationshipType :OccludedBy .
+
+:Vehicle1 :hasRelationship :PedestrianCrossingZone ;
+    :relationshipType :Near .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+*"Limited visibility due to heavy rain and fog haze increases the risk of failing to detect pedestrians, cyclists, or other vehicles at the intersection, leading to potential collisions."*
+**Severity Score:** **0.95**
+
+#### **Risk 2:**
+**Description:**
+*"Slippery road conditions due to rain may cause loss of vehicle control, leading to skidding or extended braking distances, increasing the risk of rear-end or side-impact collisions."*
+**Severity Score:** **0.85**
+
+#### **Risk 3:**
+**Description:**
+*"Occlusion of traffic signals (e.g., red light) due to heavy rain may result in misinterpretation of traffic rules, leading to unauthorized intersection entry and potential T-bone or head-on collisions."*
+**Severity Score:** **0.90**
+
+#### **Risk 4:**
+**Description:**
+*"Pedestrian crossing zones may be obscured by rain and fog, increasing the risk of failing to yield to unseen pedestrians, resulting in pedestrian-vehicle collisions."*
+**Severity Score:** **0.88**
+
+#### **Risk 5:**
+**Description:**
+*"Sensor limitations (e.g., LiDAR, cameras) in adverse weather conditions may lead to false negatives in object detection, increasing the risk of undetected obstacles or vehicles."*
+**Severity Score:** **0.92**
+
+---
+### **Summary of Key Risks:**
+1. **High visibility impairment** (0.95) – Primary risk due to heavy rain and fog.
+2. **Slippery road conditions** (0.85) – Secondary risk affecting braking and maneuverability.
+3. **Misinterpretation of traffic signals** (0.90) – Critical due to potential intersection violations.
+4. **Undetected pedestrians** (0.88) – High risk in obscured crossing zones.
+5. **Sensor failure in adverse conditions** (0.92) – Systemic risk affecting perception stack reliability.
+
+This scene represents a **high-severity corner case** for autonomous driving systems, requiring robust **adaptive perception, conservative speed control, and fail-safe braking mechanisms**.

@@ -1,0 +1,230 @@
+Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanBridgeConstructionZoneWithVehicles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2, :vehicle3 ;
+    :hasObstacle :bridgeConstruction ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "White SUV in right lane" .
+:vehicle2 a :Vehicle ;
+    :description "Black sedan in center lane" .
+:vehicle3 a :Vehicle ;
+    :description "Large truck under bridge" .
+
+:bridgeConstruction a :Obstacle ;
+    :description "Wooden bridge construction with low clearance" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Bridge construction obstructs forward visibility for vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Vehicles in adjacent lanes may intrude due to construction zone" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to reduced visibility under bridge" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Bridge construction obstructs forward visibility for vehicles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Vehicles in adjacent lanes may intrude due to construction zone
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.60
+
+**Risk 3:**
+- **Description:** Potential rear-end collision risk due to reduced visibility under bridge
+- **Risk Type:** RearEndCollisionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** because the primary issue stems from the physical state of the environment (bridge construction) altering normal driving conditions, rather than anomalous behavior or evidence-based anomalies.
+
+2. **Entities Identified:**
+   - **Actors:** Three vehicles (SUV, sedan, truck) interacting with the construction zone.
+   - **Obstacle:** The wooden bridge construction with low clearance.
+   - **Weather:** Clear daytime conditions (no adverse weather).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to the bridge construction obstructing visibility.
+   - **LaneIntrusionRisk:** Vehicles may need to merge or change lanes unpredictably.
+   - **RearEndCollisionRisk:** Reduced visibility under the bridge increases the chance of collisions.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.75) and RearEndCollisionRisk (0.80) are high due to immediate physical hazards.
+   - LaneIntrusionRisk (0.60) is moderate as it depends on driver behavior. Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Bridge Construction Zone with Lane Intrusion Risk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :constructionObstacle ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan in left lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "White SUV in right lane" .
+
+:constructionObstacle a :RoadObject ;
+    :description "Bridge construction scaffolding partially obstructing road" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to construction zone narrowing" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk from construction scaffolding limiting visibility" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential lane intrusion due to construction zone narrowing
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Occlusion risk from construction scaffolding limiting visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`:vehicle1` and `:vehicle2`) driving in the scene.
+   - **Obstacle:** Construction scaffolding (`:constructionObstacle`) acting as a `RoadObject`.
+   - **Weather:** Clear daytime conditions (`:weather1`).
+
+2. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the anomaly arises from the **physical state of the environment** (construction zone) rather than the behavior of actors or evidence-based indicators.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** Due to the narrowed roadway from construction, vehicles may unintentionally drift into each other's lanes.
+   - **OcclusionRisk:** The scaffolding obstructs visibility, increasing the risk of collisions or misjudging distances.
+
+4. **Severity Scores:**
+   - **LaneIntrusionRisk (0.75):** High severity due to the potential for direct collisions between vehicles.
+   - **OcclusionRisk (0.60):** Moderate severity due to reduced visibility but not an immediate threat.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. ```
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanBridgeTrafficWithLaneIntrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :bridgeStructure ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle in left lane with potential lane intrusion" .
+
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle in right lane, partially visible" .
+
+:bridgeStructure a :RoadObject ;
+    :description "Overhead bridge structure with traffic lights" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Black vehicle in left lane may intrude into adjacent lane" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision risk due to traffic congestion under bridge" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk from bridge structure obstructing view of traffic ahead" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Black vehicle in left lane may intrude into adjacent lane
+Severity Score: 0.75
+
+Risk 2:
+Description: Potential rear-end collision risk due to traffic congestion under bridge
+Severity Score: 0.60
+
+Risk 3:
+Description: Occlusion risk from bridge structure obstructing view of traffic ahead
+Severity Score: 0.55
+```

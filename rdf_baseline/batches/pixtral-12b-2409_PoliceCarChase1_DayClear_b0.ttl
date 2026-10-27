@@ -1,0 +1,120 @@
+### **Scene Analysis: Underground Tunnel with Multiple Vehicles**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Vehicle_A (Red car, ego vehicle)** – Positioned at the front of the tunnel, moving forward.
+  - **Vehicle_B (White car)** – Approaching from the opposite direction (~100m away).
+  - **Vehicle_C (Black car)** – Stationary or moving slowly in the far distance (~200m away).
+- **Road Infrastructure:**
+  - **Tunnel** – Confined space with artificial lighting, curved walls, and a single lane in each direction.
+  - **Road markings** – Dashed white centerline, lane markings.
+  - **Lighting fixtures** – Overhead lights providing illumination.
+- **Weather Conditions:**
+  - **Clear** (no visible rain, fog, or adverse conditions).
+- **Obstacles:**
+  - **None immediately visible** (but tunnel geometry may create perceptual challenges).
+
+#### **Relationships:**
+- **Vehicle_A** is **approaching** **Vehicle_B** in the opposite lane.
+- **Vehicle_B** is **approaching** **Vehicle_A** from the opposite direction.
+- **Vehicle_C** is **farther away** and **not directly interacting** with **Vehicle_A** or **Vehicle_B**.
+- **Tunnel walls** **occlude** peripheral vision, reducing situational awareness.
+- **Lighting fixtures** provide **illumination** for the tunnel.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:Scene_A rdf:type ex:UndergroundTunnelScenario ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasLighting ex:ArtificialLighting ;
+    ex:hasRoadMarking ex:DashedWhiteCenterline .
+
+ex:Vehicle_A rdf:type ex:AutonomousVehicle ;
+    ex:hasColor "Red" ;
+    ex:hasPosition ex:FrontOfTunnel ;
+    ex:isApproaching ex:Vehicle_B ;
+    ex:hasSpeed "Moderate" .
+
+ex:Vehicle_B rdf:type ex:Vehicle ;
+    ex:hasColor "White" ;
+    ex:hasPosition ex:OppositeLane ;
+    ex:isApproaching ex:Vehicle_A ;
+    ex:hasDistanceFrom ex:Vehicle_A 100 ;
+    ex:hasSpeed "Moderate" .
+
+ex:Vehicle_C rdf:type ex:Vehicle ;
+    ex:hasColor "Black" ;
+    ex:hasPosition ex:FarDistance ;
+    ex:hasDistanceFrom ex:Vehicle_A 200 ;
+    ex:hasSpeed "Slow" .
+
+ex:Tunnel rdf:type ex:ConfinedRoad ;
+    ex:hasGeometry ex:CurvedWalls ;
+    ex:occludes ex:PeripheralVision ;
+    ex:hasLighting ex:OverheadLights .
+
+ex:Risk_1 rdf:type ex:CollisionRisk ;
+    ex:hasSeverity 0.85 ;
+    ex:hasDescription "Opposing vehicle in confined tunnel with limited visibility." ;
+    ex:affects ex:Vehicle_A, ex:Vehicle_B .
+
+ex:Risk_2 rdf:type ex:PerceptionRisk ;
+    ex:hasSeverity 0.7 ;
+    ex:hasDescription "Tunnel walls reduce situational awareness." ;
+    ex:affects ex:Vehicle_A .
+
+ex:Risk_3 rdf:type ex:BrakingRisk ;
+    ex:hasSeverity 0.6 ;
+    ex:hasDescription "Limited space for emergency braking in tunnel." ;
+    ex:affects ex:Vehicle_A, ex:Vehicle_B .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Opposing vehicle (**Vehicle_B**) is approaching in a confined tunnel with limited visibility, increasing the risk of a head-on collision. The tunnel geometry and lighting may delay detection of sudden maneuvers.
+
+**Severity Score:**
+**0.85** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The tunnel walls and artificial lighting create **occlusion and perceptual challenges**, reducing the ego vehicle’s (**Vehicle_A**) ability to detect distant objects or sudden changes in traffic flow.
+
+**Severity Score:**
+**0.7** (Moderate-High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+In the event of an emergency, **limited space and tunnel confinement** may reduce the effectiveness of braking maneuvers, increasing the risk of a rear-end collision if **Vehicle_A** or **Vehicle_B** must stop abruptly.
+
+**Severity Score:**
+**0.6** (Moderate)
+
+---
+
+### **4. Additional Observations**
+- **Corner Case:** This scenario tests an autonomous vehicle’s ability to handle **opposing traffic in confined spaces** with **reduced visibility**.
+- **Mitigation Strategies:**
+  - **Enhanced perception algorithms** (e.g., better object detection in low-light conditions).
+  - **Predictive collision avoidance** (anticipating sudden braking or lane changes).
+  - **Adaptive lighting control** (if the vehicle can adjust headlights dynamically).
+  - **Conservative speed management** in tunnels.
+
+Would you like further refinement on any specific aspect (e.g., sensor fusion, trajectory prediction)?

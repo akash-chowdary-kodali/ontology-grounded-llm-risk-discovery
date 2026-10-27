@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyUrbanStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard displaying event advertisement" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard content may distract driver" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion from billboard obstructing view of distant road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.2"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Billboard content may distract driver
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Potential occlusion from billboard obstructing view of distant road
+Severity Score: 0.2
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - **Billboard:** The large electronic billboard advertising an event.
+   - **WeatherCondition:** Clear and Day conditions (no adverse weather).
+   - No **Actors**, **TrafficSigns**, **TrafficLights**, or **Vehicles** are present in the scene.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene is classified as a StateAnomaly because it represents an unusual or unexpected state (empty urban street with a prominent billboard) that could pose risks despite the absence of active actors.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The billboard content may distract the driver, though the severity is low (0.3) due to the lack of traffic or pedestrians.
+   - **OcclusionRisk:** The billboard could partially obstruct the driver's view of distant road features, but this is also low severity (0.2) as the road appears clear.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the absence of active actors and low likelihood of immediate danger. The risks are contextual and depend on driver behavior or future events (e.g., pedestrians appearing).

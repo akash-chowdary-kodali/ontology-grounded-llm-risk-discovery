@@ -1,0 +1,54 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red hood visible at the bottom).
+*   **Road Infrastructure:** Traffic lights (overhead), speed limit sign (90), "No trucks/large vehicles" sign, bus stop, brick wall, overhead advertising billboards, multi-lane roadway.
+*   **Environmental Conditions:** Nighttime, artificial street lighting, clear weather.
+
+### 2. Relationships
+*   **Ego-vehicle:** Stationary or approaching an intersection/stop line.
+*   **Traffic Lights:** Positioned overhead, currently displaying a cautionary/warning signal (orange/red-amber state).
+*   **Road Signs:** Located on the right sidewalk, parallel to the path of travel.
+*   **Billboards:** Elevated, positioned above the road, creating potential visual clutter.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+             ex:isAt ex:StopLine .
+
+ex:TrafficLight rdf:type ex:Infrastructure ;
+                ex:hasState ex:CautionState ;
+                ex:isPositionedAbove ex:Roadway .
+
+ex:Signage_90 rdf:type ex:SpeedLimitSign ;
+              ex:locatedOn ex:RightSidewalk .
+
+ex:Signage_NoTrucks rdf:type ex:RestrictionSign ;
+                    ex:locatedOn ex:RightSidewalk .
+
+ex:Billboard1 rdf:type ex:VisualObstruction ;
+              ex:isIlluminated true ;
+              ex:content "DistractingAdvertising" .
+
+ex:NightTime rdf:type ex:WeatherCondition .
+```
+
+---
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** **Visual Distraction/Cognitive Overload.** The presence of high-intensity, illuminated billboards mimicking traffic signal colors (the "GO FOR SALE" green traffic light icon on the billboard) can induce semantic confusion for both the driver and the perception system of an autonomous vehicle, leading to incorrect behavioral triggers.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** **Signal Interpretation Uncertainty.** The overhead traffic signal is in a transitionary or non-standard state (amber/caution) at night. In low-visibility conditions, combined with the glare from surrounding billboards, the ego-vehicle may struggle to determine the correct right-of-way or stop-start timing.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** **Night-time Low Contrast Detection.** Despite artificial lighting, the peripheral areas (sidewalks, brick walls) are dark. Any pedestrians or cyclists entering the roadway from the bus stop area would have very low contrast against the background, increasing the risk of detection failure by the ego-vehicle.
+*   **Severity Score:** 0.80

@@ -1,0 +1,51 @@
+### 1. Scene Analysis
+
+**Main Entities:**
+*   **Ego Vehicle:** The red vehicle from which the scene is captured.
+*   **Other Vehicle (Target):** A white SUV currently performing an abrupt, uncontrolled lateral movement (spinning/sliding).
+*   **Infrastructure:** A concrete tunnel with support pillars, tiled walls, and lane markings.
+*   **Environment/Weather:** Wet/flooded road surface, low-light tunnel conditions, likely rainy weather indicated by surface reflections and wet look.
+
+**Relationships:**
+*   **Ego Vehicle** is *approaching* the **Target Vehicle**.
+*   **Target Vehicle** is *spinning/crossing* lanes, occupying the center of the roadway directly in front of the Ego Vehicle.
+*   **Target Vehicle** is *near* the tunnel wall.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:TargetVehicle a ex:Vehicle ;
+    ex:state "loss-of-control" ;
+    ex:movement "transverse-slide" ;
+    ex:location "tunnel-mid-lane" .
+
+ex:Tunnel a ex:Infrastructure ;
+    ex:condition "wet-surface" ;
+    ex:lighting "low-light" .
+
+ex:EgoVehicle ex:approaching ex:TargetVehicle .
+ex:TargetVehicle ex:blockingPath ex:EgoVehicle .
+ex:TargetVehicle ex:near ex:TunnelWall .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** High-speed collision due to target vehicle loss-of-control. The white SUV is currently sliding laterally across the lane in front of the ego vehicle on a slick, wet road surface, creating an immediate obstacle in the path.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Reduced traction and braking capability. The tunnel environment with a wet road surface significantly increases the braking distance for the ego vehicle, limiting its ability to perform an emergency stop to avoid the spinning vehicle.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Restricted visibility and maneuvering space. The tunnel structure (pillars and walls) confines the lateral movement of the ego vehicle, limiting emergency lane-change options to avoid the target vehicle.
+*   **Severity Score:** 0.75

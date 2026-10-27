@@ -1,0 +1,60 @@
+### Semantic Interpretation of the Scene
+
+**1. Main Entities:**
+*   **Ego Vehicle:** Red hood visible at the bottom of the frame.
+*   **Infrastructure:** Traffic light (signal), street lamps, bus stop shelter, brick wall boundary, billboards.
+*   **Road:** Multi-lane urban road with painted lane markings and stop bar.
+*   **Environment:** Low-visibility conditions characterized by heavy fog/mist and nighttime lighting.
+*   **Traffic Signs:** A "No Entry/Prohibited" regulatory sign mounted on a post.
+
+**2. Relationships:**
+*   **Ego Vehicle** is positioned behind the stop bar, stationary or approaching a junction.
+*   **Traffic light** is located directly ahead of the Ego Vehicle, centered over the intersection.
+*   **Bus stop** is located to the right side of the road, parallel to the Ego Vehicle path.
+*   **Fog** is occluding the distance and reducing the visibility of potential objects down the road.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:position "behind_stop_bar" ;
+    ex:color "red" .
+
+ex:TrafficLight a ex:Infrastructure ;
+    ex:state "active" ;
+    ex:position "above_intersection" .
+
+ex:Fog a ex:WeatherCondition ;
+    ex:intensity "high" ;
+    ex:impact "reduced_visibility" .
+
+ex:BusStop a ex:Infrastructure ;
+    ex:side "right" ;
+    ex:near ex:EgoVehicle .
+
+ex:VisibilityRisk a ex:Risk ;
+    ex:severity 0.8 ;
+    ex:cause ex:Fog .
+
+ex:JunctionRisk a ex:Risk ;
+    ex:severity 0.5 ;
+    ex:context "uncontrolled_pedestrian_crossing_at_bus_stop" .
+```
+
+### Identified Risks
+
+**Risk 1: Reduced Visibility due to Atmospheric Conditions**
+*   **Description:** The heavy fog severely limits the look-ahead distance for the Ego Vehicle. This poses a high risk as the sensor range (Lidar/Camera) is degraded, making it difficult to detect pedestrians, cyclists, or vehicles emerging from the fog in the intersection or near the roadside infrastructure.
+*   **Severity Score:** 0.85
+
+**Risk 2: Blind Spot/Potential Hidden Pedestrian at Bus Stop**
+*   **Description:** The presence of a bus stop in low-visibility conditions creates a high-risk zone for pedestrians who may be stepping into the road, either obscured by the bus stop shelter or by the thick fog.
+*   **Severity Score:** 0.70
+
+**Risk 3: Traffic Signal Interpretation under Low Visibility**
+*   **Description:** While the traffic signal is visible, the surrounding contrast is low, increasing the potential for delayed reaction or misinterpretation of signal state transitions, especially if the signal housing is partially obscured by fog.
+*   **Severity Score:** 0.45

@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the scene images in RDF/Turtle format, following the provided ontology vocabulary:
+
+---
+
+**Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingBarrierAndPedestrianNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObject1 ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :nightCondition1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Child standing near fallen road barrier" .
+
+:roadObject1 a :RoadObject ;
+    :description "Fallen traffic barrier with 'AX' markings" .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :description "Falling traffic barrier detected in vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Falling barrier obstructing visibility of pedestrian" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with pedestrian near falling debris" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+- **Description:** Falling barrier obstructing visibility of pedestrian
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Potential collision with pedestrian near falling debris
+- **Risk Type:** CollisionRisk (subtype: PedestrianCollisionRisk implied by context)
+- **Severity Score:** 0.88
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** because the scene contains clear evidence (falling barrier) that directly indicates potential risks (occlusion and collision).
+
+2. **Entities Identified:**
+   - **Pedestrian:** Child standing near debris.
+   - **Obstacle:** Fallen traffic barrier (RoadObject subclass).
+   - **WeatherCondition:** NightCondition (low-light environment).
+   - **EvidenceIndicator:** FallingObjectIndicator (falling barrier).
+
+3. **Risks:**
+   - **OcclusionRisk:** High severity due to the barrier blocking visibility of the pedestrian in low light.
+   - **CollisionRisk:** High severity due to the pedestrian's proximity to the vehicle path and the falling debris.
+
+4. **Severity Scores:**
+   - Scores are high (0.88–0.92) due to the combination of:
+     - Low-light conditions (reduced visibility).
+     - Falling debris (immediate hazard).
+     - Pedestrian presence (vulnerable road user).

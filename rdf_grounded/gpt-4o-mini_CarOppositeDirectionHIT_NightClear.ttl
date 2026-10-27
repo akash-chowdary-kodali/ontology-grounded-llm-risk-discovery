@@ -1,0 +1,26 @@
+Here’s the semantic interpretation of the scene images based on the provided ontology vocabulary:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Environment with Obstructed View" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+:actor1 a :Vehicle .
+:weather1 a :NightCondition .
+:obstacle1 a :RoadObject .
+:risk1 a :DistractionRisk ;
+    :description "Vehicle obscured by structural overhead" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Vehicle obscured by structural overhead
+Severity Score: 0.7

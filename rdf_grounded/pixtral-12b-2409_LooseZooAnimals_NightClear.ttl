@@ -1,0 +1,228 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "AnimalsCrossingRoadAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Large animals (elephant and dogs) crossing a road at night, creating an unexpected obstacle." .
+
+:actor1 a :Vehicle ;
+    :description "Self-driving vehicle observing the scene." .
+
+:actor2 a :Cyclist ;
+    :description "Dog on the road (behaving like a cyclist due to movement)." .
+
+:actor3 a :Cyclist ;
+    :description "Second dog on the road (behaving like a cyclist due to movement)." .
+
+:obstacle1 a :RoadObject ;
+    :description "Large elephant statue obstructing the road and creating a visual distraction." .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions at night." .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with animals crossing the road unexpectedly." ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Large elephant statue may distract the driver from focusing on the road." ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with animals (dogs) crossing the road unexpectedly.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Large elephant statue may distract the driver from focusing on the road.
+- **Severity Score:** 0.7
+
+---
+
+### Explanation:
+1. **Entities in the Scene:**
+   - **Actors:** The self-driving vehicle (implied observer), two dogs (modeled as `Cyclist` due to their movement across the road), and the elephant statue (modeled as a `RoadObject` under `Obstacle`).
+   - **Weather:** Night conditions (`NightCondition`).
+   - **Obstacle:** The elephant statue is classified as a `RoadObject` since it obstructs the road and creates a visual distraction.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the presence of animals (dogs) and a large statue crossing/obstructing the road is an unexpected and unusual state for a typical driving scenario.
+
+3. **Risks Identified:**
+   - **CollisionRisk (Severity 0.9):** High risk due to the dogs crossing the road unexpectedly.
+   - **DistractionRisk (Severity 0.7):** Moderate risk due to the large elephant statue potentially distracting the driver.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a high severity (0.9) because animals crossing roads are unpredictable and dangerous.
+   - Distraction risk is assigned a moderate severity (0.7) because the elephant statue is visually prominent but not directly obstructive. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnusualAnimalCrossingNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Cyclist ;
+    :description "Gorilla-like statue on bicycle crossing road" .
+:actor2 a :Cyclist ;
+    :description "Gorilla-like statue on bicycle crossing road (background)" .
+:actor3 a :Cyclist ;
+    :description "Elephant-like statue crossing road" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with large animal-like statues crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Statues may obscure visibility of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Statues blocking road path" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with large animal-like statues crossing road
+- **Severity Score:** 0.92
+- **Risk Type:** CollisionRisk (Pedestrian/Cyclist collision risk due to unexpected road users)
+
+**Risk 2:**
+- **Description:** Statues may obscure visibility of other road users
+- **Severity Score:** 0.75
+- **Risk Type:** OcclusionRisk (Visibility impairment due to large objects on road)
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the unusual presence of animal-like statues (which are not typical road users) provides clear evidence of an abnormal situation that requires risk assessment.
+
+2. **Actor Typing:**
+   - The gorilla-like statues on bicycles are typed as **Cyclists** (since they are riding bikes).
+   - The elephant-like statue is also typed as a **Cyclist** (assuming it is crossing the road similarly to the others, even though it is not on a bike—this is a creative interpretation given the ontology constraints).
+
+3. **Weather Condition:** The scene is clearly at **NightCondition**, which exacerbates visibility risks.
+
+4. **Obstacle:** The statues are classified as **RoadObjects** since they are blocking the road path.
+
+5. **Severity Scores:**
+   - The collision risk is high (0.92) due to the unexpected nature of the statues crossing the road.
+   - The occlusion risk is moderate (0.75) because the statues could obscure other road users or hazards. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeGorillaObstacleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Multiple gorilla-like creatures on road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Gorilla-like creatures crossing road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Partial occlusion of road by large gorilla-like creature" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual road actors may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Gorilla-like creatures crossing road unexpectedly
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Partial occlusion of road by large gorilla-like creature
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Unusual road actors may distract driver
+Severity Score: 0.75
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The gorilla-like creatures are classified as **Obstacles** (specifically **RoadObjects**) since they are not human actors but are blocking the road.
+   - The scene occurs under **NightCondition**.
+
+2. **Corner Case Classification:**
+   - The scenario is classified as a **BehaviorAnomaly** because the creatures' presence and behavior (crossing the road) are highly unusual and unpredictable.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk** due to the unexpected crossing of the creatures.
+   - **OcclusionRisk** because the large creature partially blocks the road.
+   - **DistractionRisk** as the unusual actors may divert the driver's attention.
+
+4. **Severity Scores:**
+   - Highest severity (0.92) for **PedestrianCollisionRisk** due to the immediate threat of collision.
+   - Moderate-high severity (0.88) for **OcclusionRisk** due to visibility impairment.
+   - Moderate severity (0.75) for **DistractionRisk** as it is less immediate but still significant.

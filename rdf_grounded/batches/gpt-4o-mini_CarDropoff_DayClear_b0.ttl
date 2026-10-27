@@ -1,0 +1,49 @@
+Here's the RDF representation based on the scene analysis you provided:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Intersection view with vehicles and buildings" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasActor :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Vehicle ;
+    :description "Black car turning at intersection" .
+
+:actor2 a :Vehicle ;
+    :description "White delivery vehicle parked" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to vehicle interaction" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to multiple visual stimuli" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential rear-end collision due to vehicle interaction
+Severity Score: 0.65
+
+Risk 2:
+Description: Potential distraction due to multiple visual stimuli
+Severity Score: 0.50

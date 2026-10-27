@@ -1,0 +1,80 @@
+Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Bridge Construction Zone with Lane Intrusion Risk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :constructionObstacle ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Black sedan in left lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "White SUV in right lane" .
+
+:constructionObstacle a :RoadObject ;
+    :description "Bridge construction scaffolding partially obstructing road" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion due to construction zone narrowing" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk from construction scaffolding limiting visibility" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential lane intrusion due to construction zone narrowing
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Occlusion risk from construction scaffolding limiting visibility
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.60
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`:vehicle1` and `:vehicle2`) driving in the scene.
+   - **Obstacle:** Construction scaffolding (`:constructionObstacle`) acting as a `RoadObject`.
+   - **Weather:** Clear daytime conditions (`:weather1`).
+
+2. **Corner Case Classification:**
+   The scene is classified as a **StateAnomaly** (`:StateAnomaly`) because the anomaly arises from the **physical state of the environment** (construction zone) rather than the behavior of actors or evidence-based indicators.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** Due to the narrowed roadway from construction, vehicles may unintentionally drift into each other's lanes.
+   - **OcclusionRisk:** The scaffolding obstructs visibility, increasing the risk of collisions or misjudging distances.
+
+4. **Severity Scores:**
+   - **LaneIntrusionRisk (0.75):** High severity due to the potential for direct collisions between vehicles.
+   - **OcclusionRisk (0.60):** Moderate severity due to reduced visibility but not an immediate threat.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

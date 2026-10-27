@@ -1,0 +1,62 @@
+Here's the semantic interpretation of the provided scene images using the given OWL ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNightTrafficWithFollowingRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasObstacle :vehicle3 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Following vehicle (yellow taxi)" .
+:vehicle2 a :Vehicle ;
+    :description "Ego vehicle (red hood visible)" .
+:vehicle3 a :Vehicle ;
+    :description "Lead vehicle (silver car)" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance at night" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential driver distraction from following too closely at night" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: High risk of rear-end collision due to close following distance at night
+Severity Score: 0.88
+Confidence Score: 0.92
+
+Risk 2:
+Description: Potential driver distraction from following too closely at night
+Severity Score: 0.65
+Confidence Score: 0.75
+
+Analysis Notes:
+1. The corner case is classified as a BehaviorAnomaly because it involves unsafe driving behavior (close following) rather than a physical state anomaly or evidence-based anomaly.
+2. The primary risk identified is RearEndCollisionRisk due to the close proximity of the following yellow taxi to the lead vehicle.
+3. A secondary DistractionRisk is identified as the close following behavior may distract drivers from other potential hazards.
+4. The NightCondition is included as it exacerbates both risks (reduced visibility increases collision risk and may contribute to driver distraction).
+5. No evidence indicators were present in the scene to include in the RDF.
+6. The severity scores reflect the high danger of rear-end collisions at night combined with close following, while the distraction risk is moderately severe.

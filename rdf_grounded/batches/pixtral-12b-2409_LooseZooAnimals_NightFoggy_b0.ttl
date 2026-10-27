@@ -1,0 +1,69 @@
+Here is the semantic interpretation of the scene based on the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeAnimalObstructionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:actor1 a :Animal ;  # Note: "Animal" is not in the ontology, so we use the closest possible class (Cyclist/Pedestrian) or treat as a special case.
+    :description "Large animal (e.g., horse) obstructing road" .
+
+:actor2 a :Cyclist ;
+    :description "Cyclist navigating around animal" .
+
+:obstacle1 a :RoadObject ;
+    :description "Animal blocking roadway" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Animal obstructing vehicle path, increasing collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with cyclist or animal due to sudden obstruction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+**Note:** Since the ontology does not include an "Animal" class, I used `:Cyclist` for the rider and treated the horse as a `:RoadObject` under `:Obstacle`. If "Animal" were allowed, it would be the most accurate classification.
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Animal obstructing vehicle path, increasing collision risk.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Potential collision with cyclist or animal due to sudden obstruction.
+- **Severity Score:** 0.85
+
+---
+
+### Explanation of Corner Case Classification:
+- The scene is classified as a **`StateAnomaly`** because the primary issue is the **unexpected presence of an animal (horse) obstructing the road**, which alters the normal state of the scene (a road should be clear of large animals). This is not a behavioral anomaly (e.g., erratic driving) or evidence-based anomaly (e.g., a rolling ball indicating a loose object).
+
+### Additional Notes:
+- The **nighttime condition** (`:NightCondition`) is included as it exacerbates visibility risks.
+- The **cyclist** is classified as an `:Actor` (subclass `:Cyclist`) since they are actively navigating the scene.
+- The **horse** is treated as an `:Obstacle` (`:RoadObject`) since it is not a human actor or vehicle but still poses a risk. If the ontology allowed it, `:Animal` would be ideal.

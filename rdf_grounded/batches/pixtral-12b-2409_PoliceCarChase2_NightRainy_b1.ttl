@@ -1,0 +1,84 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Tunnel with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Wet road conditions in a tunnel with poor visibility due to lighting and reflections" ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting in tunnel" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning or reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to water reflections and tunnel lighting" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with standing water in tunnel" .
+
+:vehicle1 a :Vehicle ;
+    :description "Black vehicle ahead in tunnel" .
+
+:vehicle2 a :Vehicle ;
+    :description "White vehicle in adjacent lane" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning or reduced traction due to wet road surface.
+- **Severity Score:** 0.88
+- **Confidence Score:** 0.92
+- **Risk Type:** `:RoadConditionRisk`
+
+**Risk 2:**
+- **Description:** Reduced visibility due to water reflections and tunnel lighting.
+- **Severity Score:** 0.75
+- **Confidence Score:** 0.85
+- **Risk Type:** `:OcclusionRisk`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two vehicles (`:vehicle1`, `:vehicle2`) classified under `:Vehicle`.
+   - **Obstacle:** Wet road surface (`:obstacle1`) classified under `:RoadObject`.
+   - **WeatherCondition:** Nighttime with artificial lighting (`:weather1`) classified under `:NightCondition`.
+
+2. **Corner Case Classification:**
+   The scene is classified as a **`:StateAnomaly`** because the primary issue stems from the **physical state of the road (wet surface)** rather than anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **`:RoadConditionRisk`** due to wet road conditions increasing the likelihood of hydroplaning or reduced vehicle control.
+   - **`:OcclusionRisk`** due to poor visibility caused by water reflections and tunnel lighting.
+
+4. **Severity Scores:**
+   - The **`:RoadConditionRisk`** has a high severity score (0.88) because wet roads directly impact vehicle safety.
+   - The **`:OcclusionRisk`** has a moderate severity score (0.75) due to reduced visibility, which can lead to delayed reactions.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

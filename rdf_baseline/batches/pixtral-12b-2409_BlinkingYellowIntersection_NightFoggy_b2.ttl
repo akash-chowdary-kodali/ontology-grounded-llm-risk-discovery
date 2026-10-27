@@ -1,0 +1,78 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix : <http://example.org/autonomous_driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :Scene ;
+    :hasLightingCondition :LowLighting ;
+    :hasWeatherCondition :ClearNight .
+
+:LowLighting a :LightingCondition ;
+    :lightIntensity "Low" ;
+    :timeOfDay "Night" .
+
+:ClearNight a :WeatherCondition .
+
+:RedCar1 a :Vehicle ;
+    :vehicleType "Sedan" ;
+    :vehicleColor "Red" ;
+    :position :FrontRightLane ;
+    :direction :Forward ;
+    :speed "Slow" .
+
+:FrontRightLane a :RoadLane ;
+    :lanePosition "Right" ;
+    :laneType "Driving" .
+
+:RoadObstacle1 a :RoadObstacle ;
+    :type "SpeedBump" ;
+    :location :FrontRightLane ;
+    :height "Low" .
+
+:Building1 a :Infrastructure ;
+    :type "Warehouse" ;
+    :position :RightSide .
+
+:StreetLight1 a :Infrastructure ;
+    :type "StreetLight" ;
+    :position :LeftSide ;
+    :lightStatus "On" .
+
+:RedCar1 :hasObstacle :RoadObstacle1 .
+:RedCar1 :isNear :Building1 .
+:RedCar1 :isUnder :StreetLight1 .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The autonomous vehicle is approaching a low-speed obstacle (speed bump) in low lighting conditions, which could lead to an unexpected jolt or loss of control if not detected properly. The lighting conditions reduce visibility of the road surface and potential obstacles.
+
+Severity Score: 0.7
+
+---
+
+**Risk 2:**
+Description:
+The vehicle is in close proximity to a large building structure on the right side, which could occlude other potential vehicles, pedestrians, or cyclists that might be entering or crossing the lane from behind the building.
+
+Severity Score: 0.6
+
+---
+
+**Risk 3:**
+Description:
+The low lighting conditions combined with the nighttime setting could impair the vehicle's sensors and cameras, leading to reduced detection accuracy of objects, pedestrians, or other vehicles.
+
+Severity Score: 0.8
+
+---
+The severity scores are based on the potential impact and likelihood of occurrence in this specific scenario. The scores range from 0 (no risk) to 1 (high risk).

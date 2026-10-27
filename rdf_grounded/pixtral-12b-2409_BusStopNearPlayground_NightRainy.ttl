@@ -1,0 +1,211 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Pedestrian Crossing in Rain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road unexpectedly at night" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road without proper signaling in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rain and night conditions occluding visibility of pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflections and motion blur from rain affecting sensor perception" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing road without proper signaling in low visibility
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Rain and night conditions occluding visibility of pedestrians
+- **Severity Score:** 0.88
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** Two pedestrians crossing the road (typed as `:Pedestrian`).
+   - **WeatherCondition:** Heavy rain reducing visibility (typed as `:RainyCondition`).
+   - **EvidenceIndicator:** Motion blur and reflections from rain (typed as `:RollingBallIndicator`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the pedestrians are crossing the road unexpectedly without proper signaling, which deviates from expected behavior in such conditions.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrians crossing in low visibility.
+   - **OcclusionRisk:** High severity due to rain and night conditions occluding visibility.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.95 and 0.88) due to the hazardous combination of nighttime, rain, and unexpected pedestrian behavior. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossingInRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road at night in rain" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain with poor visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road unexpectedly in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Rain and darkness reduce visibility of pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Raindrops on windshield indicating poor visibility" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing road unexpectedly in low visibility
+- **Severity Score:** 0.95
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Rain and darkness reduce visibility of pedestrians
+- **Severity Score:** 0.88
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two pedestrians crossing the road.
+   - **Weather Condition:** RainyCondition (heavy rain with poor visibility).
+   - **Evidence Indicator:** FallingObjectIndicator (raindrops on windshield).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrians are crossing the road unexpectedly at night in rainy conditions, which is atypical behavior for such low-visibility scenarios.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the unexpected crossing in poor visibility.
+   - **OcclusionRisk:** High severity due to rain and darkness reducing the visibility of the pedestrians.
+
+4. **Severity Scores:**
+   - PedestrianCollisionRisk: 0.95 (very high due to the combination of unexpected crossing and poor visibility).
+   - OcclusionRisk: 0.88 (high due to the adverse weather conditions). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossingWithRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian crossing road in wet conditions at night" .
+
+:weather1 a :RainyCondition ;
+    :description "Rainy night conditions with wet road surface" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing road unexpectedly in poor visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Pedestrian partially obscured by vehicle lights and rain" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.68"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing road unexpectedly in poor visibility
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Slippery road surface due to rain
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Pedestrian partially obscured by vehicle lights and rain
+Severity Score: 0.68
+
+---
+**Analysis Notes:**
+- The scene was classified as a **BehaviorAnomaly** because the pedestrians are crossing in a manner that deviates from expected behavior (e.g., crossing at night in wet conditions without clear visibility).
+- **WeatherCondition** is classified as **RainyCondition** due to the wet road and poor visibility.
+- Three risks were identified:
+  1. **PedestrianCollisionRisk** (highest severity) due to the unexpected crossing in low visibility.
+  2. **RoadConditionRisk** due to slippery conditions increasing braking distance.
+  3. **OcclusionRisk** due to the pedestrian being partially obscured by lighting and rain.

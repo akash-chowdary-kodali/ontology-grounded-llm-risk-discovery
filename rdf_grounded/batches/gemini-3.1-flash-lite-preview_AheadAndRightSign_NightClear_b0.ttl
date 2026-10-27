@@ -1,0 +1,26 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionNav" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :night1 ;
+    :hasRisk :risk1 .
+
+:night1 a :NightCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Limited visibility due to night conditions at intersection" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.4"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Limited visibility due to night conditions at intersection
+Severity Score: 0.4

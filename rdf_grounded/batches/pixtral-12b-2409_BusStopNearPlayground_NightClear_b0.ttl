@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road at night" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road in front of vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Low visibility due to nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing road in front of vehicle
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Low visibility due to nighttime conditions
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two pedestrians crossing the road (typed as `:Pedestrian`).
+   - **Weather Condition:** Nighttime with artificial lighting (typed as `:NightCondition`).
+   - **Obstacle/Traffic Elements:** Red traffic light (typed as `:TrafficLight`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the pedestrians are crossing the road unexpectedly at night, which is not typical behavior for that location (no crosswalk or pedestrian signal is visible).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrians crossing directly in front of the vehicle.
+   - **OcclusionRisk:** Moderate severity due to reduced visibility from nighttime conditions.
+
+4. **Severity Scores:**
+   - The pedestrian collision risk is assigned a high score (0.92) because it directly threatens the vehicle's safety.
+   - The occlusion risk is assigned a moderate score (0.75) due to the potential for reduced situational awareness.

@@ -1,0 +1,121 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - `ego_vehicle` (red car, first-person perspective)
+  - `target_vehicle` (black car ahead, center of the road)
+- **Road Infrastructure**:
+  - `road` (asphalt surface with lane markings)
+  - `lane_divider` (white dashed lines)
+  - `sidewalk` (left and right)
+  - `buildings` (left and right, with windows and doors)
+  - `bridge_structure` (overhead wooden beams)
+  - `street_lights` (illuminating the scene)
+- **Weather/Occlusions**:
+  - `low_light_conditions` (nighttime, dim lighting)
+  - `fog_or_smoke` (slight haze reducing visibility)
+- **Obstacles**:
+  - None directly visible, but potential for unseen obstacles due to low visibility.
+
+---
+
+### **2. Relationships Between Entities**
+- `ego_vehicle` **is_following** `target_vehicle` (same lane, ~10-15m distance).
+- `ego_vehicle` **is_on** `road` (center lane).
+- `target_vehicle` **is_on** `road` (center lane, ahead).
+- `buildings` **are_on** `sidewalk` (left and right).
+- `street_lights` **illuminate** `road`.
+- `low_light_conditions` **reduce_visibility_of** `target_vehicle`.
+- `fog_or_smoke` **occludes** `road` (slightly).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous_driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:ego_vehicle a :Vehicle ;
+    :is_following :target_vehicle ;
+    :is_on :road ;
+    :has_color "red" ;
+    :has_field_of_view :low_light_conditions .
+
+:target_vehicle a :Vehicle ;
+    :is_on :road ;
+    :has_color "black" ;
+    :is_ahead_of :ego_vehicle .
+
+:road a :Road ;
+    :has_lane_divider :lane_divider ;
+    :is_under :bridge_structure ;
+    :has_visibility_reduction :low_light_conditions ;
+    :has_occlusion :fog_or_smoke .
+
+:lane_divider a :RoadMarking ;
+    :is_type "dashed_white" .
+
+:buildings a :Infrastructure ;
+    :are_on :sidewalk ;
+    :have_windows true .
+
+:street_lights a :LightSource ;
+    :illuminate :road .
+
+:low_light_conditions a :WeatherCondition ;
+    :reduce_visibility_of :target_vehicle ;
+    :severity 0.7 .
+
+:fog_or_smoke a :Occlusion ;
+    :occludes :road ;
+    :severity 0.5 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Reduced Visibility Due to Low Light**
+- **Description**:
+  The nighttime setting and dim street lighting significantly reduce the visibility of the `target_vehicle` and surrounding environment. This increases the risk of misidentifying obstacles, lane boundaries, or other road users.
+- **Severity Score**: **0.85**
+
+#### **Risk 2: Occlusion from Fog/Smoke**
+- **Description**:
+  The slight haze or fog partially obscures the road ahead, making it harder for the `ego_vehicle` to detect potential hazards (e.g., pedestrians, debris, or sudden lane changes by the `target_vehicle`).
+- **Severity Score**: **0.65**
+
+#### **Risk 3: Following Too Closely (Reduced Braking Distance)**
+- **Description**:
+  The `ego_vehicle` is following the `target_vehicle` at a relatively close distance (~10-15m). In low-visibility conditions, this reduces the available braking distance, increasing the risk of a rear-end collision if the `target_vehicle` stops abruptly.
+- **Severity Score**: **0.75**
+
+#### **Risk 4: Potential Unseen Obstacles**
+- **Description**:
+  Due to the combination of low light and occlusion, there may be unseen obstacles (e.g., pedestrians, cyclists, or debris) that the `ego_vehicle` cannot detect in time.
+- **Severity Score**: **0.70**
+
+#### **Risk 5: Bridge Structure and Overhead Clearance**
+- **Description**:
+  The overhead wooden beams of the bridge structure could pose a risk if the `ego_vehicle` is taller than expected (e.g., a high-roof vehicle). While not immediately visible, this is a latent risk in narrow or low-clearance areas.
+- **Severity Score**: **0.40**
+
+---
+### **Summary of Risks**
+| **Risk Class**                     | **Severity Score** |
+|------------------------------------|--------------------|
+| Reduced visibility (low light)     | 0.85               |
+| Occlusion from fog/smoke           | 0.65               |
+| Following too closely              | 0.75               |
+| Unseen obstacles                   | 0.70               |
+| Bridge clearance (latent risk)     | 0.40               |
+
+---
+### **Recommendations for Autonomous Driving System**
+1. **Increase following distance** to mitigate collision risk.
+2. **Enhance sensor fusion** (LiDAR + camera) to improve obstacle detection in low-visibility conditions.
+3. **Activate adaptive headlights** to improve illumination.
+4. **Monitor for sudden braking** of the `target_vehicle` and prepare for emergency stops.
+5. **Check vehicle height clearance** if navigating under bridges or low structures.

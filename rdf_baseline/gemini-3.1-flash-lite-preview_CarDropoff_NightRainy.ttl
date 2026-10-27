@@ -1,0 +1,46 @@
+### 1. Scene Entity Identification
+*   **Vehicles:** Ego vehicle (red hood visible), black sedan (in adjacent lane/partially occluding vision), ambulance (parked on the left).
+*   **Road Infrastructure:** Street lighting, bus stop/kiosk, road markings, wet pavement.
+*   **Weather/Environment:** Nighttime, rainy conditions, low visibility/foggy, reflections on wet road surface.
+
+### 2. Entity Relationships
+*   **Ego Vehicle** is following/approaching the general road area.
+*   **Black Sedan** is in close proximity to the right of the ego vehicle, potentially causing visual occlusion of the curb/sidewalk.
+*   **Ambulance** is parked on the left side of the road.
+*   **Environment** is causing glare and low contrast due to rain and artificial light.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:BlackSedan rdf:type ex:Vehicle .
+ex:Ambulance rdf:type ex:Vehicle .
+ex:RoadSurface rdf:type ex:Infrastructure .
+
+ex:BlackSedan ex:near ex:EgoVehicle .
+ex:BlackSedan ex:occludes ex:SidewalkArea .
+ex:Ambulance ex:parkedAt ex:LeftRoadside .
+ex:RoadSurface ex:hasCondition ex:Wet .
+ex:Environment ex:hasWeather ex:Rainy .
+ex:Environment ex:hasVisibility ex:Low .
+```
+
+---
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Reduced visibility and traction due to heavy rain and wet road conditions, combined with nighttime lighting creating high-contrast glare.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** Visual occlusion caused by the black sedan parked or moving in the right lane, potentially hiding pedestrians or cyclists near the bus stop/sidewalk.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Potential for unexpected stops or maneuvers by the ambulance parked on the left side of the road, which may obstruct traffic flow or involve emergency personnel exiting the vehicle.
+*   **Severity Score:** 0.60

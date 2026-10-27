@@ -1,0 +1,94 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Road with Dogs Crossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running across road from left side" .
+:actor2 a :Pedestrian ;
+    :description "Dog running across road from right side" .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen" .
+
+:weather1 a :NightCondition ;
+    :description "Dark urban street with artificial lighting" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dogs' movement suggests dynamic obstacle crossing" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dogs crossing road in front of vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Low visibility due to nighttime and wet road reflections" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Dogs crossing road in front of vehicle (unexpected pedestrian-like behavior).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Low visibility due to nighttime and wet road reflections (occlusion risk).
+- **Severity Score:** 0.75
+
+**Risk 3:**
+- **Description:** Slippery road conditions due to wet surface (reduced traction).
+- **Severity Score:** 0.60
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - **BehaviorAnomaly** (dogs running unpredictably across the road, behaving like pedestrians).
+
+2. **Entities Identified:**
+   - **Actors:** Two dogs (modeled as `Pedestrian` due to their crossing behavior).
+   - **Obstacle:** Wet road surface (`RoadObject`).
+   - **WeatherCondition:** `NightCondition` (low light, artificial lighting).
+   - **EvidenceIndicator:** `RollingBallIndicator` (dynamic movement of dogs).
+
+3. **Risks:**
+   - **Highest Priority:** `PedestrianCollisionRisk` (dogs crossing).
+   - **Secondary:** `OcclusionRisk` (nighttime + reflections).
+   - **Tertiary:** `RoadConditionRisk` (wet road).
+
+4. **Severity Justification:**
+   - Dogs crossing at night (high risk).
+   - Reduced visibility (moderate risk).
+   - Wet road (lower but still significant risk).

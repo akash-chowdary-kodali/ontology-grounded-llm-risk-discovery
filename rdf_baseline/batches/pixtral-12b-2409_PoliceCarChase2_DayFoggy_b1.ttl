@@ -1,0 +1,128 @@
+### **Scene Analysis: Tunnel with Fog and Heavy Traffic**
+
+---
+
+### **1. Identified Entities**
+- **Vehicles**:
+  - **Vehicle_A** (black sedan, center-left lane, approaching)
+  - **Vehicle_B** (white SUV, right lane, stationary/near)
+  - **Vehicle_C** (black sedan, center-left lane, ahead in fog)
+- **Road Infrastructure**:
+  - Tunnel with overhead beams and lighting
+  - Dual-lane road with lane markings
+  - Concrete walls on both sides
+- **Weather/Occlusions**:
+  - Dense fog reducing visibility (~5-10m)
+  - No pedestrians or cyclists visible
+- **Obstacles**:
+  - Fog-induced limited visibility (potential for unseen objects)
+
+---
+
+### **2. Relationships Between Entities**
+- **Vehicle_A** is **following** **Vehicle_C** in the same lane.
+- **Vehicle_B** is **near** **Vehicle_A** (right lane, stationary or slow-moving).
+- **Vehicle_C** is **occluded** by fog, reducing perception of its speed/distance.
+- **Fog** is **reducing visibility** for all vehicles.
+- **Tunnel infrastructure** is **enclosing** the road, limiting escape routes.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :TrafficScene ;
+    :hasWeatherCondition :DenseFog ;
+    :hasLocation :UrbanTunnel ;
+    :hasVisibilityRange "5.0"^^xsd:float .
+
+:DenseFog a :WeatherCondition ;
+    :reducesVisibility true ;
+    :severity 0.8 .
+
+:UrbanTunnel a :RoadInfrastructure ;
+    :hasLanes 2 ;
+    :hasOverheadBeams true ;
+    :hasConcreteWalls true .
+
+:Vehicle_A a :Vehicle ;
+    :hasColor "black" ;
+    :hasLane "left" ;
+    :hasPosition "following" ;
+    :hasRelativeEntity :Vehicle_C ;
+    :hasSpeed "moderate" .
+
+:Vehicle_B a :Vehicle ;
+    :hasColor "white" ;
+    :hasLane "right" ;
+    :hasPosition "near" ;
+    :hasRelativeEntity :Vehicle_A ;
+    :hasSpeed "slow" .
+
+:Vehicle_C a :Vehicle ;
+    :hasColor "black" ;
+    :hasLane "left" ;
+    :hasPosition "ahead" ;
+    :hasOcclusion :DenseFog ;
+    :hasSpeed "unknown" .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :ReducedVisibility ;
+    :affectedEntity :Vehicle_A ;
+    :severity 0.9 .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :LaneChangeConflict ;
+    :affectedEntities (:Vehicle_A :Vehicle_B) ;
+    :severity 0.7 .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :RearEndCollision ;
+    :affectedEntities (:Vehicle_A :Vehicle_C) ;
+    :severity 0.85 .
+```
+
+---
+
+### **3. Identified Risks**
+
+#### **Risk 1:**
+**Description:**
+Dense fog severely reduces visibility, increasing the risk of **Vehicle_A** failing to detect **Vehicle_C** in time, leading to a collision.
+**Severity Score:** **0.9**
+
+#### **Risk 2:**
+**Description:**
+**Vehicle_B** is stationary or slow-moving in the adjacent lane, creating a **lane-change conflict** if **Vehicle_A** attempts to merge right.
+**Severity Score:** **0.7**
+
+#### **Risk 3:**
+**Description:**
+**Vehicle_A** is following **Vehicle_C** in low visibility, increasing the risk of a **rear-end collision** if **Vehicle_C** brakes suddenly.
+**Severity Score:** **0.85**
+
+#### **Risk 4:**
+**Description:**
+The **tunnel enclosure** limits escape routes, increasing injury severity in case of a collision.
+**Severity Score:** **0.6** (mitigated by low-speed assumption)
+
+---
+### **Summary of Key Risks**
+| **Risk**               | **Severity (0-1)** | **Primary Concern**                     |
+|------------------------|--------------------|----------------------------------------|
+| Reduced Visibility     | 0.9                | Collision with unseen **Vehicle_C**    |
+| Lane-Change Conflict    | 0.7                | **Vehicle_A** merging into **Vehicle_B**|
+| Rear-End Collision     | 0.85               | **Vehicle_A** hitting **Vehicle_C**    |
+| Tunnel Enclosure Risk  | 0.6                | Limited escape routes                  |
+
+---
+### **Recommendations for Autonomous Driving Systems**
+1. **Slow down** in foggy tunnels (adaptive cruise control).
+2. **Increase following distance** (e.g., 3x normal distance).
+3. **Disable aggressive lane changes** until visibility improves.
+4. **Use radar/LiDAR** to compensate for camera limitations in fog.
+5. **Alert driver** (if manual override available) or log event for post-analysis.
+
+Would you like additional details on mitigation strategies for any specific risk?

@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UnusualAnimalObstructionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1, :obstacle2, :obstacle3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large gorilla-like statue obstructing road" .
+:obstacle2 a :RoadObject ;
+    :description "Smaller gorilla-like statue obstructing road" .
+:obstacle3 a :RoadObject ;
+    :description "Large elephant-like statue obstructing road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Potential collision with unexpected stationary large animal-like objects on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of road by large stationary objects, reducing visibility of further road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Unusual stationary objects may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with unexpected stationary large animal-like objects on road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Occlusion of road by large stationary objects, reducing visibility of further road conditions
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Unusual stationary objects may distract driver
+Severity Score: 0.70

@@ -1,0 +1,36 @@
+This scene captures a high-risk dynamic event occurring under adverse weather conditions (heavy rain/fog). A loose industrial barrel is bouncing into the path of the ego-vehicle, creating an immediate collision hazard while a pedestrian and delivery van occupy the shoulder.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://www.example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Van rdf:type ex:Vehicle ;
+       ex:isStationaryOn ex:RoadShoulder .
+ex:Pedestrian rdf:type ex:Person ;
+              ex:near ex:Van .
+ex:Barrel rdf:type ex:Obstacle ;
+          ex:movingTowards ex:EgoVehicle ;
+          ex:inPathOf ex:EgoVehicle .
+ex:RoadSurface rdf:type ex:Infrastructure ;
+               ex:hasCondition ex:Wet .
+ex:Environment rdf:type ex:WeatherCondition ;
+               ex:hasVisibility ex:Low ;
+               ex:hasPrecipitation ex:Rain .
+```
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Impending collision with an unsecured, mobile obstacle (barrel). The object is currently airborne/bouncing directly into the ego-vehicle's lane, leaving very little reaction time for braking or evasion.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Reduced visibility and traction due to adverse weather conditions. Heavy rain and fog severely impair the ego-vehicle's sensor range (Lidar/Camera), and wet pavement significantly increases braking distances.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Vulnerable road user (pedestrian) in close proximity to the traffic lane. Given the poor visibility and the chaotic nature of the falling barrel, there is a risk that the pedestrian may enter the roadway unexpectedly or be caught in a secondary collision involving the van or the barrel.
+*   **Severity Score:** 0.65

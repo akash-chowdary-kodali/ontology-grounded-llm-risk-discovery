@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction excavator bucket protruding into road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with excavator bucket obstructing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion of roadway due to construction equipment" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Unsafe road condition due to protruding construction equipment" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with excavator bucket obstructing road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Occlusion of roadway due to construction equipment
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Unsafe road condition due to protruding construction equipment
+Severity Score: 0.90
+
+---
+**Explanation:**
+1. The excavator bucket is classified as a **RoadObject** under the **Obstacle** class.
+2. The scene is classified as a **StateAnomaly** because the excavator bucket is in an unexpected state (protruding into the roadway).
+3. The **NightCondition** is identified as the weather condition.
+4. Three risks are identified:
+   - **CollisionRisk** due to the bucket obstructing the road.
+   - **OcclusionRisk** due to the limited visibility of the roadway.
+   - **RoadConditionRisk** due to the unsafe road condition caused by the equipment.
+5. Severity scores are assigned based on the criticality of the risks in this scenario. The collision risk is the highest due to the immediate danger of a vehicle striking the bucket.

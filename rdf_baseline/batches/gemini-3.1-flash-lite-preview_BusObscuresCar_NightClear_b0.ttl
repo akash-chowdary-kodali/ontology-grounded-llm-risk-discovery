@@ -1,0 +1,51 @@
+### 1. Main Entities
+*   **Ego-vehicle:** Red vehicle (camera platform).
+*   **Other Vehicles:** Black sedan (stationary/parked right), brown hatchback (stationary/parked right), yellow taxi/car (stationary/parked right), dark sedan (moving in distance on the left).
+*   **Road Infrastructure:** Multi-lane urban road, raised railway structure (left), buildings/residential block (right), traffic lights (far intersection).
+*   **Environmental Conditions:** Night-time, clear visibility, artificial street lighting.
+
+### 2. Relationships
+*   **Ego-vehicle** is travelling in the right-most lane.
+*   **Black sedan** is stationary or parked, occupying a significant portion of the right-side clearance.
+*   **Ego-vehicle** is approaching the stationary vehicles on the right.
+*   **Dark sedan** is crossing/moving through the intersection area ahead.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex: <http://example.org/driving-scene#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:travelingIn ex:RightLane .
+
+ex:BlackSedan rdf:type ex:Vehicle ;
+    ex:position ex:RightShoulder ;
+    ex:state ex:Stationary .
+
+ex:BrownHatchback rdf:type ex:Vehicle ;
+    ex:position ex:RightShoulder ;
+    ex:isBehind ex:BlackSedan .
+
+ex:DarkSedan rdf:type ex:Vehicle ;
+    ex:location ex:Intersection ;
+    ex:action ex:Moving .
+
+ex:Environment rdf:type ex:NightTime ;
+    ex:visibility ex:ArtificialLighting .
+
+ex:EgoVehicle ex:approaching ex:BlackSedan .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Narrow clearance caused by stationary vehicles (black sedan) parked dangerously close to or partially encroaching upon the active travel lane at night. The ego-vehicle may have insufficient lateral clearance to pass safely.
+*   **Severity Score:** 0.65
+
+**Risk 2:**
+*   **Description:** Potential for sudden obstacle emergence from the sidewalk or between parked cars. The cluster of stationary vehicles (black sedan, brown hatchback) creates significant visual occlusion, preventing detection of pedestrians or cyclists who might step out into the road.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Interaction with distant traffic at a complex intersection. The presence of a moving dark sedan in the distance, combined with low-light intersection conditions, increases the risk of miscalculating crossing paths or right-of-way if the intersection is controlled.
+*   **Severity Score:** 0.40

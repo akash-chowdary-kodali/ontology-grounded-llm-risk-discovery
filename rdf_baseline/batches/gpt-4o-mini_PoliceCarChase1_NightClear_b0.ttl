@@ -1,0 +1,41 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Road, ex:Infrastructure .
+    
+ex:Vehicle1 
+    ex:entityType "Car" ;
+    ex:location "center lane" ;
+    ex:orientation "facing forward" .
+    
+ex:Vehicle2 
+    ex:entityType "Car" ;
+    ex:location "opposite lane" ;
+    ex:orientation "facing forward" .
+
+ex:Road 
+    ex:hasSurface "asphalt" ;
+    ex:hasLighting "illuminated" ;
+    ex:hasCondition "dry" .
+    
+ex:Infrastructure 
+    ex:hasType "tunnel" ;
+    ex:hasWallType "brick" .
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision between vehicles due to close proximity in the tunnel.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Reduced visibility conditions and limited maneuverability in a tunnel environment.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Presence of static obstacles (e.g., wall structure) potentially occluding vehicle paths.
+- **Severity Score:** 0.4

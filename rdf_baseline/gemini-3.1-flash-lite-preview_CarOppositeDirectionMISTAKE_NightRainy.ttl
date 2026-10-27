@@ -1,0 +1,44 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (observed from the hood/dashboard).
+*   **Other Vehicle:** Black sedan crossing the intersection.
+*   **Infrastructure:** Elevated railway/bridge structure, support pillars, residential/commercial building facades, street lighting, road surface (asphalt).
+*   **Environment/Weather:** Nighttime, rainy conditions (evidenced by wet road reflections and ripple patterns).
+
+### 2. Relationships
+*   **Intersection:** The black sedan is crossing the path of the ego-vehicle.
+*   **Weather:** Rain is affecting road surface friction and visibility.
+*   **Occlusion:** Infrastructure (pillars) and low ambient light create potential blind spots for the ego-vehicle.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+              ex:isRed true .
+
+ex:TargetVehicle rdf:type ex:Vehicle ;
+                 ex:color "black" ;
+                 ex:isCrossingPath ex:EgoVehicle .
+
+ex:RoadCondition rdf:type ex:WetSurface ;
+                 ex:visibility "low" .
+
+ex:Infrastructure rdf:type ex:BridgeStructure ;
+                  ex:hasSupportPillar ex:VerticalObstacle .
+
+ex:Intersection ex:isOccupiedBy ex:TargetVehicle .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Intersection collision risk due to the black sedan crossing the path of the ego-vehicle in low-visibility, wet-road conditions.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Reduced traction and braking efficiency due to standing water on the asphalt surface.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** Potential blind spots created by heavy infrastructure (bridge pillars) and poor nocturnal lighting, hindering the detection of additional crossing traffic or pedestrians.
+*   **Severity Score:** 0.70

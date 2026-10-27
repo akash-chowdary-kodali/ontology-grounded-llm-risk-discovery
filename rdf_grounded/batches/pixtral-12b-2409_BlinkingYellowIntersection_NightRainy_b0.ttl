@@ -1,0 +1,90 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :description "Wet road surface with low visibility at night, potential for reduced traction and obscured traffic signals." .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating recent rain." .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting." .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface, increasing skid risk." ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflective road surface obscures visibility of traffic signals and distant objects." ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Nighttime conditions reduce visibility and reaction time." ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic signal visible in the scene." .
+
+:vehicle1 a :Vehicle ;
+    :description "Vehicle in the distance, partially obscured by wet road reflections." .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced traction due to wet road surface, increasing skid risk.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Reflective road surface obscures visibility of traffic signals and distant objects.
+- **Severity Score:** 0.65
+
+**Risk 3:**
+- **Description:** Nighttime conditions reduce visibility and reaction time.
+- **Severity Score:** 0.80
+
+---
+
+### Explanation of the Interpretation:
+1. **Scene Context:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (wet road, nighttime) rather than actor behavior or evidence-based anomalies.
+   - The **RoadObject** (`:roadObject1`) represents the wet road surface, which acts as an obstacle due to its impact on vehicle dynamics.
+   - The **WeatherCondition** (`:nightCondition1`) captures the low-light environment.
+
+2. **Risks Identified:**
+   - **RoadConditionRisk:** High severity due to wet roads reducing traction.
+   - **OcclusionRisk:** Moderate severity due to reflections obscuring visibility.
+   - **WeatherRisk:** High severity due to nighttime conditions impairing visibility and reaction time.
+
+3. **Severity Scores:**
+   - Scores are assigned based on the potential impact of each risk on autonomous driving safety, with values between 0.0 (no risk) and 1.0 (critical risk).
+
+4. **Entities in the Scene:**
+   - The **TrafficLight** (`:trafficLight1`) is included as a contextual element, though it is not directly tied to the corner case.
+   - The **Vehicle** (`:vehicle1`) is noted but not directly linked to the corner case since it does not exhibit anomalous behavior.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

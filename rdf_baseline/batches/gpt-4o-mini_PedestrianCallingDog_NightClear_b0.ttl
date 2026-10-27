@@ -1,0 +1,39 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Vehicle3, ex:Vehicle4, ex:Vehicle5, ex:Dog, ex:RoadInfrastructure, ex:LightingConditions ;
+    ex:hasRelationship ex:Vehicle1 ex:approaches ex:Dog ;
+    ex:hasRelationship ex:Dog ex:crosses ex:Lane ;
+    ex:hasRelationship ex:Vehicle3 ex:occludes ex:Dog ;
+    ex:hasRelationship ex:Vehicle2 ex:following ex:Vehicle1 .
+
+ex:Vehicle1 a ex:Vehicle ; ex:vehicleType "Car" ; ex:color "Brown" .
+ex:Vehicle2 a ex:Vehicle ; ex:vehicleType "Car" ; ex:color "Green" .
+ex:Vehicle3 a ex:Vehicle ; ex:vehicleType "Car" ; ex:color "Red" .
+ex:Vehicle4 a ex:Vehicle ; ex:vehicleType "Car" ; ex:color "Dark Grey" .
+ex:Vehicle5 a ex:Vehicle ; ex:vehicleType "Car" ; ex:color "Black" .
+ex:Dog a ex:Animal ; ex:animalType "Dog" .
+ex:RoadInfrastructure a ex:Infrastructure ; ex:hasElement "StreetLights" ; ex:hasElement "RoadLines" .
+ex:LightingConditions a ex:Weather ; ex:condition "Night" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** A dog is crossing the road while vehicles are approaching, which could lead to a potential collision.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Vehicles parked on the side of the road occlude visibility, making it difficult for drivers to see the dog that might suddenly cross.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Nighttime conditions reduce visibility, increasing the risk of an accident as vehicles approach the dog on the roadway.
+- **Severity Score:** 0.7
+
+**Risk 4:**
+- **Description:** Proximity of vehicles to the dog creates a risk of a potential collision when the dog is in motion.
+- **Severity Score:** 0.75

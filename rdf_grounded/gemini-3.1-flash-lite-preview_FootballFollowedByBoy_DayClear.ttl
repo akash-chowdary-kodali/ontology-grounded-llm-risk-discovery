@@ -1,0 +1,35 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianFollowingRollingBall" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasEvidence :ball1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "A young pedestrian running into the road" .
+
+:ball1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "A soccer ball rolling into the street" .
+
+:weather1 a :ClearCondition ;
+    :description "Sunny daylight conditions" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian entering traffic path to retrieve rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian entering traffic path to retrieve rolling ball
+Severity Score: 0.95

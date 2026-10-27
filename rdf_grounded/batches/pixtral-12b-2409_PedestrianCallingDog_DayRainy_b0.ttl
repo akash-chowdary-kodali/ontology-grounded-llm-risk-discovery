@@ -1,0 +1,89 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanFoggyStreetWithDog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog running across the street" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dog's movement indicates potential collision risk" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog running into the path of vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures visibility of other vehicles and pedestrians" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Wet road conditions increase braking distance" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Dog running into the path of vehicles
+- **Severity Score:** 0.9
+- **Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscures visibility of other vehicles and pedestrians
+- **Severity Score:** 0.8
+- **Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Wet road conditions increase braking distance
+- **Severity Score:** 0.7
+- **Type:** RoadConditionRisk
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** A dog (classified as a `Pedestrian` since it is an unconstrained road user).
+   - **WeatherCondition:** Heavy fog (`FoggyCondition`).
+   - **EvidenceIndicator:** The dog's movement (`RollingBallIndicator`).
+   - No explicit `TrafficLight`, `TrafficSign`, or `Billboard` are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the dog's unpredictable movement (evidence) suggests a potential risk that is not immediately obvious (e.g., a dog running into traffic).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the dog's sudden movement.
+   - **OcclusionRisk:** High severity due to fog reducing visibility.
+   - **RoadConditionRisk:** Moderate severity due to wet roads increasing braking distance.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the immediacy and potential impact of each risk (e.g., collision with a dog is more severe than wet roads).

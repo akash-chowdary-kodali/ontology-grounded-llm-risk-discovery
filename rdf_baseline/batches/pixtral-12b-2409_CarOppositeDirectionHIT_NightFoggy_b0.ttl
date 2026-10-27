@@ -1,0 +1,108 @@
+Below is the structured analysis of the provided scene images, including RDF triples, identified risks, and severity scores.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+ex:egoVehicle a ex:Vehicle ;
+    ex:hasPosition "center_of_lane" ;
+    ex:hasSpeed "low" ;
+    ex:hasLighting "headlights_on" ;
+    ex:isInEnvironment ex:urban_narrow_street .
+
+ex:oncomingVehicle a ex:Vehicle ;
+    ex:hasPosition "distance_20m_ahead" ;
+    ex:hasSpeed "stationary" ;
+    ex:isInEnvironment ex:urban_narrow_street .
+
+ex:road a ex:Road ;
+    ex:hasType "narrow_street" ;
+    ex:hasSurface "wet" ;
+    ex:hasMarkings "double_white_line" ;
+    ex:hasLighting "low_ambient_light" .
+
+ex:building1 a ex:Building ;
+    ex:hasPosition "left_side" ;
+    ex:hasHeight "multi_story" .
+
+ex:building2 a ex:Building ;
+    ex:hasPosition "right_side" ;
+    ex:hasHeight "multi_story" .
+
+ex:overheadStructure a ex:Infrastructure ;
+    ex:hasType "bridge_or_roof" ;
+    ex:hasPosition "center_of_street" .
+
+ex:weather a ex:Weather ;
+    ex:hasCondition "night" ;
+    ex:hasVisibility "reduced" ;
+    ex:hasSurfaceCondition "wet" .
+
+# Relationships
+ex:egoVehicle ex:isApproaching ex:oncomingVehicle .
+ex:egoVehicle ex:isOnRoad ex:road .
+ex:road ex:hasObstacle ex:overheadStructure .
+ex:weather ex:affectsVisibility ex:road .
+ex:oncomingVehicle ex:isOccludedBy ex:overheadStructure .
+ex:egoVehicle ex:hasLightingCondition ex:weather .
+
+# Risk Classes
+ex:risk1 a ex:SafetyRisk ;
+    ex:riskType "Occlusion_Due_to_Lighting" ;
+    ex:severity 0.85 ;
+    ex:description "Overhead structure and low lighting obscure oncoming vehicle, increasing collision risk." .
+
+ex:risk2 a ex:SafetyRisk ;
+    ex:riskType "Wet_Road_Surface" ;
+    ex:severity 0.7 ;
+    ex:description "Wet road surface increases braking distance and skid risk for ego vehicle." .
+
+ex:risk3 a ex:SafetyRisk ;
+    ex:riskType "Stationary_Vehicle_Interaction" ;
+    ex:severity 0.6 ;
+    ex:description "Stationary oncoming vehicle may suddenly move, causing unexpected interaction." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The overhead structure (bridge/roof) and low ambient lighting obscure the visibility of the oncoming vehicle, increasing the risk of collision due to delayed detection.
+
+**Severity Score:**
+**0.85** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The wet road surface reduces traction, increasing the risk of skidding or hydroplaning, particularly if the ego vehicle needs to brake or swerve suddenly.
+
+**Severity Score:**
+**0.7** (Moderate-High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The oncoming vehicle is stationary, but its sudden movement (e.g., pulling out) could create an unexpected interaction, especially given the limited visibility and narrow road.
+
+**Severity Score:**
+**0.6** (Moderate)
+
+---
+
+### **Summary of Key Observations:**
+1. **Occlusion Risk:** The overhead structure and poor lighting make it difficult to detect the oncoming vehicle early.
+2. **Wet Road Risk:** Reduced traction increases the likelihood of loss of control.
+3. **Stationary Vehicle Risk:** Potential for sudden movement by the oncoming vehicle.
+
+This scene represents a **high-risk corner case** for autonomous driving systems, particularly in **low-light, narrow, and occluded environments**. The system must rely on **sensor fusion (LiDAR, radar, and camera)** to mitigate these risks.

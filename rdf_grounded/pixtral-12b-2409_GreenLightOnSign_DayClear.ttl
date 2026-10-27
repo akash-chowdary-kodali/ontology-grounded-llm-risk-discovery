@@ -1,0 +1,72 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithTrafficLightAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:weather1 a :DayCondition ;
+    :description "Clear day with no adverse weather" .
+
+:risk1 a :DistractionRisk ;
+    :description "Billboard advertising may distract driver" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Tree branches partially obstructing view" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to stopped vehicle ahead" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.3"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.4"^^xsd:float .
+
+:sev3 a :SeverityRisk ;
+    :description "Vehicle stopped at intersection with green light" ;
+    :hasSeverityScore :sev4 .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Advertisement billboard on right side of intersection" .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light visible in scene" .
+
+:vehicle1 a :Vehicle ;
+    :description "Red car stopped at intersection ahead" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Billboard advertising may distract driver
+Severity Score: 0.3
+
+**Risk 2:**
+Description: Tree branches partially obstructing view
+Severity Score: 0.4
+
+**Risk 3:**
+Description: Potential rear-end collision risk due to stopped vehicle ahead
+Severity Score: 0.6
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** due to the stopped vehicle ahead of the red car, which is an unusual state for a green light scenario.
+2. The **DistractionRisk** is attributed to the prominent billboard, which could divert the driver's attention.
+3. The **OcclusionRisk** is due to tree branches partially obstructing the view, which could lead to missed visual cues.
+4. The **CollisionRisk** is categorized as a **Rear-End Collision Risk** due to the stopped vehicle ahead of the red car at a green light.
+5. Severity scores were assigned based on the likelihood and potential impact of each risk. The highest severity is assigned to the rear-end collision risk, while the billboard distraction is considered lower severity.

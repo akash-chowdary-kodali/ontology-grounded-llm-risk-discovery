@@ -1,0 +1,80 @@
+Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithPedestrianOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Blurred pedestrian walking on sidewalk" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large puddle covering road markings" .
+
+:weather1 a :NightCondition ;
+    :description "Dark environment with artificial lighting" .
+
+:evidence1 a :OcclusionRisk ;
+    :description "Pedestrian partially obscured by vehicle headlights and reflections" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "High occlusion of pedestrian due to wet road reflections and night lighting" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to large puddle" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High occlusion of pedestrian due to wet road reflections and night lighting
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to large puddle
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian (blurred, walking on sidewalk)
+   - **Obstacle:** RoadObject (large puddle covering road markings)
+   - **WeatherCondition:** NightCondition (dark environment with artificial lighting)
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The scene is classified as an evidence-based anomaly because the risk arises from observable evidence (occlusion from reflections and wet road conditions).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The pedestrian is partially obscured by reflections on the wet road and night lighting, making detection difficult for autonomous vehicles.
+   - **RoadConditionRisk:** The large puddle creates slippery conditions, increasing the risk of vehicle skidding or loss of control.
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a high severity score (0.90) due to the critical nature of pedestrian detection in autonomous driving.
+   - RoadConditionRisk is assigned a moderate severity score (0.75) due to the potential impact on vehicle handling.

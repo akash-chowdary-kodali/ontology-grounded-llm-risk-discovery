@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithFollowingVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow taxi following closely behind ego vehicle" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets on road indicating heavy rain" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility and traction due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to close following distance in heavy rain
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Reduced visibility and traction due to heavy rain
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** `:vehicle1` (Yellow taxi following closely)
+   - **WeatherCondition:** `:weather1` (Heavy rain)
+   - **EvidenceIndicator:** `:evidence1` (Water droplets indicating heavy rain)
+
+2. **Corner Case Classification:**
+   - `:cc1` is classified as a **StateAnomaly** because the hazardous state arises from the vehicle's position (close following) and environmental conditions (heavy rain), rather than anomalous behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** Due to the close proximity of the following vehicle in poor visibility conditions.
+   - **WeatherRisk:** Due to heavy rain reducing visibility and traction.
+
+4. **Severity Scores:**
+   - The rear-end collision risk is assigned the highest severity (0.92) due to the immediate danger of a collision.
+   - The weather risk is slightly lower (0.88) but still critical due to its impact on driving conditions.

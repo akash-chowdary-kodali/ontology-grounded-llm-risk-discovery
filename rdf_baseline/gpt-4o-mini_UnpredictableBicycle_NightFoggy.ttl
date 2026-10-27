@@ -1,0 +1,54 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Bicycle1 ;
+    ex:hasEntity ex:Road ;
+    ex:hasEntity ex:Building1 ;
+    ex:hasEntity ex:Building2 ;
+    ex:hasEntity ex:StreetLight1 ;
+    ex:hasEntity ex:StreetLight2 ;
+    ex:weatherCondition "foggy" ;
+    ex:timeOfDay "night" .
+
+ex:Bicycle1 a ex:Bicycle ;
+    ex:hasRider ex:Cyclist1 ;
+    ex:isNear ex:Crosswalk ;
+
+ex:Cyclist1 a ex:Human ;
+    ex:position "crossing the road" .
+
+ex:Crosswalk a ex:RoadInfrastructure ;
+    ex:isLocatedOn ex:Road .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasMarker "lane markings" .
+
+ex:Building1 a ex:Structure ;
+    ex:hasFunction "residential" .
+
+ex:Building2 a ex:Structure ;
+    ex:hasFunction "commercial" .
+
+ex:StreetLight1 a ex:LightSource ;
+    ex:illuminates ex:Road .
+
+ex:StreetLight2 a ex:LightSource ;
+    ex:illuminates ex:Road .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** The cyclist is crossing the road in low visibility conditions due to fog, which may lead to an accident if vehicles do not see the cyclist in time.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** The cyclist is positioned near the crosswalk without any vehicles stopping, which may lead to further uncertainty as to whether the cyclist has the right of way.  
+**Severity Score:** 0.5
+
+#### Risk 3:
+**Description:** Low lighting conditions due to the nighttime setting may impair visibility of the cyclist if they are not adequately illuminated.  
+**Severity Score:** 0.6

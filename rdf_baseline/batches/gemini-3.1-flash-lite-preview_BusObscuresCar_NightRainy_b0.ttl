@@ -1,0 +1,54 @@
+### 1. Scene Interpretation
+
+**Main Entities:**
+*   **Ego-Vehicle:** The red vehicle from which the perspective is taken.
+*   **Other Vehicles:** A line of parked vehicles to the right (including a black SUV/sedan and a yellow vehicle), and a vehicle in the distance on the left side of the road.
+*   **Infrastructure:** Multi-lane road, street lighting, traffic lights, and urban building facades.
+*   **Weather/Environment:** Nighttime, rainy conditions, wet road surface with high reflectivity.
+
+**Relationships:**
+*   **Ego-Vehicle** is following a path adjacent to parked vehicles.
+*   **Parked Vehicles** are stationary on the right side of the roadway.
+*   **Wet Road Surface** creates glare/reflections from artificial lights, reducing visual clarity.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:ParkedSUV a ex:Vehicle ;
+    ex:status "Stationary" ;
+    ex:locatedAt "RightLane" .
+
+ex:RoadSurface a ex:Infrastructure ;
+    ex:condition "Wet" ;
+    ex:reflectivity "High" .
+
+ex:Environment a ex:Weather ;
+    ex:time "Night" ;
+    ex:precipitation "Rain" .
+
+ex:EgoVehicle ex:near ex:ParkedSUV .
+ex:ParkedSUV ex:occludes ex:SidewalkArea .
+ex:RoadSurface ex:causes "ReducedVisibility" .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** **Reduced Sensor/Human Perception due to Precipitation and Lighting.** The combination of nighttime, rain, and wet road surfaces creates glare and reduces contrast, making it difficult to detect objects or road markings accurately.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** **Occlusion/Door Opening Hazard.** The ego-vehicle is traveling in close proximity to a row of parked vehicles. There is a risk that a driver or passenger of a parked vehicle could open a door unexpectedly into the path of the ego-vehicle.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** **Hydroplaning Risk.** The standing water on the asphalt increases the risk of loss of traction, especially if the ego-vehicle performs a sudden maneuver.
+*   **Severity Score:** 0.50

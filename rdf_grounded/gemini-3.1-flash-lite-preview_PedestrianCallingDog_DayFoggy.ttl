@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyStreetDogCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Actor ;
+    :description "German Shepherd running across the road" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Animal abruptly entering vehicle path in low visibility conditions" ;
+    :confidenceScore "0.92"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: The dog is running across the driving lane, creating an immediate lane intrusion risk. Given the heavy fog significantly reducing visibility, the driver has minimal time to react, resulting in a high severity score.
+Severity Score: 0.85

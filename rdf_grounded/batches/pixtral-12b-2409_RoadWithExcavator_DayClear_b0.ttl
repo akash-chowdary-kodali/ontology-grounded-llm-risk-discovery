@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionVehicleWithLooseObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Construction vehicle with extended arm and bucket" .
+
+:roadObject1 a :RoadObject ;
+    :description "Loose object (orange traffic cone) near construction vehicle" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Orange traffic cone positioned precariously near vehicle bucket" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to loose traffic cone rolling into path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to construction vehicle arm blocking view of surroundings" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision due to loose traffic cone rolling into path
+- **Severity Score:** 0.75
+- **Type:** CollisionRisk (subtype of Risk)
+
+**Risk 2:**
+- **Description:** Risk of occlusion due to construction vehicle arm blocking view of surroundings
+- **Severity Score:** 0.60
+- **Type:** OcclusionRisk (subtype of Risk)
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Construction vehicle (Vehicle subclass)
+   - **Obstacle:** Loose traffic cone (RoadObject subclass)
+   - **Evidence Indicator:** FallingObjectIndicator (due to precarious position of the cone)
+   - **Weather Condition:** DayCondition (clear daytime)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The corner case arises from the **state** of the traffic cone being precariously positioned near the vehicle's bucket, which could lead to unintended movement (falling/rolling).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** The loose traffic cone could roll into the path of other vehicles or pedestrians.
+   - **OcclusionRisk:** The extended arm of the construction vehicle obstructs the driver's view of the surroundings.
+
+4. **Severity Scores:**
+   - CollisionRisk (0.75): High due to the potential for sudden movement of the cone.
+   - OcclusionRisk (0.60): Moderate due to the limited visibility caused by the vehicle's arm.

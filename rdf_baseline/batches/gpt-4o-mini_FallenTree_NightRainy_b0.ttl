@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasObstacle ex:Tree ;
+    ex:hasVehicle ex:Taxi1, ex:Taxi2, ex:PoliceCar ;
+    ex:hasRoad ex:MainRoad ;
+    ex:hasPedestrian ex:None .
+
+ex:Taxi1 a ex:Vehicle ;
+    ex:vehicleType ex:Taxi ;
+    ex:vehicleColor ex:Yellow .
+
+ex:Taxi2 a ex:Vehicle ;
+    ex:vehicleType ex:Taxi ;
+    ex:vehicleColor ex:Yellow .
+
+ex:PoliceCar a ex:Vehicle ;
+    ex:vehicleType ex:PoliceCar ;
+    ex:vehicleColor ex:Blue .
+
+ex:Tree a ex:Obstacle ;
+    ex:obstacleType ex:FallenTree .
+
+ex:MainRoad a ex:Infrastructure ;
+    ex:roadType ex:UrbanRoad ;
+    ex:hasLaneCount 2 .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Fallen tree obstructing the roadway, creating a hazard for approaching vehicles.  
+**Severity Score:** 0.8  
+
+#### Risk 2:
+**Description:** Poor visibility due to heavy rain, increasing potential for collisions.  
+**Severity Score:** 0.7  
+
+#### Risk 3:
+**Description:** Presence of multiple stationary vehicles (taxis) may create confusion or misinterpretation of traffic flow.  
+**Severity Score:** 0.5  
+
+#### Risk 4:
+**Description:** The police vehicle, while responsive to an incident, may confuse other drivers regarding traffic laws and emergency response awareness.  
+**Severity Score:** 0.6  

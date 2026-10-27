@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreet" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :dog1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:dog1 a :Actor ;
+    :description "Dog running into street" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Dog running unpredictably into traffic lane" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with dog crossing into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction due to sudden appearance of dog" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in front of dog" .
+
+:vehicle2 a :Vehicle ;
+    :description "Green vehicle behind red vehicle" .
+
+:building1 a :Obstacle ;
+    :description "Left-side brick building" .
+
+:building2 a :Obstacle ;
+    :description "Right-side concrete building" .
+
+:weather1 a :DayCondition ;
+    :description "Clear day with no precipitation" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with dog crossing into vehicle path
+- **Risk Type:** CollisionRisk (PedestrianCollisionRisk implied by dog's behavior)
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Driver distraction due to sudden appearance of dog
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.7
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The dog running unpredictably into the street is classified as a **BehaviorAnomaly** since it involves unexpected behavior from a non-human actor.
+2. **Evidence Indicator:** The dog's behavior is modeled as a **FallingObjectIndicator** (since it's an unexpected object entering the roadway).
+3. **Risks Identified:**
+   - **High-severity collision risk** due to the dog's sudden appearance in the vehicle path.
+   - **Moderate-severity distraction risk** for drivers who might react to the dog.
+4. **Weather and Environment:** Clear day conditions with no precipitation or fog, which reduces additional risks.
+
+The ontology captures the dynamic and potentially hazardous nature of the scene while adhering strictly to the provided vocabulary.

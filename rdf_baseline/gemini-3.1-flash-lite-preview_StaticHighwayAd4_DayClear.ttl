@@ -1,0 +1,51 @@
+### Semantic Interpretation and Safety Analysis
+
+**1. Main Entities:**
+*   **Ego-Vehicle:** Red vehicle (visible at the bottom of the frame).
+*   **Infrastructure:** Multi-lane urban road, brick boundary wall, bus stop shelter, overhead billboard structures, street lighting, traffic light (overhead).
+*   **Weather:** Sunny, clear visibility, bright daylight.
+*   **Obstacles:** High-contrast, high-brightness commercial billboards located near the driver’s line of sight.
+
+**2. Relationships:**
+*   **Ego-Vehicle:** Traveling forward on an open road.
+*   **Billboards:** Positioned directly above and adjacent to the roadway, potentially causing visual distraction or glare.
+*   **Roadside:** The bus stop and brick wall run parallel to the ego-vehicle's path on the right.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+             ex:color "red" .
+
+ex:Roadway rdf:type ex:Infrastructure ;
+           ex:surface "asphalt" .
+
+ex:Billboard1 rdf:type ex:VisualDistraction ;
+              ex:location "overhead" ;
+              ex:luminance "high" .
+
+ex:Billboard2 rdf:type ex:VisualDistraction ;
+              ex:location "right_side" ;
+              ex:luminance "high" .
+
+ex:EgoVehicle ex:travelingOn ex:Roadway .
+ex:Billboard1 ex:near ex:Roadway .
+ex:Billboard2 ex:near ex:Roadway .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Cognitive distraction due to high-luminance, high-contrast commercial digital billboards. The bright content of the billboards can capture driver attention or cause sudden visual adaptation issues (glare) in an otherwise bright environment.
+*   **Severity Score:** 0.45
+
+**Risk 2:**
+*   **Description:** Potential for "hidden" infrastructure or pedestrian hazards. The proximity of the brick wall and bus stop area to the road creates a blind spot where pedestrians could step out near the ego-vehicle’s trajectory, particularly because the roadside is cluttered with infrastructure.
+*   **Severity Score:** 0.35

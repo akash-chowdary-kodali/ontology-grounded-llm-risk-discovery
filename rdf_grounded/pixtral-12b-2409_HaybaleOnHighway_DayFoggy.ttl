@@ -1,0 +1,178 @@
+Here is the semantic interpretation of the scene based on the provided images and ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (e.g., barrel) falling onto road" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling road object" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road and traffic" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with falling road object (e.g., barrel) obstructing the lane.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Reduced visibility due to fog obscuring road markings, traffic lights, and other vehicles.
+- **Severity Score:** 0.8
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly** (due to the clear evidence of a falling object and foggy conditions).
+
+2. **Entities Identified:**
+   - **Obstacle:** Falling cylindrical object (`RoadObject`).
+   - **WeatherCondition:** `FoggyCondition`.
+   - No actors (pedestrians/cyclists/vehicles) are visible in the immediate scene.
+
+3. **Risks:**
+   - **CollisionRisk** (high severity) from the falling object.
+   - **OcclusionRisk** (moderate severity) from fog reducing visibility.
+
+4. **Justification for Severity Scores:**
+   - The falling object poses an immediate collision threat (0.9).
+   - Fog reduces situational awareness but is less immediate (0.8). Here is the semantic interpretation of the scene images grounded in the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 ;
+    :description "Falling object (barrel) in road path" .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling barrel on road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision with falling object (barrel) on the road, exacerbated by heavy fog reducing visibility.
+- **Severity Score:** 0.92
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility).
+   - **Obstacle:** RoadObject (falling barrel on the road).
+   - **EvidenceIndicator:** FallingObjectIndicator (evidence of the barrel falling into the road path).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The scene is classified as an evidence-based anomaly because the falling barrel serves as clear evidence of an unexpected obstacle in the road.
+
+3. **Risk Identification:**
+   - **CollisionRisk:** The primary risk is a collision with the falling barrel, which is further amplified by the foggy conditions reducing visibility.
+
+4. **Severity Justification:**
+   - The severity score of **0.92** is assigned due to the high likelihood of collision (falling object in the path) combined with poor visibility (foggy conditions), making it a critical safety concern for autonomous driving. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :fallingObjectIndicator1 ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :collisionRisk1, :occlusionRisk1 .
+
+:fallingObjectIndicator1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :collisionRisk1 .
+
+:roadObject1 a :RoadObject ;
+    :description "Falling object (potentially debris) on road" .
+
+:foggyCondition1 a :FoggyCondition .
+
+:collisionRisk1 a :CollisionRisk ;
+    :description "Risk of collision with falling object on road" ;
+    :hasSeverityScore :severityScore1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Risk of occlusion due to fog reducing visibility" ;
+    :hasSeverityScore :severityScore2 .
+
+:severityScore1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:severityScore2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision with falling object on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Risk of occlusion due to fog reducing visibility
+Severity Score: 0.8

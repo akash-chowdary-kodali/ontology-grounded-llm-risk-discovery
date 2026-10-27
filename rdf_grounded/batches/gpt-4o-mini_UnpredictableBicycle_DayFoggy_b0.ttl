@@ -1,0 +1,29 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Cyclist in Foggy Conditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Cyclist .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Cyclist visibility reduced due to fog while crossing the road" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Cyclist visibility reduced due to fog while crossing the road
+Severity Score: 0.75

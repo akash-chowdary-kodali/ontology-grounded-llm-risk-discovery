@@ -1,0 +1,72 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeHorseAndDogsOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :description "Animals (horse and dogs) unexpectedly occupying roadway at night" ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Vehicle ;
+    :description "Autonomous vehicle observing scene" .
+
+:actor2 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology; using :Cyclist as closest proxy (though imperfect)
+    :description "Horse crossing road" .
+
+:actor3 a :Pedestrian ;
+    :description "Dogs on road" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:obstacle1 a :RoadObject ;
+    :description "Animals blocking road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with horse or dogs on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Animals may obscure visibility of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with horse or dogs on road
+- **Severity Score:** 0.95
+- **Type:** CollisionRisk (subtype of Risk)
+
+**Risk 2:**
+- **Description:** Animals may obscure visibility of other road users
+- **Severity Score:** 0.80
+- **Type:** OcclusionRisk (subtype of Risk)
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as a **StateAnomaly** because the presence of animals (horse and dogs) on the road is an unexpected state of the environment, not a behavioral or evidence-based anomaly.
+2. **Actors:** The horse and dogs are modeled as **Pedestrian** (since no "AnimalActor" exists in the ontology) and the horse could be loosely interpreted as a **Cyclist** (though not biologically accurate). The autonomous vehicle is included as an **Actor** for context.
+3. **WeatherCondition:** Nighttime conditions are explicitly modeled as **NightCondition** to emphasize low visibility.
+4. **Obstacle:** The animals are treated as a **RoadObject** (subtype of Obstacle) since they block the road.
+5. **Risks:** The primary risks are **CollisionRisk** (high severity due to sudden animal presence) and **OcclusionRisk** (moderate severity due to reduced visibility of other road users).

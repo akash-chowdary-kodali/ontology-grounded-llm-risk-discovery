@@ -1,0 +1,46 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** The red vehicle from which the scene is captured.
+*   **Other Vehicle:** A black sedan crossing the intersection.
+*   **Infrastructure:** Intersection, road markings (stop line, arrows), overhead bridge structure with pillars.
+*   **Environment:** Urban residential area, night time, low-visibility/foggy conditions, artificial street lighting.
+
+### 2. Relationships
+*   **Ego-Vehicle** is approaching the intersection.
+*   **Other Vehicle** is crossing the path of the Ego-Vehicle.
+*   **Other Vehicle** is near the structural pillars of the overhead bridge.
+*   **Infrastructure** is creating occlusions due to the pillars of the bridge.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:position "at_stop_line" .
+
+ex:OtherVehicle rdf:type ex:Vehicle ;
+    ex:action "crossing_intersection" ;
+    ex:relativePosition "in_front_of_ego" .
+
+ex:Infrastructure rdf:type ex:OverheadBridge ;
+    ex:hasPart ex:BridgePillar .
+
+ex:BridgePillar rdf:type ex:Obstacle ;
+    ex:status "occluding_view" .
+
+ex:Environment rdf:type ex:LowVisibility ;
+    ex:lighting "night" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+**Description:** Lateral Collision Risk. The other vehicle is traversing the intersection directly in the path of the ego-vehicle. Given the low-visibility night conditions, the black vehicle may have poor contrast, increasing the risk of delayed detection.
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** Obstruction of View. The heavy pillars of the overhead bridge create blind spots, potentially masking other road users or pedestrians from the ego-vehicle's sensors and the human driver's field of vision.
+**Severity Score:** 0.65
+
+**Risk 3:**
+**Description:** Adverse Environmental Conditions. The combination of darkness, fog, and complex infrastructure (overhead beams and pillars) reduces the effective range of LiDAR and optical sensors, creating a potential detection failure.
+**Severity Score:** 0.70

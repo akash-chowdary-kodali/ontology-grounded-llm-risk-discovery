@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:RainyNight ;
+    ex:hasRoadInfrastructure ex:TrafficLights, ex:RoadSigns ;
+    ex:hasVehicle ex:RedCar ;
+    ex:hasObstacle ex:WaterPuddles ;
+    ex:hasBuilding ex:AbandonedBuildings .
+
+ex:RedCar a ex:Vehicle ;
+    ex:isLocatedAt ex:CurrentPosition ;
+    ex:isMoving ex:Approaching .
+
+ex:TrafficLights a ex:RoadInfrastructure ;
+    ex:hasState ex:Red .
+
+ex:WaterPuddles a ex:Obstacle ;
+    ex:hasLocation ex:RoadSurface .
+
+ex:AbandonedBuildings a ex:Building ;
+    ex:isNear ex:Road .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Wet road conditions due to heavy rain creating potential for loss of traction for vehicles.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Reduced visibility due to nighttime driving conditions, increasing the difficulty of detecting obstacles and traffic signals.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** The presence of water puddles on the road can lead to hydroplaning situations.
+- **Severity Score:** 0.8
+
+**Risk 4:**
+- **Description:** Stagnant water might obscure road markings, creating confusion regarding lane integrity and direction.
+- **Severity Score:** 0.5

@@ -1,0 +1,346 @@
+Here is the structured analysis of the provided scene images:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:time "Night"^^xsd:string ;
+    ex:location ex:UrbanStreet ;
+    ex:weather ex:ClearNight .
+
+ex:egoVehicle a ex:Vehicle ;
+    ex:vehicleType "SUV" ;
+    ex:position ex:Lane1 ;
+    ex:hasDriver ex:HumanDriver .
+
+ex:dog1 a ex:Animal ;
+    ex:animalType "Dog" ;
+    ex:position ex:Crosswalk ;
+    ex:action ex:Running ;
+    ex:distanceToEgo 10.0^^xsd:float .
+
+ex:dog2 a ex:Animal ;
+    ex:animalType "Dog" ;
+    ex:position ex:Crosswalk ;
+    ex:action ex:Running ;
+    ex:distanceToEgo 8.0^^xsd:float .
+
+ex:vehicle2 a ex:Vehicle ;
+    ex:vehicleType "Sedan" ;
+    ex:position ex:Lane2 ;
+    ex:direction ex:Approaching ;
+    ex:distanceToEgo 30.0^^xsd:float .
+
+ex:vehicle3 a ex:Vehicle ;
+    ex:vehicleType "Truck" ;
+    ex:position ex:Lane2 ;
+    ex:direction ex:Stationary ;
+    ex:distanceToEgo 50.0^^xsd:float .
+
+ex:building1 a ex:Infrastructure ;
+    ex:type "CommercialBuilding" ;
+    ex:location ex:LeftSide .
+
+ex:building2 a ex:Infrastructure ;
+    ex:type "ResidentialBuilding" ;
+    ex:location ex:RightSide .
+
+ex:crosswalk a ex:Infrastructure ;
+    ex:type "PedestrianCrosswalk" ;
+    ex:location ex:Center .
+
+ex:streetLight1 a ex:Infrastructure ;
+    ex:type "StreetLight" ;
+    ex:status "On" .
+
+ex:egoVehicle ex:hasRisk ex:AnimalCrossingRisk .
+ex:dog1 ex:relatedToRisk ex:AnimalCrossingRisk .
+ex:dog2 ex:relatedToRisk ex:AnimalCrossingRisk .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Two dogs are running across the crosswalk in front of the ego vehicle at night, creating an unpredictable crossing scenario. The ego vehicle may not detect the animals in time due to low visibility and their erratic movement.
+**Severity Score:** **0.95**
+*(High risk due to sudden animal crossing, nighttime conditions, and potential for collision with vulnerable road users.)*
+
+#### **Risk 2:**
+**Description:**
+The approaching sedan in Lane 2 may not be fully visible due to the ego vehicle's headlight glare or the dogs' movement, leading to delayed detection or misjudgment of its trajectory.
+**Severity Score:** **0.75**
+*(Moderate risk due to potential occlusion and reduced visibility in nighttime conditions.)*
+
+#### **Risk 3:**
+**Description:**
+The stationary truck in Lane 2 may obscure the view of other vehicles or pedestrians, increasing the risk of misjudging the scene's dynamics.
+**Severity Score:** **0.60**
+*(Low-to-moderate risk due to partial occlusion, but the truck is stationary and not directly interacting with the ego vehicle.)*
+
+#### **Risk 4:**
+**Description:**
+Nighttime conditions reduce visibility, making it harder for the ego vehicle's sensors (cameras, LiDAR) to accurately detect and classify objects, increasing the risk of missed detections.
+**Severity Score:** **0.85**
+*(High risk due to limited sensor performance in low-light environments.)*
+
+---
+### **Summary of Key Observations:**
+1. **Main Entities:**
+   - **Vehicles:** Ego vehicle (SUV), sedan, truck.
+   - **Animals:** Two dogs crossing the road.
+   - **Infrastructure:** Buildings, crosswalk, streetlights.
+   - **Weather:** Clear night (no precipitation).
+
+2. **Relationships:**
+   - Dogs are **crossing** the crosswalk in front of the ego vehicle.
+   - The sedan is **approaching** from behind.
+   - The truck is **stationary** and may **occlude** parts of the scene.
+   - Nighttime conditions **reduce visibility** for all actors.
+
+3. **Critical Risks:**
+   - **Animal crossing** (highest severity).
+   - **Sensor limitations in low light** (second-highest severity).
+   - **Occlusion from vehicles** (moderate severity).
+
+This scenario highlights the challenges of **unpredictable road users (animals), sensor limitations, and environmental factors** in autonomous driving. ### **Scene Analysis: Semantic Interpretation of the Environment**
+
+---
+
+### **1. Identified Main Entities**
+- **Vehicles**:
+  - Red pickup truck (ego vehicle, front view).
+  - Green SUV (following the ego vehicle).
+  - Red sports car (following the green SUV).
+  - Multiple parked vehicles on the left side.
+  - Distant vehicles in the background.
+- **Animals**:
+  - A dog running across the road (center of the scene).
+- **Road Infrastructure**:
+  - Double yellow lines (lane markings).
+  - Streetlights (illuminating the road).
+  - Sidewalk and buildings on the left.
+  - Bridge structure in the background.
+- **Weather Conditions**:
+  - Nighttime (low visibility, artificial lighting).
+- **Obstacles**:
+  - None directly blocking the road, but the dog is an unexpected moving obstacle.
+
+---
+
+### **2. Relationships Between Entities**
+- **Spatial Relationships**:
+  - The **dog** is **crossing** the road from left to right, moving toward the ego vehicle.
+  - The **green SUV** is **following** the **red pickup truck (ego vehicle)**.
+  - The **red sports car** is **following** the **green SUV**.
+  - The **parked vehicles** are **stationary** on the left side.
+- **Temporal Relationships**:
+  - The **dog** is **approaching** the ego vehicle’s path.
+  - The **ego vehicle** is **traveling forward** while the dog crosses its trajectory.
+- **Occlusions**:
+  - The **dog** is **not occluded** but is a sudden, unexpected moving object.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Nighttime ;
+    :hasRoadMarking :DoubleYellowLines .
+
+:EgoVehicle a :Vehicle ;
+    :hasColor "Red" ;
+    :hasType "PickupTruck" ;
+    :isFollowing :GreenSUV .
+
+:GreenSUV a :Vehicle ;
+    :hasColor "Green" ;
+    :hasType "SUV" ;
+    :isFollowingBy :RedSportsCar .
+
+:RedSportsCar a :Vehicle ;
+    :hasColor "Red" ;
+    :hasType "SportsCar" .
+
+:Dog a :Animal ;
+    :hasType "Dog" ;
+    :isCrossing :Road ;
+    :isApproaching :EgoVehicle .
+
+:Road a :RoadInfrastructure ;
+    :hasLaneMarking :DoubleYellowLines ;
+    :hasStreetlight :Streetlight1 .
+
+# Relationships
+:Dog :crosses :Road .
+:Dog :approaches :EgoVehicle .
+:EgoVehicle :hasTrajectory :Forward .
+:GreenSUV :follows :EgoVehicle .
+:RedSportsCar :follows :GreenSUV .
+
+# Time and Location
+:Scene1 :occursAt :Nighttime .
+:Scene1 :hasLocation :UrbanStreet .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Unpredictable Moving Obstacle (Dog Crossing)**
+- **Description**:
+  The dog is an unexpected moving obstacle crossing the road at night, increasing the risk of collision with the ego vehicle. The low visibility and sudden appearance make it difficult for the vehicle’s perception system to react in time.
+- **Severity Score**: **0.95** (High risk due to sudden movement and low visibility).
+
+#### **Risk 2: Following Traffic with Reduced Reaction Time**
+- **Description**:
+  The ego vehicle is following another vehicle (green SUV) in close proximity. If the ego vehicle must brake suddenly due to the dog, the reduced following distance could lead to a rear-end collision.
+- **Severity Score**: **0.7** (Moderate risk due to traffic density and reaction time constraints).
+
+#### **Risk 3: Nighttime Visibility Challenges**
+- **Description**:
+  The scene occurs at night, reducing visibility and making it harder for the vehicle’s sensors (cameras, LiDAR) to detect small or fast-moving objects like the dog.
+- **Severity Score**: **0.8** (High risk due to environmental conditions affecting perception).
+
+#### **Risk 4: Sudden Lane Change or Swerving**
+- **Description**:
+  If the ego vehicle attempts to avoid the dog, it may need to make a sudden lane change or swerve, which could lead to a collision with the green SUV or other vehicles.
+- **Severity Score**: **0.85** (High risk due to potential loss of control or collision).
+
+---
+
+### **Summary of Risks**
+| **Risk Class**                     | **Severity Score (0-1)** |
+|-------------------------------------|--------------------------|
+| Unpredictable Moving Obstacle (Dog) | 0.95                     |
+| Following Traffic with Reduced Reaction Time | 0.7               |
+| Nighttime Visibility Challenges     | 0.8                      |
+| Sudden Lane Change or Swerving      | 0.85                     |
+
+---
+### **Conclusion**
+This scene presents a **high-risk corner case** due to the combination of:
+1. An **unpredictable moving obstacle** (dog crossing).
+2. **Low visibility** at night.
+3. **Close following distance** with other vehicles.
+
+An autonomous vehicle must prioritize **early detection** of the dog and **safe braking/avoidance maneuvers** to prevent collisions. Adaptive perception systems and robust decision-making algorithms are critical in such scenarios. ### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Entities in the scene
+:Scene1 a :Scene ;
+    :hasLocation :UrbanStreetAtNight ;
+    :hasTimeStamp "2023-10-05T23:45:00"^^xsd:dateTime .
+
+:Vehicle1 a :Vehicle ;
+    :hasType "Car" ;
+    :hasColor "Red" ;
+    :hasPosition :Lane1 ;
+    :isFollowing :Vehicle3 .
+
+:Vehicle2 a :Vehicle ;
+    :hasType "Car" ;
+    :hasColor "Green" ;
+    :hasPosition :Lane2 ;
+    :isFollowing :Vehicle4 .
+
+:Vehicle3 a :Vehicle ;
+    :hasType "Car" ;
+    :hasColor "Black" ;
+    :hasPosition :Lane1 ;
+    :isApproaching :Intersection .
+
+:Vehicle4 a :Vehicle ;
+    :hasType "Car" ;
+    :hasColor "White" ;
+    :hasPosition :Lane2 ;
+    :isApproaching :Intersection .
+
+:Building1 a :Building ;
+    :hasLocation :LeftSideOfStreet ;
+    :hasMaterial "Brick" .
+
+:Building2 a :Building ;
+    :hasLocation :RightSideOfStreet ;
+    :hasMaterial "Concrete" .
+
+:Road a :RoadInfrastructure ;
+    :hasType "Street" ;
+    :hasLaneMarkings :DoubleYellowSolidAndWhiteDashed ;
+    :hasLighting :StreetLights .
+
+:Intersection a :RoadInfrastructure ;
+    :hasType "TIntersection" ;
+    :isApproachedBy :Vehicle3, :Vehicle4 .
+
+:WeatherCondition a :WeatherCondition ;
+    :hasCondition "Clear" ;
+    :hasVisibility "High" .
+
+# Relationships
+:Vehicle1 :isNear :Vehicle2 .
+:Vehicle3 :isApproaching :Intersection .
+:Vehicle4 :isApproaching :Intersection .
+:Building1 :isOccluding :Vehicle3 .
+:Road :hasLane :Lane1, :Lane2 .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description:
+The red car (Vehicle1) is closely following the green car (Vehicle2) in adjacent lanes, which could lead to a potential collision if either vehicle makes an abrupt lane change or braking maneuver. The proximity and nighttime conditions reduce visibility of intentions between drivers.
+
+Severity Score: 0.7
+
+---
+
+**Risk 2:**
+Description:
+The black car (Vehicle3) and white car (Vehicle4) are approaching the intersection from different lanes. The intersection is not clearly visible due to the angle and potential occlusion by buildings, increasing the risk of misjudging the right-of-way or failing to notice other vehicles.
+
+Severity Score: 0.6
+
+---
+
+**Risk 3:**
+Description:
+The lighting conditions, while clear, are limited to streetlights, which may not provide sufficient illumination for drivers to clearly see pedestrians, cyclists, or other potential obstacles in the darker areas of the street.
+
+Severity Score: 0.5
+
+---
+
+**Risk 4:**
+Description:
+The absence of visible pedestrians or cyclists does not eliminate the risk entirely. The potential for unseen pedestrians crossing or cyclists entering the street from side roads or alleys increases the risk of accidents, especially at night.
+
+Severity Score: 0.4
+
+---
+
+**Risk 5:**
+Description:
+The double yellow solid line on the left lane indicates no passing, but the dashed white line on the right suggests lane changes are allowed. Drivers might misinterpret these markings, leading to unsafe lane changes or merging.
+
+Severity Score: 0.5
+
+---
+This analysis provides a structured understanding of the scene and highlights potential safety risks that an autonomous driving system should be prepared to handle.

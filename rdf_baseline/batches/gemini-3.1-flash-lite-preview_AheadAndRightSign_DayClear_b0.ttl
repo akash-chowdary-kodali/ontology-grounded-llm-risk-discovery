@@ -1,0 +1,35 @@
+### 1. Main Entities
+*   **Ego Vehicle:** Red hood visible at the bottom of the frame.
+*   **Other Vehicle:** One dark-colored vehicle approaching/crossing at the distant intersection.
+*   **Infrastructure:** Multi-lane urban road, traffic light gantry, street lamps, building complex on the left, sidewalk on the right.
+*   **Weather Conditions:** Clear sky, bright daylight, high visibility, harsh shadows.
+
+### 2. Relationships
+*   **Ego Vehicle** is on a multi-lane road.
+*   **Other Vehicle** is located at an intersection in the distance.
+*   **Infrastructure** is surrounding the road, creating potential blind spots at the junction.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:OtherVehicle rdf:type ex:Vehicle .
+ex:Intersection rdf:type ex:RoadInfrastructure .
+
+ex:EgoVehicle ex:approaching ex:Intersection .
+ex:OtherVehicle ex:atLocation ex:Intersection .
+ex:OtherVehicle ex:isDistantFrom ex:EgoVehicle .
+ex:Intersection ex:hasTrafficControl ex:TrafficLightGantry .
+ex:Environment ex:hasCondition "Clear Daylight" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Intersection Negotiation / Unexpected Cross-Traffic. The ego vehicle is approaching a large, wide intersection. Due to the distance and the nature of the urban environment, there is a risk of cross-traffic vehicles entering the intersection from occluded angles (left or right buildings).
+*   **Severity Score:** 0.45
+
+**Risk 2:**
+*   **Description:** Perception Degradation due to Harsh Lighting. The bright, clear daylight conditions create high-contrast shadows (e.g., under the gantry and building overhangs). This can cause "blooming" effects on camera sensors or sudden dark-to-light transitions that momentarily reduce the visibility of smaller entities like cyclists or pedestrians.
+*   **Severity Score:** 0.30

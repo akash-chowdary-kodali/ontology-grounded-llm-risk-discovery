@@ -1,0 +1,47 @@
+### Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-vehicle:** The observer vehicle (red hood visible).
+*   **Road Infrastructure:** Multi-lane asphalt road, traffic signal (overhead), street lamps, brick wall boundary, bus stop shelter.
+*   **Signs:** No-entry/prohibited vehicle sign, speed limit sign (90).
+*   **Advertising:** Large overhead billboards.
+*   **Environmental conditions:** Nighttime, artificial lighting (street lamps/billboards), dry road surface.
+
+**2. Relationships:**
+*   **Ego-vehicle:** Positioned at a stop line/intersection.
+*   **Traffic Signal:** Hanging directly above the intersection (active in early frames, changing/obscured in later).
+*   **Infrastructure:** The brick wall and bus stop are located to the right of the ego-vehicle.
+*   **Billboards:** Positioned overhead, creating potential visual clutter.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://autonomous-driving.org/schema#> .
+
+ex:EgoVehicle ex:atLocation ex:Intersection .
+ex:TrafficSignal ex:positionedAbove ex:Intersection .
+ex:Billboard1 ex:type "Advertising" ;
+              ex:locatedNear ex:Intersection .
+ex:BrickWall ex:boundaryOf ex:Road .
+ex:BusStop ex:locatedNear ex:BrickWall .
+ex:Environment ex:timeOfDay "Night" ;
+               ex:weather "Clear" .
+ex:TrafficSignal ex:state "Caution/Transitioning" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+**Description:** High visual complexity and light pollution from billboards at night. The high-luminance advertising displays positioned directly above or near the traffic signals can lead to "dazzle" or distraction, potentially masking the color or state of the traffic signal for the ego-vehicle.
+**Severity Score:** 0.65
+
+**Risk 2:**
+**Description:** Nighttime visibility constraints. While the scene is illuminated, the transition from bright billboard light to the dark background of the road creates a dynamic range challenge for perception sensors, potentially hiding pedestrians near the bus stop or road boundary.
+**Severity Score:** 0.55
+
+**Risk 3:**
+**Description:** Infrastructure ambiguity at a signalized intersection. The presence of signage that mimics or competes with road signals (billboards depicting traffic lights or circular shapes) may cause confusion for vision-based object detection algorithms, leading to false-positive or false-negative signal interpretations.
+**Severity Score:** 0.75

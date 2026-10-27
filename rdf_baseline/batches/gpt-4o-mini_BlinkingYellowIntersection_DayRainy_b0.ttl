@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/>.
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeather ex:Rainy ;
+    ex:hasVisibility ex:LowVisibility ;
+    ex:hasRoadInfrastructure ex:TrafficLights ;
+    ex:hasEntities ex:Vehicle1, ex:Vehicle2, ex:Pedestrian1, ex:Building1 .
+
+ex:Vehicle1 a ex:Car ;
+    ex:hasType ex:Sedan ;
+    ex:hasPosition ex:NearCrosswalk .
+
+ex:Vehicle2 a ex:Car ;
+    ex:hasType ex:SUV ;
+    ex:hasPosition ex:NearCrosswalk .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:hasAction ex:CrossingStreet ;
+    ex:hasPosition ex:NearCrosswalk .
+
+ex:Building1 a ex:Structure ;
+    ex:hasType ex:ResidentialHouse ;
+    ex:hasStatus ex:Abandoned .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Low visibility due to heavy rain and fog, increasing the risk of collisions.
+Severity Score: 0.8
+
+**Risk 2:**
+Description: Vehicles near the crosswalk may not see pedestrians clearly, leading to potential accidents.
+Severity Score: 0.7
+
+**Risk 3:**
+Description: Slippery road conditions due to rain, increasing the likelihood of loss of vehicle control.
+Severity Score: 0.9
+
+**Risk 4:**
+Description: Potential for pedestrians to trip or slip while crossing the street under wet conditions.
+Severity Score: 0.6

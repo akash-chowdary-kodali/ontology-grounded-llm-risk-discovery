@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Road with Dogs Crossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog crossing road from left side" .
+:actor2 a :Pedestrian ;
+    :description "Dog crossing road from right side" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Dogs running erratically across lanes" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with artificial lighting" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dogs crossing path of oncoming vehicles" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Dogs occupying multiple lanes unpredictably" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Dogs crossing path of oncoming vehicles
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.95
+- **Confidence Score:** 0.92
+
+**Risk 2:**
+- **Description:** Dogs occupying multiple lanes unpredictably
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.85
+- **Confidence Score:** 0.88
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because the dogs' erratic crossing behavior deviates from expected pedestrian/actor behavior (e.g., crossing lanes unpredictably at night).
+
+2. **Entities Identified:**
+   - **Actors:** Two dogs (modeled as `Pedestrian` since they are non-motorized road users).
+   - **WeatherCondition:** `NightCondition` (low visibility, artificial lighting).
+   - **Evidence:** `RollingBallIndicator` (dogs' unpredictable movement resembles rolling objects in terms of risk dynamics).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to dogs crossing lanes in front of vehicles.
+   - **LaneIntrusionRisk:** Moderate severity due to dogs occupying multiple lanes simultaneously.
+
+4. **Severity Justification:**
+   - **0.95** for collision risk (immediate threat to vehicles).
+   - **0.85** for lane intrusion (less immediate but still hazardous due to multi-lane disruption).
+
+The RDF strictly adheres to the provided ontology, using only allowed classes/properties and assigning appropriate severity scores.

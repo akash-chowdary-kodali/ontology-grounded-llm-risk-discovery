@@ -1,0 +1,36 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :indicator1 ;
+    :hasRisk :risk1 ;
+    :hasWeatherCondition :night1 ;
+    :occursInScene :scene1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Hay bale falling into the path of the vehicle" .
+
+:indicator1 a :FallingObjectIndicator ;
+    :description "A large object is airborne and dropping onto the traffic lane" ;
+    :indicatesPotentialRisk :risk1 .
+
+:night1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with a falling obstacle on the road" ;
+    :confidenceScore "0.95"^^xsd:float ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential collision with a heavy falling object (hay bale) that is entering the vehicle's driving path.
+Severity Score: 0.90

@@ -1,0 +1,54 @@
+### Scene Analysis Report
+
+#### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (partially visible hood).
+*   **Target Vehicle:** Yellow taxi (directly ahead).
+*   **Infrastructure:** Urban street with lane markings, street lamps, and sidewalk buildings.
+*   **Weather Conditions:** Heavy rain (wet, reflective road surface) and dense fog causing extremely low visibility.
+*   **Other:** A small red vehicle is visible in the far distance through the fog.
+
+#### 2. Relationships
+*   **Ego-Vehicle following Target Vehicle:** The ego-vehicle is directly behind the taxi, maintaining a relatively close distance.
+*   **Target Vehicle occluding view:** The taxi obscures the view of the road surface and potential obstacles directly ahead.
+*   **Weather impacting visibility:** The fog and rain limit the perception range of the ego-vehicle.
+*   **Road surface condition:** The wet surface increases the risk of skidding and reduces tire-to-road friction.
+
+#### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isFollowing ex:Taxi .
+
+ex:Taxi rdf:type ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:isAheadOf ex:EgoVehicle .
+
+ex:Environment rdf:type ex:Condition ;
+    ex:weather "heavy rain" ;
+    ex:visibility "low" ;
+    ex:surface "wet/slippery" .
+
+ex:Scene ex:contains ex:EgoVehicle, ex:Taxi, ex:Environment ;
+    ex:riskLevel ex:High .
+```
+
+#### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Reduced braking efficiency and increased stopping distance due to wet/slippery road surface.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** Limited sensor range and driver/system reaction time due to extreme atmospheric obstruction (fog/rain).
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Potential for sudden deceleration or unexpected stop by the leading taxi, leading to a rear-end collision given the low-traction environment.
+*   **Severity Score:** 0.80
+
+**Risk 4:**
+*   **Description:** Inability to perceive hazards or road geometry further ahead (e.g., traffic signals, pedestrians, or stationary obstacles) beyond the lead vehicle.
+*   **Severity Score:** 0.70

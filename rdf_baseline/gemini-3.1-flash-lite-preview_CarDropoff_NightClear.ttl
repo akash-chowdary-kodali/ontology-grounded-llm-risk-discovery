@@ -1,0 +1,47 @@
+This scene depicts a night-time urban driving environment. The primary safety concern involves a stationary/parked vehicle that is partially obstructing the right lane, combined with poor visibility conditions (nighttime) and potential pedestrian presence near the bus stop.
+
+### 1. Main Entities
+*   **Ego Vehicle:** The vehicle capturing the scene (red hood visible).
+*   **Parked Vehicle:** A black sedan positioned on the right side of the road, encroaching into the ego vehicle's lane.
+*   **Emergency Vehicle (Ambulance):** Parked in the distance on the left side.
+*   **Infrastructure:** Street lighting, road signage, a bus stop structure on the right.
+*   **Environmental Conditions:** Nighttime, low ambient lighting, artificial light sources.
+
+### 2. Entity Relationships
+*   **Ego Vehicle - Parked Vehicle:** Approaching, potential for collision (lateral encroachment).
+*   **Parked Vehicle - Bus Stop:** Co-located/occluding.
+*   **Ego Vehicle - Infrastructure:** Navigating through a marked road segment.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:approaching ex:ParkedVehicle .
+
+ex:ParkedVehicle rdf:type ex:Vehicle ;
+    ex:locatedAt ex:RightLane ;
+    ex:state ex:Stationary ;
+    ex:occluding ex:BusStop .
+
+ex:EmergencyVehicle rdf:type ex:Vehicle ;
+    ex:locatedAt ex:LeftSidewalk .
+
+ex:Environment rdf:type ex:NightTime ;
+    ex:visibility ex:Low .
+```
+
+### 4. Identified Risks for each risk class
+
+**Risk 1: Lane Encroachment / Stationary Obstacle**
+*   **Description:** The black sedan is parked or stopped significantly into the flow of traffic in the right lane. The ego vehicle is approaching this obstacle at night, where the contrast between the black vehicle and the dark background reduces perception distance.
+*   **Severity Score:** 0.75
+
+**Risk 2: Occlusion of Vulnerable Road Users (VRUs)**
+*   **Description:** The parked vehicle is located directly adjacent to a bus stop. There is a high probability of pedestrians stepping out from behind or in front of the vehicle into the ego vehicle's path, creating an "emerging hazard" scenario.
+*   **Severity Score:** 0.85
+
+**Risk 3: Low Visibility Environment**
+*   **Description:** Nighttime conditions significantly impair the ego vehicle's sensor suite (cameras/LiDAR/Radar). The lack of natural light increases the reaction time required to identify hazards, especially non-reflective objects or pedestrians near the sidewalk.
+*   **Severity Score:** 0.60

@@ -1,0 +1,84 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:StreetScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasTimeOfDay ex:Daytime .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isLocatedAt ex:Crosswalk ;
+    ex:isMoving ex:Crossing ;
+    ex:hasSpeed "3.6"^^xsd:decimal ; # 3.6 km/h
+    ex:hasDirection ex:Northbound .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:isLocatedAt ex:RightLane ;
+    ex:hasType ex:Bus ;
+    ex:isOccludedBy ex:Building ;
+    ex:hasTrafficLightStatus ex:Stop .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isLocatedAt ex:Intersection ;
+    ex:hasStatus ex:Red .
+
+ex:Building1 a ex:Building ;
+    ex:isLocatedAt ex:LeftSideOfRoad ;
+    ex:hasColor ex:White .
+
+ex:Building2 a ex:Building ;
+    ex:isLocatedAt ex:RightSideOfRoad ;
+    ex:hasColor ex:Gray .
+
+ex:Crosswalk a ex:RoadMarking ;
+    ex:isLocatedAt ex:Intersection .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasLaneMarking ex:DoubleYellowLines ;
+    ex:hasLaneMarking ex:Crosswalk .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isLocatedAt ex:Intersection ;
+    ex:isActive true .
+
+ex:StreetLight2 a ex:StreetLight ;
+    ex:isLocatedAt ex:ApproachingIntersection ;
+    ex:isActive true .
+
+ex:Intersection a ex:RoadInfrastructure ;
+    ex:hasTrafficLight ex:TrafficLight1 ;
+    ex:hasPedestrianCrossing ex:Crosswalk .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description: Pedestrian crossing the road while a bus is approaching from the right side of the image, potentially occluded by the building. The traffic light is red, but the pedestrian may not be fully visible to the bus driver or autonomous vehicle due to the angle and potential blind spots.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The bus is partially occluded by the building on the right side, which could prevent the bus driver or autonomous vehicle from detecting pedestrians crossing from the opposite direction.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: The autonomous vehicle or bus driver may not fully recognize the pedestrian crossing due to the pedestrian's small size and motion blur, especially if the pedestrian is not directly in the line of sight.
+Severity Score: 0.7
+
+**Risk 4:**
+Description: The traffic light is red, but the pedestrian crossing might not be fully visible to the bus driver or autonomous vehicle due to the intersection layout and potential blind spots.
+Severity Score: 0.65
+
+**Risk 5:**
+Description: The presence of multiple street lights and traffic signals might confuse the autonomous vehicle’s sensor system, especially if there are any malfunctions or inconsistencies in the signals.
+Severity Score: 0.5
+
+---
+These risks are based on the potential corner case scenario where the pedestrian's visibility and the bus's blind spots could lead to safety issues.

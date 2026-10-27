@@ -1,0 +1,355 @@
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://cecs571.csulb.edu/ontology/cornercase#> .
+
+<http://cecs571.csulb.edu/ontology/cornercase> rdf:type owl:Ontology ;
+                                                rdfs:comment "Ontology for classifying corner-case driving scenarios, the entities involved, and resulting safety risks. Based on the 3CSim taxonomy (Cavojsky et al., 2024) and extended with finer-grained risk subclasses, evidence indicators, and environmental context for ontology-grounded LLM evaluation." ;
+                                                rdfs:label "Corner Case Ontology for Autonomous Driving" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasActor
+:hasActor rdf:type owl:ObjectProperty ;
+          rdfs:domain :CornerCase ;
+          rdfs:range :Actor ;
+          rdfs:comment "Links a corner case to an actor (vehicle, pedestrian, cyclist) participating in it." ;
+          rdfs:label "has actor" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasCornerCaseType
+:hasCornerCaseType rdf:type owl:ObjectProperty ;
+                   rdfs:domain :Scene ;
+                   rdfs:range :CornerCase ;
+                   rdfs:comment "Links a scene to the corner case category it depicts (state, behavior, or evidence-based anomaly)." ;
+                   rdfs:label "has corner case type" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasEvidence
+:hasEvidence rdf:type owl:ObjectProperty ;
+             rdfs:domain :CornerCase ;
+             rdfs:range :EvidenceIndicator ;
+             rdfs:comment "Links a corner case to the observable evidence indicator that signals it." ;
+             rdfs:label "has evidence" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasObstacle
+:hasObstacle rdf:type owl:ObjectProperty ;
+             rdfs:domain :CornerCase ;
+             rdfs:range :Obstacle ;
+             rdfs:comment "Links a corner case to an obstacle present in the scene." ;
+             rdfs:label "has obstacle" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasRisk
+:hasRisk rdf:type owl:ObjectProperty ;
+         rdfs:domain :CornerCase ;
+         rdfs:range :Risk ;
+         rdfs:comment "Links a corner case to one or more identified safety risks." ;
+         rdfs:label "has risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasSeverityScore
+:hasSeverityScore rdf:type owl:ObjectProperty ;
+                  rdfs:domain :Risk ;
+                  rdfs:range :SeverityScore ;
+                  rdfs:comment "Links a risk to its severity score instance." ;
+                  rdfs:label "has severity score" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#hasWeatherCondition
+:hasWeatherCondition rdf:type owl:ObjectProperty ;
+                     rdfs:domain :CornerCase ;
+                     rdfs:range :WeatherCondition ;
+                     rdfs:comment "Links a corner case to the weather and lighting condition under which it takes place." ;
+                     rdfs:label "has weather condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#indicatesPotentialRisk
+:indicatesPotentialRisk rdf:type owl:ObjectProperty ;
+                        rdfs:domain :EvidenceIndicator ;
+                        rdfs:range :Risk ;
+                        rdfs:comment "Links an evidence indicator to the risk it foreshadows." ;
+                        rdfs:label "indicates potential risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#occursInScene
+:occursInScene rdf:type owl:ObjectProperty ;
+               rdfs:domain :CornerCase ;
+               rdfs:range :Scene ;
+               rdfs:comment "Links a corner case to the scene observation in which it manifests." ;
+               rdfs:label "occurs in scene" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://cecs571.csulb.edu/ontology/cornercase#confidenceScore
+:confidenceScore rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Risk ;
+                 rdfs:range xsd:float ;
+                 rdfs:comment "Numeric value in [0.0, 1.0] indicating the confidence with which a risk has been identified." ;
+                 rdfs:label "confidence score" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#description
+:description rdf:type owl:DatatypeProperty ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Natural-language description attached to any individual in the ontology." ;
+             rdfs:label "description" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#scenarioName
+:scenarioName rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Scene ;
+              rdfs:range xsd:string ;
+              rdfs:comment "Human-readable identifier for a scene (e.g., 'FootballFollowedByBoy')." ;
+              rdfs:label "scenario name" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#severityValue
+:severityValue rdf:type owl:DatatypeProperty ;
+               rdfs:domain :SeverityScore ;
+               rdfs:range xsd:float ;
+               rdfs:comment "Numeric value in [0.0, 1.0] held by a severity score; 1.0 = highest severity." ;
+               rdfs:label "severity value" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Actor
+:Actor rdf:type owl:Class ;
+       rdfs:comment "Any animate or operated agent participating in a driving scene. Parent class for vehicles, pedestrians, and cyclists." ;
+       rdfs:label "Actor" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#BehaviorAnomaly
+:BehaviorAnomaly rdf:type owl:Class ;
+                 rdfs:subClassOf :CornerCase ;
+                 rdfs:comment "Discrepancy between observed and expected behavior of an agent. Examples: a vehicle driving against traffic, an erratic cyclist, a police chase, a pedestrian crossing unexpectedly." ;
+                 rdfs:label "Behavior Anomaly" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Billboard
+:Billboard rdf:type owl:Class ;
+           rdfs:comment "A large outdoor advertising surface that may contain imagery resembling traffic signs or signals, potentially confusing perception systems. Extension beyond paper for static highway advertisement scenarios." ;
+           rdfs:label "Billboard" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#ClearCondition
+:ClearCondition rdf:type owl:Class ;
+                rdfs:subClassOf :WeatherCondition ;
+                rdfs:comment "Cloudless or near-cloudless atmosphere with full visibility. Extension capturing the 'Clear' variant of the dataset." ;
+                rdfs:label "Clear Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#CollisionRisk
+:CollisionRisk rdf:type owl:Class ;
+               rdfs:subClassOf :Risk ;
+               rdfs:comment "Risk of physical impact between the autonomous vehicle and another entity. Parent class for finer collision sub-types." ;
+               rdfs:label "Collision Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#CornerCase
+:CornerCase rdf:type owl:Class ;
+            rdfs:comment "A rare or challenging driving situation that may not be adequately handled by an autonomous driving system. The top-level concept of this ontology, classified into three taxonomic subtypes drawn from the 3CSim paper." ;
+            rdfs:label "Corner Case" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Cyclist
+:Cyclist rdf:type owl:Class ;
+         rdfs:subClassOf :Actor ;
+         rdfs:comment "A human riding a bicycle or similar non-motorized two-wheel vehicle. Extension beyond paper to capture scenarios such as UnpredictableBicycle." ;
+         rdfs:label "Cyclist" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#DayCondition
+:DayCondition rdf:type owl:Class ;
+              rdfs:subClassOf :WeatherCondition ;
+              rdfs:comment "Daylight illumination, regardless of weather. Extension capturing the 'Day' variant of the dataset." ;
+              rdfs:label "Day Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#DistractionRisk
+:DistractionRisk rdf:type owl:Class ;
+                 rdfs:subClassOf :Risk ;
+                 rdfs:comment "Risk that the perception system attends to misleading visual information such as advertisements containing traffic-sign imagery. Extension covering the StateAnomaly billboard cases." ;
+                 rdfs:label "Distraction Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#EvidenceBasedAnomaly
+:EvidenceBasedAnomaly rdf:type owl:Class ;
+                      rdfs:subClassOf :CornerCase ;
+                      rdfs:comment "Observable indicator that hints at a forthcoming hazard. Examples: a ball rolling into the road preceding a child, luggage falling off a roof, a barrel falling from a truck." ;
+                      rdfs:label "Evidence-Based Anomaly" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#EvidenceIndicator
+:EvidenceIndicator rdf:type owl:Class ;
+                   rdfs:comment "An observable cue that signals a forthcoming evidence-based anomaly. Parent class for specific indicator subtypes." ;
+                   rdfs:label "Evidence Indicator" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#FallingObjectIndicator
+:FallingObjectIndicator rdf:type owl:Class ;
+                        rdfs:subClassOf :EvidenceIndicator ;
+                        rdfs:comment "An object detaching from a vehicle or structure, indicating an imminent obstruction. Extension covering FallingBarrel and FallingVendingMachine scenarios." ;
+                        rdfs:label "Falling Object Indicator" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#FoggyCondition
+:FoggyCondition rdf:type owl:Class ;
+                rdfs:subClassOf :WeatherCondition ;
+                rdfs:comment "Atmospheric fog reducing visibility range. Extension capturing the 'Foggy' variant of the dataset." ;
+                rdfs:label "Foggy Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#LaneIntrusionRisk
+:LaneIntrusionRisk rdf:type owl:Class ;
+                   rdfs:subClassOf :Risk ;
+                   rdfs:comment "Risk of another road user entering the autonomous vehicle's lane unexpectedly." ;
+                   rdfs:label "Lane Intrusion Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#NightCondition
+:NightCondition rdf:type owl:Class ;
+                rdfs:subClassOf :WeatherCondition ;
+                rdfs:comment "Low ambient illumination after sunset. Extension capturing the 'Night' variant of the dataset." ;
+                rdfs:label "Night Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Obstacle
+:Obstacle rdf:type owl:Class ;
+          rdfs:comment "Any inanimate physical impediment that may affect the autonomous vehicle's path. Parent class for road objects." ;
+          rdfs:label "Obstacle" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#OcclusionRisk
+:OcclusionRisk rdf:type owl:Class ;
+               rdfs:subClassOf :Risk ;
+               rdfs:comment "Risk arising from a blocked line of sight where a hazardous entity may be hidden behind another object (e.g., a child obscured by a parked bus)." ;
+               rdfs:label "Occlusion Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#OpenDoorIndicator
+:OpenDoorIndicator rdf:type owl:Class ;
+                   rdfs:subClassOf :EvidenceIndicator ;
+                   rdfs:comment "A vehicle door opening into the lane of travel, suggesting a passenger may step out. Extension covering CarDropoff scenarios." ;
+                   rdfs:label "Open Door Indicator" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Pedestrian
+:Pedestrian rdf:type owl:Class ;
+            rdfs:subClassOf :Actor ;
+            rdfs:comment "A human moving on foot in or near the roadway." ;
+            rdfs:label "Pedestrian" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#PedestrianCollisionRisk
+:PedestrianCollisionRisk rdf:type owl:Class ;
+                         rdfs:subClassOf :CollisionRisk ;
+                         rdfs:comment "Risk of impact specifically with a pedestrian. Extension beyond paper for finer-grained risk classification." ;
+                         rdfs:label "Pedestrian Collision Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#RainyCondition
+:RainyCondition rdf:type owl:Class ;
+                rdfs:subClassOf :WeatherCondition ;
+                rdfs:comment "Active precipitation reducing road traction and perception clarity. Extension capturing the 'Rainy' variant of the dataset." ;
+                rdfs:label "Rainy Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#RearEndCollisionRisk
+:RearEndCollisionRisk rdf:type owl:Class ;
+                      rdfs:subClassOf :CollisionRisk ;
+                      rdfs:comment "Risk of impact with a vehicle directly ahead, typically due to sudden braking. Extension beyond paper." ;
+                      rdfs:label "Rear-End Collision Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Risk
+:Risk rdf:type owl:Class ;
+      rdfs:comment "A potential hazard identified in a corner case scenario. Each risk carries a severity score and may be linked to a causing entity." ;
+      rdfs:label "Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#RoadConditionRisk
+:RoadConditionRisk rdf:type owl:Class ;
+                   rdfs:subClassOf :Risk ;
+                   rdfs:comment "Risk introduced by the state of the road surface or layout. Examples: construction zone, narrowed lane, debris-covered pavement. Extension beyond paper." ;
+                   rdfs:label "Road Condition Risk" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#RoadObject
+:RoadObject rdf:type owl:Class ;
+            rdfs:subClassOf :Obstacle ;
+            rdfs:comment "A non-agent physical object located on or near the road. Examples: fallen tree, barrel, hay bale, ball, luggage." ;
+            rdfs:label "Road Object" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#RollingBallIndicator
+:RollingBallIndicator rdf:type owl:Class ;
+                      rdfs:subClassOf :EvidenceIndicator ;
+                      rdfs:comment "A ball entering the roadway, frequently followed by a child or animal in pursuit. Extension covering FootballOnHighway and FootballFollowedByBoy scenarios." ;
+                      rdfs:label "Rolling Ball Indicator" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Scene
+:Scene rdf:type owl:Class ;
+       rdfs:comment "A bounded observation of a driving environment, typically captured as one or more images. A scene may exhibit zero or more corner cases." ;
+       rdfs:label "Scene" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#SeverityScore
+:SeverityScore rdf:type owl:Class ;
+               rdfs:comment "Quantitative measure attached to a risk indicating how dangerous it is. The numerical value is exposed via the severityValue datatype property." ;
+               rdfs:label "Severity Score" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#StateAnomaly
+:StateAnomaly rdf:type owl:Class ;
+              rdfs:subClassOf :CornerCase ;
+              rdfs:comment "Mismatch between an object's apparent semantics and its actual function. Examples: a billboard depicting a STOP sign, a t-shirt with a yield symbol, advertisements containing traffic-light imagery." ;
+              rdfs:label "State Anomaly" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#TrafficLight
+:TrafficLight rdf:type owl:Class ;
+              rdfs:comment "A signal device controlling vehicle and pedestrian flow at intersections. Extension beyond paper to support BlinkingYellowIntersection scenarios." ;
+              rdfs:label "Traffic Light" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#TrafficSign
+:TrafficSign rdf:type owl:Class ;
+             rdfs:comment "A roadside sign conveying regulatory, warning, or informational meaning to drivers." ;
+             rdfs:label "Traffic Sign" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#Vehicle
+:Vehicle rdf:type owl:Class ;
+         rdfs:subClassOf :Actor ;
+         rdfs:comment "Any motorized road vehicle including cars, buses, trucks, and emergency vehicles." ;
+         rdfs:label "Vehicle" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#WeatherCondition
+:WeatherCondition rdf:type owl:Class ;
+                  rdfs:comment "Atmospheric and lighting conditions influencing perception and vehicle dynamics." ;
+                  rdfs:label "Weather Condition" .
+
+
+###  http://cecs571.csulb.edu/ontology/cornercase#WeatherRisk
+:WeatherRisk rdf:type owl:Class ;
+             rdfs:subClassOf :Risk ;
+             rdfs:comment "Risk produced by adverse atmospheric or lighting conditions reducing perception range or vehicle traction." ;
+             rdfs:label "Weather Risk" .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

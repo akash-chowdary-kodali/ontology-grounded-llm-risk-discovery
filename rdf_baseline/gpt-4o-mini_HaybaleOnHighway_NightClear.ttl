@@ -1,0 +1,48 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Vehicle2, ex:Obstacle1, ex:TrafficSignal ;
+    ex:atLocation ex:RoadSection1 ;
+    ex:hasCondition ex:NightCondition.
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:hasPosition "Approaching" ;
+    ex:relativeTo ex:Obstacle1.
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:vehicleType "Car" ;
+    ex:hasPosition "Following" ;
+    ex:relativeTo ex:Obstacle1.
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:obstacleType "Hay Bale" ;
+    ex:hasStatus "Moving" .
+
+ex:TrafficSignal a ex:Signal ;
+    ex:signalState "Red" .
+
+ex:RoadSection1 a ex:Road ;
+    ex:roadType "Urban" ;
+    ex:lightCondition "Dim" .
+
+ex:NightCondition a ex:WeatherCondition ;
+    ex:conditionType "Low Visibility" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description:** Potential collision due to the obstructive hay bale moving on the road.
+- **Severity Score:** 0.7
+
+#### Risk 2:
+- **Description:** Reduced visibility conditions at night increase the chances of an accident.
+- **Severity Score:** 0.6
+
+#### Risk 3:
+- **Description:** Traffic signal showing red may not be visible to approaching vehicles.
+- **Severity Score:** 0.5

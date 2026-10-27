@@ -1,0 +1,52 @@
+### Semantic Interpretation of the Environment
+
+#### 1. Main Entities
+*   **Ego Vehicle:** The vehicle capturing the scene.
+*   **Pedestrians:** Two children running across the road.
+*   **Large Vehicle:** A bus/truck parked on the right side, partially out of frame.
+*   **Infrastructure:** Urban road, street lighting, traffic signal, residential buildings, pavement markings.
+*   **Conditions:** Nighttime, artificial street lighting, dry road surface.
+
+#### 2. Relationships
+*   **Pedestrians** are **crossing** in front of the ego vehicle.
+*   **Large Vehicle** is **occluding** the visibility of the sidewalk/curbside area where the pedestrians emerged.
+*   **Pedestrians** are **near** the front of the ego vehicle.
+*   **Ego Vehicle** is **approaching** the intersection/area occupied by pedestrians.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Pedestrian1 rdf:type ex:Pedestrian .
+ex:Pedestrian2 rdf:type ex:Pedestrian .
+ex:LargeVehicle rdf:type ex:Vehicle .
+
+ex:Pedestrian1 ex:isCrossing ex:Road .
+ex:Pedestrian2 ex:isCrossing ex:Road .
+ex:LargeVehicle ex:occludes ex:Pedestrian1 .
+ex:LargeVehicle ex:occludes ex:Pedestrian2 .
+ex:EgoVehicle ex:approaching ex:Pedestrian1 .
+ex:EgoVehicle ex:approaching ex:Pedestrian2 .
+ex:Environment ex:hasCondition "Night" .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Pedestrian-Vehicle Collision Risk. The two pedestrians are crossing the road in the path of the ego vehicle. Their small stature and nighttime conditions make them difficult to detect, and they are moving rapidly across the frame.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Occlusion Risk. The large vehicle parked on the right significantly limits the line of sight, preventing the ego vehicle from anticipating the pedestrians' entry into the roadway until the last moment.
+*   **Severity Score:** 0.85
+
+**Risk 3:**
+*   **Description:** Low Visibility/Nighttime Hazard. Ambient lighting is limited, which increases the reaction time required for the ego vehicle to identify dynamic, fast-moving objects like children in the roadway.
+*   **Severity Score:** 0.70

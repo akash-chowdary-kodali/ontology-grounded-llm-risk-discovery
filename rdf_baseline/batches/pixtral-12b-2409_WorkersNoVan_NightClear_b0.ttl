@@ -1,0 +1,119 @@
+Below is the structured analysis of the provided scene images, including **RDF triples in Turtle format**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Scene Context
+ex:Scene1 a ex:NighttimeUrbanScenario ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear ;
+    ex:hasRoadType ex:MultiLaneRoad ;
+    ex:hasTrafficControl ex:None .
+
+# Entities
+ex:Pedestrian1 a ex:Person ;
+    ex:hasAction ex:CrossingRoad ;
+    ex:hasLocation ex:SidewalkToRoadTransition ;
+    ex:hasClothing ex:ReflectiveVest ;
+    ex:hasTrajectory ex:DiagonalAcrossLanes .
+
+ex:Pedestrian2 a ex:Person ;
+    ex:hasAction ex:WalkingOnRoad ;
+    ex:hasLocation ex:Lane1 ;
+    ex:hasClothing ex:ReflectiveVest ;
+    ex:hasTrajectory ex:ParallelToLanes .
+
+ex:Cyclist1 a ex:Person ;
+    ex:hasAction ex:PushingBicycle ;
+    ex:hasLocation ex:Sidewalk ;
+    ex:hasTrajectory ex:TowardRoad .
+
+ex:Obstacle1 a ex:TrafficCone ;
+    ex:hasLocation ex:Lane1 ;
+    ex:hasPosition ex:NearCurb .
+
+ex:Obstacle2 a ex:TrafficCone ;
+    ex:hasLocation ex:Lane2 ;
+    ex:hasPosition ex:NearCurb .
+
+ex:Obstacle3 a ex:Barrier ;
+    ex:hasLocation ex:Sidewalk ;
+    ex:hasPosition ex:BlockedPath .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:hasPosition ex:Lane0 ;
+    ex:hasSpeed ex:LowSpeed ;
+    ex:hasSensorData ex:LimitedVisibility .
+
+# Relationships
+ex:Pedestrian1 ex:isNear ex:Obstacle1 .
+ex:Pedestrian2 ex:isFollowing ex:Pedestrian1 .
+ex:Cyclist1 ex:isApproaching ex:Vehicle1 .
+ex:Obstacle1 ex:occludes ex:Pedestrian1 .
+ex:Obstacle3 ex:blocks ex:Cyclist1 .
+
+# Risk Classes
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianMisjudgment ;
+    ex:severity 0.85 ;
+    ex:description "AV may misjudge pedestrian crossing trajectory due to low lighting and occlusions." .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:ObstacleCollision ;
+    ex:severity 0.75 ;
+    ex:description "Traffic cones and barriers may cause AV to misinterpret road boundaries." .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:UnexpectedPedestrianBehavior ;
+    ex:severity 0.9 ;
+    ex:description "Pedestrian walking parallel to lanes may suddenly cross, violating expected behavior." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The autonomous vehicle (AV) may misjudge the pedestrian's crossing trajectory due to **low lighting, occlusions from traffic cones, and the pedestrian’s reflective vest being the only high-contrast element**. The cyclist’s movement toward the road further complicates the scene, increasing the likelihood of misclassification.
+
+**Severity Score:** **0.85** *(High)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **traffic cones and barriers** are placed in a way that may confuse the AV’s lane detection and path planning. The AV might interpret them as **unexpected obstacles**, leading to abrupt braking or incorrect lane-keeping behavior.
+
+**Severity Score:** **0.75** *(High)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **pedestrian walking parallel to lanes** (instead of on the sidewalk) violates typical traffic expectations. If the pedestrian suddenly crosses into the AV’s path, the AV’s **predictive models may fail to account for this behavior**, leading to a collision.
+
+**Severity Score:** **0.9** *(Critical)*
+
+---
+
+### **Additional Observations**
+1. **Low-Light Conditions:** The scene is poorly lit, which may degrade **sensor performance (cameras, LiDAR)** and increase false negatives in object detection.
+2. **Occlusions:** Traffic cones and barriers partially obscure pedestrians, making it difficult for the AV to track their full trajectory.
+3. **Unusual Pedestrian Behavior:** The pedestrian walking in the lane (instead of the sidewalk) is a **corner case** that many AV systems may not be trained to handle.
+4. **Cyclist’s Intent:** The cyclist appears to be **preparing to enter the road**, which could lead to a conflict if the AV does not anticipate this movement.
+
+---
+### **Recommendations for AV Safety Systems**
+- **Improve low-light object detection** (e.g., thermal imaging, enhanced LiDAR).
+- **Enhance occlusion handling** (e.g., probabilistic trajectory prediction).
+- **Train on edge-case pedestrian behaviors** (e.g., walking in lanes, sudden crossings).
+- **Use high-contrast warning signals** (e.g., flashing lights on cones/barriers).
+
+Would you like further refinement on any specific aspect?

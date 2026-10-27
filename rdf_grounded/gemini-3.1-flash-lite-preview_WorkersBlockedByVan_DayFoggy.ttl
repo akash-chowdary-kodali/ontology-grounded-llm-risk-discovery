@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadConstruction ;
+    :hasWeatherCondition :foggy1 ;
+    :hasRisk :risk1 .
+
+:pedestrian1 a :Pedestrian .
+:roadConstruction a :RoadObject .
+:foggy1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking across the road in heavy fog conditions with poor visibility." ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian crossing the lane directly in front of the vehicle in low visibility, foggy conditions.
+Severity Score: 0.92

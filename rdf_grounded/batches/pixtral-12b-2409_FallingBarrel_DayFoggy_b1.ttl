@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Person standing near vehicle with rolling equipment" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (e.g., mattress or barrel) rolling into road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Object appears to be falling/rolling from vehicle" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object in vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscures visibility of road and surrounding actors" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision with rolling object (e.g., mattress/barrel) in vehicle path.
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk
+
+**Risk 2:**
+- **Description:** Heavy fog obscures visibility of road and surrounding actors, increasing occlusion risk.
+- **Severity Score:** 0.80
+- **Type:** OcclusionRisk
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the rolling object (evidence) directly indicates a potential risk (falling/rolling debris).
+
+2. **Actors and Obstacles:**
+   - **Actor:** A pedestrian standing near the vehicle (likely the person handling the equipment).
+   - **Obstacle:** The rolling cylindrical object (classified as a `RoadObject` under `Obstacle`).
+
+3. **Weather Condition:**
+   Heavy fog (`FoggyCondition`) exacerbates visibility issues, contributing to the `OcclusionRisk`.
+
+4. **Severity Scores:**
+   - Collision risk from the rolling object is high (0.90) due to its immediate threat.
+   - Occlusion risk from fog is slightly lower (0.80) but still critical for safe navigation.

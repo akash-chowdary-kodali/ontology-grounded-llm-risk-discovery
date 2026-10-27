@@ -1,0 +1,68 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:wears ex:YellowShirt ;
+    ex:wears ex:LightBlueJeans ;
+    ex:isCrossing ex:Road ;
+    ex:isNear ex:Car1 .
+
+ex:Car1 a ex:Vehicle ;
+    ex:hasColor ex:Red ;
+    ex:isStationary ex:False ;
+    ex:isMoving ex:Forward ;
+    ex:hasPosition ex:FrontOfPedestrian .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurfaceType ex:Asphalt ;
+    ex:hasCondition ex:Wet .
+
+ex:Building1 a ex:Building ;
+    ex:isLocated ex:RightSideOfRoad .
+
+ex:Scene1 ex:contains ex:Pedestrian1 .
+ex:Scene1 ex:contains ex:Car1 .
+ex:Scene1 ex:contains ex:Road .
+ex:Scene1 ex:contains ex:Building1 .
+
+ex:Car1 ex:isApproaching ex:Pedestrian1 .
+ex:Pedestrian1 ex:isOccluding ex:Building1 .
+ex:Car1 ex:hasSpeed ex:LowSpeed .
+```
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description: The pedestrian is crossing the road in low-light conditions, which may reduce visibility for both the pedestrian and the driver. The wet road surface could also increase the risk of skidding or reduced braking efficiency for the vehicle.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The pedestrian is wearing light-colored clothing, which may make them less visible to the driver, especially in low-light conditions.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: The car is moving forward and is near the pedestrian, potentially increasing the risk of collision if the pedestrian is not fully visible or if the driver does not notice the pedestrian in time.
+Severity Score: 0.80
+
+**Risk 4:**
+Description: The low-light conditions combined with the wet road surface could lead to reduced visibility and traction, increasing the risk of an accident.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: The pedestrian's crossing path is partially occluded by the building, which could delay the driver's ability to notice the pedestrian until it is too late to react safely.
+Severity Score: 0.75
+
+These risks highlight the importance of advanced driver-assistance systems (ADAS) such as pedestrian detection, adaptive headlights, and automatic braking systems in such scenarios.

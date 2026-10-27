@@ -1,0 +1,72 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Billboard Obstacle in Vehicle Path" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red billboard obstructing road path" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Billboard obstructing vehicle's forward path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright billboard may distract driver" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated red billboard with text" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Billboard obstructing vehicle's forward path (OcclusionRisk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Bright billboard may distract driver (DistractionRisk)
+- **Severity Score:** 0.65
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Large red billboard (`RoadObject` subclass of `Obstacle`)
+   - **Weather Condition:** Nighttime (`NightCondition`)
+   - **Actor:** No direct actors (pedestrians/cyclists/vehicles) are visible in the immediate path, but the billboard itself acts as an obstacle.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The billboard is an unexpected static obstacle in the vehicle's path, which is not typical for autonomous navigation.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The billboard blocks the vehicle's forward view, creating a high-severity risk (0.90).
+   - **DistractionRisk:** The bright, illuminated billboard may distract the driver or sensor systems, contributing to a moderate risk (0.65).
+
+4. **Severity Scores:**
+   - OcclusionRisk is assigned a high score (0.90) due to the immediate physical obstruction.
+   - DistractionRisk is assigned a moderate score (0.65) due to potential sensor/perception interference but not an immediate collision threat.

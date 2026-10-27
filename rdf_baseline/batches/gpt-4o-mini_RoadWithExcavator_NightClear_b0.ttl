@@ -1,0 +1,48 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle, ex:ConstructionEquipment, ex:Building, ex:TrafficCone ;
+    ex:hasRelationship ex:Vehicle ex:near ex:TrafficCone ;
+    ex:hasRelationship ex:ConstructionEquipment ex:occluding ex:Vehicle ;
+    ex:hasRelationship ex:Building ex:locatedNear ex:Road ;
+    ex:hasCondition ex:WeatherConditions.
+
+ex:Vehicle a ex:Entity ;
+    ex:entityType ex:Car ;
+    ex:location ex:Road.
+
+ex:ConstructionEquipment a ex:Entity ;
+    ex:entityType ex:Excavator ;
+    ex:location ex:Road.
+
+ex:Building a ex:Entity ;
+    ex:entityType ex:IndustrialBuilding ;
+    ex:location ex:Road.
+
+ex:TrafficCone a ex:Entity ;
+    ex:entityType ex:TrafficCone ;
+    ex:location ex:Road.
+
+ex:WeatherConditions a ex:Conditions ;
+    ex:lighting ex:PoorLighting.
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description**: The construction equipment (excavator) is occluding the view of the vehicle, which may impair its ability to navigate safely.
+- **Severity Score**: 0.7
+
+#### Risk 2:
+- **Description**: The presence of a traffic cone indicates potential roadwork or obstruction, which may lead to unexpected maneuvers by vehicles.
+- **Severity Score**: 0.6
+
+#### Risk 3:
+- **Description**: Poor lighting conditions in the scene increase the likelihood of misjudgment of distances and speed, leading to potential safety hazards.
+- **Severity Score**: 0.8
+
+### Summary
+The scene presents multiple entities and relationships that introduce several safety risks, particularly related to visibility and obstructions. The severity scores indicate a moderate to high level of risk associated with each identified scenario.

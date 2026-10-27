@@ -1,0 +1,48 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian in yellow running attire crossing road" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian in white running attire crossing road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road without clear visibility due to nighttime" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrians intruding into vehicle path without proper crosswalk usage" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrians crossing road without clear visibility due to nighttime.
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Pedestrians intruding into vehicle path without proper crosswalk usage.
+Severity Score: 0.85

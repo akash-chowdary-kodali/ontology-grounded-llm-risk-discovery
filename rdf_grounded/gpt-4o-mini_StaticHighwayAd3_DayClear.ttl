@@ -1,0 +1,41 @@
+Here’s the semantic interpretation of the scene images grounded in the provided ontology vocabulary.
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "City Intersection with Billboards" ;
+    :hasCornerCaseType :cc1 .
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+:obstacle1 a :Billboard .
+:weather1 a :ClearCondition .
+:risk1 a :DistractionRisk ;
+    :description "Billboards may distract drivers" ;
+    :hasSeverityScore :sev1 .
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:cc2 a :StateAnomaly ;
+    :hasWeatherCondition :weather2 ;
+    :hasRisk :risk2 .
+:weather2 a :ClearCondition .
+:risk2 a :DistractionRisk ;
+    :description "Multiple billboards in view could distract drivers" ;
+    :hasSeverityScore :sev2 .
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Billboards may distract drivers
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Multiple billboards in view could distract drivers
+- **Severity Score:** 0.6

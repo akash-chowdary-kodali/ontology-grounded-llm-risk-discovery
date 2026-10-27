@@ -1,0 +1,35 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://www.example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:egoVehicle a ex:Vehicle .
+ex:pedestrian1 a ex:Pedestrian ;
+    ex:isCrossing ex:roadway ;
+    ex:near ex:egoVehicle .
+ex:pedestrian2 a ex:Pedestrian ;
+    ex:near ex:trafficCone .
+ex:roadway a ex:Infrastructure .
+ex:trafficCone a ex:Infrastructure .
+ex:environment a ex:WeatherCondition ;
+    ex:hasVisibility ex:low ;
+    ex:hasAtmosphere ex:foggy .
+
+ex:pedestrian1 ex:approaching ex:egoVehicle .
+ex:trafficCone ex:marking ex:roadway .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Unprotected pedestrian crossing the roadway directly in the path of the ego-vehicle. The visibility is significantly compromised due to heavy fog, reducing the driver's (or sensor's) reaction time to detect the human silhouette.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Adverse environmental conditions (heavy fog/low light). This drastically limits the perception range of the autonomous system, increasing the probability of misclassification or late detection of obstacles and pedestrians.
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** Potential road works or hazard zone indicated by traffic cones and road infrastructure. The presence of pedestrians near these obstacles suggests an active work zone, creating an unpredictable environment where individuals may step into the vehicle's trajectory unexpectedly.
+**Severity Score:** 0.75

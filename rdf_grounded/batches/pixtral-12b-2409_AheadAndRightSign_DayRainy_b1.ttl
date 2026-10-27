@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring road and actors" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potentially slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Foggy conditions reducing overall visibility and reaction time" ;
+    :hasSeverityScore :sev3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Fog obscuring visibility of potential actors and objects" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to fog obscuring road and actors
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potentially slippery road conditions due to wet surface
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Foggy conditions reducing overall visibility and reaction time
+Severity Score: 0.85
+
+---
+The scene is classified as a **StateAnomaly** due to the environmental conditions (fog) altering the normal state of the scene, which affects visibility and road conditions. No actors or traffic signs are clearly visible in the image, so they are not included in the RDF triples. The primary risks identified are related to occlusion, road conditions, and weather.

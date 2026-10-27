@@ -1,0 +1,80 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeLaneChangeWithTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Unpredictable lane change by lead vehicle in low-light urban setting" ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :vehicle2 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Lead vehicle (yellow) performing abrupt lane change" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle (black) at risk of collision due to lead vehicle's maneuver" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Vehicle motion blur indicates sudden acceleration/deceleration" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to lead vehicle's abrupt lane change" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Lead vehicle intruding into adjacent lane without clear signaling" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+- **Type:** `:RearEndCollisionRisk`
+- **Description:** High risk of rear-end collision due to the lead vehicle's abrupt lane change in low-light conditions.
+- **Severity Score:** `0.92`
+
+#### **Risk 2:**
+- **Type:** `:LaneIntrusionRisk`
+- **Description:** Lead vehicle intruding into the adjacent lane without clear signaling, increasing the risk of a sideswipe or collision.
+- **Severity Score:** `0.88`
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - `:BehaviorAnomaly` (due to the lead vehicle's unpredictable lane change in a low-light urban setting).
+
+2. **Evidence Indicator:**
+   - `:RollingBallIndicator` (motion blur suggests sudden acceleration/deceleration, supporting the risk assessment).
+
+3. **Weather Condition:**
+   - `:NightCondition` (reduced visibility exacerbates the risks).
+
+4. **Actors & Obstacles:**
+   - `:Vehicle` (lead vehicle performing the maneuver) and `:Vehicle` (following vehicle at risk).
+
+5. **Severity Justification:**
+   - High severity scores reflect the combination of low-light conditions, abrupt maneuvers, and lack of clear signaling.

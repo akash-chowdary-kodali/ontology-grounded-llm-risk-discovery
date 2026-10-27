@@ -1,0 +1,63 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "CyclistWithRollingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding on the road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Rolling ball on the road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy weather reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision between cyclist and rolling ball" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Cyclist may intrude into adjacent lane due to ball" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Fog reduces visibility of cyclist and ball" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision between cyclist and rolling ball
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Cyclist may intrude into adjacent lane due to ball
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Fog reduces visibility of cyclist and ball
+Severity Score: 0.80

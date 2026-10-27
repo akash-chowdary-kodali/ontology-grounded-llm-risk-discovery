@@ -1,0 +1,207 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithCyclists" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist crossing road in foggy conditions" .
+:actor2 a :Cyclist ;
+    :description "Second cyclist crossing road in foggy conditions" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High risk of collision with cyclists due to low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Risk of occlusion due to fog reducing detection range" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog acts as an evidence indicator for reduced visibility" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision with cyclists due to low visibility caused by heavy fog.
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Risk of occlusion due to fog reducing detection range of cyclists and other road actors.
+- **Severity Score:** 0.88
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - Two **Cyclists** crossing the road.
+   - **FoggyCondition** as the dominant weather condition.
+   - No traffic signs, traffic lights, or billboards are clearly visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the fog acts as evidence reducing visibility, which is a critical factor in autonomous driving safety.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk** (here applied to cyclists) due to their crossing path in low-visibility conditions.
+   - **OcclusionRisk** due to the fog obscuring the cyclists and other potential road actors.
+
+4. **Severity Scores:**
+   - The **PedestrianCollisionRisk** is assigned a high severity score (0.95) due to the immediate danger of collision.
+   - The **OcclusionRisk** is slightly lower (0.88) but still critical, as it affects the ability to detect other actors in time. Here is the semantic interpretation of the scene in RDF/Turtle format, following the strict ontology rules:
+
+---
+**Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadCyclistsCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Two cyclists crossing road in fog" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High risk of collision with cyclists in fog" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog obscuring cyclists" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Fog density acts as visual occlusion" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description: High risk of collision with cyclists in fog
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Reduced visibility due to fog obscuring cyclists
+Severity Score: 0.88
+
+---
+### Analysis Justification:
+1. **Entities Identified**:
+   - **Actors**: Two cyclists crossing the road (typed as `:Cyclist`).
+   - **Weather**: Heavy fog (typed as `:FoggyCondition`).
+   - No traffic signs, traffic lights, or billboards were clearly visible in the scene.
+
+2. **Corner Case Classification**:
+   - `:BehaviorAnomaly` because the cyclists are crossing the road in a manner that is unexpected in foggy conditions (low visibility), deviating from standard safe behavior.
+
+3. **Risks Identified**:
+   - **PedestrianCollisionRisk** (though cyclists are technically not pedestrians, the ontology does not have a `:CyclistCollisionRisk`, so this is the closest subclass).
+   - **OcclusionRisk** due to fog reducing visibility of the cyclists.
+
+4. **Severity Scores**:
+   - High scores (0.92 and 0.88) reflect the critical nature of fog combined with cyclists crossing the road, which is particularly hazardous for autonomous vehicles.
+
+5. **Evidence Indicator**:
+   - The fog density is modeled as a `:FallingObjectIndicator` (a stretch, but the closest available subclass to represent visual occlusion). In reality, a custom subclass like `:VisibilityOcclusionIndicator` would be ideal, but the ontology restricts us to the given terms. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyPedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian in white athletic clothing" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian in yellow athletic clothing" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road in foggy conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Foggy weather conditions affecting visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrians crossing road in foggy conditions
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Reduced visibility due to fog
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Foggy weather conditions affecting visibility
+Severity Score: 0.75
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to the foggy conditions creating a hazardous situation where pedestrians are crossing the road. The identified risks include **PedestrianCollisionRisk**, **OcclusionRisk**, and **WeatherRisk**, with severity scores reflecting the potential danger of the situation.

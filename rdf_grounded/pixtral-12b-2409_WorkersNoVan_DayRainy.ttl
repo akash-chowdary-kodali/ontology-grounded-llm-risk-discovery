@@ -1,0 +1,231 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithRoadWorkers" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1, :evidence2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Road worker with heavy equipment on left side" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian walking near roadwork zone" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large concrete barrier blocking part of road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy equipment being moved by road worker" ;
+    :indicatesPotentialRisk :risk1 .
+:evidence2 a :RollingBallIndicator ;
+    :description "Orange traffic cones near roadwork zone" ;
+    :indicatesPotentialRisk :risk2 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with road worker handling heavy equipment" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones and equipment obstructing clear path" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :RoadConditionRisk ;
+    :description "Flooded road conditions reducing traction" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with road worker handling heavy equipment
+- **Severity Score:** 0.90
+- **Type:** CollisionRisk (PedestrianCollisionRisk implied by context)
+
+**Risk 2:**
+- **Description:** Traffic cones and equipment obstructing clear path
+- **Severity Score:** 0.75
+- **Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Flooded road conditions reducing traction
+- **Severity Score:** 0.80
+- **Type:** RoadConditionRisk
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification**: The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (falling/rolling objects, roadwork setup) rather than direct behavioral or state anomalies.
+2. **Key Actors**: Two pedestrians (road workers) and their equipment are identified as critical actors.
+3. **Obstacles**: The concrete barrier and traffic cones are classified as **RoadObjects** under **Obstacle**.
+4. **Weather**: Heavy rain is explicitly modeled as a **RainyCondition** contributing to road hazards.
+5. **Severity Scores**:
+   - Highest risk (0.90) assigned to the worker handling equipment due to immediate collision potential.
+   - Occlusion risk (0.75) from cones/equipment is secondary but still critical.
+   - Flooded road (0.80) is a persistent hazard affecting vehicle control. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInHeavyRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking across street in heavy rain" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing path of vehicle in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing path of vehicle in heavy rain
+- **Severity Score:** 0.90
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.85
+- **Risk Type:** WeatherRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian walking across the street.
+   - **WeatherCondition:** Heavy rain with reduced visibility.
+   - **Obstacle:** Orange traffic cones on the road (acting as a potential hazard or marker).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the street in heavy rain, which is a behavior that increases risk due to poor visibility and wet conditions.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian crossing in front of the vehicle in poor visibility conditions.
+   - **WeatherRisk:** High severity due to heavy rain reducing visibility and potentially affecting vehicle control.
+
+4. **Severity Scores:**
+   - Pedestrian collision risk is assigned a high severity score (0.90) due to the immediate danger of collision.
+   - Weather risk is assigned a high severity score (0.85) due to the adverse conditions affecting driving safety. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FloodedUrbanPedestrianScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking in flooded street" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain causing flooding" .
+
+:obstacle1 a :RoadObject ;
+    :description "Floodwater covering road surface" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking in flooded roadway with potential vehicle collision" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery and flooded road conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and flooding" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :DistractionRisk ;
+    :description "Driver distraction due to unusual flooding in urban area" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian walking in flooded roadway with potential vehicle collision
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Slippery and flooded road conditions
+Severity Score: 0.88
+
+**Risk 3:**
+Description: Reduced visibility due to heavy rain and flooding
+Severity Score: 0.85
+
+**Risk 4:**
+Description: Driver distraction due to unusual flooding in urban area
+Severity Score: 0.75
+
+The corner case is classified as a **StateAnomaly** because the primary issue stems from the unusual state of the environment (flooded roadway) rather than an anomalous behavior or evidence-based anomaly. The pedestrian is simply navigating through an unexpected condition.

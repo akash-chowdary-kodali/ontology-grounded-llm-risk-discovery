@@ -1,0 +1,71 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanDrivingWithEmergencyVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Emergency vehicle with lights on" .
+:actor2 a :Vehicle ;
+    :description "Following vehicle (black sedan)" .
+
+:obstacle1 a :RoadObject ;
+    :description "Emergency vehicle slowing traffic" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear day with no precipitation" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to emergency vehicle braking" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction from emergency vehicle lights" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk from emergency vehicle blocking view of side street" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to emergency vehicle braking
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Driver distraction from emergency vehicle lights
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Occlusion risk from emergency vehicle blocking view of side street
+Severity Score: 0.55
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **BehaviorAnomaly** due to the emergency vehicle's atypical behavior (slowing traffic with lights on).
+2. Three risks were identified:
+   - **RearEndCollisionRisk** (highest severity) due to the black sedan following too closely.
+   - **DistractionRisk** from emergency vehicle lights.
+   - **OcclusionRisk** from the emergency vehicle blocking side-street visibility.
+3. Weather was classified as **ClearCondition** (no evidence of adverse conditions).
+4. Severity scores were assigned based on likelihood and potential impact.

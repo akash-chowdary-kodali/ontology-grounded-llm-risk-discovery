@@ -1,0 +1,42 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeather ex:LowVisibility ;
+    ex:hasRoadCondition ex:Wet ;
+    ex:contains ex:Vehicle1 , ex:Infrastructure1 ;
+    ex:near ex:Infrastructure1 ex:Road ;
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType ex:Car ;
+    ex:position ex:FrontView .
+
+ex:Infrastructure1 a ex:Infrastructure ;
+    ex:hasType ex:Streetlight ;
+    ex:position ex:NearRoad .
+    
+ex:LowVisibility a ex:WeatherCondition ;
+    ex:description "Foggy with low visibility" .
+
+ex:Wet a ex:RoadCondition ;
+    ex:description "Road surface is wet due to rain" .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:description "Concrete Road" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Low visibility due to adverse weather conditions (fog).
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Wet road conditions increase the risk of skidding or loss of traction.
+- **Severity Score:** 0.7
+
+**Risk 3:**
+- **Description:** Potential for collision with unseen obstacles or vehicles due to fog.
+- **Severity Score:** 0.9

@@ -1,0 +1,73 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithReflections" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Darkness with limited visibility" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road surface due to wet conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflections on wet road causing visual distortion" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from road reflections" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Slippery road surface due to wet conditions
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Reflections on wet road causing visual distortion
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential distraction from road reflections
+Severity Score: 0.45
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The scene contains no explicit actors (e.g., pedestrians, cyclists, or vehicles) or traffic signs/lights, but the **wet road surface** and **nighttime conditions** are key environmental factors.
+   - The **reflections** on the road act as an **EvidenceIndicator** (specifically a **RollingBallIndicator**), suggesting potential risks due to visual distortion.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the risks are inferred from observable evidence (wet road, reflections, and nighttime conditions).
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** (high severity due to slippery conditions).
+   - **OcclusionRisk** (moderate severity due to visual distortion from reflections).
+   - **DistractionRisk** (lower severity due to potential distraction from reflections).
+
+4. **Severity Scores:**
+   - Assigned based on the likelihood and impact of each risk in a nighttime wet-road scenario. Higher scores for risks with direct safety implications (e.g., slippery roads).

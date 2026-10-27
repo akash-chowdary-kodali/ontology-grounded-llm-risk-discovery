@@ -1,0 +1,85 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Wet Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Wet road conditions at night with potential road condition and distraction risks" .
+
+:weather1 a :NightCondition, :RainyCondition ;
+    :description "Nighttime with recent rainfall, creating wet road surfaces" .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating recent rain" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface, increasing skid risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Reflective road surface may cause visual distraction or glare" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light visible in the scene" .
+
+:billboard1 a :Billboard ;
+    :description "Urban billboard on the right side of the intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign visible on the right side of the road" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Reduced traction due to wet road surface, increasing skid risk.
+- **Severity Score:** 0.75
+- **Risk Type:** `:RoadConditionRisk`
+
+**Risk 2:**
+- **Description:** Reflective road surface may cause visual distraction or glare.
+- **Severity Score:** 0.60
+- **Risk Type:** `:DistractionRisk`
+
+---
+
+### **Explanation of the Scene Analysis**
+1. **Entities Identified:**
+   - **WeatherCondition:** Nighttime (`:NightCondition`) with recent rain (`:RainyCondition`).
+   - **Obstacle:** Wet road surface (`:RoadObject`).
+   - **TrafficLight:** Green light (`:TrafficLight`).
+   - **Billboard:** Urban billboard (`:Billboard`).
+   - **TrafficSign:** No entry sign (`:TrafficSign`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`:StateAnomaly`** because the primary issue arises from the **state of the road (wet surface)** rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **`:RoadConditionRisk`** due to wet roads reducing traction.
+   - **`:DistractionRisk`** due to glare/reflections from the wet surface.
+
+4. **Severity Scores:**
+   - **RoadConditionRisk (0.75):** High due to potential skidding hazards.
+   - **DistractionRisk (0.60):** Moderate due to visual interference.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

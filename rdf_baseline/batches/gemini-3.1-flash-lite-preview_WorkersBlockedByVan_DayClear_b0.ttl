@@ -1,0 +1,55 @@
+### 1. Scene Interpretation
+
+**Main Entities:**
+*   **Vehicles:** Ego-vehicle (camera perspective), white van (to the right).
+*   **Pedestrians:** Two pedestrians present (one on the left near construction, one crossing the road from right to left).
+*   **Road Infrastructure:** Road cones (traffic markers), road surface, urban buildings, street lamps.
+*   **Obstacles:** Construction barrier/object on the left.
+*   **Weather Conditions:** Clear, daylight, good visibility.
+
+**Relationships:**
+*   **Pedestrian 2:** Crossing the road directly in the path of the ego-vehicle.
+*   **White Van:** Obstructing the view of the sidewalk to the right, potentially masking other pedestrians.
+*   **Pedestrian 1:** Located on the left near the construction zone.
+*   **Ego-vehicle:** Approaching the intersection/crossing area where a pedestrian is actively moving across the lane.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Van rdf:type ex:Vehicle ;
+       ex:positionedAt ex:RightLane .
+
+ex:Pedestrian_Crossing rdf:type ex:Pedestrian ;
+                       ex:action "crossing" ;
+                       ex:location "in_front_of_ego_vehicle" .
+
+ex:Pedestrian_Construction rdf:type ex:Pedestrian ;
+                           ex:location "left_roadside" .
+
+ex:RoadCone rdf:type ex:Infrastructure .
+
+ex:EgoVehicle ex:approaching ex:Pedestrian_Crossing .
+ex:Van ex:occluding ex:RightSidewalk .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision risk with a pedestrian crossing the road directly in the path of the ego-vehicle. The pedestrian is in the active driving lane, creating an immediate emergency braking scenario.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Visual occlusion caused by the white van on the right. The van obscures the sidewalk area, potentially hiding additional pedestrians who may attempt to cross the road unexpectedly.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Construction zone proximity. The presence of road cones and a pedestrian near the construction zone on the left suggests an active work site, which introduces unpredictable movement and narrowed lane space.
+*   **Severity Score:** 0.50

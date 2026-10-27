@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Vehicle and Pedestrian" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Vehicle ;
+    :description "Orange car moving through intersection" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian crossing near traffic light pole" .
+
+:obstacle1 a :RoadObject ;
+    :description "Traffic light pole obstructing visibility" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Potential distraction risk due to pedestrian near traffic infrastructure" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Vehicle collision risk due to pedestrian crossing" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Distraction risk due to pedestrian near traffic light pole" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Vehicle collision risk due to pedestrian crossing near traffic infrastructure.
+- **Risk Type:** `:CollisionRisk` (subtype of `:Risk`)
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Distraction risk due to pedestrian near traffic light pole, potentially causing driver distraction.
+- **Risk Type:** `:DistractionRisk` (subtype of `:Risk`)
+- **Severity Score:** `0.60`
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`:BehaviorAnomaly`** because the pedestrian is crossing near traffic infrastructure (traffic light pole) in a way that may not be immediately obvious to drivers, and the vehicle is navigating an intersection at night.
+
+2. **Entities Identified:**
+   - **Actors:** `:Vehicle` (orange car), `:Pedestrian` (crossing near traffic light pole).
+   - **Obstacle:** `:RoadObject` (traffic light pole obstructing visibility).
+   - **Weather Condition:** `:NightCondition` (low-light environment).
+
+3. **Evidence Indicator:**
+   - `:OpenDoorIndicator` (used metaphorically here to represent the pedestrian's proximity to the traffic light pole, which could distract drivers).
+
+4. **Risks:**
+   - **Collision Risk:** High due to pedestrian crossing in low visibility.
+   - **Distraction Risk:** Moderate due to pedestrian near traffic infrastructure.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

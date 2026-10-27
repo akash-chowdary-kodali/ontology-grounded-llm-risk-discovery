@@ -1,0 +1,42 @@
+This safety analysis evaluates the scenario involving an autonomous vehicle (ego-vehicle) approaching a black sedan that has stopped in an intersection, potentially blocking the path or failing to yield.
+
+### 1 & 2. Entity Identification and Relationships
+*   **Entities:** Ego-vehicle (camera view), Black sedan (target), Road infrastructure (intersection, lane markings), Environmental structures (buildings, overpass).
+*   **Relationships:** The Ego-vehicle is **approaching** the Black sedan. The Black sedan is **stopped** or **slow-moving** in the path of the Ego-vehicle within an intersection. The scenario takes place in **low-light/nighttime** conditions.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isApproaching ex:BlackSedan .
+
+ex:BlackSedan rdf:type ex:Vehicle ;
+    ex:isPositionedAt ex:Intersection ;
+    ex:state "StationaryOrSlow" .
+
+ex:Intersection rdf:type ex:Infrastructure .
+
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:lighting "LowLight" ;
+    ex:time "Night" .
+
+ex:RiskClass_Collision ex:hasEntity ex:BlackSedan ;
+    ex:riskLevel "High" .
+```
+
+### 4 & 5. Identified Risks
+
+**Risk 1: Potential Head-on/Rear-end Collision**
+*   **Description:** The ego-vehicle is closing distance rapidly on a stationary vehicle within an intersection. Given the low-light conditions and the potentially unexpected presence of a stopped vehicle in the middle of a travel lane, there is a significant risk of a collision if the ego-vehicle does not initiate braking or a path-planning maneuver.
+*   **Severity Score:** 0.85
+
+**Risk 2: Perception Degradation due to Low Lighting**
+*   **Description:** Nighttime conditions significantly reduce sensor range and confidence (LiDAR point density, camera contrast). Identifying the exact orientation and status (e.g., hazard lights, brake lights) of the black sedan is more difficult, increasing the latency of the decision-making system.
+*   **Severity Score:** 0.65
+
+**Risk 3: Infrastructure-Induced Occlusion**
+*   **Description:** The presence of an overpass and heavy structural columns in the environment creates complex shadows and high-contrast regions, which can mask pedestrians or other obstacles near the stationary sedan.
+*   **Severity Score:** 0.40

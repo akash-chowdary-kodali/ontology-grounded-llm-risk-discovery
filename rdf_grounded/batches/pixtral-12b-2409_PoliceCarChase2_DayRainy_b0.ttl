@@ -1,0 +1,87 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainLaneChangeScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :roadCondition1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Lead vehicle in left lane" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle in right lane attempting lane change" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and traction" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to reduced visibility and braking distance" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Risk of lane intrusion during lane change in poor weather conditions" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road conditions increasing skid and hydroplaning risk" ;
+    :hasSeverityScore :sev3 .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with standing water" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to reduced visibility and braking distance.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Risk of lane intrusion during lane change in poor weather conditions.
+- **Severity Score:** 0.8
+
+**Risk 3:**
+- **Description:** Slippery road conditions increasing skid and hydroplaning risk.
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - Two **Vehicles** (`vehicle1` and `vehicle2`) are present in the scene.
+   - The **WeatherCondition** is classified as **RainyCondition** due to heavy rain.
+   - The **Obstacle** is the **RoadObject** representing wet road conditions.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from the **state of the environment (rainy conditions)** rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** High due to reduced visibility and braking distance in heavy rain.
+   - **LaneIntrusionRisk:** Moderate-high due to the lane change maneuver in poor conditions.
+   - **RoadConditionRisk:** Moderate-high due to slippery roads increasing skid and hydroplaning risks.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the criticality of the risks in the given scenario, with higher values indicating greater danger.

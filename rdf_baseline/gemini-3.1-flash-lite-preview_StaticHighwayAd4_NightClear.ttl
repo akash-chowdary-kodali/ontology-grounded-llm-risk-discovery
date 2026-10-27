@@ -1,0 +1,46 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red, in-scene).
+*   **Road Infrastructure:** Multi-lane asphalt road, traffic light (yellow), billboard signs, brick wall boundary, street lighting poles, road markings (lane dividers, stop line), signage (regulatory signs).
+*   **Weather Conditions:** Nighttime, clear visibility, artificial lighting present.
+
+### 2. Relationships
+*   **Ego-vehicle** is at a standstill or slowing at the marked intersection line.
+*   **Traffic light** is positioned directly above the ego-vehicle’s trajectory.
+*   **Signage** is located near the right-hand sidewalk/curb.
+*   **Infrastructure** (billboards and walls) occludes potential background pedestrian or vehicle movement beyond the road boundary.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:position ex:IntersectionLine .
+
+ex:TrafficLight a ex:Infrastructure ;
+    ex:state "yellow" ;
+    ex:locatedAbove ex:EgoVehicle .
+
+ex:RoadSurface a ex:Infrastructure ;
+    ex:hasMarking ex:StopLine .
+
+ex:Billboard1 a ex:Infrastructure ;
+    ex:occludes ex:BackgroundArea .
+
+ex:AmbientCondition a ex:Weather ;
+    ex:time "night" ;
+    ex:visibility "clear" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Traffic light is in a yellow phase. As the ego-vehicle is at the stop line, there is a risk of a "dilemma zone" decision—attempting to clear the intersection when the signal is transitioning to red or stopping abruptly leading to a rear-end collision risk from trailing traffic.
+*   **Severity Score:** 0.65
+
+**Risk 2:**
+*   **Description:** Low ambient lighting conditions combined with high-contrast, illuminated billboards can cause sensor blooming or "veiling glare," potentially masking low-visibility objects (pedestrians or animals) moving from the roadside near the bus stop area.
+*   **Severity Score:** 0.45
+
+**Risk 3:**
+*   **Description:** Occlusion risk. The combination of brick walls and large billboard structures creates significant blind spots for the ego-vehicle sensor suite regarding cross-traffic approaching from the sides of the intersection.
+*   **Severity Score:** 0.55

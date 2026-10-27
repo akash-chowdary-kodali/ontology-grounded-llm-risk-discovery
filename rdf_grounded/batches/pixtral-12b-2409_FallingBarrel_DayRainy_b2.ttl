@@ -1,0 +1,68 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainWithOpenDoor" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 .
+
+:obstacle1 a :RoadObject ;
+    :description "Open door of a parked vehicle" .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Visibility reduced due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with open door" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :DistractionRisk ;
+    :description "Driver distraction due to heavy rain and potential debris" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Visibility reduced due to heavy rain
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Potential collision with open door
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Slippery road conditions due to rain
+Severity Score: 0.75
+
+**Risk 4:**
+Description: Driver distraction due to heavy rain and potential debris
+Severity Score: 0.65
+
+---
+The scene is classified as a **StateAnomaly** due to the open door of a parked vehicle and the adverse weather conditions. The primary risks identified include **OcclusionRisk** from reduced visibility, **CollisionRisk** from the open door, **RoadConditionRisk** from slippery roads, and **DistractionRisk** from heavy rain and potential debris.

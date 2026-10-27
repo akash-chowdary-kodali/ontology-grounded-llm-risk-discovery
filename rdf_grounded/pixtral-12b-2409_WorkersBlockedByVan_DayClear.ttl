@@ -1,0 +1,213 @@
+Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionZonePedestrianInteraction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian pushing heavy object near construction zone" .
+
+:actor2 a :Vehicle ;
+    :description "Vehicle approaching construction zone" .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction barriers and traffic cones" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Potential risk of rolling objects into traffic" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to rolling objects from construction zone" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrian entering vehicle path near construction zone" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Risk of collision due to rolling objects (e.g., barrels) from the construction zone into the traffic lane.
+- **Severity Score:** 0.75
+- **Risk Type:** CollisionRisk (subtype of Risk)
+
+**Risk 2:**
+- **Description:** Pedestrian entering or crossing the vehicle path near the construction zone, creating a lane intrusion risk.
+- **Severity Score:** 0.80
+- **Risk Type:** LaneIntrusionRisk (subtype of Risk)
+
+---
+
+### Analysis Notes:
+1. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because the pedestrians are engaging in unexpected behavior (pushing heavy objects near traffic) and the vehicle is approaching a construction zone where such activities are not typical.
+
+2. **Evidence Indicator:**
+   The **FallingObjectIndicator** is used to represent the potential risk of rolling objects (e.g., barrels) entering the traffic lane.
+
+3. **Actors and Obstacles:**
+   - Two **Actors** are identified: a **Pedestrian** and a **Vehicle**.
+   - The **Obstacle** is classified as a **RoadObject** (construction barriers and traffic cones).
+
+4. **Weather Condition:**
+   The weather is clear, so **ClearCondition** is assigned.
+
+5. **Severity Scores:**
+   - The **CollisionRisk** (rolling objects) has a severity score of **0.75** due to the potential for immediate danger.
+   - The **LaneIntrusionRisk** (pedestrian crossing) has a slightly higher severity score of **0.80** because it directly involves a conflict with the vehicle's path. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingUrbanRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :trafficCone1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person crossing road unexpectedly in urban environment" .
+
+:trafficCone1 a :RoadObject ;
+    :description "Orange traffic cone placed on road" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation or fog" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing into vehicle path without right-of-way" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrian intruding into lane without proper crossing" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing into vehicle path without right-of-way
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.92
+
+**Risk 2:**
+- **Description:** Pedestrian intruding into lane without proper crossing
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.88
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian crossing the road unexpectedly.
+   - **Obstacle:** Traffic cones placed on the road (acting as temporary road objects).
+   - **WeatherCondition:** ClearCondition (no adverse weather).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the road in an unexpected manner (not using a crosswalk or signaling intent), which deviates from typical pedestrian behavior.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrian's sudden crossing into the vehicle's path.
+   - **LaneIntrusionRisk:** Moderate-high due to the pedestrian's intrusion into the lane without proper signaling or right-of-way.
+
+4. **Severity Scores:**
+   - Both risks are assigned high severity scores (0.92 and 0.88) due to the potential for immediate collision and the urban environment's complexity. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingStreetAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian crossing street unexpectedly" .
+
+:weather1 a :DayCondition, :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing into vehicle path without clear right-of-way" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Pedestrian intruding into lane from unexpected direction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian crossing into vehicle path without clear right-of-way
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Pedestrian intruding into lane from unexpected direction
+Severity Score: 0.80
+
+---
+**Explanation:**
+1. **Entities Identified:**
+   - The **Pedestrian** is the primary **Actor** in the scene.
+   - The **WeatherCondition** is classified as both **DayCondition** and **ClearCondition** since it is daytime with no visible adverse weather.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **BehaviorAnomaly** because the pedestrian is crossing the street unexpectedly, which deviates from typical pedestrian behavior (e.g., crossing at a crosswalk or waiting for a signal).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk** (Severity: 0.90): The pedestrian is crossing into the path of a vehicle, posing a high risk of collision.
+   - **LaneIntrusionRisk** (Severity: 0.80): The pedestrian is intruding into the lane from an unexpected direction, which could cause a vehicle to swerve or brake suddenly.
+
+The severity scores reflect the urgency of the situation, with **0.90** indicating a high risk of collision and **0.80** indicating a significant risk of lane intrusion.

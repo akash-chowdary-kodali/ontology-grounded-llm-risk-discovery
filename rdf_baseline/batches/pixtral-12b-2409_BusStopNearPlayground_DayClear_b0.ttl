@@ -1,0 +1,109 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Entities
+ex:Scene1 a ex:UrbanIntersection ;
+    ex:hasWeatherCondition ex:ClearDay ;
+    ex:hasTrafficLight [
+        a ex:TrafficLight ;
+        ex:signalColor "Green" ;
+        ex:location ex:Intersection1
+    ] ;
+    ex:hasRoadMarking ex:Crosswalk .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:location ex:Crosswalk ;
+    ex:action ex:Crossing ;
+    ex:hasTrajectory ex:DiagonalCrossing ;
+    ex:hasSpeed "3.5 m/s"^^xsd:float ;
+    ex:hasSize "0.3m x 0.5m"^^xsd:string .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:location ex:ApproachingIntersection ;
+    ex:hasSpeed "10 m/s"^^xsd:float ;
+    ex:hasTrajectory ex:StraightLane ;
+    ex:hasSensorOcclusion ex:PartialOcclusionByPedestrian .
+
+ex:Building1 a ex:Building ;
+    ex:location ex:LeftSideOfRoad .
+
+ex:Building2 a ex:Building ;
+    ex:location ex:RightSideOfRoad .
+
+# Relationships
+ex:Pedestrian1 ex:isNear ex:Vehicle1 ;
+    ex:isOccluding ex:Vehicle1 .
+
+ex:Vehicle1 ex:approaching ex:Crosswalk ;
+    ex:hasPotentialCollisionRisk ex:Pedestrian1 .
+
+# Risk Classes
+ex:Risk1 a ex:CollisionRisk ;
+    ex:riskType "Pedestrian-Vehicle Collision" ;
+    ex:severity 0.85 ;
+    ex:description "Pedestrian crossing diagonally with high speed, partially occluding vehicle sensors." .
+
+ex:Risk2 a ex:SensorOcclusionRisk ;
+    ex:riskType "Partial Sensor Occlusion" ;
+    ex:severity 0.7 ;
+    ex:description "Vehicle sensors partially occluded by pedestrian, reducing detection accuracy." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+A pedestrian is crossing diagonally across the intersection at a high speed (3.5 m/s), partially occluding the autonomous vehicle’s sensors. The vehicle is approaching the crosswalk at 10 m/s, increasing the likelihood of a collision if the pedestrian’s trajectory is not detected in time.
+
+**Severity Score:** **0.85**
+*(High risk due to speed mismatch, sensor occlusion, and unpredictable pedestrian movement.)*
+
+#### **Risk 2:**
+**Description:**
+The pedestrian’s position partially occludes the autonomous vehicle’s sensors (e.g., cameras/LiDAR), reducing the system’s ability to accurately detect other potential hazards (e.g., cyclists, vehicles from side streets).
+
+**Severity Score:** **0.7**
+*(Moderate-high risk due to degraded sensor performance, which may lead to missed detections.)*
+
+#### **Risk 3 (Implicit - Environmental Context):**
+**Description:**
+The intersection lacks clear visibility of side streets due to buildings, which may hide approaching vehicles or cyclists. This increases the risk of **unseen conflicts** from secondary directions.
+
+**Severity Score:** **0.6**
+*(Moderate risk due to limited field of view in urban canyons.)*
+
+---
+
+### **Key Observations:**
+1. **Pedestrian Behavior:**
+   - Diagonal crossing is a high-risk maneuver, especially at speed.
+   - Lack of eye contact with the vehicle suggests unpredictability.
+
+2. **Vehicle Vulnerability:**
+   - Partial sensor occlusion by the pedestrian may lead to delayed detection of other agents.
+
+3. **Environmental Factors:**
+   - Urban canyon effect (buildings blocking side-street visibility).
+   - Clear weather reduces risk from adverse conditions but does not mitigate behavioral risks.
+
+---
+### **Recommendations for Autonomous System:**
+- **Enhanced Pedestrian Tracking:**
+  Use multi-sensor fusion (cameras + radar) to compensate for occlusion.
+- **Predictive Path Planning:**
+  Anticipate diagonal crossings and slow down proactively near crosswalks.
+- **High-Resolution Mapping:**
+  Update HD maps with pedestrian hotspots for adaptive speed limits.
+- **Fallback to Conservative Mode:**
+  If sensor confidence drops below a threshold, trigger an emergency brake or stop.
+
+Would you like additional details on mitigation strategies or extended RDF modeling for dynamic objects?

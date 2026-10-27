@@ -1,0 +1,51 @@
+### 1. Main Entities
+*   **Ego-vehicle:** The car from which the scene is captured.
+*   **Construction Machinery:** A large excavator positioned near the roadway.
+*   **Road Infrastructure:** Overhead bridge/trestle structure, street light pole, asphalt road, road markings (solid yellow center line), traffic cone.
+*   **Environment:** Urban setting with brick warehouse/industrial buildings, clear sky/daytime weather.
+
+### 2. Relationships
+*   **Excavator near Ego-vehicle:** The excavator is encroaching on the lane of travel.
+*   **Excavator occluding:** Potential partial blockage of view for oncoming lanes.
+*   **Infrastructure near Road:** The support pillars and overhead structure constrain the vertical and lateral clearance.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:approaching ex:ConstructionZone .
+
+ex:Excavator a ex:Obstacle ;
+    ex:locatedNear ex:RoadEdge ;
+    ex:partiallyOccluding ex:LaneOfTravel .
+
+ex:RoadInfrastructure a ex:Infrastructure ;
+    ex:type "BridgeTrestle" ;
+    ex:presentAbove ex:Roadway .
+
+ex:TrafficCone a ex:RoadSafetyDevice ;
+    ex:placedNear ex:Excavator .
+
+ex:Scene a ex:Environment ;
+    ex:weather "Clear" ;
+    ex:setting "UrbanIndustrial" .
+```
+
+---
+
+### 4. Identified Risks
+**Risk 1:**
+**Description:** **Obstruction of Lane/Collision Hazard:** The large excavator arm and bucket are positioned extremely close to the driving lane. This creates a significant risk of side-swipe or collision if the ego-vehicle drifts or if the excavator bucket extends further into the path.
+**Severity Score:** 0.85
+
+**Risk 2:**
+**Description:** **Reduced Clearance/Tunnel Effect:** The overhead bridge structure combined with the support pillars creates a narrowed and potentially confined visual corridor, which may cause the ego-vehicle's path planning system to struggle with sensor data (due to shadow/lighting contrast) or restricted lateral maneuvering space.
+**Severity Score:** 0.60
+
+**Risk 3:**
+**Description:** **Occlusion of Oncoming Traffic:** The massive structure of the excavator and the overhead pillars block the line of sight for the ego-vehicle, preventing detection of vehicles or pedestrians that might be emerging from behind the construction machinery or around the corner.
+**Severity Score:** 0.75

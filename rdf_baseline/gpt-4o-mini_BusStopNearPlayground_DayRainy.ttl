@@ -1,0 +1,53 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1
+    a ex:Scene ;
+    ex:hasEntity ex:vehicle1, ex:pedestrian1, ex:pedestrian2, ex:road, ex:trafficLight, ex:weatherCondition ;
+    ex:hasWeatherCondition ex:rainyWeather ;
+    ex:hasRoadInfrastructure ex:trafficLight, ex:roadMarkings .
+
+ex:vehicle1
+    a ex:Vehicle ;
+    ex:hasType "Truck" ;
+    ex:isPositionedAt ex:road .
+
+ex:pedestrian1
+    a ex:Pedestrian ;
+    ex:isCrossingWith ex:pedestrian2 ;
+    ex:isApproaching ex:vehicle1 .
+
+ex:pedestrian2
+    a ex:Pedestrian ;
+    ex:isCrossingWith ex:pedestrian1 ;
+    ex:isApproaching ex:vehicle1 .
+
+ex:road
+    a ex:Road ;
+    ex:isWet "true" ;
+    ex:hasLaneMarkings "true" .
+
+ex:trafficLight
+    a ex:TrafficLight ;
+    ex:isActive "true" .
+    
+ex:rainyWeather
+    a ex:WeatherCondition ;
+    ex:hasCondition "lowVisibility" .
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrians crossing the road in low visibility conditions due to heavy rain, potentially leading to vehicle-pedestrian collision.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** Wet road conditions increasing the likelihood of vehicle skidding or loss of control.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Reduced visibility for both pedestrians and the vehicle, making it difficult for either party to react in time.
+- **Severity Score:** 0.7

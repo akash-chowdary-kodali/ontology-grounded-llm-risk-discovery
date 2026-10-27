@@ -1,0 +1,122 @@
+### **Scene Analysis: Foggy Road with Soccer Ball**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - `ego_vehicle` (red car, front view)
+  - `following_vehicle` (black car, right lane, partially visible)
+- **Objects:**
+  - `soccer_ball` (center of the road, stationary)
+- **Road Infrastructure:**
+  - `road` (two-lane, marked with dashed lines)
+  - `sidewalk` (left side, partially visible)
+  - `street_lamp` (right side, obscured by fog)
+  - `buildings` (background, obscured by fog)
+- **Weather Conditions:**
+  - `fog` (dense, reducing visibility beyond ~20m)
+- **Other:**
+  - `trees` (left side, partially visible)
+
+#### **Relationships:**
+- `ego_vehicle` **is_driving_on** `road`.
+- `following_vehicle` **is_following** `ego_vehicle` (right lane).
+- `soccer_ball` **is_on** `road` **and** **is_near** `ego_vehicle` (center of lane).
+- `fog` **occludes** `buildings`, `street_lamp`, and `following_vehicle` (beyond ~20m).
+- `ego_vehicle` **has_low_visibility** due to `fog`.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Fog ;
+    :hasRoad :Road1 ;
+    :hasVehicle :EgoVehicle ;
+    :hasVehicle :FollowingVehicle ;
+    :hasObject :SoccerBall .
+
+:Road1 a :Road ;
+    :hasLane :LaneLeft ;
+    :hasLane :LaneRight ;
+    :hasMarking :DashedLine ;
+    :hasSidewalk :Sidewalk1 .
+
+:EgoVehicle a :Vehicle ;
+    :isDrivingOn :Road1 ;
+    :hasPosition "center_of_lane" ;
+    :hasVisibilityRange "20m" ;
+    :hasSensorData :LowVisibility .
+
+:FollowingVehicle a :Vehicle ;
+    :isFollowing :EgoVehicle ;
+    :isInLane :LaneRight ;
+    :isOccludedBy :Fog .
+
+:SoccerBall a :Object ;
+    :isOn :Road1 ;
+    :isNear :EgoVehicle ;
+    :hasPosition "center_of_road" .
+
+:Fog a :WeatherCondition ;
+    :reducesVisibility ;
+    :occludes :FollowingVehicle ;
+    :occludes :Buildings .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :UnexpectedObjectOnRoad ;
+    :affectedEntity :EgoVehicle ;
+    :severity 0.85 ;
+    :description "Soccer ball in path of ego vehicle in low-visibility conditions." .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :FollowingVehicleCollision ;
+    :affectedEntity :EgoVehicle ;
+    :severity 0.7 ;
+    :description "Reduced visibility increases risk of collision with following vehicle." .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Risk Class:** `UnexpectedObjectOnRoad`
+**Description:**
+A soccer ball is unexpectedly positioned in the center of the road, directly in the path of the ego vehicle. The dense fog exacerbates the risk by reducing visibility and reaction time.
+**Severity Score:** **0.85** (High)
+
+#### **Risk 2:**
+**Risk Class:** `FollowingVehicleCollision`
+**Description:**
+The ego vehicle is being followed by another vehicle in reduced visibility conditions. If the ego vehicle brakes suddenly (e.g., to avoid the soccer ball), the following vehicle may not have enough time to react, increasing the risk of a rear-end collision.
+**Severity Score:** **0.7** (Moderate-High)
+
+#### **Risk 3:**
+**Risk Class:** `SensorFailureDueToWeather`
+**Description:**
+Dense fog can degrade sensor performance (cameras, LiDAR, radar), leading to misdetection or delayed detection of the soccer ball and other objects. This increases the likelihood of an unsafe maneuver.
+**Severity Score:** **0.65** (Moderate)
+
+#### **Risk 4:**
+**Risk Class:** `PedestrianOrCyclistOcclusion`
+**Description:**
+While no pedestrians or cyclists are visible, the fog obscures potential hidden road users. If an unseen pedestrian or cyclist were to cross the road, the ego vehicle may not detect them in time.
+**Severity Score:** **0.6** (Moderate)
+
+---
+
+### **Summary of Key Findings:**
+1. **Primary Hazard:** The soccer ball in the road is the immediate threat, but the fog amplifies the risk by limiting visibility.
+2. **Secondary Hazards:** Following vehicle collision risk and sensor degradation due to weather.
+3. **Mitigation Recommendations:**
+   - Slow down and increase following distance.
+   - Activate hazard lights to alert surrounding vehicles.
+   - Use alternative sensors (e.g., radar) to compensate for camera/LiDAR limitations.
+   - Prepare for sudden stops or evasive maneuvers.
+
+Would you like additional details on potential mitigation strategies or further RDF refinements?

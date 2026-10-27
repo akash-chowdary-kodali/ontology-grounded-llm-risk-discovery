@@ -1,0 +1,46 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasState "Stationary" .
+
+ex:Environment a ex:Context ;
+    ex:weatherConditions "Foggy" ;
+    ex:lightingCondition "Night" ;
+    ex:visibility "Low" .
+
+ex:TrafficLight a ex:Infrastructure ;
+    ex:state "Red" ;
+    ex:position "Overhead" .
+
+ex:RoadSurface a ex:Infrastructure ;
+    ex:condition "Paved" .
+
+ex:Billboard1 a ex:Infrastructure ;
+    ex:isNear ex:RoadSurface .
+
+ex:BusStop a ex:Infrastructure ;
+    ex:isNear ex:RoadSurface .
+
+ex:EgoVehicle ex:atLocation ex:Intersection .
+ex:EgoVehicle ex:facing ex:TrafficLight .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** **Reduced Visibility due to Fog.** The high-density fog significantly obscures the long-range view of the road, preventing the ego vehicle's sensors (cameras/LiDAR) from detecting potential obstacles or traffic participants that might be crossing or standing in the intersection ahead.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** **Inadequate Perception Range at Speed.** Although the vehicle is at a standstill, should it proceed, the combination of low light and fog makes it impossible to perform emergency braking maneuvers for objects emerging from the darkness, as the illuminated field of vision is very short.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** **Infrastructure Occlusion.** The bus stop and brick wall on the right side of the road create blind spots for pedestrians or cyclists who might step out into the road from the sidewalk, potentially entering the ego vehicle’s path before they are detected.
+*   **Severity Score:** 0.65

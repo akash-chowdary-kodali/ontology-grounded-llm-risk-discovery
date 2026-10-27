@@ -1,0 +1,89 @@
+Here is the semantic interpretation of the provided scene images using the given ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeLaneChangeScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle making sudden lane change" .
+
+:actor2 a :Vehicle ;
+    :description "Black SUV following closely behind yellow taxi" .
+
+:obstacle1 a :RoadObject ;
+    :description "White dashed lane marking being crossed by yellow taxi" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime urban environment with street lighting" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Yellow taxi intruding into adjacent lane without signaling" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Black SUV at risk of rear-ending yellow taxi due to sudden lane change" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction for other drivers due to sudden lane change in low visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Yellow taxi intruding into adjacent lane without signaling
+- **Risk Type:** LaneIntrusionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Black SUV at risk of rear-ending yellow taxi due to sudden lane change
+- **Risk Type:** RearEndCollisionRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Potential distraction for other drivers due to sudden lane change in low visibility
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.65
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The primary corner case here is classified as a **BehaviorAnomaly** because the yellow taxi's sudden lane change without signaling is an unexpected and unsafe driving behavior.
+
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (yellow taxi and black SUV).
+   - **Obstacle:** The white dashed lane marking being crossed.
+   - **WeatherCondition:** Nighttime urban environment.
+
+3. **Risks Identified:**
+   - **LaneIntrusionRisk:** High severity due to the taxi's abrupt lane change.
+   - **RearEndCollisionRisk:** High severity due to the close proximity of the black SUV.
+   - **DistractionRisk:** Moderate severity due to the potential confusion for other drivers in low visibility.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

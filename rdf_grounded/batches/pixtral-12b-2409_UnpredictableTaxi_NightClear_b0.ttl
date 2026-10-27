@@ -1,0 +1,81 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanNighttimeFollowingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Vehicle following too closely at night with potential lane intrusion risk" ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow vehicle directly ahead with license plate 'CARLA'" .
+
+:obstacle1 a :RoadObject ;
+    :description "Yellow lane markings and road surface" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to close following distance" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion risk due to vehicle's position near lane markings" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime urban environment with artificial lighting" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of rear-end collision due to close following distance
+- **Severity Score:** 0.90
+- **Confidence Score:** 0.92
+
+**Risk 2:**
+- **Description:** Potential lane intrusion risk due to vehicle's position near lane markings
+- **Severity Score:** 0.65
+- **Confidence Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** The yellow vehicle ahead (`:actor1`).
+   - **Obstacle:** Road markings and surface (`:obstacle1`).
+   - **WeatherCondition:** Nighttime (`:weather1`).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The yellow vehicle is following too closely, which is an anomalous behavior in autonomous driving scenarios.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** High severity due to the close proximity of the following vehicle.
+   - **LaneIntrusionRisk:** Moderate severity due to the vehicle's position near lane markings, which could indicate erratic lane-keeping behavior.
+
+4. **Severity Scores:**
+   - The rear-end collision risk is assigned a high severity score (0.90) due to the immediate danger of a collision.
+   - The lane intrusion risk is assigned a moderate severity score (0.65) due to the potential for unintended lane changes or drifting.
+
+---

@@ -1,0 +1,43 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+ex:scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle_1, ex:Vehicle_2, ex:Road_Infrastructure, ex:Weather_Condition ;
+    ex:hasRelation ex:Vehicle_1 ex:following ex:Vehicle_2 ;
+    ex:hasRelation ex:Vehicle_2 ex:near ex:Weather_Condition ;
+    ex:hasRelation ex:Vehicle_1 ex:approaching ex:Road_Infrastructure .
+
+ex:Vehicle_1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:hasStatus "Moving".
+
+ex:Vehicle_2 a ex:Vehicle ;
+    ex:hasType "Van" ;
+    ex:hasStatus "Stationary".
+
+ex:Road_Infrastructure a ex:Infrastructure ;
+    ex:hasType "Tunnel" ;
+    ex:hasCondition "Wet".
+
+ex:Weather_Condition a ex:Weather ;
+    ex:hasType "Rain" ;
+    ex:hasImpact "Reduced visibility".
+```
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** The presence of wet road conditions increases the likelihood of hydroplaning, especially with high-speed vehicles.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Reduced visibility within the tunnel due to wet conditions may impair the drivers' ability to react to other vehicles.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** The stationary vehicle may cause sudden stops or slow responses from following vehicles, leading to potential rear-end collisions.
+- **Severity Score:** 0.5

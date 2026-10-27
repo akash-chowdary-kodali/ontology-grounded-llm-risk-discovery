@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Urban Roadwork with Billboard Obstruction" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large red billboard obstructing forward view" .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding on sidewalk near construction zone" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Forward view obstructed by large billboard" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Bright red billboard may distract driver" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime visibility" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Forward view obstructed by large billboard
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.9`
+
+**Risk 2:**
+- **Description:** Bright red billboard may distract driver
+- **Risk Type:** `DistractionRisk`
+- **Severity Score:** `0.6`
+
+---
+
+### **Analysis Justification**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the obstruction (billboard) is a static but unexpected element that alters the expected road state (e.g., visibility, path predictability).
+
+2. **Entities Identified:**
+   - **Obstacle:** Large red billboard (`RoadObject` subclass of `Obstacle`).
+   - **Actor:** Cyclist on sidewalk (`Cyclist` subclass of `Actor`).
+   - **Weather:** Clear daytime (`DayCondition` subclass of `WeatherCondition`).
+
+3. **Risks Identified:**
+   - **OcclusionRisk (0.9):** The billboard blocks the forward view, posing a high risk of collision with unseen obstacles (e.g., cyclist, vehicles).
+   - **DistractionRisk (0.6):** The bright red billboard may divert driver attention, increasing the likelihood of missing critical cues (e.g., pedestrians, traffic signs).
+
+4. **Severity Scores:**
+   - Occlusion is assigned a high score (0.9) due to its immediate impact on situational awareness.
+   - Distraction is moderate (0.6) as it depends on driver focus but still poses a secondary hazard.

@@ -1,0 +1,47 @@
+### 1. Entity Identification
+*   **Ego-Vehicle:** The recording red vehicle.
+*   **Construction Machinery:** An excavator arm/bucket (partially obscuring the right side).
+*   **Road Infrastructure:** Asphalt road, yellow double-lane markings, white lane boundary, elevated overpass structure, street light poles.
+*   **Obstacles:** Traffic cone (in some frames), construction signage (in some frames).
+*   **Weather Conditions:** Heavy fog/mist causing low visibility.
+
+### 2. Entity Relationships
+*   **Ego-Vehicle** is **approaching** the **Construction Machinery**.
+*   **Construction Machinery** is **obstructing** the right lane of the road.
+*   **Fog** is **occluding** the distance and visibility of the road ahead.
+*   **Ego-Vehicle** is **following** the path marked by yellow lines, moving towards a turn.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Excavator rdf:type ex:ConstructionMachinery .
+ex:Fog rdf:type ex:WeatherCondition .
+ex:Road rdf:type ex:Infrastructure .
+
+ex:EgoVehicle ex:approaching ex:Excavator .
+ex:Excavator ex:obstructing ex:Road .
+ex:Fog ex:occluding ex:Environment .
+ex:EgoVehicle ex:near ex:RoadBoundary .
+```
+
+---
+
+### 4. Identified Risks
+
+**Risk 1: Visibility Impairment (Adverse Weather)**
+*   **Description:** Dense fog significantly reduces the sensor range and visibility of the ego-vehicle. This prevents early detection of potential hazards, road shifts, or personnel working near the construction site.
+*   **Severity Score:** 0.85
+
+**Risk 2: Collision with Construction Equipment**
+*   **Description:** The excavator arm is protruding into the lane or immediate path of travel. The encroachment of heavy machinery into the active driving lane presents a direct collision risk.
+*   **Severity Score:** 0.90
+
+**Risk 3: Inadequate Infrastructure Delineation**
+*   **Description:** The construction zone, combined with low-visibility conditions, creates uncertainty regarding lane markings. The presence of a single traffic cone or minor barricade may be insufficient to alert the autonomous system to execute a safe lane change or stop.
+*   **Severity Score:** 0.70

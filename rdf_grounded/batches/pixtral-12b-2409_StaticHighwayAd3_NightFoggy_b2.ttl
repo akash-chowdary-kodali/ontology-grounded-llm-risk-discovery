@@ -1,0 +1,59 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightStreetWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :risk1, :risk2 .
+
+:billboard1 a :Billboard ;
+    :description "Billboard displaying advertisement at night" .
+
+:nightCondition1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to insufficient lighting and billboard presence" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction from billboard advertisement at night" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.35"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.25"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to insufficient lighting and billboard presence
+Severity Score: 0.35
+
+**Risk 2:**
+Description: Potential distraction from billboard advertisement at night
+Severity Score: 0.25
+
+---
+**Analysis:**
+1. **Entities Identified:**
+   - The scene contains a **Billboard** (`:billboard1`) and the **WeatherCondition** is classified as **NightCondition** (`:nightCondition1`).
+
+2. **Corner Case Classification:**
+   - The corner case is classified as a **StateAnomaly** (`:StateAnomaly`) because the primary issue stems from the environmental state (nighttime with insufficient lighting) rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: Due to poor visibility caused by the nighttime setting and the presence of the billboard, which could obscure objects or actors in the scene.
+   - **DistractionRisk**: The illuminated billboard could draw attention away from the road, potentially distracting drivers.
+
+4. **Severity Scores:**
+   - The **OcclusionRisk** is assigned a severity score of **0.35**, indicating a moderate risk due to the potential for reduced visibility.
+   - The **DistractionRisk** is assigned a severity score of **0.25**, reflecting a lower but still notable risk from the billboard's advertisement.

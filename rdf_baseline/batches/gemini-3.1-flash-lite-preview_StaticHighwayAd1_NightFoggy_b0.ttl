@@ -1,0 +1,49 @@
+### Scene Analysis Report
+
+#### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red hood visible).
+*   **Road Infrastructure:** Multi-lane asphalt road, traffic signal (showing red in some frames), billboard structures, bus stop shelter, brick wall, street lighting poles, road markings (stop line).
+*   **Weather Conditions:** Low visibility, heavy fog/haze, nighttime conditions.
+
+#### 2. Relationships
+*   **Ego-vehicle** is **stopped** at the **stop line**.
+*   **Traffic signal** is **overhead** and **facing** the ego-vehicle.
+*   **Bus stop** is **near** the curb and **to the right** of the ego-vehicle.
+*   **Fog** is **occluding** the long-range road environment.
+*   **Brick wall** is **bordering** the road on the right side.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:TrafficSignal rdf:type ex:Infrastructure .
+ex:Fog rdf:type ex:WeatherCondition .
+ex:BusStop rdf:type ex:Infrastructure .
+
+ex:EgoVehicle ex:atLocation ex:StopLine .
+ex:TrafficSignal ex:isAbove ex:Road .
+ex:Fog ex:causes ex:LowVisibility .
+ex:BusStop ex:locatedAt ex:RightCurb .
+ex:EgoVehicle ex:isNear ex:BusStop .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Reduced visibility due to dense fog, severely limiting detection distance for pedestrians, cyclists, or obstacles emerging from the roadside or crosswalk.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Potential for pedestrian presence at the bus stop; low-light and foggy conditions make it difficult for vision-based systems to distinguish humans near the infrastructure.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Inconsistent state of traffic signal (seen as potentially red/unclear in low-contrast imagery), creating a risk of navigation error or intersection violation.
+*   **Severity Score:** 0.65

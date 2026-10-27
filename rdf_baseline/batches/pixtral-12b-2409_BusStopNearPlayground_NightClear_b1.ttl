@@ -1,0 +1,128 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:NighttimeUrbanScene ;
+    ex:hasWeatherCondition ex:ClearNight ;
+    ex:hasLightingCondition ex:StreetLightsOn ;
+    ex:hasRoadMarking ex:DoubleYellowLine ;
+    ex:hasRoadMarking ex:ArrowMarkingUpwards .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:hasPosition ex:Lane1 ;
+    ex:hasSpeed 0.0 ; # Stationary (ego vehicle perspective)
+    ex:hasTrajectory ex:ForwardMotion .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:hasPosition ex:Crosswalk ;
+    ex:hasActivity ex:Running ;
+    ex:hasTrajectory ex:CrossingRoad ;
+    ex:hasAppearance ex:WearingReflectiveClothing ;
+    ex:hasSize 1.75 ;
+    ex:hasDistanceFromVehicle 15.0 .
+
+ex:Pedestrian2 a ex:Person ;
+    ex:hasPosition ex:Crosswalk ;
+    ex:hasActivity ex:Running ;
+    ex:hasTrajectory ex:CrossingRoad ;
+    ex:hasAppearance ex:WearingReflectiveClothing ;
+    ex:hasSize 1.80 ;
+    ex:hasDistanceFromVehicle 15.0 .
+
+ex:TrafficLight1 a ex:TrafficSignal ;
+    ex:hasColor ex:Red ;
+    ex:hasPosition ex:IntersectionAhead .
+
+ex:Building1 a ex:ResidentialBuilding ;
+    ex:hasPosition ex:LeftSideOfRoad .
+
+ex:Building2 a ex:CommercialBuilding ;
+    ex:hasPosition ex:RightSideOfRoad .
+
+ex:Vehicle2 a ex:ParkedVehicle ;
+    ex:hasPosition ex:LeftSideOfRoad ;
+    ex:hasColor ex:Blue .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:hasPosition ex:LeftSideOfRoad ;
+    ex:hasState ex:On .
+
+ex:StreetLight2 a ex:StreetLight ;
+    ex:hasPosition ex:RightSideOfRoad ;
+    ex:hasState ex:On .
+
+ex:Crosswalk1 a ex:PedestrianCrossing ;
+    ex:hasPosition ex:CenterOfRoad ;
+    ex:hasMarking ex:WhiteArrowUpwards .
+
+ex:Relationship1 a ex:SpatialRelationship ;
+    ex:subject ex:Pedestrian1 ;
+    ex:predicate ex:ApproachingFrom ;
+    ex:object ex:Vehicle1 .
+
+ex:Relationship2 a ex:SpatialRelationship ;
+    ex:subject ex:Pedestrian2 ;
+    ex:predicate ex:ApproachingFrom ;
+    ex:object ex:Vehicle1 .
+
+ex:Relationship3 a ex:SpatialRelationship ;
+    ex:subject ex:Vehicle1 ;
+    ex:predicate ex:Facing ;
+    ex:object ex:Crosswalk1 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Two pedestrians are crossing the road from the ego vehicle’s perspective at night, running across the crosswalk. The vehicle is stationary, but the pedestrians' motion and low visibility (despite reflective clothing) pose a collision risk if the vehicle were to move forward or if the pedestrians were not detected in time.
+
+**Risk Class:** `ex:PedestrianCollisionRisk`
+**Severity Score:** **0.95**
+*(High severity due to nighttime, running pedestrians, and potential misdetection in low-light conditions.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The traffic light ahead is red, but the pedestrians are crossing against the signal. This indicates a potential violation of traffic rules, increasing unpredictability for the autonomous vehicle.
+
+**Risk Class:** `ex:TrafficRuleViolationRisk`
+**Severity Score:** **0.70**
+*(Moderate severity due to rule-breaking behavior, but the vehicle is stationary.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+The scene is at night with limited visibility, and the pedestrians, despite wearing reflective clothing, may still be challenging to detect for the vehicle’s sensors (e.g., cameras, LiDAR).
+
+**Risk Class:** `ex:SensorDetectionRisk`
+**Severity Score:** **0.85**
+*(High severity due to low-light conditions and potential sensor limitations.)*
+
+---
+
+#### **Risk 4:**
+**Description:**
+The pedestrians are running, which may cause abrupt movements that are harder to predict compared to walking. This increases the risk of misjudging their trajectory.
+
+**Risk Class:** `ex:DynamicPedestrianBehaviorRisk`
+**Severity Score:** **0.80**
+*(High severity due to unpredictable motion patterns.)*
+
+---
+
+### **Summary of Key Observations:**
+1. **Pedestrian Crossing at Night:** High collision risk due to low visibility and dynamic behavior.
+2. **Traffic Light Violation:** Pedestrians crossing against a red light, increasing unpredictability.
+3. **Sensor Limitations:** Nighttime conditions may reduce detection accuracy.
+4. **Running Pedestrians:** Abrupt movements complicate trajectory prediction.
+
+This scenario highlights the importance of robust pedestrian detection, adaptive speed control, and real-time risk assessment in autonomous driving systems.

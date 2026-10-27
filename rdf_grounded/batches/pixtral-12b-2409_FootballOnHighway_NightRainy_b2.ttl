@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadReflection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with wet road surface" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reflective water surface causing visual occlusion of road objects" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface increasing skid risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reflective water surface causing visual occlusion of road objects (e.g., pedestrians, cyclists, or vehicles)
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Wet road surface increasing skid risk and reducing vehicle traction
+Severity Score: 0.60
+
+---
+**Justification:**
+1. **Entities Identified:**
+   - No explicit actors (e.g., pedestrians, cyclists, or vehicles) are visible in the scene.
+   - No traffic signs, traffic lights, or billboards are discernible.
+   - The primary observable condition is the **wet road surface** and **nighttime lighting**, which are classified under `:NightCondition` and implicitly contribute to the evidence.
+
+2. **Corner Case Classification:**
+   The scene is classified as an `:EvidenceBasedAnomaly` because the primary risk arises from observable evidence (reflective water surface) rather than an actor's behavior or state anomaly.
+
+3. **Risks Identified:**
+   - **OcclusionRisk**: The reflective water surface obscures visibility of potential road objects, posing a risk of missing critical actors or obstacles.
+   - **RoadConditionRisk**: Wet roads reduce traction, increasing the likelihood of skidding or loss of control.
+
+4. **Severity Scores:**
+   - OcclusionRisk is rated higher (0.75) due to its direct impact on perception and potential collision avoidance.
+   - RoadConditionRisk is rated lower (0.60) as it is a secondary concern but still significant in nighttime driving.

@@ -1,0 +1,46 @@
+### Semantic Interpretation
+
+#### 1. Main Entities
+*   **Ego-Vehicle:** The vehicle observing the scene (represented by the hood).
+*   **Cyclist:** An adult male riding a bicycle.
+*   **Road Infrastructure:** Asphalt road, painted lane markings, pedestrian crossing/intersection, street lighting.
+*   **Weather Conditions:** Heavy rain, low visibility (fog/mist/overcast).
+
+#### 2. Relationships
+*   **Cyclist** is **crossing** the path of the **Ego-Vehicle**.
+*   **Cyclist** is **near** the front of the **Ego-Vehicle**.
+*   **Weather** is **obscuring** the environment and reducing visibility.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Cyclist rdf:type ex:VulnerableRoadUser .
+ex:Environment rdf:type ex:WeatherCondition ;
+               ex:hasVisibility ex:Low ;
+               ex:hasPrecipitation ex:HeavyRain .
+
+ex:Cyclist ex:isCrossing ex:EgoVehiclePath .
+ex:Cyclist ex:isNear ex:EgoVehicle .
+ex:Environment ex:impacts ex:Visibility .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision risk due to the cyclist crossing the path of the ego-vehicle at an intersection under poor visibility conditions.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Environmental hazard (heavy rain) causing reduced friction on the road surface and limited sensor range/visibility for the ego-vehicle.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Proximity hazard; the cyclist is at an extremely close range to the front of the vehicle, limiting the reaction time for emergency braking.
+*   **Severity Score:** 0.98

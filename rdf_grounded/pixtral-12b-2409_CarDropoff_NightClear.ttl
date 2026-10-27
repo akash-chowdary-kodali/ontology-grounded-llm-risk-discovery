@@ -1,0 +1,212 @@
+Here is the semantic interpretation of the provided scene using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanIntersectionWithOpenDoor" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Vehicle with open rear door" .
+
+:obstacle1 a :RoadObject ;
+    :description "Open rear door of vehicle" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision due to open rear door" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk from vehicle door obstructing traffic" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision due to open rear door of a vehicle ahead, which could cause a pedestrian or another vehicle to collide with the door.
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Occlusion risk from the open rear door obstructing the view of other vehicles or pedestrians, potentially leading to unsafe maneuvers.
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** A `Vehicle` with an open rear door (`actor1`).
+   - **Obstacle:** The open rear door (`obstacle1`), classified as a `RoadObject`.
+   - **WeatherCondition:** `NightCondition` (`weather1`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the anomaly arises from an unexpected state (open rear door) rather than an action or evidence-based observation.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the immediate danger of a collision with the open door.
+   - **OcclusionRisk:** Moderate severity due to the potential for obstructing visibility for other road users.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, and no additional classes or properties were invented. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Road with Rolling Ball Indicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Rolling ball indicator detected on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Small metallic object (rolling ball) on road" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Rolling object may cause sensor occlusion for autonomous vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision risk with vehicle following too closely in low visibility" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment with artificial lighting" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Type:** `OcclusionRisk`
+- **Description:** Rolling object may cause sensor occlusion for autonomous vehicle
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Type:** `CollisionRisk` (general, not subclass-specific due to lack of pedestrian/cyclist involvement)
+- **Description:** Potential collision risk with vehicle following too closely in low visibility
+- **Severity Score:** `0.60`
+
+---
+
+### **Key Observations & Justifications**
+1. **Corner Case Classification:**
+   - The scene is classified as an **`EvidenceBasedAnomaly`** because the primary anomaly is the presence of a **`RollingBallIndicator`** (a small metallic object on the road), which serves as evidence of a potential safety issue.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** `NightCondition` (low-light urban environment).
+   - **Obstacle:** `RoadObject` (rolling metallic ball).
+   - **EvidenceIndicator:** `RollingBallIndicator` (detected object).
+   - No **Actors** (pedestrians/cyclists) or **TrafficSigns/Lights** are visible in the provided images.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** The rolling object could interfere with sensors (e.g., LiDAR/cameras), leading to reduced perception accuracy.
+   - **CollisionRisk:** The vehicle following too closely in low visibility increases the chance of a rear-end collision if the leading vehicle brakes suddenly.
+
+4. **Severity Scores:**
+   - **OcclusionRisk (0.75):** High due to potential sensor failure in autonomous driving.
+   - **CollisionRisk (0.60):** Moderate due to low visibility and proximity of vehicles.
+
+---
+This interpretation adheres strictly to the provided ontology and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanDrivingWithEmergencyVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Emergency vehicle with activated lights" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to emergency vehicle braking" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Distraction risk due to emergency vehicle lights and sirens" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to limited visibility from headlights and nighttime conditions" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to emergency vehicle braking
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Distraction risk due to emergency vehicle lights and sirens
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Occlusion risk due to limited visibility from headlights and nighttime conditions
+Severity Score: 0.55
+
+---
+**Entities Identified:**
+- **Obstacle:** Emergency vehicle with activated lights (classified as `:RoadObject`)
+- **WeatherCondition:** Nighttime conditions (classified as `:NightCondition`)
+
+**Corner Case Classification:**
+- **StateAnomaly:** The emergency vehicle's state (activated lights/sirens) creates an anomalous driving scenario.
+
+This analysis focuses on the visible emergency vehicle and the nighttime conditions, which are the primary factors influencing risk in this scene.

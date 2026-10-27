@@ -1,0 +1,215 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Vehicle and Pedestrian" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Vehicle ;
+    :description "Orange car moving through intersection" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian crossing near traffic light pole" .
+
+:obstacle1 a :RoadObject ;
+    :description "Traffic light pole obstructing visibility" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light urban environment" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Potential distraction risk due to pedestrian near traffic infrastructure" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Vehicle collision risk due to pedestrian crossing" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Distraction risk due to pedestrian near traffic light pole" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+**Risk 1:**
+- **Description:** Vehicle collision risk due to pedestrian crossing near traffic infrastructure.
+- **Risk Type:** `:CollisionRisk` (subtype of `:Risk`)
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Distraction risk due to pedestrian near traffic light pole, potentially causing driver distraction.
+- **Risk Type:** `:DistractionRisk` (subtype of `:Risk`)
+- **Severity Score:** `0.60`
+
+---
+
+### **Key Observations:**
+1. **Corner Case Classification:**
+   - The scene is classified as a **`:BehaviorAnomaly`** because the pedestrian is crossing near traffic infrastructure (traffic light pole) in a way that may not be immediately obvious to drivers, and the vehicle is navigating an intersection at night.
+
+2. **Entities Identified:**
+   - **Actors:** `:Vehicle` (orange car), `:Pedestrian` (crossing near traffic light pole).
+   - **Obstacle:** `:RoadObject` (traffic light pole obstructing visibility).
+   - **Weather Condition:** `:NightCondition` (low-light environment).
+
+3. **Evidence Indicator:**
+   - `:OpenDoorIndicator` (used metaphorically here to represent the pedestrian's proximity to the traffic light pole, which could distract drivers).
+
+4. **Risks:**
+   - **Collision Risk:** High due to pedestrian crossing in low visibility.
+   - **Distraction Risk:** Moderate due to pedestrian near traffic infrastructure.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Here is the semantic interpretation of the provided scene based on the ontology vocabulary:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Intersection with Vehicle Lane Intrusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red vehicle in foreground violating lane discipline" .
+
+:roadObject1 a :RoadObject ;
+    :description "White pedestrian crosswalk markings" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Red vehicle encroaching into adjacent lane without signaling" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RearEndCollisionRisk ;
+    :description "Potential collision risk with vehicle behind due to sudden lane change" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:** Red vehicle encroaching into adjacent lane without signaling.
+**Severity Score:** 0.90
+**Risk Type:** `:LaneIntrusionRisk`
+
+#### **Risk 2:**
+**Description:** Potential collision risk with vehicle behind due to sudden lane change.
+**Severity Score:** 0.75
+**Risk Type:** `:RearEndCollisionRisk`
+
+---
+
+### **Analysis Justification:**
+1. **Corner Case Classification:**
+   The primary anomaly is classified as a **`BehaviorAnomaly`** because the red vehicle is violating lane discipline (encroaching into an adjacent lane without signaling), which is a behavioral deviation from expected traffic norms.
+
+2. **Entities Identified:**
+   - **Actors:** `:vehicle1` (Red vehicle in foreground).
+   - **Obstacles:** `:roadObject1` (Pedestrian crosswalk markings, acting as a potential lane boundary).
+   - **Weather Condition:** `:NightCondition` (Scene is taken at night).
+
+3. **Risks Identified:**
+   - **`LaneIntrusionRisk`:** High severity due to the vehicle's aggressive lane change, which could confuse other drivers.
+   - **`RearEndCollisionRisk`:** Moderate severity due to the potential for a vehicle behind to react poorly to the lane change.
+
+4. **Severity Scores:**
+   - **Lane Intrusion (0.90):** High due to immediate danger of collision with oncoming traffic or pedestrians.
+   - **Rear-End Collision (0.75):** Moderate due to the delayed reaction time of the following vehicle.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanParkingLotScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:vehicle1 a :Vehicle ;
+    :description "Red car in motion" .
+
+:roadObject1 a :RoadObject ;
+    :description "Black rectangular object on road, possibly a fallen or misplaced parking lot marker" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to the black rectangular object on the road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Road condition risk due to the presence of an unexpected object on the road" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk with the object if the vehicle continues on its current path" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.7"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to the black rectangular object on the road.
+Severity Score: 0.7
+
+**Risk 2:**
+Description: Road condition risk due to the presence of an unexpected object on the road.
+Severity Score: 0.6
+
+**Risk 3:**
+Description: Potential collision risk with the object if the vehicle continues on its current path.
+Severity Score: 0.8

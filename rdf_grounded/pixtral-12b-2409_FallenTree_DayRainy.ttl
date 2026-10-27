@@ -1,0 +1,236 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanTraffic" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water accumulation on road causing reduced traction" ;
+    :indicatesPotentialRisk :risk3 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High density of vehicles in rainy conditions increases rear-end collision risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reduced visibility due to rain and water splashes" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High density of vehicles in rainy conditions increases rear-end collision risk.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road surface due to heavy rain.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Reduced visibility due to rain and water splashes.
+- **Severity Score:** 0.75
+
+---
+
+### Explanation:
+1. **Scene Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** (`:cc1`) because the primary concern stems from observable evidence (water accumulation, reduced visibility) rather than an actor's behavior or state anomaly.
+   - The weather condition is explicitly **RainyCondition** (`:weather1`).
+
+2. **Evidence Indicator:**
+   - The **RollingBallIndicator** (`:evidence1`) captures the effect of water accumulation on the road, which directly contributes to the **OcclusionRisk** (`:risk3`).
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk** (`:risk1`): High vehicle density in slippery conditions.
+   - **RoadConditionRisk** (`:risk2`): Slippery road surface due to rain.
+   - **OcclusionRisk** (`:risk3`): Reduced visibility from rain and water splashes.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the criticality of each risk in the given context (e.g., rear-end collisions are prioritized due to high vehicle density).
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced visibility and traction due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Increased risk of rear-end collision due to slippery roads and reduced braking efficiency" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Driver distraction from heavy rain and windshield wipers" ;
+    :hasSeverityScore :sev3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets and reduced visibility indicate heavy rain" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi in the right lane" .
+
+:actor2 a :Vehicle ;
+    :description "Gray vehicle ahead in the left lane" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility and traction due to heavy rain
+- **Severity Score:** 0.90
+- **Type:** RoadConditionRisk
+
+**Risk 2:**
+- **Description:** Increased risk of rear-end collision due to slippery roads and reduced braking efficiency
+- **Severity Score:** 0.85
+- **Type:** CollisionRisk (Rear-End Collision Risk)
+
+**Risk 3:**
+- **Description:** Driver distraction from heavy rain and windshield wipers
+- **Severity Score:** 0.70
+- **Type:** DistractionRisk
+
+---
+
+### Explanation:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain (evidence) directly impacts driving conditions and safety risks.
+
+2. **Entities Identified:**
+   - **WeatherCondition:** Heavy rain (`RainyCondition`).
+   - **Actors:** Two vehicles (`Vehicle` subclass) are present in the scene.
+   - **EvidenceIndicator:** Rolling ball indicator (`RollingBallIndicator`) due to water droplets and reduced visibility.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to slippery roads and poor visibility.
+   - **CollisionRisk (Rear-End):** High likelihood of rear-end collisions due to reduced braking efficiency.
+   - **DistractionRisk:** Heavy rain and windshield wipers may distract the driver.
+
+4. **Severity Scores:**
+   - Road condition risk is highest (0.90) due to the direct impact on vehicle control.
+   - Collision risk is slightly lower (0.85) but still critical.
+   - Distraction risk is moderate (0.70) but still significant in adverse weather. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRainyDrivingScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi in right lane" .
+:actor2 a :Vehicle ;
+    :description "Gray vehicle ahead in left lane" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility and braking distance in rainy conditions" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain, increasing skid risk" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.80"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reduced visibility of surrounding actors due to heavy rain and potential water spray from vehicles" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.65"^^xsd:float .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Heavy rain droplets visible in the scene" ;
+    :indicatesPotentialRisk :risk1, :risk2, :risk3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision due to reduced visibility and braking distance in rainy conditions
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Slippery road surface due to rain, increasing skid risk
+Severity Score: 0.80
+
+**Risk 3:**
+Description: Reduced visibility of surrounding actors due to heavy rain and potential water spray from vehicles
+Severity Score: 0.65
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to the observable heavy rain and its evident impact on driving conditions. The identified risks include collision risk, road condition risk, and occlusion risk, all influenced by the rainy weather conditions.

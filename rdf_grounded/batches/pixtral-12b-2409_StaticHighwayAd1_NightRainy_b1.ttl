@@ -1,0 +1,87 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithNoEntrySign" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :NightCondition, :RainyCondition ;
+    :description "Dark night with wet road surface" .
+
+:obstacle1 a :RoadObject ;
+    :description "No entry sign on right side of road" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water puddles and reflective road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime and potential rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Bright billboard may distract driver" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to nighttime and potential rain
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Slippery road surface due to rain
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.80
+
+**Risk 3:**
+- **Description:** Bright billboard may distract driver
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.50
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **WeatherCondition:** NightCondition and RainyCondition (due to dark lighting and wet road)
+   - **Obstacle:** RoadObject (No Entry sign on the right)
+   - **EvidenceIndicator:** RollingBallIndicator (water puddles and reflective road surface)
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene represents an anomalous state due to the combination of nighttime, rain, and wet road conditions, which deviates from typical driving conditions.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** Due to reduced visibility from nighttime and rain.
+   - **RoadConditionRisk:** Wet road increases the risk of skidding or loss of control.
+   - **DistractionRisk:** Bright billboard may distract the driver, especially in low-visibility conditions.
+
+This interpretation adheres strictly to the provided ontology vocabulary and rules.

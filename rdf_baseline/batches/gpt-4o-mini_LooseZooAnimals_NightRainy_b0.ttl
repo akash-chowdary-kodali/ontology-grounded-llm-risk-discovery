@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle_1, ex:Pedestrian_1, ex:Pedestrian_2, ex:Obstacle_1, ex:Obstacle_2, ex:Weather_Condition ;
+    ex:hasLocation ex:Location_1 .
+
+ex:Vehicle_1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:hasOrientation "Facing North" .
+
+ex:Pedestrian_1 a ex:Pedestrian ;
+    ex:hasPosition ex:Position_1 ;
+    ex:hasAction "Approaching the road" .
+
+ex:Pedestrian_2 a ex:Pedestrian ;
+    ex:hasPosition ex:Position_2 ;
+    ex:hasAction "Walking near the roadside" .
+
+ex:Obstacle_1 a ex:Obstacle ;
+    ex:hasType "Elephant Statue" ;
+    ex:hasPosition ex:Position_3 .
+
+ex:Obstacle_2 a ex:Obstacle ;
+    ex:hasType "Human-like Figure" ;
+    ex:hasPosition ex:Position_4 .
+
+ex:Weather_Condition a ex:Weather ;
+    ex:hasCondition "Rainy" ;
+    ex:hasVisibility "Low" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description**: Pedestrians approaching the road while rain is reducing visibility.
+- **Severity Score**: 0.7
+
+#### Risk 2:
+- **Description**: Large obstacles (statues) may block the view of oncoming traffic, posing a risk of collision.
+- **Severity Score**: 0.6
+
+#### Risk 3:
+- **Description**: Slippery road conditions due to rain increasing the risk of losing vehicle control.
+- **Severity Score**: 0.8
+
+#### Risk 4:
+- **Description**: Presence of unexpected obstacles can lead to sudden stops or swerves from drivers.
+- **Severity Score**: 0.5

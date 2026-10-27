@@ -1,0 +1,84 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:NighttimeDrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Dry .
+
+ex:Road1 a ex:Road ;
+    ex:hasSurfaceType ex:WetAsphalt ;
+    ex:hasMarkings ex:DoubleWhiteLine .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasPosition ex:OnRoad ;
+    ex:hasDirection ex:Forward ;
+    ex:hasSpeed ex:LowSpeed ;
+    ex:isApproaching ex:Intersection .
+
+ex:Intersection1 a ex:Intersection ;
+    ex:hasTrafficSign ex:NoneVisible ;
+    ex:hasLighting ex:StreetLight .
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:hasType ex:UnknownObject ;
+    ex:hasPosition ex:FarRightSide .
+
+ex:Building1 a ex:Building ;
+    ex:hasPosition ex:RightSideOfRoad .
+
+ex:Scene1 ex:contains ex:Road1 .
+ex:Scene1 ex:contains ex:Vehicle1 .
+ex:Scene1 ex:contains ex:Intersection1 .
+ex:Scene1 ex:contains ex:Obstacle1 .
+ex:Scene1 ex:contains ex:Building1 .
+ex:Vehicle1 ex:isOn ex:Road1 .
+ex:Vehicle1 ex:isNear ex:Intersection1 .
+ex:Intersection1 ex:isNear ex:Building1 .
+ex:Obstacle1 ex:isNear ex:Building1 .
+```
+
+---
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:**
+The scene depicts a low-light condition with wet road surfaces, which increases the risk of hydroplaning and reduced visibility for the autonomous vehicle. The presence of an unknown object on the right side of the road could be an obstacle that is not easily detectable under these conditions.
+
+**Severity Score:**
+**0.85** (High)
+
+#### Risk 2:
+**Description:**
+The autonomous vehicle is approaching an intersection with no visible traffic signs or signals, which could lead to misinterpretation of right-of-way rules and potential collisions with unseen vehicles or pedestrians.
+
+**Severity Score:**
+**0.75** (High)
+
+#### Risk 3:
+**Description:**
+The low lighting conditions combined with the wet road surface may impair the vehicle's sensor performance, leading to inaccurate detection and tracking of obstacles, vehicles, and pedestrians.
+
+**Severity Score:**
+**0.80** (High)
+
+#### Risk 4:
+**Description:**
+The unknown object on the right side of the road could be a potential hazard if it is a pedestrian, cyclist, or a stationary object that the vehicle might not detect in time due to the poor lighting and wet conditions.
+
+**Severity Score:**
+**0.70** (High)
+
+#### Risk 5:
+**Description:**
+The lack of clear visibility of the intersection and surrounding environment increases the risk of misjudging the distance and speed of other potential road users, leading to unsafe driving decisions.
+
+**Severity Score:**
+**0.75** (High)
+
+---
+This analysis highlights the critical safety risks associated with low-light and wet road conditions, emphasizing the importance of robust sensor systems and adaptive driving strategies in autonomous vehicles.

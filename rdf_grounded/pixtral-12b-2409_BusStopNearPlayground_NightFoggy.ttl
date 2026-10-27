@@ -1,0 +1,200 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossingAtIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians crossing road unexpectedly at night" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road without proper signaling in low visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to pedestrians' erratic movement" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Pedestrians crossing road without proper signaling in low visibility
+Severity Score: 0.92
+
+**Risk 2:**
+Description: Potential distraction due to pedestrians' erratic movement
+Severity Score: 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified**:
+   - **Actors**: Two pedestrians crossing the road unexpectedly.
+   - **Weather Condition**: Nighttime with low visibility.
+   - **Traffic Light**: Red light at the intersection (though not directly linked to the corner case, it is part of the scene context).
+
+2. **Corner Case Classification**:
+   - **BehaviorAnomaly**: The pedestrians are crossing the road in an unexpected manner (potentially running) and without proper signaling, which deviates from expected behavior in low-visibility conditions.
+
+3. **Risks Identified**:
+   - **PedestrianCollisionRisk**: High severity due to the pedestrians' unexpected crossing in low-visibility conditions.
+   - **DistractionRisk**: Moderate severity due to the pedestrians' erratic movement, which could distract the driver.
+
+4. **Severity Scores**:
+   - The **PedestrianCollisionRisk** is assigned a high severity score (0.92) due to the immediate danger of collision in low-visibility conditions.
+   - The **DistractionRisk** is assigned a moderate severity score (0.75) due to the potential for the driver to be distracted by the pedestrians' movement. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Pedestrians crossing road at night despite red traffic light" .
+
+:actor1 a :Pedestrian ;
+    :description "Two pedestrians running across intersection" .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "High risk of collision with pedestrians crossing against traffic light" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to unexpected pedestrian movement at night" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Red traffic light at intersection" .
+
+:roadMarking1 a :RoadObject ;
+    :description "Arrow marking indicating straight/ahead direction" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision with pedestrians crossing against a red traffic light at night.
+- **Severity Score:** 0.95
+
+**Risk 2:**
+- **Description:** Potential distraction risk due to unexpected pedestrian movement in low-visibility nighttime conditions.
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actors:** Two pedestrians crossing the road.
+   - **Weather Condition:** Nighttime (`NightCondition`).
+   - **Obstacles/Road Features:** Arrow road marking (`RoadObject`), red traffic light (`TrafficLight`).
+
+2. **Corner Case Classification:**
+   - **Behavior Anomaly:** The pedestrians are crossing against the red traffic light, which is unexpected behavior.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrians crossing against the traffic light.
+   - **DistractionRisk:** Moderate due to the unexpected movement in low-visibility conditions.
+
+4. **Severity Scores:**
+   - The collision risk is assigned a high severity (0.95) due to the immediate threat to safety.
+   - The distraction risk is assigned a moderate severity (0.75) due to the potential for driver confusion in low-visibility conditions. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Child crossing road from left side" .
+:actor2 a :Pedestrian ;
+    :description "Adult crossing road from left side" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrians crossing road unexpectedly at night" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and pedestrian silhouettes" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrians crossing road unexpectedly at night
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Limited visibility due to nighttime and pedestrian silhouettes
+Severity Score: 0.75
+
+---
+**Analysis Notes:**
+1. The scene was classified as a **BehaviorAnomaly** because the pedestrians (including a child) are crossing the road in a manner that deviates from expected behavior (e.g., no visible crosswalk usage, crossing at night).
+2. Two risks were identified:
+   - **PedestrianCollisionRisk** due to the unexpected crossing of two pedestrians.
+   - **OcclusionRisk** due to the low visibility of the pedestrians against the dark background.
+3. The severity scores reflect the high risk of collision (0.9) and moderate risk of occlusion (0.75).

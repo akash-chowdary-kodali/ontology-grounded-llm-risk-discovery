@@ -1,0 +1,72 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Urban Flooded Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Flooded roadway with standing water and poor visibility at night" .
+
+:roadObject1 a :RoadObject ;
+    :description "Standing water on road surface, creating a reflective hazard" .
+
+:weather1 a :NightCondition ;
+    :description "Dark nighttime conditions with limited visibility" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Hydroplaning risk due to standing water on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reflective water surface causing visual occlusion of road markers and distant objects" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.8"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Hydroplaning risk due to standing water on road
+- **Severity Score:** 0.9
+- **Risk Type:** RoadConditionRisk
+
+**Risk 2:**
+- **Description:** Reflective water surface causing visual occlusion of road markers and distant objects
+- **Severity Score:** 0.8
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Obstacle:** Standing water on the road (`RoadObject`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly visible in the scene, so no `Actor` subclass is used.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because the hazardous condition (standing water) is a static but dangerous state of the road, not a dynamic behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk:** Due to the flooded road, hydroplaning is a significant concern.
+   - **OcclusionRisk:** The reflective water surface distorts visibility of road markers and distant objects, increasing the risk of misjudging distances or road conditions.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is assigned a high severity (0.9) due to the immediate danger of losing vehicle control.
+   - Occlusion risk is slightly lower (0.8) but still critical for safe navigation.

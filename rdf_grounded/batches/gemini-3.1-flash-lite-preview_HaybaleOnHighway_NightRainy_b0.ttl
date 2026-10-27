@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RollingObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :haybale ;
+    :hasWeatherCondition :rainy1 ;
+    :hasEvidence :rollingBall1 ;
+    :hasRisk :risk1 .
+
+:haybale a :RoadObject .
+:rainy1 a :RainyCondition .
+:rollingBall1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Hay bale rolling across active traffic lane" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Hay bale rolling across active traffic lane
+Severity Score: 0.75

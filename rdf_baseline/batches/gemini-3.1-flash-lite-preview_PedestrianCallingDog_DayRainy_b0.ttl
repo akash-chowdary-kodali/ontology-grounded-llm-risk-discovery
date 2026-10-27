@@ -1,0 +1,47 @@
+### 1. Main Entities
+*   **Ego Vehicle:** Red passenger car (perspective).
+*   **Dynamic Obstacle:** A German Shepherd dog crossing the road.
+*   **Static Vehicles:** Several parked vehicles on the right side of the road (red, green, white).
+*   **Infrastructure:** Urban roadway, streetlights, multi-story buildings, traffic signal in the distance.
+*   **Weather Conditions:** Heavy rain/fog, resulting in low visibility and wet road surface.
+
+### 2. Entity Relationships
+*   **Dog crossing:** The dog is moving from the right side towards the center of the road, directly in the path of the ego vehicle.
+*   **Parked cars:** The vehicles on the right are stationary, creating potential blind spots.
+*   **Environment:** The ego vehicle is approaching the crossing animal under adverse weather conditions.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:isMovingTowards ex:Dog .
+
+ex:Dog a ex:Animal ;
+    ex:isCrossing ex:Roadway ;
+    ex:near ex:ParkedVehicle .
+
+ex:ParkedVehicle a ex:Vehicle ;
+    ex:isStationary true ;
+    ex:occluding ex:Roadside .
+
+ex:Environment a ex:WeatherCondition ;
+    ex:type "Heavy Rain and Fog" ;
+    ex:impact "Low Visibility" .
+
+ex:Roadway a ex:Infrastructure ;
+    ex:surface "Wet" .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Immediate collision risk with an animal (German Shepherd) suddenly entering the ego vehicle's trajectory from behind or near parked cars.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Environmental hazard due to low visibility (fog/rain) and reduced tire traction (wet road), increasing stopping distance and reaction time for the ego vehicle.
+*   **Severity Score:** 0.80
+
+**Risk 3:**
+*   **Description:** Potential for further hidden hazards (pedestrians or additional animals) obscured by the parked vehicles on the right, exacerbated by the poor lighting conditions.
+*   **Severity Score:** 0.65

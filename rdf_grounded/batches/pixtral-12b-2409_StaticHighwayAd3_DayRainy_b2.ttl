@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainAndReducedVisibilityScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :WeatherRisk ;
+    :description "Heavy rain reducing visibility and creating slippery road conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Wet road surface increasing braking distance and skid risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Heavy rain reducing visibility and creating slippery road conditions
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Wet road surface increasing braking distance and skid risk
+Severity Score: 0.85
+
+---
+### Explanation:
+1. **Entities in the scene**:
+   - No actors (e.g., pedestrians, cyclists, or vehicles) are directly visible due to heavy rain and fog.
+   - The **WeatherCondition** is classified as `:RainyCondition` due to the visible rain and reduced visibility.
+   - No billboards, traffic signs, or traffic lights are clearly identifiable in this image.
+
+2. **Corner Case Classification**:
+   - The scene is classified as a `:StateAnomaly` because the primary issue stems from the **environmental state** (heavy rain and poor visibility) rather than any anomalous behavior or evidence-based anomaly.
+
+3. **RDF Triples**:
+   - The triples describe the scene, weather condition, and associated risks.
+   - The `:WeatherRisk` and `:RoadConditionRisk` are identified as the primary risks due to the rainy and slippery conditions.
+
+4. **Severity Scores**:
+   - `:WeatherRisk` is assigned a severity score of **0.9** due to the high impact of reduced visibility on autonomous driving safety.
+   - `:RoadConditionRisk` is assigned a severity score of **0.85** due to the increased risk of skidding and longer braking distances on wet roads.

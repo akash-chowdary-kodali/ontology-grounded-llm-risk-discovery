@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "VehicleSuddenApproach" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :occursInScene :scene1 ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle ;
+    :description "Black vehicle approaching rapidly in the ego-lane" .
+
+:weather1 a :RainyCondition ;
+    :description "Nighttime rainy conditions with wet road surface" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High-speed closure rate from a vehicle approaching from the front or encroaching into ego-path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Potential rear-end collision due to a vehicle rapidly closing the distance in the ego-lane during poor weather conditions.
+Severity Score: 0.92

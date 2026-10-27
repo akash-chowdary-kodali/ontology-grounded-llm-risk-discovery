@@ -1,0 +1,46 @@
+### 1. Scene Analysis
+**Main Entities:**
+*   **Ego-Vehicle:** Red vehicle (perspective).
+*   **Other Vehicles:** A black luxury sedan (parked/stopped on the right), a yellow hatchback (parked/stopped ahead on the right), and a distant vehicle on the left.
+*   **Road Infrastructure:** Multi-lane road, lane markings, street lighting, residential brick buildings on the right.
+*   **Weather Conditions:** Nighttime, low visibility, fog/mist, damp road surface.
+
+**Relationships:**
+*   **Ego-Vehicle** is following the road lane.
+*   **Black sedan** is stationary on the right shoulder, partially encroaching or creating a narrow passage.
+*   **Yellow hatchback** is parked/stationary ahead of the black sedan.
+*   **Environment** is occluded by low light and fog.
+
+---
+
+### 2. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:BlackSedan rdf:type ex:Vehicle .
+ex:YellowHatchback rdf:type ex:Vehicle .
+ex:Environment rdf:type ex:NightTime, ex:Foggy .
+
+ex:BlackSedan ex:locatedAt ex:RoadShoulder .
+ex:BlackSedan ex:near ex:EgoVehicle .
+ex:YellowHatchback ex:aheadOf ex:BlackSedan .
+ex:Environment ex:limitsVisibility ex:EgoVehicle .
+```
+
+---
+
+### 3. Identified Risks
+
+**Risk 1:**
+*   **Description:** Low visibility due to nighttime and dense fog significantly reduces the detection range of potential road hazards, pedestrians, or obstacles further down the road.
+*   **Severity Score:** 0.75
+
+**Risk 2:**
+*   **Description:** Narrowed driving lane caused by stationary vehicles (black sedan and yellow hatchback) parked near the curb, forcing the ego-vehicle to stay tightly within its lane and reducing the buffer zone.
+*   **Severity Score:** 0.40
+
+**Risk 3:**
+*   **Description:** Potential for "dooring" or unexpected pedestrian egress from the parked black sedan directly into the path of the ego-vehicle due to proximity.
+*   **Severity Score:** 0.60

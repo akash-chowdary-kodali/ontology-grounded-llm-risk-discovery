@@ -1,0 +1,80 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasLightingCondition ex:LowLighting ;
+    ex:hasWeatherCondition ex:Clear ;
+    ex:hasLocation ex:IndustrialArea .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:hasPosition ex:Foreground ;
+    ex:hasEquipment ex:ExcavatorArm ;
+    ex:isPerformingAction ex:MovingForward .
+
+ex:ExcavatorArm a ex:VehicleEquipment ;
+    ex:isAttachedTo ex:Vehicle1 ;
+    ex:hasPosition ex:ExtendedForward .
+
+ex:Building1 a ex:Building ;
+    ex:hasLocation ex:Background ;
+    ex:hasColor ex:RedBrick ;
+    ex:hasWindows ex:Multiple .
+
+ex:RoadSurface a ex:RoadInfrastructure ;
+    ex:hasMarking ex:YellowLine ;
+    ex:hasCondition ex:Dry .
+
+ex:Scene1 ex:contains ex:Vehicle1 ;
+    ex:contains ex:Building1 ;
+    ex:contains ex:RoadSurface ;
+    ex:contains ex:ExcavatorArm .
+
+ex:Vehicle1 ex:isNear ex:Building1 ;
+    ex:isOn ex:RoadSurface .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The autonomous vehicle is equipped with an extended excavator arm, which significantly increases the vehicle's overall width and height. This poses a risk of collision with nearby infrastructure (e.g., buildings, walls) or other vehicles, especially in low-light conditions where visibility is reduced.
+
+Severity Score: 0.85
+
+**Risk 2:**
+Description:
+The excavator arm obstructs the vehicle's sensors and cameras, potentially leading to blind spots and reduced situational awareness. This can result in delayed detection of obstacles, pedestrians, or other vehicles.
+
+Severity Score: 0.75
+
+**Risk 3:**
+Description:
+The low-light conditions combined with the industrial area setting may lead to poor visibility of road markings, pedestrians, or other vehicles, increasing the risk of accidents.
+
+Severity Score: 0.70
+
+**Risk 4:**
+Description:
+The excavator arm's extended position could potentially damage road infrastructure, such as road markings or nearby structures, if the vehicle moves unexpectedly or if the arm is not securely controlled.
+
+Severity Score: 0.65
+
+**Risk 5:**
+Description:
+The vehicle's unusual configuration (excavator arm) may confuse other road users, leading to unpredictable behavior from other drivers, cyclists, or pedestrians.
+
+Severity Score: 0.60
+
+---
+These risks highlight the importance of robust sensor fusion, real-time obstacle detection, and adaptive control systems in autonomous vehicles, especially in corner-case scenarios.

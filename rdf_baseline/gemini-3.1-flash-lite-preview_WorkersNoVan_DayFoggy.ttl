@@ -1,0 +1,35 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Pedestrian1 rdf:type ex:Pedestrian ;
+    ex:isNear ex:RoadWorkArea ;
+    ex:isCrossing ex:Roadway .
+ex:Pedestrian2 rdf:type ex:Pedestrian ;
+    ex:isWorkingAt ex:RoadWorkArea .
+ex:RoadWorkArea rdf:type ex:Infrastructure ;
+    ex:contains ex:TrafficCones , ex:Obstacle .
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:hasVisibility ex:Low ;
+    ex:hasCondition ex:Foggy .
+
+ex:EgoVehicle ex:approaching ex:Pedestrian1 .
+ex:Pedestrian1 ex:crossingPath ex:EgoVehicle .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** High-risk pedestrian collision due to a person walking directly into the path of the ego vehicle in conditions of severely limited visibility (dense fog).
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Unmarked or poorly signaled road work zone. The presence of personnel near active traffic in low-visibility conditions creates a high risk of accidental impact with workers or associated road construction obstacles.
+**Severity Score:** 0.85
+
+**Risk 3:**
+**Description:** Environmental hazard (Dense Fog). The low-visibility environment significantly reduces the ego vehicle's perception range, hindering the detection of pedestrians and stationary obstacles in time to perform a safe emergency maneuver.
+**Severity Score:** 0.90

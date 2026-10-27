@@ -1,0 +1,68 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanRainyDrivingWithReducedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :roadCondition1 .
+
+:weather1 a :RainyCondition .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with reduced visibility due to rain" .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road surface increasing braking distance" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Limited visibility of surrounding actors due to rain" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RearEndCollisionRisk ;
+    :description "Increased risk of rear-end collision due to reduced braking efficiency" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced visibility due to heavy rain
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Slippery road surface increasing braking distance
+Severity Score: 0.75
+
+**Risk 3:**
+Description: Limited visibility of surrounding actors due to rain
+Severity Score: 0.70
+
+**Risk 4:**
+Description: Increased risk of rear-end collision due to reduced braking efficiency
+Severity Score: 0.80
+
+---
+The scene was classified as a **StateAnomaly** due to the anomalous state of the environment (rainy conditions) rather than any anomalous behavior of actors or evidence-based anomalies. The primary actors (e.g., the yellow vehicle) were not exhibiting anomalous behavior, but the weather and road conditions posed significant risks.

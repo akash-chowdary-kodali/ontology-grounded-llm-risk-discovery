@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :taxi1 ;
+    :hasWeatherCondition :fog1 ;
+    :hasRisk :risk1 .
+
+:taxi1 a :Vehicle ;
+    :description "Yellow taxi vehicle ahead" .
+
+:fog1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to low visibility in fog" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.95"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: High risk of rear-end collision due to low visibility in fog and limited reaction time.
+Severity Score: 0.75

@@ -1,0 +1,199 @@
+Here's the semantic interpretation of the provided scene images based on the given ontology:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:parkingLotScene a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Vehicle Door Hazard" ;
+    :hasCornerCaseType :doorHazardCase .
+
+:doorHazardCase a :StateAnomaly ;
+    :hasActor :vehicle1 ;
+    :hasObstacle :openDoorObstacle ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :rearEndRisk ;
+    :hasRisk :occlusionRisk ;
+    :hasWeatherCondition :nightCondition .
+
+:vehicle1 a :Vehicle ;
+    :description "Stationary vehicle with open rear door in parking lot" .
+
+:openDoorObstacle a :RoadObject ;
+    :description "Open rear door of vehicle blocking parking space exit" .
+
+:evidence1 a :OpenDoorIndicator ;
+    :description "Visible open rear door creating potential hazard" ;
+    :indicatesPotentialRisk :rearEndRisk .
+
+:rearEndRisk a :RearEndCollisionRisk ;
+    :description "Risk of rear-end collision due to vehicle exiting parking space with open door" ;
+    :hasSeverityScore :sev1 .
+
+:occlusionRisk a :OcclusionRisk ;
+    :description "Risk of occlusion from open door blocking view of parking space" ;
+    :hasSeverityScore :sev2 .
+
+:nightCondition a :NightCondition ;
+    :description "Low-light conditions in parking lot" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Risk of rear-end collision due to vehicle exiting parking space with open door
+Risk Class: RearEndCollisionRisk
+Severity Score: 0.75
+
+Risk 2:
+Description: Risk of occlusion from open door blocking view of parking space
+Risk Class: OcclusionRisk
+Severity Score: 0.60
+
+Analysis:
+1. The scene shows a nighttime parking lot with a vehicle that has its rear door open, creating a corner case.
+2. The corner case is classified as a StateAnomaly because it represents an abnormal state (open door) rather than behavior or evidence-based anomaly.
+3. Two primary risks are identified:
+   - Rear-end collision risk from the open door blocking the path
+   - Occlusion risk from the door obstructing visibility
+4. The nighttime conditions (NightCondition) are noted but don't create additional risks beyond what's already present.
+5. Severity scores are assigned based on:
+   - 0.75 for rear-end collision (high probability of another vehicle exiting)
+   - 0.60 for occlusion (moderate impact on visibility) Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Parking Lot with Vehicle and Potential Occlusion Risk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Vehicle parked in a way that may obscure visibility of pedestrians or other vehicles in a poorly lit parking lot at night." .
+
+:obstacle1 a :RoadObject ;
+    :description "Parked vehicle partially blocking view of the parking lot exit." .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions due to nighttime." .
+
+:risk1 a :OcclusionRisk ;
+    :description "Parked vehicle obstructing view of potential pedestrians or other vehicles in the parking lot." ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Poor lighting and structural elements (e.g., beams) may distract the driver or reduce situational awareness." ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Parked vehicle obstructing view of potential pedestrians or other vehicles in the parking lot.
+- **Risk Type:** `OcclusionRisk`
+- **Severity Score:** `0.75`
+
+**Risk 2:**
+- **Description:** Poor lighting and structural elements (e.g., beams) may distract the driver or reduce situational awareness.
+- **Risk Type:** `DistractionRisk`
+- **Severity Score:** `0.60`
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **Obstacle:** A parked vehicle (`:obstacle1`) acting as a `RoadObject` that partially obscures visibility.
+   - **WeatherCondition:** `NightCondition` due to low-light conditions.
+   - No actors (pedestrians, cyclists, or other vehicles in motion) are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the parked vehicle's position creates an abnormal state (occlusion) that could lead to safety risks.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the parked vehicle blocking visibility of potential pedestrians or other vehicles.
+   - **DistractionRisk:** Moderate severity due to poor lighting and structural elements (e.g., beams) that may distract the driver.
+
+4. **Severity Scores:**
+   - OcclusionRisk: `0.75` (High)
+   - DistractionRisk: `0.60` (Moderate) Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeParkingLotWithLowLighting" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Poorly lit parking lot with structural beams obstructing view" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Structural beams obstructing view of distant objects" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Low lighting conditions in parking lot" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential collision risk due to limited visibility of parked vehicles" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Parked vehicle in the distance" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Structural beams obstructing view of distant objects
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Low lighting conditions in parking lot
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential collision risk due to limited visibility of parked vehicles
+Severity Score: 0.80
+
+---
+The scene is classified as a **StateAnomaly** due to the static but hazardous conditions (poor lighting and structural obstructions) that create risks without any dynamic behavior anomalies. The ontology does not include a specific class for "poor lighting," so it is mapped to **RoadConditionRisk** under the broader **Risk** class. The parked vehicle is included as an **Obstacle** of type **RoadObject** to reflect its potential collision risk.

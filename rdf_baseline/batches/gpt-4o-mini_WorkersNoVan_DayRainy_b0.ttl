@@ -1,0 +1,52 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeather ex:RainyAndFoggy ;
+    ex:hasEntity ex:Pedestrian1, ex:Worker1, ex:Worker2, ex:TrafficCone , ex:RoadObstacle ;
+    ex:hasInfrastructure ex:Building1, ex:Building2 .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:position ex:NearRoad ;
+    ex:action ex:Crossing .
+
+ex:Worker1 a ex:Worker ;
+    ex:position ex:NearRoad ;
+    ex:action ex:ManagingTraffic .
+
+ex:Worker2 a ex:Worker ;
+    ex:position ex:NearRoad ;
+    ex:action ex:ManagingTraffic .
+
+ex:TrafficCone a ex:TrafficControl ;
+    ex:position ex:OnRoad .
+
+ex:RoadObstacle a ex:Obstacle ;
+    ex:position ex:OnRoad .
+
+ex:Building1 a ex:Building ;
+    ex:position ex:AlongRoad .
+
+ex:Building2 a ex:Building ;
+    ex:position ex:AlongRoad .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** The pedestrian is crossing the road in wet and foggy conditions, which can impair visibility for drivers.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Workers are managing traffic while near the road, which may distract drivers and pose a risk of collision.
+- **Severity Score:** 0.6
+
+**Risk 3:**
+- **Description:** Road obstacles (traffic cones and a larger road obstacle) are present on the road, potentially causing navigation issues for vehicles.
+- **Severity Score:** 0.5
+
+**Risk 4:**
+- **Description:** Poor weather conditions (rain and fog) reduce overall visibility, increasing the likelihood of accidents.
+- **Severity Score:** 0.8

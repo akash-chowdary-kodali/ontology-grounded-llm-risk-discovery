@@ -1,0 +1,30 @@
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Scene with Billboard and Vehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle .
+
+:obstacle1 a :Billboard ;
+    :description "Billboard knocked over and obstructing the road" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Billboard obstructing vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Billboard obstructing vehicle path
+Severity Score: 0.75

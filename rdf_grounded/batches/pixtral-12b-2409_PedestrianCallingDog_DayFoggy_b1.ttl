@@ -1,0 +1,76 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "DogRunningIntoStreetInFog" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :dog1 ;
+    :hasWeatherCondition :foggy1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:dog1 a :Actor ;
+    :description "Dog running into street" .
+
+:foggy1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Dog running into path of oncoming vehicles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of dog and other vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Dog running erratically into street" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Dog running into path of oncoming vehicles
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Fog obscuring visibility of dog and other vehicles
+Severity Score: 0.80
+
+---
+
+### Explanation:
+1. **Entities Identified**:
+   - **Actor**: Dog (`:dog1`) classified as an `Actor` (since it is an unexpected moving object in the scene).
+   - **WeatherCondition**: Heavy fog (`:foggy1`) classified as `FoggyCondition`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as an **EvidenceBasedAnomaly** (`:EvidenceBasedAnomaly`) because the dog's erratic behavior (running into the street) serves as evidence of an unexpected event.
+
+3. **Risks Identified**:
+   - **CollisionRisk** (`:risk1`): High severity due to the dog's unpredictable movement directly into the path of vehicles.
+   - **OcclusionRisk** (`:risk2`): Moderate severity due to reduced visibility caused by fog, which complicates the detection of the dog and other vehicles.
+
+4. **Evidence Indicator**:
+   - The dog's behavior is modeled as a **FallingObjectIndicator** (`:evidence1`), which indicates the potential collision risk.
+
+5. **Severity Scores**:
+   - Collision risk is assigned a high severity score (0.95) due to the immediate threat posed by the dog.
+   - Occlusion risk is assigned a moderate severity score (0.80) due to the fog's impact on visibility.

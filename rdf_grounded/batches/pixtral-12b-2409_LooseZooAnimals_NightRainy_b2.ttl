@@ -1,0 +1,65 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeAnimalObstacleScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1, :obstacle2, :obstacle3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Statue-like animal figure in road" .
+:obstacle2 a :RoadObject ;
+    :description "Large animal figure on right side of road" .
+:obstacle3 a :RoadObject ;
+    :description "Animal figure in background" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with road object (animal statue)" ;
+    :hasSeverityScore :sev1 ;
+    :indicatesPotentialRisk :evidence1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to low visibility and multiple road objects" ;
+    :hasSeverityScore :sev2 ;
+    :indicatesPotentialRisk :evidence1 .
+
+:risk3 a :DistractionRisk ;
+    :description "Distraction risk from unusual road objects" ;
+    :hasSeverityScore :sev3 ;
+    :indicatesPotentialRisk :evidence1 .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Multiple road objects obstructing path and reducing visibility" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with road object (animal statue)
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Occlusion risk due to low visibility and multiple road objects
+Severity Score: 0.85
+
+**Risk 3:**
+Description: Distraction risk from unusual road objects
+Severity Score: 0.75

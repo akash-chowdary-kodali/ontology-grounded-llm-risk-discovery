@@ -1,0 +1,78 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeFallingObjectOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1 ;
+    :hasRisk :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large sack or debris on road surface" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Falling object may obscure visibility of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.78"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with falling object on road
+- **Severity Score:** 0.92
+- **Type:** CollisionRisk
+- **Evidence:** FallingObjectIndicator (large sack/debris on road)
+
+**Risk 2:**
+- **Description:** Falling object may obscure visibility of other road users
+- **Severity Score:** 0.78
+- **Type:** OcclusionRisk
+- **Evidence:** FallingObjectIndicator (same object causing visibility issues)
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the anomaly is directly observable through the falling object (sack/debris) on the road, which serves as clear evidence of the corner case.
+
+2. **Entities Identified:**
+   - **Obstacle:** Large sack/debris on the road (`RoadObject` subclass of `Obstacle`).
+   - **WeatherCondition:** Nighttime (`NightCondition`).
+   - No explicit `Actor`, `TrafficLight`, `TrafficSign`, or `Billboard` are directly involved in this corner case, but the scene includes traffic lights (red) and road markings (e.g., arrow).
+
+3. **Risks Identified:**
+   - **CollisionRisk (0.92):** High severity due to the object being directly in the path of vehicles.
+   - **OcclusionRisk (0.78):** Moderate severity as the object may partially obscure visibility of other road users or hazards.
+
+4. **Severity Scores:**
+   - Collision risk is high (0.92) because the object is large and directly on the road.
+   - Occlusion risk is moderate (0.78) because visibility issues are secondary to the immediate collision threat but still significant in low-light conditions.

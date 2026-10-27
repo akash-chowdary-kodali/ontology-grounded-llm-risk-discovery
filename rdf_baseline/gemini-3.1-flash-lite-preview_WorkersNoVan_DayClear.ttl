@@ -1,0 +1,48 @@
+This safety analysis evaluates the scene based on the provided images, which depict an autonomous vehicle encountering pedestrians in a construction or restricted area.
+
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera perspective).
+*   **Pedestrians:** Two individuals in yellow shirts (one stationary near construction, one crossing the road).
+*   **Road Infrastructure:** Traffic cones, construction barriers, road markings, urban buildings, street lighting.
+*   **Weather:** Clear daylight, good visibility.
+
+### 2. Relationships
+*   **Pedestrian 1 (Crossing):** Currently walking across the path of the ego-vehicle.
+*   **Pedestrian 2 (Stationary):** Located near the left curb by a construction barrier.
+*   **Road/Environment:** Construction site partially blocking the left lane.
+*   **Ego-Vehicle:** Approaching the pedestrian crossing the road.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:Pedestrian1 rdf:type ex:Pedestrian ;
+               ex:action "crossing" ;
+               ex:relativePosition "inFrontOf" .
+
+ex:Pedestrian2 rdf:type ex:Pedestrian ;
+               ex:action "standing" ;
+               ex:location "nearConstruction" .
+
+ex:ConstructionZone rdf:type ex:Obstacle ;
+                    ex:location "leftLane" .
+
+ex:EgoVehicle ex:approaching ex:Pedestrian1 .
+ex:Pedestrian1 ex:blocking ex:EgoVehiclePath .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Pedestrian collision risk. A pedestrian is actively crossing the road directly in the ego-vehicle's path of travel.
+*   **Severity Score:** 0.95 (High urgency; requires immediate braking or stop).
+
+**Risk 2:**
+*   **Description:** Construction zone encroachment. The presence of road cones and barriers indicates an unpredictable environment where human workers may enter the roadway unexpectedly.
+*   **Severity Score:** 0.60 (Medium urgency; requires increased caution and reduced speed).
+
+**Risk 3:**
+*   **Description:** Secondary pedestrian presence. The stationary individual near the barrier may decide to step into the road, complicating the traffic scenario.
+*   **Severity Score:** 0.45 (Low-medium urgency; requires monitoring and readiness to react).

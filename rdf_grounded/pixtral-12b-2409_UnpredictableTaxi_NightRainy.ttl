@@ -1,0 +1,227 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Nighttime Rainy Road with Open Door Indicator" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :occursInScene :scene1 .
+
+:evidence1 a :OpenDoorIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Open rear door of preceding vehicle may cause collision with following vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle with open rear door" .
+
+:vehicle2 a :Vehicle ;
+    :description "Following vehicle (ego vehicle) with open door indicator visible" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Open rear door of preceding vehicle may cause collision with following vehicle
+- **Risk Type:** CollisionRisk (subtype of Risk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to rain
+- **Risk Type:** RoadConditionRisk (subtype of Risk)
+- **Severity Score:** 0.75
+
+### Analysis:
+1. **Entities Identified:**
+   - Two `Vehicle` instances (one with an open rear door, one following)
+   - `RainyCondition` as the weather condition
+   - `OpenDoorIndicator` as evidence of the corner case
+
+2. **Corner Case Classification:**
+   - Classified as `:StateAnomaly` because the open door represents an unexpected physical state of the vehicle that could lead to immediate risk.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the open door (high severity)
+   - **RoadConditionRisk** due to rainy conditions (moderate severity)
+
+The scene clearly shows a nighttime rainy environment with a vehicle's rear door open, creating a high-risk situation for the following vehicle. The ontology captures both the immediate collision risk and the secondary risk from road conditions. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanRainyDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasObstacle :roadCondition1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and traction" .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with standing water and reduced friction" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets on windshield indicating heavy rain" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to rain, increasing skid and hydroplaning risk" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to heavy rain and windshield droplets" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :WeatherRisk ;
+    :description "Adverse weather conditions (rain) affecting driving safety" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Slippery road conditions due to rain, increasing skid and hydroplaning risk.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain and windshield droplets.
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Adverse weather conditions (rain) affecting driving safety.
+- **Severity Score:** 0.80
+
+---
+
+### Explanation:
+1. **Scene Classification:**
+   - The scene is classified as a **StateAnomaly** because the primary issue stems from environmental conditions (rain) rather than actor behavior or evidence-based anomalies.
+   - The **weather condition** is explicitly **RainyCondition**, and the **obstacle** is the **wet road surface** (modeled as a `RoadObject`).
+
+2. **Evidence Indicator:**
+   - The **RollingBallIndicator** (water droplets on the windshield) is used to indicate the **RoadConditionRisk** and **OcclusionRisk**.
+
+3. **Risks Identified:**
+   - **RoadConditionRisk** (highest severity) due to slippery roads.
+   - **OcclusionRisk** due to reduced visibility from rain and droplets.
+   - **WeatherRisk** as a broader category for adverse weather effects.
+
+4. **Severity Scores:**
+   - Scores are assigned based on the criticality of each risk in rainy nighttime driving conditions. Slippery roads (0.90) are the most severe, followed by visibility issues (0.85) and general weather effects (0.80). Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeRainyRoadWithFollowingVehicle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :rainy1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 ;
+    :hasObstacle :roadCondition1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Yellow vehicle in front" .
+:vehicle2 a :Vehicle ;
+    :description "Red vehicle (ego) following" .
+
+:roadCondition1 a :RoadObject ;
+    :description "Wet road surface with reflective puddles" .
+
+:rainy1 a :RainyCondition ;
+    :description "Rainy night condition with poor visibility" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "High risk of rear-end collision due to following distance and wet road" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.92"^^xsd:float .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Reduced traction and braking efficiency due to wet road" ;
+    :hasSeverityScore :sev2 ;
+    :confidenceScore "0.88"^^xsd:float .
+
+:risk3 a :OcclusionRisk ;
+    :description "Reflective puddles causing visual occlusion and glare" ;
+    :hasSeverityScore :sev3 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:risk4 a :WeatherRisk ;
+    :description "Poor visibility and reduced reaction time due to rain" ;
+    :hasSeverityScore :sev4 ;
+    :confidenceScore "0.80"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: High risk of rear-end collision due to following distance and wet road
+Severity Score: 0.95
+
+**Risk 2:**
+Description: Reduced traction and braking efficiency due to wet road
+Severity Score: 0.90
+
+**Risk 3:**
+Description: Reflective puddles causing visual occlusion and glare
+Severity Score: 0.80
+
+**Risk 4:**
+Description: Poor visibility and reduced reaction time due to rain
+Severity Score: 0.85

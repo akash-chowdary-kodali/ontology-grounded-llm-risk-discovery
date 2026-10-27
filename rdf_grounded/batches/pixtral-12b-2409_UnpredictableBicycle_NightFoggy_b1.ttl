@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeCyclistCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Cyclist crossing road in front of vehicle at night without proper signaling" .
+
+:actor1 a :Cyclist ;
+    :description "Person riding a bicycle across the road" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision with cyclist crossing road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Potential occlusion of cyclist due to poor lighting and nighttime conditions" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** High risk of collision with cyclist crossing road
+- **Severity Score:** 0.95
+- **Risk Type:** `:CollisionRisk` (subclass of `:Risk`)
+
+**Risk 2:**
+- **Description:** Potential occlusion of cyclist due to poor lighting and nighttime conditions
+- **Severity Score:** 0.80
+- **Risk Type:** `:OcclusionRisk` (subclass of `:Risk`)
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** `:actor1` is classified as a `:Cyclist` (since the person is riding a bicycle).
+   - **WeatherCondition:** `:weather1` is classified as `:NightCondition` (due to low visibility and nighttime setting).
+
+2. **Corner Case Classification:**
+   - The cyclist crossing the road without proper signaling or preparation (e.g., no lights, sudden movement) is classified as a `:BehaviorAnomaly` (since the cyclist's actions deviate from expected behavior).
+
+3. **Risks Identified:**
+   - **CollisionRisk:** The cyclist is crossing directly in front of the vehicle, posing a high risk of collision.
+   - **OcclusionRisk:** The nighttime conditions reduce visibility, increasing the risk of the cyclist being obscured or not detected in time.
+
+4. **Severity Scores:**
+   - The collision risk is assigned a high severity score (0.95) due to the immediate threat.
+   - The occlusion risk is assigned a slightly lower score (0.80) but still significant due to the poor visibility.

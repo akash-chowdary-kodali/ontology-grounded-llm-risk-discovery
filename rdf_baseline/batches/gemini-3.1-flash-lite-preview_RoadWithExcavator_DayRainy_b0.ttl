@@ -1,0 +1,46 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:ego_vehicle a ex:Vehicle ;
+    ex:hasState "Moving" .
+
+ex:excavator a ex:ConstructionVehicle ;
+    ex:hasPosition "Right_Lane_Margin" ;
+    ex:isNear ex:ego_vehicle .
+
+ex:traffic_cone a ex:RoadInfrastructure ;
+    ex:isNear ex:excavator .
+
+ex:environment a ex:SceneConditions ;
+    ex:hasWeather "Rainy" ;
+    ex:hasVisibility "Low" ;
+    ex:hasAtmosphere "Foggy" .
+
+ex:road a ex:Infrastructure ;
+    ex:hasSurface "Wet_Asphalt" .
+
+# Relationships
+ex:ego_vehicle ex:approaching ex:excavator .
+ex:excavator ex:occludes ex:road_forward .
+```
+
+### Identified Risks
+
+**Risk 1:**
+* **Description:** Low visibility caused by heavy fog and rain significantly impairs sensor performance and driver perception, increasing reaction time.
+* **Severity Score:** 0.85
+
+**Risk 2:**
+* **Description:** Proximity to heavy construction machinery (excavator) encroaching on the lane path, potentially obstructing the designated driving lane.
+* **Severity Score:** 0.75
+
+**Risk 3:**
+* **Description:** Hazardous road surface conditions (wet, slick asphalt) reducing tire friction, which increases the likelihood of skidding during emergency braking or sharp steering maneuvers.
+* **Severity Score:** 0.65
+
+**Risk 4:**
+* **Description:** Lack of clear work zone delineation or active flaggers; relying solely on a traffic cone in poor visibility may lead to late recognition of the construction site.
+* **Severity Score:** 0.70

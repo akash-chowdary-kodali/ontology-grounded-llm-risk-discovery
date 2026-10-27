@@ -1,0 +1,72 @@
+Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+```
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanLaneFollowing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi vehicle in right lane" .
+
+:actor2 a :Vehicle ;
+    :description "Police vehicle ahead in center lane" .
+
+:obstacle1 a :RoadObject ;
+    :description "Tree branches hanging over road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision with police vehicle due to following distance" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk from hanging tree branches potentially obscuring vision" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Potential lane intrusion risk from yellow taxi vehicle" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.50"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential rear-end collision with police vehicle due to following distance
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Occlusion risk from hanging tree branches potentially obscuring vision
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential lane intrusion risk from yellow taxi vehicle
+Severity Score: 0.50
+
+The scene was classified as a **BehaviorAnomaly** because:
+1. The vehicle in the foreground appears to be following the police vehicle too closely
+2. The yellow taxi vehicle is positioned in a way that could intrude into the lane
+3. The hanging tree branches create an environmental factor that could lead to anomalous behavior if not properly accounted for
+
+The severity scores were assigned based on:
+- Rear-end collision risk (0.75): Highest priority due to immediate danger
+- Occlusion risk (0.60): Medium priority as it affects visibility
+- Lane intrusion risk (0.50): Lower priority but still relevant for lane discipline

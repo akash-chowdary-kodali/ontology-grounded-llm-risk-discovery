@@ -1,0 +1,50 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeStreetWithRollingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Unattended rolling object on road" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with rolling object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to low visibility of rolling object" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision with rolling object on road
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Occlusion risk due to low visibility of rolling object
+Severity Score: 0.60
+
+---
+The scene is classified as an **EvidenceBasedAnomaly** due to the presence of a rolling object (evidence indicator) on the road. The ontology captures the rolling object as a **RoadObject** under **Obstacle**, and the nighttime condition is classified as **NightCondition**. The risks identified are **CollisionRisk** and **OcclusionRisk**, with severity scores reflecting the potential danger of the rolling object and the reduced visibility in nighttime conditions.

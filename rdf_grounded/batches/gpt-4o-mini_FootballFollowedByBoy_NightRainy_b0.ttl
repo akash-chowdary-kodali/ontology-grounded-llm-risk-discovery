@@ -1,0 +1,31 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+:scene1 a :Scene ;
+    :scenarioName "Low Visibility in Rainy Conditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Pedestrian .
+
+:weather1 a :RainyCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "Soccer ball on road" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian running onto the road unexpectedly" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian running onto the road unexpectedly
+Severity Score: 0.80

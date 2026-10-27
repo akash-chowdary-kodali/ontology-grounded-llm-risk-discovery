@@ -1,0 +1,83 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithTrafficLights" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :vehicle1, :vehicle2 ;
+    :hasWeatherCondition :nightCondition ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:vehicle1 a :Vehicle ;
+    :description "Orange car approaching intersection" .
+
+:vehicle2 a :Vehicle ;
+    :description "Black car approaching intersection from left" .
+
+:nightCondition a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential rear-end collision due to vehicles approaching intersection simultaneously" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to low visibility at night" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Low visibility and headlight reflections indicate potential distraction risk" ;
+    :indicatesPotentialRisk :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Yellow traffic light at intersection" .
+:trafficLight2 a :TrafficLight ;
+    :description "Yellow traffic light at intersection (opposite side)" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential rear-end collision due to vehicles approaching the intersection simultaneously, possibly due to misjudgment of traffic light timing or low visibility.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Driver distraction risk due to low visibility at night, exacerbated by headlight reflections and reduced contrast.
+- **Severity Score:** 0.60
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - Two **Vehicles** (`:vehicle1`, `:vehicle2`) approaching the intersection.
+   - **NightCondition** (`:nightCondition`) due to low visibility.
+   - Two **TrafficLights** (`:trafficLight1`, `:trafficLight2`) showing yellow (implied by context).
+   - **RollingBallIndicator** (`:evidence1`) representing low visibility and headlight reflections.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly** (`:cc1`) because the anomaly arises from the state of the environment (nighttime, traffic light timing) rather than an actor's behavior or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **RearEndCollisionRisk** due to vehicles approaching simultaneously.
+   - **DistractionRisk** due to low visibility and potential glare.
+
+4. **Severity Scores:**
+   - Rear-end collision risk is higher (0.75) due to immediate collision potential.
+   - Distraction risk is moderate (0.60) due to long-term impact on driving safety.

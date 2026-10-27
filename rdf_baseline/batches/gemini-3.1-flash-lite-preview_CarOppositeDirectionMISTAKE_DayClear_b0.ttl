@@ -1,0 +1,39 @@
+### 1. Main Entities
+*   **Ego Vehicle:** The camera-perspective red car at the foreground.
+*   **Other Vehicle:** A black sedan crossing the intersection laterally.
+*   **Road Infrastructure:** Urban intersection, marked lanes, overhead railway structure with vertical support pillars, and buildings.
+*   **Weather/Environment:** Clear daytime conditions, high contrast lighting with shadows cast by the overhead structure.
+
+### 2. Entity Relationships
+*   **Black Sedan crossing:** The black vehicle is moving horizontally across the field of view of the ego vehicle.
+*   **Ego Vehicle approaching:** The ego vehicle is moving toward the intersection where the black sedan is present.
+*   **Occlusion:** The large concrete support pillars of the overhead railway act as potential visual occluders for traffic approaching from the side.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:BlackSedan rdf:type ex:Vehicle .
+ex:Intersection rdf:type ex:RoadInfrastructure .
+ex:SupportPillar rdf:type ex:Obstacle .
+
+ex:EgoVehicle ex:approaching ex:Intersection .
+ex:BlackSedan ex:crossing ex:Intersection .
+ex:BlackSedan ex:perpendicularTo ex:EgoVehicle .
+ex:SupportPillar ex:occludes ex:Intersection .
+```
+
+### 4. Identified Risks
+**Risk 1:**
+*   **Description:** Intersection collision risk due to the lateral movement of the black sedan across the ego vehicle's projected path.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Perception occlusion risk. The large structural pillars of the elevated railway create "blind spots" that may hide other traffic or pedestrians entering the intersection.
+*   **Severity Score:** 0.65
+
+**Risk 3:**
+*   **Description:** Lighting/Contrast hazard. The sharp transitions between bright sunlight and deep shadows under the railway bridge can trigger camera exposure issues or misclassification by computer vision perception systems.
+*   **Severity Score:** 0.40

@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Scene with Unusual Actors" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:actor1 a :Actor ;
+    a :Pedestrian .
+
+:actor2 a :Actor ;
+    a :Pedestrian .
+
+:actor3 a :Obstacle ;
+    a :RoadObject .
+
+:weather1 a :RainyCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Risk of collision with pedestrians due to unusual behavior" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:risk2 a :DistractionRisk ;
+    :description "Distracting unusual actors in the road causing potential for accidents" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+**Risk 1:**
+- **Description:** Risk of collision with pedestrians due to unusual behavior.
+- **Severity Score:** 0.75
+
+**Risk 2:**
+- **Description:** Distracting unusual actors in the road causing potential for accidents.
+- **Severity Score:** 0.60

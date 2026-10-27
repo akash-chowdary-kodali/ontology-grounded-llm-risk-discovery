@@ -1,0 +1,37 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasLightingCondition ex:LowLight ;
+    ex:hasRoadInfrastructure ex:TrafficLight, ex:Billboard, ex:BusStop ;
+    ex:hasVehicle ex:None ;
+    ex:hasPedestrian ex:None ;
+    ex:hasCyclist ex:None ;
+    ex:hasObstacle ex:None.
+
+ex:TrafficLight a ex:TrafficLightType ;
+    ex:hasState ex:Red.
+
+ex:Billboard a ex:BillboardType ;
+    ex:hasVisibility ex:Good.
+
+ex:BusStop a ex:BusStopType ;
+    ex:isAvailableForUse ex:Yes.
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Low visibility due to nighttime and rainy conditions, potentially obscuring other road users.  
+**Severity Score:** 0.8
+
+#### Risk 2:
+**Description:** Possible slippage of vehicles on wet roads, increasing braking distance.  
+**Severity Score:** 0.7
+
+#### Risk 3:
+**Description:** Inability to see pedestrians or cyclists if they enter the scene unexpectedly.  
+**Severity Score:** 0.9

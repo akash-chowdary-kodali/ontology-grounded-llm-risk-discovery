@@ -1,0 +1,206 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Cyclist Crossing Urban Road" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist crossing road without yielding right-of-way" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with cyclist crossing against traffic flow" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Cyclist intruding into vehicle lane from unexpected direction" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+Description: Potential collision with cyclist crossing against traffic flow
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Cyclist intruding into vehicle lane from unexpected direction
+Severity Score: 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified**:
+   - **Actor**: The cyclist is classified as `:Cyclist` (subclass of `:Actor`).
+   - **WeatherCondition**: The scene is `:DayCondition` with clear visibility.
+   - No traffic signs, traffic lights, billboards, or obstacles (e.g., road objects) are visible in this particular frame.
+
+2. **Corner Case Classification**:
+   The cyclist's behavior of crossing the road without yielding right-of-way (appearing to move against expected traffic flow) qualifies as a `:BehaviorAnomaly` (subclass of `:CornerCase`).
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity due to the cyclist's unexpected crossing path.
+   - **LaneIntrusionRisk**: Moderate severity due to the cyclist's intrusion into the vehicle's potential path.
+
+4. **Severity Scores**:
+   - Collision risk is scored **0.90** (high) because the cyclist is crossing directly into the vehicle's path.
+   - Lane intrusion risk is scored **0.80** (moderate-high) due to the cyclist's unexpected presence in the lane. Here is the semantic interpretation of the scene using the provided ontology vocabulary:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Cyclist Crossing Road Without Right of Way" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding across road without yielding to oncoming traffic" .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision between cyclist and unseen vehicle due to crossing without right of way" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Cyclist intruding into vehicle lane without proper signaling or yielding" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Cyclist's motion suggests erratic or unpredictable path crossing" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision between cyclist and unseen vehicle due to crossing without right of way.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Cyclist intruding into vehicle lane without proper signaling or yielding.
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Cyclist (riding across the road).
+   - **WeatherCondition:** DayCondition (clear daytime).
+   - No explicit TrafficSign, TrafficLight, or Billboard detected in the scene.
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The cyclist is crossing the road without yielding to oncoming traffic, which is an anomalous behavior in this context.
+
+3. **Evidence Indicator:**
+   - **RollingBallIndicator:** The cyclist's motion and path suggest an unpredictable trajectory, indicating potential risk.
+
+4. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the cyclist's crossing without right of way.
+   - **LaneIntrusionRisk:** Moderate severity due to the cyclist's intrusion into the vehicle lane without signaling.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, and the severity scores are assigned based on the potential danger of the identified risks. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanStreetWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Grey suitcase falling from vehicle roof" .
+
+:risk1 a :CollisionRisk ;
+    :description "Risk of collision due to falling suitcase" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Driver distraction risk due to handling falling object" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with daylight" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Risk of collision due to falling suitcase
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Driver distraction risk due to handling falling object
+Severity Score: 0.60
+
+---
+**Analysis Notes:**
+1. **Entities Identified:**
+   - The falling suitcase is classified as a `:RoadObject` under `:Obstacle`.
+   - The scene's weather is `:ClearCondition` under `:WeatherCondition`.
+   - The corner case is classified as `:EvidenceBasedAnomaly` due to observable evidence (falling object) indicating potential risks.
+
+2. **Corner Case Classification:**
+   - `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (falling suitcase) rather than inferred behavior or state.
+
+3. **Risks Identified:**
+   - **CollisionRisk** due to the falling suitcase potentially obstructing the road or causing an accident.
+   - **DistractionRisk** as the driver appears to be handling the falling object, which could divert attention from driving.
+
+4. **Severity Scores:**
+   - Collision risk is rated higher (0.75) due to its immediate threat to safety.
+   - Distraction risk is rated lower (0.60) but still significant as it could lead to secondary incidents.

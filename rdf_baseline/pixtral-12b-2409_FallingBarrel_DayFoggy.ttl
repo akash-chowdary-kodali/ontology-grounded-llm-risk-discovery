@@ -1,0 +1,326 @@
+### **Scene Description in RDF Triples (Turtle Format)**
+
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasWeatherCondition ex:FoggyConditions ;
+    ex:hasRoadMarking ex:DoubleWhiteLine ;
+    ex:hasTrafficParticipant ex:Van1, ex:Pedestrian1, ex:Obstacle1, ex:Obstacle2, ex:Obstacle3 .
+
+ex:Van1 a ex:Vehicle ;
+    ex:hasColor "gray" ;
+    ex:hasPosition "rightLane" ;
+    ex:hasActivity ex:LoadingUnloading ;
+    ex:hasHazardLights "on" ;
+    ex:hasBrakeLights "on" .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:hasClothing "yellowShirt" ;
+    ex:hasPosition "nearVan" ;
+    ex:hasActivity ex:HandlingEquipment ;
+    ex:hasTrajectory "movingTowardsVan" .
+
+ex:Obstacle1 a ex:Barrier ;
+    ex:hasType "portableBarrier" ;
+    ex:hasColor "orange" ;
+    ex:hasPosition "rightSideOfVan" .
+
+ex:Obstacle2 a ex:Drum ;
+    ex:hasType "hazardousMaterialDrum" ;
+    ex:hasColor "black" ;
+    ex:hasPosition "nearVan" ;
+    ex:hasWarningLabel "flammable" .
+
+ex:Obstacle3 a ex:Drum ;
+    ex:hasType "hazardousMaterialDrum" ;
+    ex:hasColor "black" ;
+    ex:hasPosition "rightSideOfRoad" ;
+    ex:hasWarningLabel "corrosive" .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasCondition "wet" ;
+    ex:hasVisibility "reduced" ;
+    ex:hasLaneMarking ex:DoubleWhiteLine .
+
+ex:Relationship1 a ex:SpatialRelationship ;
+    ex:subject ex:Pedestrian1 ;
+    ex:predicate ex:near ;
+    ex:object ex:Van1 .
+
+ex:Relationship2 a ex:SpatialRelationship ;
+    ex:subject ex:Van1 ;
+    ex:predicate ex:occluding ;
+    ex:object ex:Obstacle2 .
+
+ex:Relationship3 a ex:SpatialRelationship ;
+    ex:subject ex:Pedestrian1 ;
+    ex:predicate ex:interactingWith ;
+    ex:object ex:Obstacle1 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The pedestrian is handling equipment near a van with hazardous material drums, increasing the risk of accidental spillage or improper handling. The presence of fog reduces visibility, making it difficult for an autonomous vehicle to detect the pedestrian and obstacles in time.
+
+**Severity Score:** **0.9**
+*(High risk due to hazardous materials, low visibility, and potential for collision or spillage.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The van is parked in a way that partially occludes the hazardous material drums, making them difficult to detect for approaching vehicles. The fog further exacerbates this issue, increasing the risk of an autonomous vehicle failing to identify the drums in time.
+
+**Severity Score:** **0.85**
+*(High risk due to reduced visibility and potential for collision with drums.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+The pedestrian is positioned near the roadway while handling equipment, increasing the risk of unintentional entry into traffic. The autonomous vehicle may not detect the pedestrian in time due to fog, leading to a potential collision.
+
+**Severity Score:** **0.8**
+*(High risk due to pedestrian proximity to traffic and reduced visibility.)*
+
+---
+
+#### **Risk 4:**
+**Description:**
+The hazardous material drums are not properly secured, and the portable barrier is not fully deployed, increasing the risk of drums rolling into traffic. The wet road conditions could also cause instability.
+
+**Severity Score:** **0.75**
+*(Moderate to high risk due to improper securing of hazardous materials.)*
+
+---
+
+### **Summary of Key Risks:**
+1. **Hazardous Material Handling & Visibility Issues** (Severity: 0.9)
+2. **Occlusion of Obstacles by Vehicle** (Severity: 0.85)
+3. **Pedestrian Proximity to Traffic** (Severity: 0.8)
+4. **Unsecured Hazardous Materials** (Severity: 0.75)
+
+This scene presents a **high-risk corner case** for autonomous driving due to **low visibility, improper obstacle placement, and hazardous material handling**. Immediate mitigation strategies should include **enhanced sensor fusion, predictive hazard detection, and adaptive speed control** in foggy conditions. ### **Analysis of the Scene**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A **white van** (partially visible, parked or stationary on the right side).
+  - A **red autonomous vehicle (ego vehicle)** (view from the front, partially obscured by the hood).
+- **Pedestrian**:
+  - A **person in a yellow shirt** standing near the van, holding a red rolling cart with two large cylindrical objects (likely barrels).
+- **Obstacles**:
+  - Two **large cylindrical objects (barrels)** lying on the road.
+  - A **red rolling cart** (partially obstructing the road).
+- **Road Infrastructure**:
+  - **Road markings** (white lane lines).
+  - **Sidewalk** (partially visible).
+- **Weather Conditions**:
+  - **Heavy fog** (reduced visibility).
+- **Other Elements**:
+  - **Palm trees and streetlights** (background, partially obscured by fog).
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **person in yellow** is **standing near the van** and **interacting with the rolling cart**.
+- The **two barrels** are **lying on the road**, partially blocking traffic.
+- The **red rolling cart** is **partially obstructing the lane**, near the barrels.
+- The **white van** is **stationary** and **partially occluding the barrels** from the ego vehicle’s perspective.
+- The **ego vehicle (red)** is **approaching the scene** but has **limited visibility due to fog**.
+- The **fog** **occludes distant objects**, making perception difficult.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :HeavyFog ;
+    :hasRoadMarkings :WhiteLaneLines ;
+    :hasObstacles :Barrel1, :Barrel2, :RollingCart ;
+    :hasVehicles :WhiteVan, :EgoVehicle ;
+    :hasPedestrian :PersonInYellow .
+
+:WhiteVan a :Vehicle ;
+    :hasPosition "right_lane" ;
+    :hasState "stationary" ;
+    :occludes :Barrel2 .
+
+:EgoVehicle a :Vehicle ;
+    :hasPosition "approaching" ;
+    :hasState "moving" ;
+    :hasSensorView :LimitedVisibilityDueToFog .
+
+:PersonInYellow a :Pedestrian ;
+    :hasPosition "near_van" ;
+    :interactingWith :RollingCart .
+
+:Barrel1 a :Obstacle ;
+    :hasPosition "on_road" ;
+    :hasShape "cylindrical" ;
+    :hasSize "large" .
+
+:Barrel2 a :Obstacle ;
+    :hasPosition "on_road" ;
+    :hasShape "cylindrical" ;
+    :hasSize "large" ;
+    :occludedBy :WhiteVan .
+
+:RollingCart a :Obstacle ;
+    :hasPosition "on_road" ;
+    :hasState "partially_blocking" ;
+    :hasColor "red" .
+
+:HeavyFog a :WeatherCondition ;
+    :reducesVisibility "high" .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **two large barrels lying on the road** pose a **collision risk** for the ego vehicle, especially under **low-visibility conditions (fog)**. The ego vehicle may not detect them in time, leading to a **potential accident**.
+
+**Severity Score:** **0.9** (High risk due to sudden obstacle appearance and poor visibility)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **person in yellow is standing near the road**, and the **rolling cart partially obstructs the lane**. If the ego vehicle does not detect the pedestrian or the cart in time, it could **swerve abruptly**, leading to **unexpected vehicle movement** or **collision with the person**.
+
+**Severity Score:** **0.85** (High risk due to pedestrian proximity and potential sudden movement)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **fog significantly reduces visibility**, making it difficult for the ego vehicle to **detect obstacles, pedestrians, or other vehicles in time**. This increases the risk of **late braking, misjudged distances, or failure to yield**.
+
+**Severity Score:** **0.8** (High risk due to environmental conditions impairing perception)
+
+---
+
+#### **Risk 4:**
+**Description:**
+The **white van is stationary and partially occludes the barrels**, making it harder for the ego vehicle to **assess the full extent of the obstruction**. If the ego vehicle assumes the road is clear, it may **drive over the barrels**, causing **vehicle damage or loss of control**.
+
+**Severity Score:** **0.75** (Moderate-high risk due to partial occlusion and potential misjudgment)
+
+---
+
+### **Summary of Risks**
+| **Risk ID** | **Description** | **Severity (0-1)** |
+|-------------|----------------|-------------------|
+| Risk 1      | Barrels on road (collision hazard) | **0.9** |
+| Risk 2      | Pedestrian + cart obstructing lane | **0.85** |
+| Risk 3      | Heavy fog reducing visibility | **0.8** |
+| Risk 4      | Van occluding barrels (misjudgment risk) | **0.75** |
+
+### **Key Safety Recommendations**
+1. **Enhance obstacle detection** (LiDAR + camera fusion) to identify barrels and carts early.
+2. **Implement pedestrian alert systems** to detect the person in yellow and avoid sudden braking.
+3. **Use adaptive cruise control with fog-specific adjustments** to maintain safe following distances.
+4. **Predictive hazard mapping** to anticipate obstacles in low-visibility conditions.
+5. **Emergency braking readiness** in case of sudden obstacle detection.
+
+This scenario highlights the **challenges of autonomous driving in adverse weather and unexpected road obstructions**. ```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:FoggyCondition ;
+    ex:hasTimeStamp "2023-10-05T14:30:00"^^xsd:dateTime .
+
+ex:FoggyCondition a ex:WeatherCondition ;
+    rdfs:label "Fog" ;
+    ex:visibilityRange 50 .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasPosition ex:PositionOnRoad ;
+    ex:hasType "AutonomousVehicle" ;
+    ex:hasSpeed 20 ;
+    ex:hasDirection "Forward" .
+
+ex:Obstacle1 a ex:Obstacle ;
+    rdfs:label "TrashBin" ;
+    ex:hasPosition ex:PositionOnRoadShoulder ;
+    ex:hasSize "Small" ;
+    ex:hasMaterial "Metal/Plastic" .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasPosition ex:PositionOnRoad ;
+    ex:hasType "Van" ;
+    ex:hasSpeed 15 ;
+    ex:hasDirection "Forward" ;
+    ex:isFollowing ex:Vehicle1 .
+
+ex:RoadInfrastructure1 a ex:RoadInfrastructure ;
+    rdfs:label "Road" ;
+    ex:hasLaneMarkings ex:SolidWhiteLines ;
+    ex:hasShoulder ex:RoadShoulder .
+
+ex:PositionOnRoad a ex:Position ;
+    ex:hasXCoordinate 100 ;
+    ex:hasYCoordinate 10 ;
+    ex:hasZCoordinate 0 .
+
+ex:PositionOnRoadShoulder a ex:Position ;
+    ex:hasXCoordinate 105 ;
+    ex:hasYCoordinate 12 ;
+    ex:hasZCoordinate 0 .
+
+ex:Vehicle1 ex:isApproaching ex:Obstacle1 .
+ex:Obstacle1 ex:isOccluding ex:Vehicle2 .
+ex:Vehicle2 ex:isFollowing ex:Vehicle1 .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description: **Reduced Visibility Due to Fog**
+The fog significantly reduces visibility, making it difficult for the autonomous vehicle to detect obstacles and other vehicles in time.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: **Unexpected Obstacle on Road Shoulder**
+The trash bin on the road shoulder is an unexpected obstacle that could cause the autonomous vehicle to swerve or brake suddenly, potentially leading to a collision with the following vehicle.
+Severity Score: 0.80
+
+**Risk 3:**
+Description: **Close Following Distance**
+The van following the autonomous vehicle is too close, which could lead to a rear-end collision if the autonomous vehicle needs to brake suddenly due to the unexpected obstacle.
+Severity Score: 0.75
+
+**Risk 4:**
+Description: **Occlusion of Vehicle by Obstacle**
+The trash bin partially occludes the view of the van, which could delay the autonomous vehicle's detection of the van's presence and its actions.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: **Inadequate Sensor Reliability in Low Visibility**
+The autonomous vehicle's sensors may not be able to accurately detect and classify objects in foggy conditions, increasing the risk of misidentifying obstacles or vehicles.
+Severity Score: 0.80
+```

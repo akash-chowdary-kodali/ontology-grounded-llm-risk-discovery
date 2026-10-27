@@ -1,0 +1,62 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithYellowTaxi" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Vehicle ;
+    :description "Yellow taxi driving in the center of the intersection" .
+
+:obstacle1 a :RoadObject ;
+    :description "Red construction barriers on the right side of the road" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard on the right side of the intersection" .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with daylight" .
+
+:risk1 a :LaneIntrusionRisk ;
+    :description "Yellow taxi intruding into the intersection without clear right of way" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Potential distraction due to construction barriers and billboard" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :OcclusionRisk ;
+    :description "Occlusion risk due to construction barriers potentially hiding pedestrians or cyclists" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.45"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Yellow taxi intruding into the intersection without clear right of way.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential distraction due to construction barriers and billboard.
+Severity Score: 0.45
+
+**Risk 3:**
+Description: Occlusion risk due to construction barriers potentially hiding pedestrians or cyclists.
+Severity Score: 0.60

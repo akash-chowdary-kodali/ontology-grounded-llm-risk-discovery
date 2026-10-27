@@ -1,0 +1,73 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianCrossingWithObstacles" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasObstacle :roadObject1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :nightCondition1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person crossing road at night without proper caution" .
+
+:roadObject1 a :RoadObject ;
+    :description "Orange traffic cones placed on road, partially obstructing path" .
+
+:nightCondition1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing road in low-visibility conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Traffic cones partially obstructing view of pedestrian" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing road in low-visibility conditions (nighttime).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Traffic cones partially obstructing view of pedestrian, increasing collision risk.
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian (crossing road at night).
+   - **Obstacle:** RoadObject (orange traffic cones).
+   - **WeatherCondition:** NightCondition (low visibility).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the road at night without proper caution (e.g., no reflective gear, no clear path), which is atypical behavior in low-visibility conditions.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High due to the pedestrian's crossing in low-visibility conditions.
+   - **OcclusionRisk:** Moderate due to the traffic cones partially obstructing the pedestrian's visibility to vehicles.
+
+4. **Severity Scores:**
+   - PedestrianCollisionRisk: **0.90** (high risk due to nighttime and pedestrian's behavior).
+   - OcclusionRisk: **0.75** (moderate risk due to cones obstructing view).

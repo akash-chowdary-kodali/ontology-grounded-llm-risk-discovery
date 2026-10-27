@@ -1,0 +1,57 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UndergroundParkingLotWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Red liquid splatter on lower edge of camera view" ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Red liquid splatter on road surface" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Potential slippery road condition due to liquid splatter" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :DistractionRisk ;
+    :description "Visual distraction from unusual liquid splatter in camera view" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.40"^^xsd:float .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime conditions in underground parking" .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential slippery road condition due to liquid splatter
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Visual distraction from unusual liquid splatter in camera view
+Severity Score: 0.40
+
+---
+**Analysis Notes:**
+1. The scene contains no actors (pedestrians, cyclists, or vehicles in motion), traffic signs, traffic lights, or billboards.
+2. The corner case is classified as **EvidenceBasedAnomaly** due to the observable evidence (red liquid splatter) indicating a potential hazard.
+3. Two risks are identified:
+   - **RoadConditionRisk** due to the liquid splatter potentially creating slippery conditions.
+   - **DistractionRisk** from the unusual visual anomaly in the camera's field of view.
+4. Severity scores are assigned based on the likelihood of immediate danger (slippery road) and potential distraction (visual anomaly). The slippery road condition is rated higher due to its direct impact on vehicle safety.

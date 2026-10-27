@@ -1,0 +1,86 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithTrafficSigns" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Traffic signs and billboards at nighttime intersection" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with artificial lighting" .
+
+:risk1 a :DistractionRisk ;
+    :description "Bright billboards may distract driver attention" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Nighttime conditions may obscure visibility of pedestrians/cyclists" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of road" .
+
+:trafficSign2 a :TrafficSign ;
+    :description "Overhead traffic control sign (multiple lanes)" .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on left side" .
+
+:billboard2 a :Billboard ;
+    :description "Large illuminated billboard on right side" .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Bright billboards may distract driver attention
+- **Severity Score:** 0.65
+- **Type:** DistractionRisk
+
+**Risk 2:**
+- **Description:** Nighttime conditions may obscure visibility of pedestrians/cyclists
+- **Severity Score:** 0.70
+- **Type:** OcclusionRisk
+
+---
+
+### Analysis Justification:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the primary concern arises from observable evidence (bright billboards and nighttime conditions) rather than an actor's anomalous behavior or state.
+
+2. **Entities Identified:**
+   - **Obstacles:** Traffic signs, billboards (classified as `RoadObject` under `Obstacle`).
+   - **WeatherCondition:** `NightCondition` due to low-light visibility.
+   - **TrafficSigns:** Two signs (no-entry and overhead traffic control).
+   - **Billboards:** Two large illuminated billboards.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** Bright billboards may distract the driver, especially at night.
+   - **OcclusionRisk:** Nighttime conditions reduce visibility, increasing the risk of missing pedestrians or cyclists.
+
+4. **Severity Scores:**
+   - DistractionRisk (0.65): Moderate severity due to potential for momentary distraction.
+   - OcclusionRisk (0.70): Slightly higher severity due to safety-critical visibility concerns.
+
+The RDF output strictly adheres to the provided ontology vocabulary and rules.

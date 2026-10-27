@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene_1 ex:hasEntity ex:vehicle_1, ex:traffic_signal_1, ex:billboard_1, ex:billboard_2, ex:road_1, ex:pedestrian_1, ex:light_conditions_1 .
+
+ex:vehicle_1 a ex:Vehicle ;
+    ex:position ex:front_of_camera ;
+    ex:movement ex:stopped .
+
+ex:traffic_signal_1 a ex:TrafficSignal ;
+    ex:signalState ex:red_light ;
+    ex:position ex:intersection .
+
+ex:billboard_1 a ex:Billboard ;
+    ex:position ex:above_road_1 ;
+    ex:advertisement "AdText1" .
+
+ex:billboard_2 a ex:Billboard ;
+    ex:position ex:above_road_1 ;
+    ex:advertisement "AdText2" .
+
+ex:road_1 a ex:Road ;
+    ex:condition ex:dry .
+
+ex:pedestrian_1 a ex:Pedestrian ;
+    ex:position ex:sidewalk ;
+    ex:movement ex:stationary .
+
+ex:light_conditions_1 a ex:LightConditions ;
+    ex:time_of_day ex:night .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Possibility of the vehicle running a red light due to low visibility at night.
+- **Severity Score:** 0.7
+
+**Risk 2:**
+- **Description:** Potential for pedestrian interaction as they are stationary near the road.
+- **Severity Score:** 0.5
+
+**Risk 3:**
+- **Description:** Distraction from billboards could affect driver attention.
+- **Severity Score:** 0.3
+
+**Risk 4:**
+- **Description:** Night conditions can affect vehicle visibility of road and signal states.
+- **Severity Score:** 0.6

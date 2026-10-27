@@ -1,0 +1,45 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:Scene ;
+    ex:contains ex:YellowTaxi, ex:Road, ex:RainCondition .
+
+ex:YellowTaxi a ex:Vehicle ;
+    ex:hasSpeed "30 km/h" ;
+    ex:hasLicensePlate "CARLA" ;
+    ex:isFollowing ex:RedCar .
+
+ex:RedCar a ex:Vehicle ;
+    ex:hasSpeed "25 km/h" ;
+    ex:hasLicensePlate "UNKNOWN" .
+
+ex:Road a ex:Infrastructure ;
+    ex:hasCondition ex:WetSurface .
+
+ex:WetSurface a ex:Condition ;
+    ex:describedAs "Wet due to rain" .
+
+ex:RainCondition a ex:WeatherCondition ;
+    ex:hasVisibility "Low" ;
+    ex:hasIntensity "Heavy" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Potential slipping or loss of traction due to wet surface conditions.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Reduced visibility resulting in increased chance of collision with nearby vehicles.  
+**Severity Score:** 0.8
+
+#### Risk 3:
+**Description:** Following too closely behind another vehicle may lead to rear-end collision.  
+**Severity Score:** 0.6
+
+### Summary
+
+In the analyzed scene, a yellow taxi follows a red car in wet and low-visibility conditions due to heavy rain. There are potential risks related to traction, visibility, and following distance that need to be monitored for safe autonomous vehicle operations.

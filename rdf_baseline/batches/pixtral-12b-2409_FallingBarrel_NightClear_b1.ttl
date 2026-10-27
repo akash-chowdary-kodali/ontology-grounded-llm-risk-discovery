@@ -1,0 +1,130 @@
+### **Scene Analysis: Semantic Interpretation of the Environment**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A white van (ego vehicle, partially visible from the rear).
+  - A pedestrian standing near the van’s rear side.
+- **Pedestrians**:
+  - One pedestrian (male, wearing a yellow shirt and jeans) standing near the rear of the van.
+- **Obstacles**:
+  - Two large cylindrical objects (barrels) lying on the road.
+  - One barrel is upright, while the other is tilted and partially blocking the road.
+- **Road Infrastructure**:
+  - Road surface (asphalt).
+  - Road markings (white dashed lines).
+- **Weather Conditions**:
+  - Nighttime (low visibility).
+- **Other**:
+  - A red jack (or similar object) on the ground near the barrels.
+
+---
+
+#### **2. Identified Relationships Between Entities**
+- The **pedestrian** is **standing near** the **white van’s rear**.
+- The **pedestrian** is **interacting with** the **red jack** on the ground.
+- The **tilted barrel** is **partially blocking** the road and **occluding** the view of the road ahead.
+- The **upright barrel** is **near** the tilted barrel and **partially obstructing** the road.
+- The **white van** is **parked or stationary** near the barrels.
+- The **road markings** are **visible** but **partially obscured** by the barrels.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:hasTimeStamp "2023-11-15T23:45:00Z"^^xsd:dateTime ;
+    ex:hasWeatherCondition ex:NighttimeLowVisibility .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:hasType "van" ;
+    ex:isStationary true ;
+    ex:hasPosition [ ex:onRoad true ; ex:near ex:Barrel1 ] .
+
+ex:Pedestrian1 a ex:Person ;
+    ex:hasClothing "yellow shirt, jeans" ;
+    ex:isStanding true ;
+    ex:hasPosition [ ex:near ex:EgoVehicle ; ex:interactingWith ex:RedJack ] .
+
+ex:Barrel1 a ex:Obstacle ;
+    ex:hasShape "cylindrical" ;
+    ex:hasSize "large" ;
+    ex:hasOrientation "tilted" ;
+    ex:isBlocking ex:Road ;
+    ex:hasPosition [ ex:onRoad true ; ex:near ex:Barrel2 ] .
+
+ex:Barrel2 a ex:Obstacle ;
+    ex:hasShape "cylindrical" ;
+    ex:hasSize "large" ;
+    ex:hasOrientation "upright" ;
+    ex:isPartiallyObstructing ex:Road .
+
+ex:RedJack a ex:Object ;
+    ex:hasColor "red" ;
+    ex:hasPosition [ ex:onGround true ; ex:near ex:Barrel1 ] .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurface "asphalt" ;
+    ex:hasMarkings ex:WhiteDashedLines ;
+    ex:isPartiallyObstructedBy ex:Barrel1 .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:ObstructedRoad ;
+    ex:affectedEntity ex:EgoVehicle ;
+    ex:severity 0.85 .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianInteraction ;
+    ex:affectedEntity ex:Pedestrian1 ;
+    ex:severity 0.75 .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:LowVisibility ;
+    ex:affectedEntity ex:EgoVehicle ;
+    ex:severity 0.6 .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The **tilted barrel** is **blocking the road**, posing a collision risk for the ego vehicle if it attempts to proceed without detecting the obstacle. The **upright barrel** further restricts visibility, increasing the likelihood of an accident.
+
+**Severity Score:**
+**0.85** (High risk due to potential collision with a large, unexpected obstacle.)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **pedestrian** is **standing near the rear of the van** and appears to be **interacting with an object on the ground**. If the ego vehicle moves forward without detecting the pedestrian (due to blind spots or low visibility), there is a risk of **pedestrian-vehicle collision**.
+
+**Severity Score:**
+**0.75** (Moderate to high risk due to pedestrian proximity and potential blind spot.)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The scene occurs at **nighttime with low visibility**, reducing the ego vehicle’s ability to detect obstacles, pedestrians, and road conditions effectively. This increases the risk of **missed detections** and **late reactions** to hazards.
+
+**Severity Score:**
+**0.6** (Moderate risk due to environmental factors impairing perception.)
+
+---
+
+### **Summary of Key Risks**
+| **Risk**               | **Severity (0-1)** | **Primary Concern**                     |
+|------------------------|---------------------|------------------------------------------|
+| Obstructed Road        | 0.85                | Collision with barrels                  |
+| Pedestrian Interaction | 0.75                | Blind-spot collision with pedestrian   |
+| Low Visibility         | 0.6                 | Missed detections due to darkness       |
+
+This scene represents a **high-risk corner case** for autonomous vehicles due to **obstructed paths, pedestrian proximity, and poor lighting conditions**. Proper **object detection, sensor fusion, and pedestrian awareness systems** are critical to mitigating these risks.

@@ -1,0 +1,52 @@
+### Semantic Scene Analysis
+
+**1. Main Entities:**
+*   **Ego-Vehicle:** Red vehicle (POV).
+*   **Opponent Vehicle 1:** Black sedan (traveling in the opposing lane, encroaching on Ego's lane).
+*   **Opponent Vehicle 2:** White compact car (in the adjacent right lane).
+*   **Infrastructure:** Urban street with yellow double-center lines, overhead elevated railway structure with support pillars.
+*   **Conditions:** Clear weather, daylight.
+
+**2. Relationships:**
+*   **Opponent Vehicle 1** is *approaching* the Ego-Vehicle.
+*   **Opponent Vehicle 1** is *encroaching* into the Ego-Vehicle's lane (crossing the center line).
+*   **Opponent Vehicle 2** is *following* the Ego-Vehicle's general direction/alongside the Ego-Vehicle.
+*   **Ego-Vehicle** is *under* the elevated railway structure.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://www.example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:color "red" .
+
+ex:BlackSedan rdf:type ex:Vehicle ;
+    ex:color "black" ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:encroachingOn ex:Lane_Ego .
+
+ex:WhiteCompact rdf:type ex:Vehicle ;
+    ex:color "white" ;
+    ex:isAdjacentTo ex:EgoVehicle .
+
+ex:ElevatedStructure rdf:type ex:Infrastructure ;
+    ex:location "overhead" .
+
+ex:CenterLine rdf:type ex:RoadMarking ;
+    ex:relationship "crossedBy" , ex:BlackSedan .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Lane encroachment/Head-on collision risk. The black sedan is crossing the solid double-yellow center line, entering the ego-vehicle's path of travel. This significantly reduces the available braking distance and requires immediate evasive action or emergency braking.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Infrastructure obstruction/Visibility. The dense pillars and the low-hanging structure of the elevated railway create complex visual noise and potential blind spots, making it difficult for sensors to distinguish road boundaries or predict the trajectories of oncoming traffic under the shadows.
+*   **Severity Score:** 0.45

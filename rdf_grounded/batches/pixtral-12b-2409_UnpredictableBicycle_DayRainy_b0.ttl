@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainCyclistIntersection" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist riding in heavy rain with reduced visibility" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility and creating slippery road conditions" .
+
+:risk1 a :CollisionRisk ;
+    :description "High risk of collision due to cyclist's unpredictable movement in poor visibility" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Slippery road conditions due to heavy rain, increasing braking distance and maneuverability risk" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets and reduced visibility suggest heavy rain conditions" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+**Description:** High risk of collision due to cyclist's unpredictable movement in poor visibility.
+**Severity Score:** 0.92
+
+**Risk 2:**
+**Description:** Slippery road conditions due to heavy rain, increasing braking distance and maneuverability risk.
+**Severity Score:** 0.88
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actor:** A cyclist riding in heavy rain.
+   - **WeatherCondition:** Heavy rain (`RainyCondition`), reducing visibility and creating slippery road conditions.
+   - **EvidenceIndicator:** `RollingBallIndicator` (water droplets and poor visibility) supports the corner case.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the heavy rain and cyclist's behavior are observable evidence of a hazardous situation.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** Due to the cyclist's unpredictable movement in low visibility.
+   - **WeatherRisk:** Due to slippery road conditions from heavy rain.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a high severity (0.92) due to the immediate danger of the cyclist's movement.
+   - Weather risk is slightly lower (0.88) but still critical due to the impact on vehicle control.

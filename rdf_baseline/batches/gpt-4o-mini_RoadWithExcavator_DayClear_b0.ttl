@@ -1,0 +1,47 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/schema#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:ConstructionEquipment1, ex:RoadInfrastructure1, ex:Pedestrian1 ;
+    ex:hasWeather ex:ClearWeather ;
+    ex:hasRoadCondition ex:NoObstacles.
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasType "Car" ;
+    ex:hasPosition "in motion" .
+
+ex:ConstructionEquipment1 a ex:Equipment ;
+    ex:hasType "Excavator" ;
+    ex:hasPosition "stationary" ;
+    ex:hasAction "digging" .
+
+ex:RoadInfrastructure1 a ex:Infrastructure ;
+    ex:hasType "Overpass" ;
+    ex:hasCondition "rusty" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasPosition "near roadside" ;
+    ex:hasAction "waiting" .
+
+ex:ClearWeather a ex:WeatherCondition ;
+    ex:description "Clear skies with no precipitation" .
+
+ex:NoObstacles a ex:RoadCondition ;
+    ex:description "No immediate obstacles on road".
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Potential collision with construction equipment (excavator) due to its close proximity to the vehicle.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Reduced visibility caused by the overpass which may affect vehicle maneuverability.  
+**Severity Score:** 0.5
+
+#### Risk 3:
+**Description:** The presence of a pedestrian near the roadside may lead to unexpected crossing behavior.  
+**Severity Score:** 0.6

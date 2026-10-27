@@ -1,0 +1,193 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "RoadWorkVehicleWithFallingObjectRisk" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Worker standing near road work vehicle" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (e.g., pipe) near vehicle" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Cylindrical object appears unstable and may fall" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :DayCondition ;
+    :description "Clear day with no adverse weather" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk from falling cylindrical object onto road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Occlusion risk due to worker and equipment obstructing view of road" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Potential collision risk from falling cylindrical object (e.g., pipe) onto the road, posing a hazard to vehicles.
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Occlusion risk due to the worker and equipment obstructing the view of the road, potentially hiding other hazards or vehicles.
+- **Severity Score:** 0.75
+
+---
+
+### Key Observations:
+1. **Corner Case Classification:** The scene is classified as an **EvidenceBasedAnomaly** because the risk is inferred from observable evidence (unstable cylindrical object) rather than an actor's behavior or state anomaly.
+2. **Actors:** The worker is classified as a **Pedestrian** (road worker).
+3. **Obstacle:** The cylindrical object is classified as a **RoadObject** (potential falling hazard).
+4. **Weather:** Clear day conditions (**DayCondition**).
+5. **Risks:**
+   - **CollisionRisk** due to the falling object.
+   - **OcclusionRisk** due to the worker and equipment blocking visibility. Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingRoadObjectOnRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasActor :actor1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian standing near falling object" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical object (barrel) rolling onto road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Rolling barrel detected on road surface" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :DayCondition ;
+    :description "Clear daytime conditions" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Falling object obstructing vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential collision with pedestrian near falling object" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Falling object obstructing vehicle path (OcclusionRisk)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Potential collision with pedestrian near falling object (CollisionRisk)
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian standing near the falling object.
+   - **Obstacle:** Rolling barrel (RoadObject).
+   - **Evidence:** FallingObjectIndicator (evidence of the barrel rolling onto the road).
+   - **Weather:** DayCondition (clear daytime).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The corner case is classified as such because the anomaly is detected through observable evidence (the rolling barrel and pedestrian proximity).
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the barrel obstructing the road, posing a direct threat to the vehicle.
+   - **CollisionRisk:** High severity due to the pedestrian's proximity to the falling object, increasing the likelihood of an accident.
+
+The RDF triples strictly adhere to the provided ontology vocabulary, and all entities are typed according to the hierarchy. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "SkateboardOnRoadAnomaly" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Skateboard lying on road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Skateboard appears to have fallen from a vehicle" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with skateboard on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :LaneIntrusionRisk ;
+    :description "Skateboard obstructing lane, causing potential lane intrusion risk" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:weather1 a :DayCondition, :ClearCondition .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential collision with skateboard on road
+Severity Score: 0.75
+
+Risk 2:
+Description: Skateboard obstructing lane, causing potential lane intrusion risk
+Severity Score: 0.65

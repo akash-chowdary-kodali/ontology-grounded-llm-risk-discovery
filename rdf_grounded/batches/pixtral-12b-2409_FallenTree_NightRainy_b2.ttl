@@ -1,0 +1,71 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeUrbanTrafficWithPoliceActivity" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3, :risk4 .
+
+:obstacle1 a :RoadObject ;
+    :description "Police vehicle with emergency lights active" .
+
+:obstacle2 a :Vehicle ;
+    :description "Yellow taxi vehicle in adjacent lane" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Potential occlusion due to police vehicle lights and activity" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Potential rear-end collision risk due to police vehicle presence" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Taxi vehicle in adjacent lane may intrude into current lane" ;
+    :hasSeverityScore :sev3 .
+
+:risk4 a :RoadConditionRisk ;
+    :description "Wet road conditions may affect vehicle handling" ;
+    :hasSeverityScore :sev4 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev4 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential occlusion due to police vehicle lights and activity
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential rear-end collision risk due to police vehicle presence
+Severity Score: 0.80
+
+**Risk 3:**
+Description: Taxi vehicle in adjacent lane may intrude into current lane
+Severity Score: 0.65
+
+**Risk 4:**
+Description: Wet road conditions may affect vehicle handling
+Severity Score: 0.55
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to the presence of observable evidence (police vehicle with lights, wet road, and taxi vehicle) that suggests potential risks. The risks identified include occlusion, collision, lane intrusion, and road condition risks, each with an assigned severity score reflecting their potential impact on autonomous driving safety.

@@ -1,0 +1,54 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org#> .
+
+ex:Scene1 a ex:Scene ;
+    ex:hasEntity ex:Vehicle ;
+    ex:hasEntity ex:TrafficLight ;
+    ex:hasEntity ex:Billboard ;
+    ex:hasEntity ex:BusStop ;
+    ex:hasEntity ex:Road ;
+    ex:hasEntity ex:Pedestrian ;
+    ex:hasWeather ex:LowVisibility .
+
+ex:Vehicle a ex:VehicleType ;
+    ex:position ex:Front .
+
+ex:TrafficLight a ex:Signal ;
+    ex:state "Red" .
+
+ex:Billboard a ex:Advertisement ;
+    ex:position ex:High .
+
+ex:BusStop a ex:Infrastructure ;
+    ex:position ex:NearRoad .
+
+ex:Road a ex:Infrastructure ;
+    ex:hasCondition ex:Clear .
+
+ex:Pedestrian a ex:Human ;
+    ex:position ex:NearBusStop ;
+    ex:action ex:Waiting .
+
+ex:LowVisibility a ex:WeatherCondition ;
+    ex:description "Foggy Night" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Low visibility due to fog may impair the driver's ability to see other road users and signage clearly.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** Potential pedestrian crossing in front of the vehicle without proper visibility.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** The red traffic light may not be visible from a distance due to fog.  
+**Severity Score:** 0.5
+
+#### Risk 4:
+**Description:** Distraction from billboards may cause the driver to overlook critical road signs and signals.  
+**Severity Score:** 0.4

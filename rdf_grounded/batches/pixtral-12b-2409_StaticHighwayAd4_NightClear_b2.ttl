@@ -1,0 +1,60 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "EmptyNightRoadWithBillboard" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :billboard1 ;
+    :hasWeatherCondition :nightCondition1 ;
+    :hasRisk :distractionRisk1, :occlusionRisk1 .
+
+:billboard1 a :Billboard ;
+    :description "Large illuminated billboard on right side of road" .
+
+:nightCondition1 a :NightCondition .
+
+:distractionRisk1 a :DistractionRisk ;
+    :description "Bright billboard may distract driver attention" ;
+    :hasSeverityScore :sevDistraction1 .
+
+:occlusionRisk1 a :OcclusionRisk ;
+    :description "Dark surroundings may obscure potential hazards" ;
+    :hasSeverityScore :sevOcclusion1 .
+
+:sevDistraction1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sevOcclusion1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Bright billboard may distract driver attention
+Severity Score: 0.65
+
+**Risk 2:**
+Description: Dark surroundings may obscure potential hazards
+Severity Score: 0.70
+
+---
+**Analysis Explanation:**
+1. **Entities Identified:**
+   - The illuminated billboard is the primary obstacle in the scene.
+   - The weather condition is classified as `NightCondition` due to the darkness.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `EvidenceBasedAnomaly` because the risks are inferred from observable evidence (bright billboard and dark surroundings) rather than direct anomalous behavior or state.
+
+3. **Risks Identified:**
+   - **DistractionRisk:** The bright billboard may draw driver attention away from the road.
+   - **OcclusionRisk:** The dark environment reduces visibility of potential hazards, increasing the risk of missing obstacles or actors.
+
+4. **Severity Scores:**
+   - The distraction risk is assigned a **0.65** severity score, indicating a moderate risk.
+   - The occlusion risk is assigned a **0.70** severity score, reflecting slightly higher concern due to the potential for unseen hazards.

@@ -1,0 +1,45 @@
+### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (camera view), white van (parked/stationary).
+*   **Pedestrians:** Two pedestrians (one walking across the road, one near the left construction barrier).
+*   **Road Infrastructure:** Road cones (multiple), construction barrier/obstacle on the left, street lighting.
+*   **Weather Conditions:** Low visibility, foggy/hazy night conditions.
+
+### 2. Entity Relationships
+*   **Pedestrian 1 (Crossing):** Currently traversing the road in front of the ego-vehicle, moving from the right toward the center/left.
+*   **Van (Occluder):** The white van is obscuring the view of the right sidewalk, creating a blind spot for potential crossing pedestrians.
+*   **Ego-Vehicle:** Approaching a construction zone containing cones and obstacles.
+*   **Pedestrian 2:** Near the left-side construction zone/obstacle.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle ex:approaches ex:ConstructionZone .
+ex:Van ex:isAt ex:RightSide .
+ex:Van ex:occludes ex:RightSidewalk .
+ex:Pedestrian1 ex:crosses ex:Road .
+ex:Pedestrian1 ex:near ex:Van .
+ex:Pedestrian2 ex:near ex:ConstructionBarrier .
+ex:Weather ex:hasType "FoggyNight" .
+ex:ConstructionZone ex:contains ex:RoadCone .
+```
+
+---
+
+### 4. Identified Risks
+
+**Risk 1:**
+**Description:** Unmarked pedestrian crossing in low-visibility conditions. The pedestrian is walking directly into the path of the ego-vehicle from behind an occluding white van.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Poor visibility due to fog and darkness, limiting the perception range of the sensor suite regarding distant road geometry and the second pedestrian near the construction zone.
+**Severity Score:** 0.70
+
+**Risk 3:**
+**Description:** Presence of construction obstacles and cones narrowing the driveable path, requiring sudden lane adjustments while simultaneously managing pedestrian interaction.
+**Severity Score:** 0.65

@@ -1,0 +1,58 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadRollingBallScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:evidence1 a :RollingBallIndicator ;
+    :indicatesPotentialRisk :risk1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Unidentified spherical object on road" .
+
+:weather1 a :FoggyCondition .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with unknown object on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility due to fog" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+Risk 1:
+Description: Potential collision with unknown object on road (likely the spherical object)
+Severity Score: 0.75
+
+Risk 2:
+Description: Reduced visibility due to fog
+Severity Score: 0.80
+
+---
+**Analysis Notes:**
+1. The scene contains no identifiable actors (Cyclist/Pedestrian/Vehicle), billboards, traffic signs, or lights.
+2. The corner case is classified as **EvidenceBasedAnomaly** due to the presence of the rolling ball indicator (evidence of an anomaly).
+3. Two risks were identified:
+   - **CollisionRisk** from the rolling object on the road
+   - **OcclusionRisk** from the foggy conditions reducing visibility
+4. Severity scores were assigned based on:
+   - Collision risk (0.75): High due to unknown object but mitigated by low speed
+   - Occlusion risk (0.80): High due to severely reduced visibility in fog

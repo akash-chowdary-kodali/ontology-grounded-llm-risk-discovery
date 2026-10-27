@@ -1,0 +1,48 @@
+### 1. Main Entities
+*   **Vehicles:** The ego-vehicle (camera carrier).
+*   **Road Infrastructure:** Multi-lane urban road, traffic signal (overhead), street lamps, bus stop/shelter on the right, brick perimeter wall, billboards.
+*   **Weather Conditions:** Clear, sunny daylight, high visibility.
+*   **Potential Obstacles:** None immediately present on the roadway.
+
+### 2. Relationships
+*   **Ego-vehicle** is located on a multi-lane road.
+*   **Traffic signal** is positioned overhead, controlling the flow of the intersection.
+*   **Bus stop** is located to the right of the ego-vehicle, adjacent to the sidewalk.
+*   **Billboards** are placed above the road, potentially causing visual distraction.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle a ex:Vehicle .
+ex:TrafficSignal a ex:Infrastructure .
+ex:BusStop a ex:Infrastructure .
+ex:Billboard a ex:Infrastructure .
+
+ex:EgoVehicle ex:locatedOn ex:UrbanRoad .
+ex:TrafficSignal ex:positionedAbove ex:UrbanRoad .
+ex:BusStop ex:near ex:UrbanRoad .
+ex:Billboard ex:visualOcclusionRisk "Medium" .
+ex:Weather ex:condition "Clear" .
+```
+
+---
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Cognitive distraction due to high-contrast commercial advertisements (billboards) positioned directly above or near the line of sight of the driver/sensor.
+*   **Severity Score:** 0.3
+
+**Risk 2:**
+*   **Description:** Obscured pedestrian presence at the bus stop. While no pedestrians are currently visible, the bus shelter structure acts as a potential visual barrier for pedestrians potentially entering the road unexpectedly.
+*   **Severity Score:** 0.45
+
+**Risk 3:**
+*   **Description:** Infrastructure visual clutter. The combination of bridge supports, complex signage, and overhead traffic signals can lead to "signal masking" or delayed reaction time if the traffic light status is not clearly distinguished from surrounding visual stimuli.
+*   **Severity Score:** 0.35

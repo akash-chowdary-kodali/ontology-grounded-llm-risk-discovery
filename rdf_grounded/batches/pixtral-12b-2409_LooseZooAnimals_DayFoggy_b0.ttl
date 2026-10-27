@@ -1,0 +1,79 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithUnusualActors" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Dog crossing road in fog" .
+
+:actor2 a :Obstacle ;
+    :description "Large elephant statue on roadside" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :EvidenceIndicator ;
+    :description "Fog obscuring visibility beyond 20 meters" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Dog crossing road in fog, potential collision with vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy fog obscuring road and potential hazards" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Dog crossing road in fog, potential collision with vehicle
+- **Risk Type:** PedestrianCollisionRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Heavy fog obscuring road and potential hazards
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Explanation:
+1. **Entities Identified:**
+   - **Actors:** A dog (Pedestrian) crossing the road and an elephant statue (Obstacle).
+   - **WeatherCondition:** FoggyCondition (heavy fog reducing visibility).
+   - **Corner Case:** StateAnomaly (unusual presence of a dog and an elephant statue in a typical road scenario).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **StateAnomaly** because it involves unexpected actors (dog and elephant statue) in a road environment, which deviates from typical driving scenarios.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High risk due to the dog crossing the road in low visibility.
+   - **OcclusionRisk:** High risk due to heavy fog obscuring visibility and potential hazards.
+
+4. **Severity Scores:**
+   - The dog crossing in fog is assigned a severity score of **0.90** due to the immediate collision risk.
+   - The fog itself is assigned a severity score of **0.85** due to its impact on visibility and potential for hidden obstacles.

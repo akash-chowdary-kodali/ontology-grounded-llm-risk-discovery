@@ -1,0 +1,48 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasVehicle ex:BlackCar, ex:WhiteCar ;
+    ex:hasInfrastructure ex:Overpass ;
+    ex:hasWeather ex:RainyWeather ;
+    ex:hasRoadSurface ex:WetRoad ;
+
+ex:BlackCar a ex:Vehicle ;
+    ex:color "black" ;
+    ex:status "moving" .
+
+ex:WhiteCar a ex:Vehicle ;
+    ex:color "white" ;
+    ex:status "stable" .
+
+ex:Overpass a ex:Infrastructure ;
+    ex:type "bridge" ;
+    ex:status "structural" .
+
+ex:RainyWeather a ex:Weather ;
+    ex:condition "rain" ;
+    ex:visibility "low" .
+
+ex:WetRoad a ex:RoadSurface ;
+    ex:condition "wet" ;
+    ex:traction "low" .
+```
+
+### Identified Risks for Each Risk Class
+
+#### Risk 1: Reduced Visibility
+
+**Description:** The scene is rainy, which lowers visibility and increases the risk of accidents.  
+**Severity Score:** 0.7
+
+#### Risk 2: Slippery Road Conditions
+
+**Description:** The road is wet, leading to reduced traction for vehicles, increasing the chances of skidding or losing control.  
+**Severity Score:** 0.8
+
+#### Risk 3: Proximity of Vehicles
+
+**Description:** The black car is approaching the white car closely, which may lead to a potential collision if braking distances are not managed properly.  
+**Severity Score:** 0.6

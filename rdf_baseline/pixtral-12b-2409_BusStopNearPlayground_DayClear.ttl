@@ -1,0 +1,284 @@
+Below is the structured analysis of the provided scene images, including **RDF triples**, **identified risks**, and **severity scores**.
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+# Entities
+ex:Scene1 a ex:UrbanIntersection ;
+    ex:hasWeatherCondition ex:ClearDay ;
+    ex:hasTrafficLight [
+        a ex:TrafficLight ;
+        ex:signalColor "Green" ;
+        ex:location ex:Intersection1
+    ] ;
+    ex:hasRoadMarking ex:Crosswalk .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:location ex:Crosswalk ;
+    ex:action ex:Crossing ;
+    ex:hasTrajectory ex:DiagonalCrossing ;
+    ex:hasSpeed "3.5 m/s"^^xsd:float ;
+    ex:hasSize "0.3m x 0.5m"^^xsd:string .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:location ex:ApproachingIntersection ;
+    ex:hasSpeed "10 m/s"^^xsd:float ;
+    ex:hasTrajectory ex:StraightLane ;
+    ex:hasSensorOcclusion ex:PartialOcclusionByPedestrian .
+
+ex:Building1 a ex:Building ;
+    ex:location ex:LeftSideOfRoad .
+
+ex:Building2 a ex:Building ;
+    ex:location ex:RightSideOfRoad .
+
+# Relationships
+ex:Pedestrian1 ex:isNear ex:Vehicle1 ;
+    ex:isOccluding ex:Vehicle1 .
+
+ex:Vehicle1 ex:approaching ex:Crosswalk ;
+    ex:hasPotentialCollisionRisk ex:Pedestrian1 .
+
+# Risk Classes
+ex:Risk1 a ex:CollisionRisk ;
+    ex:riskType "Pedestrian-Vehicle Collision" ;
+    ex:severity 0.85 ;
+    ex:description "Pedestrian crossing diagonally with high speed, partially occluding vehicle sensors." .
+
+ex:Risk2 a ex:SensorOcclusionRisk ;
+    ex:riskType "Partial Sensor Occlusion" ;
+    ex:severity 0.7 ;
+    ex:description "Vehicle sensors partially occluded by pedestrian, reducing detection accuracy." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+A pedestrian is crossing diagonally across the intersection at a high speed (3.5 m/s), partially occluding the autonomous vehicle’s sensors. The vehicle is approaching the crosswalk at 10 m/s, increasing the likelihood of a collision if the pedestrian’s trajectory is not detected in time.
+
+**Severity Score:** **0.85**
+*(High risk due to speed mismatch, sensor occlusion, and unpredictable pedestrian movement.)*
+
+#### **Risk 2:**
+**Description:**
+The pedestrian’s position partially occludes the autonomous vehicle’s sensors (e.g., cameras/LiDAR), reducing the system’s ability to accurately detect other potential hazards (e.g., cyclists, vehicles from side streets).
+
+**Severity Score:** **0.7**
+*(Moderate-high risk due to degraded sensor performance, which may lead to missed detections.)*
+
+#### **Risk 3 (Implicit - Environmental Context):**
+**Description:**
+The intersection lacks clear visibility of side streets due to buildings, which may hide approaching vehicles or cyclists. This increases the risk of **unseen conflicts** from secondary directions.
+
+**Severity Score:** **0.6**
+*(Moderate risk due to limited field of view in urban canyons.)*
+
+---
+
+### **Key Observations:**
+1. **Pedestrian Behavior:**
+   - Diagonal crossing is a high-risk maneuver, especially at speed.
+   - Lack of eye contact with the vehicle suggests unpredictability.
+
+2. **Vehicle Vulnerability:**
+   - Partial sensor occlusion by the pedestrian may lead to delayed detection of other agents.
+
+3. **Environmental Factors:**
+   - Urban canyon effect (buildings blocking side-street visibility).
+   - Clear weather reduces risk from adverse conditions but does not mitigate behavioral risks.
+
+---
+### **Recommendations for Autonomous System:**
+- **Enhanced Pedestrian Tracking:**
+  Use multi-sensor fusion (cameras + radar) to compensate for occlusion.
+- **Predictive Path Planning:**
+  Anticipate diagonal crossings and slow down proactively near crosswalks.
+- **High-Resolution Mapping:**
+  Update HD maps with pedestrian hotspots for adaptive speed limits.
+- **Fallback to Conservative Mode:**
+  If sensor confidence drops below a threshold, trigger an emergency brake or stop.
+
+Would you like additional details on mitigation strategies or extended RDF modeling for dynamic objects? Here is the structured analysis of the provided scene images:
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :TrafficScene ;
+    :hasWeatherCondition :ClearDay ;
+    :hasRoadMarkings :DoubleYellowLine, :ArrowMarkingStraight ;
+    :hasTrafficLight :GreenLight .
+
+:Pedestrian1 a :Pedestrian ;
+    :hasLocation :Crosswalk ;
+    :hasAction :CrossingRoad ;
+    :hasVelocity 5.0 ; # km/h (estimated)
+    :hasDirection :Northbound .
+
+:Vehicle1 a :AutonomousVehicle ;
+    :hasLocation :Lane1 ;
+    :hasAction :ApproachingIntersection ;
+    :hasVelocity 30.0 ; # km/h (estimated)
+    :hasTrajectory :Straight .
+
+:TrafficLight1 a :TrafficLight ;
+    :hasColor :Green ;
+    :hasPosition :Intersection .
+
+:Building1 a :Building ;
+    :hasPosition :LeftSideOfRoad .
+
+:Building2 a :Building ;
+    :hasPosition :RightSideOfRoad .
+
+:Crosswalk1 a :Crosswalk ;
+    :hasLocation :Intersection ;
+    :hasWidth 4.0 ; # meters .
+
+:Risk1 a :Risk ;
+    :riskType :PedestrianCollision ;
+    :riskSource :Pedestrian1 ;
+    :riskSeverity 0.85 ;
+    :riskDescription "Pedestrian crossing road in front of autonomous vehicle with insufficient reaction time." .
+
+:Risk2 a :Risk ;
+    :riskType :TrafficRuleViolation ;
+    :riskSource :Pedestrian1 ;
+    :riskSeverity 0.6 ;
+    :riskDescription "Pedestrian crossing outside designated crosswalk area (though crosswalk is present)." .
+```
+
+---
+
+### **Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Pedestrian crossing the road in front of the autonomous vehicle with insufficient reaction time. The pedestrian is moving at a moderate speed (~5 km/h), and the vehicle is approaching at ~30 km/h, leaving little time for braking or evasion.
+
+**Severity Score:** **0.85**
+*(High risk due to potential collision, limited visibility of pedestrian intent, and high relative speed.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+Pedestrian crossing outside the designated crosswalk area, even though a crosswalk is present nearby. This violates traffic rules and increases unpredictability for the autonomous vehicle.
+
+**Severity Score:** **0.6**
+*(Moderate risk due to rule violation, but no immediate collision threat.)*
+
+---
+
+### **Additional Observations:**
+1. **Traffic Light Status:**
+   - The traffic light is green, which should allow the vehicle to proceed. However, the pedestrian's crossing introduces a conflict.
+
+2. **Pedestrian Behavior:**
+   - The pedestrian is not using the crosswalk optimally, increasing ambiguity for the autonomous vehicle's decision-making system.
+
+3. **Environmental Factors:**
+   - Clear weather and daylight conditions reduce sensor-related risks (e.g., poor visibility).
+
+4. **Potential Mitigation Strategies:**
+   - The autonomous vehicle should prioritize pedestrian detection and apply defensive driving (e.g., slowing down near intersections).
+   - Advanced pedestrian intent prediction (e.g., using trajectory forecasting) could help anticipate crossing behavior.
+
+---
+This analysis highlights the importance of **real-time pedestrian tracking** and **context-aware decision-making** in autonomous driving systems. ```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:StreetScene ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasTimeOfDay ex:Daytime .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:isLocatedAt ex:Crosswalk ;
+    ex:isMoving ex:Crossing ;
+    ex:hasSpeed "3.6"^^xsd:decimal ; # 3.6 km/h
+    ex:hasDirection ex:Northbound .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:isLocatedAt ex:RightLane ;
+    ex:hasType ex:Bus ;
+    ex:isOccludedBy ex:Building ;
+    ex:hasTrafficLightStatus ex:Stop .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isLocatedAt ex:Intersection ;
+    ex:hasStatus ex:Red .
+
+ex:Building1 a ex:Building ;
+    ex:isLocatedAt ex:LeftSideOfRoad ;
+    ex:hasColor ex:White .
+
+ex:Building2 a ex:Building ;
+    ex:isLocatedAt ex:RightSideOfRoad ;
+    ex:hasColor ex:Gray .
+
+ex:Crosswalk a ex:RoadMarking ;
+    ex:isLocatedAt ex:Intersection .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasLaneMarking ex:DoubleYellowLines ;
+    ex:hasLaneMarking ex:Crosswalk .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:isLocatedAt ex:Intersection ;
+    ex:isActive true .
+
+ex:StreetLight2 a ex:StreetLight ;
+    ex:isLocatedAt ex:ApproachingIntersection ;
+    ex:isActive true .
+
+ex:Intersection a ex:RoadInfrastructure ;
+    ex:hasTrafficLight ex:TrafficLight1 ;
+    ex:hasPedestrianCrossing ex:Crosswalk .
+```
+
+---
+
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description: Pedestrian crossing the road while a bus is approaching from the right side of the image, potentially occluded by the building. The traffic light is red, but the pedestrian may not be fully visible to the bus driver or autonomous vehicle due to the angle and potential blind spots.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: The bus is partially occluded by the building on the right side, which could prevent the bus driver or autonomous vehicle from detecting pedestrians crossing from the opposite direction.
+Severity Score: 0.75
+
+**Risk 3:**
+Description: The autonomous vehicle or bus driver may not fully recognize the pedestrian crossing due to the pedestrian's small size and motion blur, especially if the pedestrian is not directly in the line of sight.
+Severity Score: 0.7
+
+**Risk 4:**
+Description: The traffic light is red, but the pedestrian crossing might not be fully visible to the bus driver or autonomous vehicle due to the intersection layout and potential blind spots.
+Severity Score: 0.65
+
+**Risk 5:**
+Description: The presence of multiple street lights and traffic signals might confuse the autonomous vehicle’s sensor system, especially if there are any malfunctions or inconsistencies in the signals.
+Severity Score: 0.5
+
+---
+These risks are based on the potential corner case scenario where the pedestrian's visibility and the bus's blind spots could lead to safety issues.

@@ -1,0 +1,150 @@
+### **Scene Analysis: Semantic Interpretation and Risk Assessment**
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - `ego_vehicle` (red car, perspective from front)
+  - `utility_van` (white van with two workers, parked on the right side of the road)
+- **Pedestrians:**
+  - `worker_1` (yellow shirt, near the rear of the van)
+  - `worker_2` (partially visible, near the rear of the van)
+- **Obstacles:**
+  - `road_cones` (red, placed near the van)
+  - `large_rolls_of_material` (black cylindrical objects near the van)
+  - `barrel` (orange, near the van)
+- **Road Infrastructure:**
+  - `road` (two-lane, residential area)
+  - `sidewalk` (left side, adjacent to houses)
+  - `driveway` (right side, where the van is parked)
+  - `residential_houses` (background)
+  - `trees` (palm and other vegetation)
+- **Weather Conditions:**
+  - `clear_sky` (no precipitation, good visibility)
+
+#### **Relationships:**
+- `worker_1` is **near** `utility_van` and **interacting_with** `road_cones`.
+- `utility_van` is **parked_on** `driveway` and **blocking** part of the road.
+- `road_cones` are **placed_by** `worker_1` and **marking_work_zone**.
+- `large_rolls_of_material` are **loaded_on** `utility_van`.
+- `ego_vehicle` is **approaching** `utility_van` from behind.
+- `residential_houses` are **adjacent_to** `road` and `sidewalk`.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:RoadScene ;
+    ex:hasWeatherCondition ex:ClearSky ;
+    ex:hasRoad ex:TwoLaneResidentialRoad ;
+    ex:hasObstacles ex:RoadCones, ex:LargeRollsOfMaterial, ex:Barrel .
+
+ex:TwoLaneResidentialRoad a ex:Road ;
+    ex:hasLane ex:Lane1, ex:Lane2 ;
+    ex:hasAdjacentSidewalk ex:LeftSidewalk ;
+    ex:hasAdjacentDriveway ex:RightDriveway .
+
+ex:ego_vehicle a ex:Vehicle ;
+    ex:hasColor "red" ;
+    ex:isApproaching ex:utility_van ;
+    ex:hasPerspective ex:FrontView .
+
+ex:utility_van a ex:Vehicle ;
+    ex:hasColor "white" ;
+    ex:isParkedOn ex:RightDriveway ;
+    ex:isBlockedBy ex:LargeRollsOfMaterial ;
+    ex:hasWorkers ex:worker_1, ex:worker_2 .
+
+ex:worker_1 a ex:Pedestrian ;
+    ex:hasClothing "yellow_shirt" ;
+    ex:isNear ex:utility_van ;
+    ex:isInteractingWith ex:RoadCones .
+
+ex:worker_2 a ex:Pedestrian ;
+    ex:isNear ex:utility_van .
+
+ex:RoadCones a ex:Obstacle ;
+    ex:arePlacedBy ex:worker_1 ;
+    ex:mark ex:WorkZone .
+
+ex:LargeRollsOfMaterial a ex:Obstacle ;
+    ex:areLoadedOn ex:utility_van ;
+    ex:areNear ex:RoadCones .
+
+ex:Barrel a ex:Obstacle ;
+    ex:isNear ex:utility_van ;
+    ex:hasColor "orange" .
+
+ex:LeftSidewalk a ex:Infrastructure ;
+    ex:isAdjacentTo ex:residential_houses .
+
+ex:RightDriveway a ex:Infrastructure ;
+    ex:isAdjacentTo ex:residential_houses .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Unpredictable Pedestrian Behavior**
+- **Description:**
+  The workers near the utility van may suddenly move into the road due to their work activities (e.g., adjusting cones, handling materials). The `ego_vehicle` approaching from behind may not detect them in time, especially if they are occluded by the van or rolls of material.
+- **Severity Score:** **0.9**
+  *(High risk due to potential collision with vulnerable road users.)*
+
+#### **Risk 2: Occluded Work Zone**
+- **Description:**
+  The `large_rolls_of_material` and `utility_van` partially occlude the workers from the perspective of the `ego_vehicle`. If the `ego_vehicle` relies solely on camera sensors without proper depth estimation, it may fail to detect the workers in time.
+- **Severity Score:** **0.85**
+  *(High risk due to sensor limitations in detecting occluded pedestrians.)*
+
+#### **Risk 3: Improper Work Zone Signaling**
+- **Description:**
+  While the `road_cones` are placed, they may not be sufficiently visible or spaced to effectively warn approaching vehicles (e.g., `ego_vehicle`). The lack of additional warning signs (e.g., flashing lights, reflective markers) increases the risk of a collision.
+- **Severity Score:** **0.75**
+  *(Moderate-high risk due to inadequate work zone signaling.)*
+
+#### **Risk 4: Vehicle Blocking Traffic**
+- **Description:**
+  The `utility_van` is parked on the `driveway` but extends into the road, partially blocking traffic. If the `ego_vehicle` expects clear lanes and does not account for unexpected obstructions, it may misjudge safe following distances.
+- **Severity Score:** **0.6**
+  *(Moderate risk due to potential rear-end collision if the ego vehicle is not adaptive.)*
+
+#### **Risk 5: Limited Visibility Due to Road Geometry**
+- **Description:**
+  The residential area has trees and houses that may limit the `ego_vehicle`'s ability to detect hazards early. The `ego_vehicle` must rely on advanced perception systems to anticipate the work zone before it becomes visible.
+- **Severity Score:** **0.55**
+  *(Moderate risk due to environmental constraints on sensor range.)*
+
+---
+### **Summary of Critical Risks:**
+| **Risk**                          | **Severity (0-1)** | **Primary Concern**                          |
+|-----------------------------------|--------------------|-----------------------------------------------|
+| Unpredictable Pedestrian Behavior | 0.9                | Workers may enter road unexpectedly.         |
+| Occluded Work Zone                | 0.85               | Sensors may miss workers behind obstacles.   |
+| Improper Work Zone Signaling       | 0.75               | Insufficient warnings for approaching vehicles.|
+| Vehicle Blocking Traffic          | 0.6                | Partial road obstruction increases collision risk. |
+| Limited Visibility Due to Geometry| 0.55               | Environmental factors reduce early detection. |
+
+---
+### **Recommendations for Autonomous Systems:**
+1. **Enhanced Pedestrian Detection:**
+   - Use **LiDAR + camera fusion** to detect occluded workers.
+   - Implement **predictive behavior modeling** for workers in construction zones.
+2. **Work Zone Awareness:**
+   - Maintain a **database of known work zones** and integrate real-time traffic updates.
+   - Use **additional sensors (e.g., radar)** to detect obstacles beyond visual range.
+3. **Adaptive Speed & Braking:**
+   - Reduce speed in **residential areas with limited visibility**.
+   - Enable **emergency braking** if workers are detected near the road.
+4. **Improved Work Zone Signaling:**
+   - If the `ego_vehicle` detects cones but no clear path, **assume worst-case scenario** (e.g., workers may appear).
+   - Use **V2X (Vehicle-to-Everything) communication** if available to get alerts about roadwork.
+
+This scenario highlights the importance of **robust perception, predictive modeling, and adaptive driving** in handling unexpected road conditions.

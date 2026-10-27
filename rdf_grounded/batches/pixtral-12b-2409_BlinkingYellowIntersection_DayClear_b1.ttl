@@ -1,0 +1,74 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "UrbanIntersectionWithTrafficLightConflict" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 ;
+    :occursInScene :scene1 .
+
+:actor1 a :Vehicle ;
+    :description "Red car approaching intersection from right" .
+:actor2 a :Vehicle ;
+    :description "Yellow car moving forward at intersection" .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction debris or loose materials near intersection" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Potential falling debris from construction site" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Yellow car may collide with red car if traffic light is ignored" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :CollisionRisk ;
+    :description "Falling debris from construction site may hit vehicles" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:weather1 a :ClearCondition ;
+    :description "Clear weather with no precipitation" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Yellow car may collide with red car if traffic light is ignored (Rear-End Collision Risk).
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Falling debris from construction site may hit vehicles (Collision Risk).
+- **Severity Score:** 0.75
+
+---
+
+### Analysis:
+1. **Corner Case Classification:** The scene is classified as a **BehaviorAnomaly** because the primary risk stems from vehicles potentially ignoring traffic signals or failing to react appropriately to construction hazards.
+2. **Entities Identified:**
+   - **Actors:** Two vehicles (red car approaching intersection, yellow car moving forward).
+   - **Obstacle:** Construction debris or loose materials near the intersection.
+   - **Evidence Indicator:** FallingObjectIndicator (potential debris from construction site).
+   - **Weather Condition:** ClearCondition (no adverse weather).
+3. **Risks Identified:**
+   - **RearEndCollisionRisk:** High severity due to the potential for a rear-end collision if the yellow car fails to yield.
+   - **CollisionRisk:** Moderate severity due to falling debris from the construction site.

@@ -1,0 +1,49 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:scene1 a ex:TrafficScene ;
+  ex:hasVehicle ex:vehicle1, ex:vehicle2 ;
+  ex:hasPedestrian ex:pedestrian1 ;
+  ex:hasObstacle ex:obstacle1 ;
+  ex:hasWeatherCondition ex:weather1 .
+
+ex:vehicle1 a ex:Vehicle ;
+  ex:vehicleType "SUV" ;
+  ex:movementStatus "approaching" .
+
+ex:vehicle2 a ex:Vehicle ;
+  ex:vehicleType "sedan" ;
+  ex:movementStatus "following" .
+
+ex:pedestrian1 a ex:Pedestrian ;
+  ex:movementStatus "running" ;
+  ex:location "crossing street" .
+
+ex:obstacle1 a ex:Ball ;
+  ex:location "on road" .
+
+ex:weather1 a ex:WeatherCondition ;
+  ex:precipitation "heavy rain" ;
+  ex:visibility "low" .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** The pedestrian is running across the street in heavy rain, which may lead to reduced visibility and increased likelihood of a collision with an approaching vehicle.
+- **Severity Score:** 0.8
+
+**Risk 2:**
+- **Description:** The obstacle (soccer ball) is on the road, which could distract or cause confusion for the approaching vehicle.
+- **Severity Score:** 0.4
+
+**Risk 3:**
+- **Description:** Heavy rain reduces overall visibility on the road, increasing the risk of accidents.
+- **Severity Score:** 0.7 
+
+### Summary of Risks
+- Risk 1: Pedestrian crossing in low visibility
+- Risk 2: Obstacle on road
+- Risk 3: Low visibility due to weather conditions

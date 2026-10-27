@@ -1,0 +1,43 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** Red vehicle (observed from the hood).
+*   **Road Infrastructure:** Multi-lane road with lane markings, traffic light (visible in some frames), billboard signs, brick wall, bus stop/shelter, street lamps, and traffic regulatory signs.
+*   **Weather Conditions:** Nighttime, heavy rain (indicated by wet road reflections and reduced visibility), fog/haze.
+
+### 2. Relationships
+*   **Ego-Vehicle** is positioned on the road, facing forward toward an intersection.
+*   **Road Infrastructure** is surrounding the ego-vehicle.
+*   **Weather** is negatively impacting visibility and road surface traction.
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:RoadSurface rdf:type ex:Infrastructure ;
+               ex:condition "Wet" ;
+               ex:hasFriction "Low" .
+ex:Environment rdf:type ex:Atmosphere ;
+               ex:lighting "Night" ;
+               ex:precipitation "HeavyRain" ;
+               ex:visibility "Low" .
+
+ex:EgoVehicle ex:locatedOn ex:RoadSurface .
+ex:Environment ex:affects ex:EgoVehicle .
+ex:Environment ex:affects ex:RoadSurface .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Reduced visibility due to nighttime conditions and heavy rain. The sensor range (LiDAR/Camera) is significantly impaired, limiting the detection distance for static and dynamic objects.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Low road surface friction due to precipitation. Wet asphalt increases braking distance and introduces the risk of hydroplaning, reducing the ego-vehicle's ability to perform emergency maneuvers.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Reduced environmental perception at a signaled intersection. Given the low-light/foggy conditions, the ego-vehicle may have difficulty accurately interpreting traffic signal states or detecting cross-traffic/pedestrians entering the intersection.
+*   **Severity Score:** 0.80

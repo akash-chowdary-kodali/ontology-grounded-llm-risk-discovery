@@ -1,0 +1,51 @@
+### 1. Main Entities
+*   **Ego Vehicle:** The red vehicle captured from a front-facing perspective.
+*   **Infrastructure:** Multi-lane road, elevated railway structure (left), brick boundary walls (right), traffic signage, large advertising billboards, bus stop shelter.
+*   **Weather:** Clear sky, bright daylight, high visibility.
+
+### 2. Entity Relationships
+*   **Ego Vehicle:** Following the road lane, currently at a halt or slow approach to an intersection.
+*   **Infrastructure/Surroundings:** Billboards are positioned above the road, creating potential visual distractions. The brick wall and bus stop are located to the right of the ego vehicle.
+*   **Traffic Signals:** A traffic light is visible (initially red/active in early sequence) suspended above the center of the road.
+
+---
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:hasState "MovingSlow" .
+
+ex:TrafficLight a ex:Infrastructure ;
+    ex:isSuspendedAbove ex:Road ;
+    ex:hasStatus "Red" .
+
+ex:Billboard1 a ex:Obstacle ;
+    ex:isLocated "Left" ;
+    ex:potentialDistraction "High" .
+
+ex:BrickWall a ex:Infrastructure ;
+    ex:isLocated "Right" ;
+    ex:occludesView "Low" .
+
+ex:Road a ex:Infrastructure ;
+    ex:hasLanes 3 .
+```
+
+---
+
+### 4. Identified Risks for each risk class
+
+**Risk 1:**
+*   **Description:** Cognitive distraction due to large, high-contrast advertising billboards near the roadway. These may divert the attention of the autonomous system's perception models or human occupants.
+*   **Severity Score:** 0.35
+
+**Risk 2:**
+*   **Description:** Signal misinterpretation. The large billboard on the left contains imagery mimicking traffic light colors (Red/Yellow/Green), which poses a risk of "signal spoofing" or confusing the computer vision system.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Blind spots at the intersection. The urban infrastructure (brick walls and elevated rail pillars) creates significant occlusions, hiding potential cross-traffic or pedestrians entering the intersection from the sides.
+*   **Severity Score:** 0.65

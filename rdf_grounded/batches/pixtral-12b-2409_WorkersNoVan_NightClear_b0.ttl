@@ -1,0 +1,87 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianAndCyclistObstructionScenario" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Cyclist ;
+    :description "Cyclist pushing bicycle on road" .
+:actor2 a :Pedestrian ;
+    :description "Pedestrian walking on road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large cylindrical obstacle on road" .
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:weather1 a :NightCondition ;
+    :description "Low-light nighttime conditions" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking into vehicle path" ;
+    :hasSeverityScore :sev1 .
+:risk2 a :CollisionRisk ;
+    :description "Cyclist pushing bicycle into vehicle path" ;
+    :hasSeverityScore :sev2 .
+:risk3 a :OcclusionRisk ;
+    :description "Obstacles (cylindrical object and cones) reducing visibility" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float ;
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian walking into vehicle path
+- **Severity Score:** 0.90
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Cyclist pushing bicycle into vehicle path
+- **Severity Score:** 0.85
+- **Risk Type:** CollisionRisk
+
+**Risk 3:**
+- **Description:** Obstacles (cylindrical object and cones) reducing visibility
+- **Severity Score:** 0.75
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because both the pedestrian and cyclist are engaging in unexpected road behavior (walking/pushing on the road rather than using designated paths).
+
+2. **Entities Identified:**
+   - **Actors:** Cyclist (pushing a bicycle), Pedestrian (walking)
+   - **Obstacles:** Large cylindrical object, Orange traffic cones
+   - **WeatherCondition:** NightCondition (low-light environment)
+
+3. **Risks Identified:**
+   - High risk of collision with the pedestrian and cyclist due to their presence in the vehicle's path.
+   - Occlusion risk from the obstacles blocking visibility.
+
+4. **Severity Scores:**
+   - Pedestrian collision risk is highest (0.90) due to the pedestrian's proximity and unpredictability.
+   - Cyclist collision risk is slightly lower (0.85) but still critical.
+   - Occlusion risk is moderate (0.75) but contributes to overall danger by reducing visibility.

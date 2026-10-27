@@ -1,0 +1,75 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInHeavyRain" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking across street in heavy rain" .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain with reduced visibility" .
+
+:obstacle1 a :RoadObject ;
+    :description "Orange traffic cones on road" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing path of vehicle in heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing path of vehicle in heavy rain
+- **Severity Score:** 0.90
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Reduced visibility due to heavy rain
+- **Severity Score:** 0.85
+- **Risk Type:** WeatherRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian walking across the street.
+   - **WeatherCondition:** Heavy rain with reduced visibility.
+   - **Obstacle:** Orange traffic cones on the road (acting as a potential hazard or marker).
+
+2. **Corner Case Classification:**
+   - **BehaviorAnomaly:** The pedestrian is crossing the street in heavy rain, which is a behavior that increases risk due to poor visibility and wet conditions.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian crossing in front of the vehicle in poor visibility conditions.
+   - **WeatherRisk:** High severity due to heavy rain reducing visibility and potentially affecting vehicle control.
+
+4. **Severity Scores:**
+   - Pedestrian collision risk is assigned a high severity score (0.90) due to the immediate danger of collision.
+   - Weather risk is assigned a high severity score (0.85) due to the adverse conditions affecting driving safety.

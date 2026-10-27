@@ -1,0 +1,132 @@
+### **Analysis of the Scene**
+
+#### **1. Identified Main Entities**
+- **Vehicles**:
+  - A **van** (gray) parked on the right side of the road.
+  - An **ego vehicle** (red front visible) driving in the tunnel.
+- **Pedestrians**:
+  - **Pedestrian 1**: Sitting on a cylindrical object (left side, near orange cones).
+  - **Pedestrian 2**: Running/jogging on the right side of the road (near the van).
+- **Road Infrastructure**:
+  - **Tunnel** (confined space with artificial lighting).
+  - **Orange traffic cones** (scattered on the left side).
+  - **Cylindrical barriers** (placed near cones).
+  - **Streetlights** (illuminating the tunnel).
+  - **Road markings** (white dashed lines).
+- **Obstacles**:
+  - Orange cones and cylindrical barriers (potential hazards for navigation).
+- **Weather Conditions**:
+  - **Nighttime** (low ambient light, reliance on artificial lighting).
+  - **No visible precipitation or fog**, but lighting conditions may reduce visibility.
+
+---
+
+#### **2. Relationships Between Entities**
+- **Pedestrian 1** is **sitting on a cylindrical barrier** near **orange cones** (left side).
+- **Pedestrian 2** is **running/jogging** on the **right side of the road**, **near the parked van**.
+- The **ego vehicle** is **approaching Pedestrian 2** from behind.
+- The **orange cones** are **occluding parts of the road**, potentially **restricting visibility** for the ego vehicle.
+- The **tunnel walls** create a **confined space**, which may **amplify risks** due to limited escape routes.
+- The **streetlights** provide **artificial illumination**, but shadows and reflections may **distort perception**.
+
+---
+
+### **3. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:AutonomousDrivingScene ;
+    ex:location ex:Tunnel ;
+    ex:timeCondition ex:Nighttime ;
+    ex:weatherCondition ex:Clear .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:position "Approaching Pedestrian2" ;
+    ex:hasDriver ex:AutonomousSystem .
+
+ex:Van a ex:Vehicle ;
+    ex:position "Parked on right side" ;
+    ex:near ex:Pedestrian2 .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:action ex:Sitting ;
+    ex:location "Left side near cones" ;
+    ex:near ex:Cones .
+
+ex:Pedestrian2 a ex:Pedestrian ;
+    ex:action ex:Running ;
+    ex:location "Right side near van" ;
+    ex:near ex:Van .
+
+ex:Cones a ex:Obstacle ;
+    ex:type ex:TrafficCone ;
+    ex:quantity 4 ;
+    ex:position "Left side of road" ;
+    ex:occludes ex:Road .
+
+ex:Tunnel a ex:RoadInfrastructure ;
+    ex:type ex:ConfinedSpace ;
+    ex:hasLighting ex:ArtificialLighting .
+
+ex:Risk1 a ex:SafetyRisk ;
+    ex:riskType ex:PedestrianCollision ;
+    ex:severity 0.9 ;
+    ex:description "Ego vehicle approaching running pedestrian in confined tunnel space." .
+
+ex:Risk2 a ex:SafetyRisk ;
+    ex:riskType ex:ObstructedVisibility ;
+    ex:severity 0.7 ;
+    ex:description "Orange cones and tunnel walls restrict visibility for ego vehicle." .
+
+ex:Risk3 a ex:SafetyRisk ;
+    ex:riskType ex:EmergencyResponse ;
+    ex:severity 0.8 ;
+    ex:description "Limited escape routes in tunnel may hinder emergency response." .
+```
+
+---
+
+### **4. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+The ego vehicle is approaching a **running pedestrian** in a confined tunnel space. The pedestrian is moving unpredictably, increasing the risk of collision due to limited reaction time and space constraints.
+
+**Severity Score:** **0.9** (High)
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **orange traffic cones** and **tunnel walls** obstruct the ego vehicle’s visibility, making it difficult to detect **Pedestrian 1** (sitting on the left) and assess the full road environment. This increases the risk of **misjudging distances** and **unexpected obstacles**.
+
+**Severity Score:** **0.7** (Moderate-High)
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **confined tunnel environment** limits escape routes for both the ego vehicle and pedestrians. In case of an emergency (e.g., collision or sudden braking), **evacuation or avoidance maneuvers** may be severely restricted, leading to higher injury risks.
+
+**Severity Score:** **0.8** (High)
+
+---
+
+### **Summary of Key Risks**
+| **Risk Class**               | **Severity (0-1)** | **Primary Concern**                          |
+|------------------------------|-------------------|---------------------------------------------|
+| Pedestrian Collision         | 0.9               | Running pedestrian in confined space       |
+| Obstructed Visibility        | 0.7               | Cones and tunnel walls reducing perception  |
+| Emergency Response Limitations| 0.8               | Limited escape routes in tunnel             |
+
+---
+### **Recommendations for Autonomous Systems**
+1. **Enhanced Pedestrian Detection**: Use **high-resolution cameras + LiDAR** to detect pedestrians in low-light tunnel conditions.
+2. **Predictive Path Planning**: Anticipate **unexpected pedestrian movements** (e.g., sudden crossing) and adjust speed/route accordingly.
+3. **Obstacle Avoidance**: Treat **cones and barriers** as dynamic hazards and plan alternative paths.
+4. **Emergency Braking Protocols**: Implement **aggressive deceleration** if a collision risk is detected in confined spaces.
+5. **Human-Machine Interface (HMI)**: Warn the driver (if present) or alert nearby vehicles via **V2X (Vehicle-to-Everything) communication**.
+
+Would you like additional analysis on sensor fusion strategies for this scenario?

@@ -1,0 +1,48 @@
+This scene depicts an autonomous vehicle (AV) encountering a dark-colored vehicle moving directly toward it in the opposite lane under low-light, wet, and urban conditions.
+
+### 1. Main Entities
+*   **Ego-Vehicle:** The recording red vehicle.
+*   **Target Vehicle:** A black sedan approaching the ego-vehicle.
+*   **Infrastructure:** Urban street, overhead railway bridge/structure, road markings, sidewalk, building facades.
+*   **Weather/Environment:** Nighttime, rainy (wet road surface with reflections), poor ambient lighting.
+
+### 2. Entity Relationships
+*   **Approaching:** The target vehicle is driving directly toward the ego-vehicle.
+*   **Near:** The distance between the two vehicles is rapidly decreasing.
+*   **Occluding:** The elevated railway structure potentially creates complex shadows and light reflections, complicating sensor perception.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:position "Lane_1" .
+
+ex:TargetVehicle a ex:Vehicle ;
+    ex:color "Black" ;
+    ex:movement "Approaching" ;
+    ex:relativePosition "DirectlyAhead" .
+
+ex:Environment a ex:Context ;
+    ex:weather "Rainy" ;
+    ex:lighting "Low" ;
+    ex:surface "Wet" .
+
+ex:TargetVehicle ex:isApproaching ex:EgoVehicle .
+ex:EgoVehicle ex:sharesLaneWith ex:TargetVehicle .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Head-on collision risk. The target vehicle is moving into or is already positioned within the ego-vehicle's path in a low-visibility, high-glare environment.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Perception degradation due to adverse weather. Wet road surfaces create significant glare from the approaching vehicle's headlights, potentially blinding cameras and reducing the accuracy of LiDAR/radar point clouds.
+*   **Severity Score:** 0.75
+
+**Risk 3:**
+*   **Description:** Infrastructure-related environmental complexity. The overhead bridge structure creates high-contrast shadows, which, combined with the oncoming vehicle, may lead to "false negative" object detection or tracking failures in the ego-vehicle's computer vision system.
+*   **Severity Score:** 0.60

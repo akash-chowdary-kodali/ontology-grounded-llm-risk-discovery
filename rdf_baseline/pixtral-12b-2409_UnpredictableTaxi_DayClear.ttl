@@ -1,0 +1,394 @@
+### **Scene Analysis: Semantic Interpretation of Urban Driving Scenario**
+
+---
+
+### **1. Identified Entities in the Scene**
+#### **Vehicles:**
+- **Yellow taxi (CARLA)** – Leading vehicle, partially occluding the ego vehicle’s view.
+- **Ego vehicle (red/yellow overlay)** – Following the yellow taxi.
+- **Red vehicle** – Visible in the distance, approaching from the opposite direction.
+- **Other distant vehicles** – Partially visible on the right side of the road.
+
+#### **Road Infrastructure:**
+- **Multi-lane urban road** – Two lanes in each direction.
+- **Sidewalk** – On both sides of the road.
+- **Traffic lights** – Visible in the distance (not active in this frame).
+- **Streetlights** – Multiple poles with lights.
+- **Buildings** – High-rise structures on both sides.
+- **Pedestrian crossing** – Marked but no pedestrians visible.
+
+#### **Obstacles:**
+- **Yellow taxi** – Acts as a moving obstacle due to its position and potential braking.
+- **Red vehicle** – Potential conflict if the ego vehicle misjudges its speed.
+
+#### **Weather Conditions:**
+- **Clear weather** – No rain, fog, or adverse conditions visible.
+
+#### **Pedestrians/Cyclists:**
+- **None visible** in the immediate scene.
+
+---
+
+### **2. Relationships Between Entities**
+- **Ego vehicle** `following` **yellow taxi** (close proximity, potential collision risk if taxi brakes suddenly).
+- **Yellow taxi** `occluding` **distant vehicles** (reduces visibility of traffic ahead).
+- **Red vehicle** `approaching` **ego vehicle** (from opposite direction, potential head-on risk if ego vehicle misjudges speed).
+- **Ego vehicle** `near` **sidewalk** (safe lateral distance maintained).
+- **Traffic lights** `inactive` (no immediate control over traffic flow).
+
+---
+
+### **Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:Scene1 a ex:UrbanDrivingScenario ;
+    ex:hasWeatherCondition ex:ClearWeather ;
+    ex:hasRoadType ex:MultiLaneRoad ;
+    ex:hasTrafficLight ex:TrafficLight1 .
+
+ex:EgoVehicle a ex:AutonomousVehicle ;
+    ex:hasColor "Red/Yellow" ;
+    ex:isFollowing ex:YellowTaxi ;
+    ex:hasSpeed "Moderate" ;
+    ex:hasPosition ex:Lane2 .
+
+ex:YellowTaxi a ex:Vehicle ;
+    ex:hasColor "Yellow" ;
+    ex:hasLicensePlate "CARLA" ;
+    ex:isLeading ex:EgoVehicle ;
+    ex:hasSpeed "Slow" ;
+    ex:occludes ex:DistantVehicles .
+
+ex:RedVehicle a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:isApproaching ex:EgoVehicle ;
+    ex:hasDirection "Opposite" .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isActive "False" .
+
+ex:Sidewalk1 a ex:RoadInfrastructure ;
+    ex:isAdjacentTo ex:EgoVehicle .
+
+ex:DistantVehicles a ex:VehicleGroup ;
+    ex:isOccludedBy ex:YellowTaxi .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1: Rear-End Collision**
+**Description:**
+The ego vehicle is following the yellow taxi at a close distance. If the taxi brakes suddenly (e.g., due to traffic ahead or a pedestrian crossing), the ego vehicle may not have enough reaction time to avoid a collision.
+**Severity Score:** **0.85** (High risk due to proximity and potential sudden braking).
+
+#### **Risk 2: Misjudgment of Opposing Traffic**
+**Description:**
+The red vehicle approaching from the opposite direction may not be fully visible due to the yellow taxi’s occlusion. If the ego vehicle misjudges the red vehicle’s speed or assumes it will yield, a head-on collision could occur.
+**Severity Score:** **0.75** (Moderate-high risk due to limited visibility and potential speed misjudgment).
+
+#### **Risk 3: Occlusion-Induced Blind Spot**
+**Description:**
+The yellow taxi partially blocks the ego vehicle’s view of traffic ahead, including the red vehicle and other potential obstacles. This increases the risk of missing critical cues (e.g., pedestrians, cyclists, or sudden lane changes).
+**Severity Score:** **0.70** (Moderate risk due to reduced situational awareness).
+
+#### **Risk 4: Sudden Pedestrian/Cyclist Appearance**
+**Description:**
+While no pedestrians or cyclists are visible, the scenario is an urban environment where they may suddenly appear (e.g., from behind the yellow taxi or between vehicles). The ego vehicle’s sensors may not detect them in time if they emerge from an occluded area.
+**Severity Score:** **0.60** (Moderate risk due to potential hidden actors).
+
+#### **Risk 5: Traffic Light Violation by Other Vehicles**
+**Description:**
+The traffic lights are inactive, and other vehicles (e.g., the red vehicle) may run a red light or stop unexpectedly. The ego vehicle must rely on correct interpretation of other drivers' intentions, which is unreliable in such scenarios.
+**Severity Score:** **0.55** (Moderate risk due to lack of traffic control).
+
+---
+
+### **Summary of Key Risks**
+| **Risk Class**               | **Severity Score (0-1)** | **Primary Concern**                          |
+|------------------------------|--------------------------|---------------------------------------------|
+| Rear-End Collision           | 0.85                     | Close following of yellow taxi              |
+| Misjudgment of Opposing Traffic | 0.75                   | Occlusion of red vehicle                    |
+| Occlusion-Induced Blind Spot  | 0.70                     | Limited visibility of traffic ahead         |
+| Sudden Pedestrian/Cyclist    | 0.60                     | Hidden actors in urban environment          |
+| Traffic Light Violation       | 0.55                     | Unpredictable behavior of other drivers      |
+
+---
+### **Recommendations for Autonomous System:**
+1. **Increase following distance** from the yellow taxi to mitigate rear-end collision risk.
+2. **Enhance sensor fusion** (e.g., radar + camera) to detect occluded vehicles (red car) and pedestrians.
+3. **Improve predictive modeling** for sudden braking or lane changes by the yellow taxi.
+4. **Use high-definition maps** to anticipate traffic light states and other vehicle behaviors.
+5. **Deploy emergency braking** if the yellow taxi decelerates abruptly.
+
+This scenario highlights the challenges of **occlusion, proximity-based risks, and unpredictable human-driven behavior** in autonomous driving. Here is the structured analysis of the provided scene images:
+
+---
+
+### **1. Identified Entities and Relationships**
+#### **Main Entities:**
+- **Vehicles:**
+  - **Subject Vehicle (Yellow Taxi):** Centered in the lane, moving forward.
+  - **Occluded Vehicle (Black SUV):** Partially visible behind the yellow taxi, likely in the same lane.
+  - **Red Emergency Vehicle (Fire Truck):** Stationary on the right side, near a bus stop.
+  - **Distant Vehicles:** Multiple vehicles visible in the background, moving in both directions.
+- **Pedestrians:** None visible in the immediate scene.
+- **Cyclists:** None visible in the immediate scene.
+- **Road Infrastructure:**
+  - **Road Markings:** Double yellow lines (lane divider), crosswalk, and directional arrows.
+  - **Traffic Lights:** Visible but not active (red light not illuminated).
+  - **Street Furniture:** Streetlights, bus stop, and sidewalk.
+  - **Buildings:** Multi-story buildings on both sides of the road.
+- **Obstacles:**
+  - **Occlusion:** The black SUV partially obscures the yellow taxi’s rear view.
+  - **Static Obstacle:** The red fire truck on the right side may limit visibility for right-turning vehicles.
+- **Weather Conditions:** Clear, sunny day (no adverse conditions).
+
+#### **Relationships:**
+- The **yellow taxi** is **following** the **black SUV** in the same lane.
+- The **black SUV** is **occluding** the **yellow taxi’s** rear view of traffic behind it.
+- The **red fire truck** is **stationary** on the right side, **adjacent to** a bus stop.
+- The **yellow taxi** is **approaching** an intersection with **no visible pedestrians or cyclists**.
+- The **road markings** indicate a **two-way street** with **lane discipline**.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix ex: <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Entities
+ex:YellowTaxi a ex:Vehicle ;
+    ex:hasColor "yellow" ;
+    ex:hasType "Taxi" ;
+    ex:isFollowing ex:BlackSUV ;
+    ex:isApproaching ex:Intersection ;
+    ex:hasOcclusion ex:BlackSUV .
+
+ex:BlackSUV a ex:Vehicle ;
+    ex:hasColor "black" ;
+    ex:hasType "SUV" ;
+    ex:isOccluding ex:YellowTaxi ;
+    ex:isInLane ex:Lane1 .
+
+ex:RedFireTruck a ex:Vehicle ;
+    ex:hasColor "red" ;
+    ex:hasType "FireTruck" ;
+    ex:isStationary ;
+    ex:isAdjacentTo ex:BusStop .
+
+ex:Intersection a ex:RoadInfrastructure ;
+    ex:hasTrafficLight ex:TrafficLight1 ;
+    ex:hasCrosswalk ex:Crosswalk1 .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isActive "false" ;
+    ex:hasColor "red" .
+
+ex:Crosswalk1 a ex:RoadMarking ;
+    ex:isVisible "true" .
+
+ex:Lane1 a ex:Lane ;
+    ex:hasMarking ex:DoubleYellowLines .
+
+ex:DoubleYellowLines a ex:RoadMarking ;
+    ex:indicates "TwoWayTraffic" .
+
+# Weather
+ex:Weather a ex:WeatherCondition ;
+    ex:hasCondition "Clear" ;
+    ex:hasVisibility "High" .
+
+# Risks
+ex:OcclusionRisk a ex:Risk ;
+    ex:hasDescription "Black SUV occludes Yellow Taxi's rear view of traffic behind it." ;
+    ex:hasSeverity 0.7 ;
+    ex:affects ex:YellowTaxi .
+
+ex:IntersectionRisk a ex:Risk ;
+    ex:hasDescription "Yellow Taxi approaching intersection with occluded rear view, increasing collision risk with unseen vehicles." ;
+    ex:hasSeverity 0.8 ;
+    ex:affects ex:YellowTaxi .
+
+ex:StaticObstacleRisk a ex:Risk ;
+    ex:hasDescription "Red Fire Truck on right side may obstruct right-turning vehicles." ;
+    ex:hasSeverity 0.5 ;
+    ex:affects ex:Lane1 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+#### **Risk 1:**
+**Description:**
+The **black SUV** partially occludes the **yellow taxi’s** rear view, preventing the driver from seeing vehicles directly behind it. This increases the risk of a **rear-end collision** if the yellow taxi brakes suddenly or if the SUV makes an unexpected maneuver.
+
+**Severity Score:** **0.7**
+*(High due to potential for sudden braking or unseen traffic behind the yellow taxi.)*
+
+---
+
+#### **Risk 2:**
+**Description:**
+The **yellow taxi** is approaching an **intersection** with an **occluded rear view**, increasing the risk of a **side-impact collision** if a vehicle from the perpendicular lane (not visible due to occlusion) suddenly turns or moves. Additionally, the **inactive traffic light** (red) suggests the intersection may have conflicting traffic movement.
+
+**Severity Score:** **0.8**
+*(Very high due to combination of occlusion and intersection dynamics.)*
+
+---
+
+#### **Risk 3:**
+**Description:**
+The **stationary red fire truck** on the right side may **obstruct visibility** for vehicles attempting to turn right into the lane where it is parked. This could lead to **misjudged gaps** or **last-minute swerves** by drivers trying to navigate around it.
+
+**Severity Score:** **0.5**
+*(Moderate due to static nature of the obstacle, but still a potential hazard for right-turning vehicles.)*
+
+---
+### **4. Additional Observations**
+- **No Pedestrians/Cyclists:** Reduces immediate risk but does not eliminate the need for caution at intersections.
+- **Clear Weather:** No adverse conditions (e.g., rain, fog) exacerbate the risks.
+- **Lane Discipline:** The double yellow lines suggest adherence to lane rules, but occlusion complicates safe following distance assessment.
+
+---
+### **5. Mitigation Recommendations (Not Requested but Implied)**
+1. **For the Yellow Taxi:**
+   - Use **rear-view cameras/sensors** to compensate for occlusion.
+   - **Increase following distance** to account for unseen traffic.
+2. **For the Black SUV:**
+   - **Signal intentions early** (e.g., braking lights) to alert the yellow taxi.
+3. **For the Intersection:**
+   - **Active traffic light management** (e.g., adaptive signals) could improve safety.
+   - **Clear signage** warning of occluded views.
+
+---
+This analysis provides a structured, machine-readable (RDF) and human-interpretable breakdown of the scene’s risks. ### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :Scene ;
+    :hasWeatherCondition :ClearWeather ;
+    :hasTimeOfDay :Daytime .
+
+:ClearWeather a :WeatherCondition ;
+    :hasVisibility "High" .
+
+:Daytime a :TimeOfDay ;
+    :hasLightingCondition "Bright" .
+
+:YellowTaxi a :Vehicle ;
+    :hasVehicleType "Taxi" ;
+    :hasColor "Yellow" ;
+    :isPositionedAt :LaneCenter ;
+    :isMovingInDirection :Forward ;
+    :hasSpeed "Moderate" .
+
+:LaneCenter a :RoadLane ;
+    :isPartOf :MainStreet ;
+    :hasLaneType "DrivingLane" .
+
+:MainStreet a :Road ;
+    :hasRoadMarkings :DoubleYellowLines ;
+    :hasTrafficSigns :StopSign, :TrafficLight .
+
+:DoubleYellowLines a :RoadMarking ;
+    :indicates "NoPassingZone" .
+
+:StopSign a :TrafficSign ;
+    :isPositionedAt :Intersection .
+
+:TrafficLight a :TrafficSign ;
+    :isPositionedAt :Intersection ;
+    :hasStatus "Green" .
+
+:Intersection a :RoadInfrastructure ;
+    :hasCrosswalk :PedestrianCrosswalk .
+
+:PedestrianCrosswalk a :RoadInfrastructure ;
+    :isPositionedAt :Intersection ;
+    :hasVisibility "High" .
+
+:Building1 a :Building ;
+    :isPositionedAt :LeftSideOfStreet ;
+    :hasHeight "HighRise" .
+
+:Building2 a :Building ;
+    :isPositionedAt :RightSideOfStreet ;
+    :hasHeight "HighRise" .
+
+:RedBus a :Vehicle ;
+    :hasVehicleType "Bus" ;
+    :hasColor "Red" ;
+    :isPositionedAt :BackgroundLane ;
+    :isMovingInDirection :Forward .
+
+:BackgroundLane a :RoadLane ;
+    :isPartOf :MainStreet ;
+    :hasLaneType "DrivingLane" .
+
+:YellowTaxi :isApproaching :Intersection .
+:YellowTaxi :isFollowing :TrafficRules .
+:RedBus :isFollowing :YellowTaxi .
+:PedestrianCrosswalk :isCrossedBy :YellowTaxi .
+:Building1 :isAdjacentTo :MainStreet .
+:Building2 :isAdjacentTo :MainStreet .
+```
+
+---
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:**
+The autonomous vehicle (yellow taxi) is approaching an intersection with a green traffic light. Although the traffic light is green, there is no visible pedestrian or cyclist currently crossing the intersection. However, the potential for pedestrians or cyclists to suddenly appear from the side streets or behind the buildings is a risk. The absence of visible pedestrians or cyclists does not eliminate the possibility of them crossing unexpectedly.
+
+**Severity Score:**
+**0.4** (Moderate risk due to potential unseen pedestrians or cyclists)
+
+---
+
+#### Risk 2:
+**Description:**
+The road markings indicate a no-passing zone (double yellow lines). The yellow taxi is in the lane center, which could be misinterpreted by other drivers as an indication of lane change intention, potentially leading to confusion or unsafe maneuvers from other vehicles.
+
+**Severity Score:**
+**0.3** (Low to moderate risk due to potential misinterpretation of lane positioning)
+
+---
+
+#### Risk 3:
+**Description:**
+The scene lacks visible cyclists or pedestrians, but the potential for them to be occluded by buildings or other vehicles is present. The autonomous vehicle should be prepared for sudden appearances of pedestrians or cyclists from occluded areas.
+
+**Severity Score:**
+**0.5** (Moderate risk due to potential occluded pedestrians or cyclists)
+
+---
+
+#### Risk 4:
+**Description:**
+The autonomous vehicle should ensure that it is correctly interpreting the traffic light status. Misinterpretation of traffic light signals can lead to unsafe driving behavior, such as entering the intersection when it is not safe to do so.
+
+**Severity Score:**
+**0.3** (Low to moderate risk due to potential misinterpretation of traffic signals)
+
+---
+
+#### Risk 5:
+**Description:**
+The presence of high-rise buildings on both sides of the street can create wind tunnels, which might affect the stability of the autonomous vehicle, especially if it is sensitive to crosswinds.
+
+**Severity Score:**
+**0.2** (Low risk due to potential impact of wind on vehicle stability)
+
+---
+This analysis provides a comprehensive understanding of the potential risks and their severity in the given scene.

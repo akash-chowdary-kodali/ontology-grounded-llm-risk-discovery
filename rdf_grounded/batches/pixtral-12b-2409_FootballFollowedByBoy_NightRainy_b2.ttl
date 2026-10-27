@@ -1,0 +1,39 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimePedestrianOnRoad" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking on roadway at night" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian walking on roadway without proper illumination" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Pedestrian walking on roadway without proper illumination
+Severity Score: 0.92
+
+---
+**Rationale:**
+- The scene depicts a **Pedestrian** walking on the roadway at night, which is classified as a **BehaviorAnomaly** since pedestrians should not be on the roadway without proper crosswalks or illumination.
+- The **NightCondition** is identified as the weather condition, contributing to the risk.
+- The primary risk is **PedestrianCollisionRisk** due to the pedestrian's presence on the roadway, which poses a high collision risk to any approaching vehicles.
+- The severity score of **0.92** reflects the high danger level of a pedestrian walking on the roadway in low-visibility conditions.

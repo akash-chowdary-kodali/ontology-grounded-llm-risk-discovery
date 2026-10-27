@@ -1,0 +1,235 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithReducedVisibility" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with foggy visibility" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Reduced visibility due to nighttime and potential fog" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :WeatherRisk ;
+    :description "Foggy conditions affecting road visibility" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from wet road reflections" ;
+    :hasSeverityScore :sev3 .
+
+:obstacle1 a :RoadObject ;
+    :description "Wet road surface with reflective glare" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.6"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Green traffic light at intersection" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard on right side of intersection" .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign on right side of intersection" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to nighttime and potential fog
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.9
+
+**Risk 2:**
+- **Description:** Foggy conditions affecting road visibility
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.85
+
+**Risk 3:**
+- **Description:** Potential distraction from wet road reflections
+- **Risk Type:** DistractionRisk
+- **Severity Score:** 0.6
+
+---
+
+### Analysis:
+1. **Entities in the Scene:**
+   - **WeatherCondition:** NightCondition (low-light) + potential FoggyCondition (implied by reduced visibility).
+   - **Obstacle:** Wet road surface with reflective glare (RoadObject).
+   - **TrafficLight:** Green traffic light at the intersection.
+   - **TrafficSign:** No entry sign on the right side.
+   - **Billboard:** Billboard on the right side of the intersection.
+
+2. **Corner Case Classification:**
+   - **StateAnomaly:** The scene represents a state anomaly due to the combination of nighttime, potential fog, and wet road conditions, which collectively create hazardous driving conditions.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to low visibility from nighttime and potential fog.
+   - **WeatherRisk:** High severity due to foggy conditions.
+   - **DistractionRisk:** Moderate severity due to wet road reflections causing glare.
+
+This interpretation aligns with the ontology constraints and captures the critical safety concerns in the scene. Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithSpeedLimit" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :description "Wet road surface with reduced visibility due to nighttime conditions and potential hydroplaning risk." .
+
+:roadObject1 a :RoadObject ;
+    :description "Wet road surface with reflective sheen indicating recent rain." .
+
+:weather1 a :NightCondition ;
+    :description "Nighttime with low ambient light and wet road conditions." .
+
+:risk1 a :RoadConditionRisk ;
+    :description "High risk of hydroplaning due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:risk2 a :OcclusionRisk ;
+    :description "Reduced visibility of road signs and potential obstacles due to nighttime and rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:trafficSign1 a :TrafficSign ;
+    :description "Speed limit sign (90 km/h) partially obscured by nighttime conditions" .
+
+:billboard1 a :Billboard ;
+    :description "Billboard with no clear content visible due to lighting and distance" .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** High risk of hydroplaning due to wet road surface
+- **Severity Score:** 0.9
+- **Risk Type:** `:RoadConditionRisk`
+
+**Risk 2:**
+- **Description:** Reduced visibility of road signs and potential obstacles due to nighttime and rain
+- **Severity Score:** 0.75
+- **Risk Type:** `:OcclusionRisk`
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Wet road surface (`:RoadObject`).
+   - **Weather Condition:** Nighttime (`:NightCondition`).
+   - **Traffic Sign:** Speed limit sign (`:TrafficSign`).
+   - **Billboard:** Billboard (`:Billboard`).
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`:StateAnomaly`** because the anomalous state arises from environmental conditions (wet road + nighttime) rather than actor behavior or evidence-based anomalies.
+
+3. **Risks Identified:**
+   - **Hydroplaning Risk:** High severity due to wet road conditions.
+   - **Occlusion Risk:** Moderate severity due to reduced visibility of signs and obstacles.
+
+4. **Severity Scores:**
+   - Hydroplaning risk is assigned a high severity (0.9) due to the immediate danger of losing vehicle control.
+   - Occlusion risk is assigned a moderate severity (0.75) due to potential misinterpretation of traffic signs or obstacles. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeWetRoadWithReflections" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasObstacle :obstacle1 .
+
+:weather1 a :NightCondition ;
+    :description "Low-light conditions with minimal illumination" .
+
+:weather2 a :RainyCondition ;
+    :description "Wet road surface indicating recent or ongoing rain" .
+
+:obstacle1 a :RoadObject ;
+    :description "Reflective water puddles on road surface causing visual distortion" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Visual occlusion due to water reflections on road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to wet surface" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :DistractionRisk ;
+    :description "Potential distraction from light reflections on wet road" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.55"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Visual occlusion due to water reflections on road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Slippery road conditions due to wet surface
+Severity Score: 0.65
+
+**Risk 3:**
+Description: Potential distraction from light reflections on wet road
+Severity Score: 0.55
+
+---
+**Notes:**
+1. The scene was classified as a **StateAnomaly** due to the anomalous state of the road (wet surface and reflections).
+2. No actors (e.g., pedestrians, cyclists, or vehicles) were detected in the image, so no `hasActor` property was assigned.
+3. The primary risks identified are related to the road conditions and visual distortions caused by the wet surface.
+4. Severity scores were assigned based on the potential impact of each risk on autonomous driving safety.

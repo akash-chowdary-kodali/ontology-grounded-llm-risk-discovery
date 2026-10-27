@@ -1,0 +1,51 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:TrafficLight1, ex:Billboard1, ex:BusStop1, ex:EnvironmentalCondition1 ;
+    ex:hasEntity ex:Vehicle2, ex:Pavement1 .
+
+ex:Vehicle1 a ex:Car ;
+    ex:isLocatedAt ex:Location1 .
+
+ex:TrafficLight1 a ex:TrafficLight ;
+    ex:isRed true ;
+    ex:locatedAt ex:Location1 .
+
+ex:Billboard1 a ex:Advertisement ;
+    ex:displaying "Fast Food Ad" ;
+    ex:locatedAt ex:Location2 .
+
+ex:BusStop1 a ex:BusStop ;
+    ex:isOccupied false ;
+    ex:locatedAt ex:Location3 .
+
+ex:EnvironmentalCondition1 a ex:WeatherCondition ;
+    ex:hasFog true ;
+    ex:visibility "Low" .
+
+ex:Location1 a ex:Point ;
+    ex:coordinates "Unknown" .
+
+ex:Location2 a ex:Point ;
+    ex:coordinates "Unknown" .
+
+ex:Location3 a ex:Point ;
+    ex:coordinates "Unknown" .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+**Description:** Reduced visibility due to fog can lead to increased chance of collisions with vehicles or pedestrians not being detected in time.  
+**Severity Score:** 0.7
+
+#### Risk 2:
+**Description:** The traffic light is red; potential for vehicles to proceed if visibility and awareness are compromised, risking running the light.  
+**Severity Score:** 0.6
+
+#### Risk 3:
+**Description:** Presence of pedestrians at the bus stop could lead to unexpected crossings, especially in low visibility conditions.  
+**Severity Score:** 0.5

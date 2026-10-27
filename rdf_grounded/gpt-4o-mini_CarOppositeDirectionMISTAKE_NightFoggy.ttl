@@ -1,0 +1,35 @@
+Below is the Semantic Interpretation in RDF Triples (Turtle Format) based on the scene descriptions provided:
+
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Night Scene under Overpass" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 ;
+    :hasObstacle :obstacle1 .
+
+:actor1 a :Vehicle .
+
+:weather1 a :NightCondition .
+
+:obstacle1 a :RoadObject .
+
+:risk1 a :CollisionRisk ;
+    :description "Driving towards stationary vehicle under low visibility." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.70"^^xsd:float .
+```
+
+Identified Risks for each risk class
+Risk 1:
+Description: Driving towards stationary vehicle under low visibility.
+Severity Score: 0.70

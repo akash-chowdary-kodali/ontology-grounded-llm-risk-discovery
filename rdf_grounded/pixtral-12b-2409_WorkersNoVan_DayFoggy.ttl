@@ -1,0 +1,238 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadConstructionWorkers" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :actor1, :actor2 ;
+    :hasObstacle :obstacle1, :obstacle2, :obstacle3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :Pedestrian ;
+    :description "Construction worker near road barrier" .
+:actor2 a :Pedestrian ;
+    :description "Construction worker walking on road" .
+
+:obstacle1 a :RoadObject ;
+    :description "Large concrete barrier on roadside" .
+:obstacle2 a :RoadObject ;
+    :description "Orange traffic cone" .
+:obstacle3 a :RoadObject ;
+    :description "Construction equipment on roadside" .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Orange cones indicate rolling hazard" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Construction worker walking into vehicle path" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Heavy fog obscuring visibility of road" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Construction equipment intruding into driving lane" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Construction worker walking into vehicle path
+- **Severity Score:** 0.90
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Heavy fog obscuring visibility of road
+- **Severity Score:** 0.85
+- **Risk Type:** OcclusionRisk
+
+**Risk 3:**
+- **Description:** Construction equipment intruding into driving lane
+- **Severity Score:** 0.75
+- **Risk Type:** LaneIntrusionRisk
+
+---
+
+### Explanation:
+1. **Corner Case Classification:**
+   The scene is classified as an **EvidenceBasedAnomaly** because the presence of orange cones and construction equipment provides clear evidence of a hazardous situation (rolling hazard and lane intrusion).
+
+2. **Entities Identified:**
+   - **Actors:** Two construction workers (Pedestrians).
+   - **Obstacles:** Concrete barrier, traffic cones, and construction equipment (RoadObjects).
+   - **Weather:** Heavy fog (FoggyCondition).
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** Due to workers walking near the road.
+   - **OcclusionRisk:** Due to fog reducing visibility.
+   - **LaneIntrusionRisk:** Due to construction equipment on the roadside.
+
+4. **Severity Scores:**
+   - Highest severity for pedestrian collision (0.90) due to immediate threat.
+   - Medium-high for occlusion (0.85) due to visibility impairment.
+   - Medium for lane intrusion (0.75) due to potential but less immediate hazard. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingInFoggyConditions" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasActor :pedestrian1 ;
+    :hasWeatherCondition :foggyCondition1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasObstacle :orangeCone1, :orangeCone2, :roadBarrier1 ;
+    :hasEvidence :evidence1 .
+
+:pedestrian1 a :Pedestrian ;
+    :description "Person crossing road in foggy conditions" .
+
+:foggyCondition1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing path in low-visibility conditions" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of pedestrian and surroundings" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Orange cones and road barrier indicate construction or hazard zone" ;
+    :indicatesPotentialRisk :risk1, :risk2 .
+
+:orangeCone1 a :RoadObject ;
+    :description "Orange traffic cone on left side of road" .
+
+:orangeCone2 a :RoadObject ;
+    :description "Orange traffic cone on right side of road" .
+
+:roadBarrier1 a :RoadObject ;
+    :description "Road barrier near left side of road" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.92"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.88"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Pedestrian crossing path in low-visibility conditions
+- **Severity Score:** 0.92
+- **Risk Type:** PedestrianCollisionRisk
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of pedestrian and surroundings
+- **Severity Score:** 0.88
+- **Risk Type:** OcclusionRisk
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Actor:** Pedestrian crossing the road.
+   - **Obstacles:** Orange traffic cones and a road barrier (indicating a construction or hazard zone).
+   - **WeatherCondition:** FoggyCondition (reduced visibility).
+   - **EvidenceIndicator:** FallingObjectIndicator (orange cones and barrier suggest a potential hazard or construction zone).
+
+2. **Corner Case Classification:**
+   - **EvidenceBasedAnomaly:** The presence of orange cones and a road barrier, combined with the pedestrian crossing in foggy conditions, suggests an evidence-based anomaly where the environment provides clues about an unusual or hazardous situation.
+
+3. **Risks Identified:**
+   - **PedestrianCollisionRisk:** High severity due to the pedestrian crossing in low-visibility conditions.
+   - **OcclusionRisk:** High severity due to fog reducing visibility of the pedestrian and surrounding obstacles.
+
+The RDF triples strictly adhere to the provided ontology vocabulary and rules. ```
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "PedestrianCrossingWithOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:actor1 a :Pedestrian ;
+    :description "Pedestrian walking across the road from behind a vehicle" .
+
+:weather1 a :ClearCondition .
+
+:risk1 a :PedestrianCollisionRisk ;
+    :description "Pedestrian crossing road unexpectedly from behind vehicle" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Vehicle obstructs view of pedestrian from driver's perspective" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :LaneIntrusionRisk ;
+    :description "Pedestrian intruding into vehicle path" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+```
+Identified Risks for each risk class
+Risk 1:
+Description: Pedestrian crossing road unexpectedly from behind vehicle
+Severity Score: 0.90
+
+Risk 2:
+Description: Vehicle obstructs view of pedestrian from driver's perspective
+Severity Score: 0.85
+
+Risk 3:
+Description: Pedestrian intruding into vehicle path
+Severity Score: 0.80
+```

@@ -1,0 +1,71 @@
+Here is the semantic interpretation of the scene based on the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "HeavyRainUrbanDriving" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:weather1 a :RainyCondition ;
+    :description "Heavy rain reducing visibility" .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Water droplets creating rolling ball effect on road" ;
+    :indicatesPotentialRisk :risk2 .
+
+:risk1 a :WeatherRisk ;
+    :description "Reduced visibility due to heavy rain" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Slippery road conditions due to heavy rain" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Reduced visibility due to heavy rain
+- **Risk Type:** WeatherRisk
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Slippery road conditions due to heavy rain
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - The scene features **heavy rain** (`:weather1` as `:RainyCondition`), which is the primary obstacle affecting driving conditions.
+   - No explicit actors (pedestrians, cyclists, or vehicles) are visible due to the rain and limited visibility, but the **rolling ball effect** (`:evidence1` as `:RollingBallIndicator`) indicates hazardous road conditions.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** (`:cc1`) because the hazardous conditions (slippery roads and reduced visibility) are inferred from observable evidence (water droplets and rain).
+
+3. **Risks Identified:**
+   - **WeatherRisk** due to heavy rain reducing visibility.
+   - **RoadConditionRisk** due to slippery roads caused by the rain.
+
+4. **Severity Scores:**
+   - High severity (`0.90`) for visibility reduction (critical for autonomous driving).
+   - High severity (`0.85`) for slippery roads (increases collision risk).

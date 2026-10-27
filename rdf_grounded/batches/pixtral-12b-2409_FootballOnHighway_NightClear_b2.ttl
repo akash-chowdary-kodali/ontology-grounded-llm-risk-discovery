@@ -1,0 +1,46 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeEmptyRoadWithPotentialOcclusion" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :roadObject1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 .
+
+:roadObject1 a :RoadObject ;
+    :description "Unlit or poorly visible road markings and potential debris/obstacle on road" .
+
+:weather1 a :NightCondition .
+
+:risk1 a :OcclusionRisk ;
+    :description "Poor visibility due to nighttime conditions and lack of illumination" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential debris or obstruction on the road surface" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Poor visibility due to nighttime conditions and lack of illumination.
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Potential debris or obstruction on the road surface.
+Severity Score: 0.60
+
+---
+The scene is classified as an **EvidenceBasedAnomaly** due to the lack of clear visibility and potential road obstruction, which are inferred from the visual evidence rather than direct observation of anomalous behavior or state. The risks identified are **OcclusionRisk** and **RoadConditionRisk**. The severity scores reflect the potential danger posed by the nighttime conditions and the possible obstruction on the road.

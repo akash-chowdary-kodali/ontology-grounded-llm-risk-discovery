@@ -1,0 +1,44 @@
+### Semantic Interpretation
+
+**1. Main Entities:**
+*   **Ego-vehicle:** Red vehicle (hood visible at bottom).
+*   **Other Vehicle:** Black sedan approaching the ego-vehicle.
+*   **Infrastructure:** Urban street, overhead rail structure (bridge/tracks), sidewalk, building.
+*   **Environmental Conditions:** Heavy fog (extremely low visibility).
+
+**2. Relationships:**
+*   **Opposing:** The black sedan is in the oncoming lane, approaching the ego-vehicle.
+*   **Proximity:** The black sedan is rapidly decreasing distance to the ego-vehicle.
+*   **Environmental Impact:** The dense fog acts as an occluder, limiting the sensing range for both vehicles.
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scenario#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:BlackSedan rdf:type ex:Vehicle .
+ex:Environment rdf:type ex:WeatherCondition ;
+    ex:visibility "low" ;
+    ex:type "fog" .
+
+ex:BlackSedan ex:approaching ex:EgoVehicle .
+ex:BlackSedan ex:inLane ex:OppositeLane .
+ex:Environment ex:occludes ex:SensorVision .
+ex:BlackSedan ex:proximity ex:Dangerous .
+```
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Impaired visibility due to extreme fog. The low-contrast environment makes it difficult for sensors and human drivers to accurately judge distance, speed, and lane positioning of the oncoming black sedan.
+*   **Severity Score:** 0.85
+
+**Risk 2:**
+*   **Description:** Impending frontal collision risk. The oncoming vehicle is rapidly approaching the ego-vehicle's path in a narrow urban environment with no clear shoulder or evasive space, significantly increasing the probability of a head-on collision.
+*   **Severity Score:** 0.95
+
+**Risk 3:**
+*   **Description:** Infrastructure hazard. The overhead rail structure creates pillars and vertical obstructions that, combined with the dense fog, may further distort spatial awareness or hide smaller vulnerable road users (pedestrians/cyclists) from the ego-vehicle's path.
+*   **Severity Score:** 0.60

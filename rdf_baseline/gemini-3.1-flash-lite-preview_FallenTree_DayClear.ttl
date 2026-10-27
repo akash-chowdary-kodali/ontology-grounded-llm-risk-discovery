@@ -1,0 +1,38 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scenario/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:PoliceCar rdf:type ex:Vehicle ;
+             ex:hasStatus ex:EmergencyVehicle .
+ex:Taxi1 rdf:type ex:Vehicle .
+ex:Taxi2 rdf:type ex:Vehicle .
+ex:RoadObstruction rdf:type ex:Obstacle ;
+                   ex:isMaterial "FallenTree" .
+
+ex:EgoVehicle ex:approaching ex:RoadObstruction .
+ex:PoliceCar ex:crosses ex:RoadObstruction .
+ex:Taxi1 ex:near ex:EgoVehicle .
+ex:Taxi2 ex:parkedNear ex:EgoVehicle .
+ex:RoadObstruction ex:occludes ex:Intersection .
+```
+
+### Identified Risks
+
+**Risk 1: Road Obstruction (Major)**
+*   **Description:** A large fallen tree occupies the entire width of the road ahead, creating a total blockage. The Ego vehicle is approaching this static obstacle, which requires an immediate halt or emergency maneuver.
+*   **Severity Score:** 0.95
+
+**Risk 2: Emergency Vehicle Interaction**
+*   **Description:** A police car is positioned across the road at the intersection, seemingly responding to the incident. Unpredictable movements from emergency vehicles and the presence of responders in the road increase collision risk.
+*   **Severity Score:** 0.75
+
+**Risk 3: Occluded Intersection**
+*   **Description:** The fallen tree and the positioning of the police vehicle severely limit visibility of the intersection and cross-traffic, preventing the Ego vehicle from properly assessing the path forward or identifying potential hazards emerging from behind the obstruction.
+*   **Severity Score:** 0.65
+
+**Risk 4: Narrow Maneuvering Space**
+*   **Description:** Taxis on both sides of the Ego vehicle create a constrained environment. If the Ego vehicle attempts to deviate or perform an emergency stop, the proximity of these vehicles limits lateral movement and increases the risk of side-swipe or rear-end collisions.
+*   **Severity Score:** 0.50

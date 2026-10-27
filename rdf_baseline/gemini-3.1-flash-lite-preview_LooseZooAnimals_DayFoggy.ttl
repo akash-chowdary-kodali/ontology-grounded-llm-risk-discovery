@@ -1,0 +1,44 @@
+### 1. Main Entities
+*   **Ego-Vehicle:** The perspective vehicle (red hood visible).
+*   **Animals (Obstacles):** Gorilla (center of the road), Antelope/Deer (left grass verge), Elephant (right sidewalk).
+*   **Infrastructure:** Suburban road with curb, sidewalk, street lighting/pole, residential houses in background.
+*   **Environmental Conditions:** Heavy fog (extremely low visibility), low ambient light.
+
+### 2. Entity Relationships
+*   **Gorilla:** Positioned directly in the travel path of the ego-vehicle.
+*   **Antelope:** Located on the near-left verge, potentially ready to enter the roadway.
+*   **Elephant:** Located on the right sidewalk, partially obscured/near the vehicle's path.
+*   **Visibility:** The fog heavily occludes all objects at a distance, reducing the detection window for the ego-vehicle.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://autonomous-safety.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+:EgoVehicle :isAt :RoadCenter .
+:Gorilla :type :Obstacle ;
+         :isLocatedIn :Roadway ;
+         :isDirectlyInPath :EgoVehicle .
+:Antelope :type :PotentialHazard ;
+          :isNear :Roadway .
+:Elephant :type :StaticObstacle ;
+          :isNear :Sidewalk .
+:Environment :hasVisibility :VeryLow ;
+             :hasCondition :DenseFog .
+:Gorilla :isObstructionFor :EgoVehicle .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision with large animal (Gorilla) currently stationary on the active roadway. The low-visibility environment significantly reduces reaction time for emergency braking or maneuvering.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Unpredictable animal behavior (Antelope on the side). Given the fog, the system may fail to detect the animal until it is already crossing the vehicle's path.
+*   **Severity Score:** 0.70
+
+**Risk 3:**
+*   **Description:** Degraded sensor performance due to environmental conditions. Dense fog interferes with LiDAR/Camera depth perception and object classification, increasing the likelihood of false negatives or delayed recognition of the animals.
+*   **Severity Score:** 0.85

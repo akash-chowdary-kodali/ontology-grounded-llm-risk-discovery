@@ -1,0 +1,50 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/ontology#> .
+
+ex:Scene1 a ex:TrafficScene ;
+    ex:hasEntity ex:Vehicle1, ex:Elephant1, ex:Goat1, ex:Gorilla1, ex:House1, ex:House2, ex:Tree1 ;
+    ex:hasWeatherCondition ex:FoggyWeather .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:location ex:NearRoad ;
+
+ex:Elephant1 a ex:Animal ;
+    ex:location ex:NearRoad ;
+    ex:action ex:Asleep .
+
+ex:Goat1 a ex:Animal ;
+    ex:location ex:NearRoad ;
+    ex:action ex:Crossing .
+
+ex:Gorilla1 a ex:Animal ;
+    ex:location ex:NearRoad ;
+    ex:action ex:Running .
+
+ex:House1 a ex:Building ;
+    ex:location ex:LeftSideOfRoad .
+
+ex:House2 a ex:Building ;
+    ex:location ex:RightSideOfRoad .
+
+ex:Tree1 a ex:Plant ;
+    ex:location ex:NearRoad .
+
+ex:FoggyWeather a ex:WeatherCondition ;
+    ex:visibility ex:Low .
+```
+
+### Identified Risks for each risk class
+
+#### Risk 1:
+- **Description:** Presence of large animals (elephant and gorilla) on or near the road could lead to unexpected interactions with the vehicle.
+- **Severity Score:** 0.8
+
+#### Risk 2:
+- **Description:** Reduced visibility due to fog can impair the driver's ability to see pedestrians or obstacles, increasing the likelihood of collisions.
+- **Severity Score:** 0.9
+
+#### Risk 3:
+- **Description:** The goat crossing the road poses a risk of sudden movement in front of the vehicle, which could lead to an accident.
+- **Severity Score:** 0.75

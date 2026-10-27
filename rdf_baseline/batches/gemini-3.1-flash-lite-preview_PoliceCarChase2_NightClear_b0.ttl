@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/safety#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:isLocatedIn ex:NightEnvironment .
+
+ex:OpposingVehicle rdf:type ex:Vehicle ;
+    ex:isMovingToward ex:EgoVehicle ;
+    ex:isCrossingInto ex:EgoVehicleLane .
+
+ex:AdjacentVehicle rdf:type ex:Vehicle ;
+    ex:isPositionedToRightOf ex:EgoVehicle .
+
+ex:Infrastructure rdf:type ex:BridgeSupport ;
+    ex:isNear ex:Roadway .
+
+ex:Roadway rdf:type ex:TwoWayStreet ;
+    ex:hasLaneSeparator ex:YellowDoubleLine .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Head-on collision hazard. The oncoming black vehicle has crossed over the yellow double center line into the ego vehicle's path.
+**Severity Score:** 0.95
+
+**Risk 2:**
+**Description:** Lateral collision hazard. The ego vehicle is constrained on the right by another vehicle, leaving limited space for evasive maneuvers to avoid the oncoming vehicle.
+**Severity Score:** 0.70
+
+**Risk 3:**
+**Description:** Reduced visibility/Environment hazard. The scene takes place at night under a low-clearance bridge structure, which creates significant shadows and visual complexity, potentially hindering sensor perception and driver reaction time.
+**Severity Score:** 0.55

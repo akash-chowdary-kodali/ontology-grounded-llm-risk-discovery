@@ -1,0 +1,82 @@
+Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+**Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeAnimalCrossing" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :description "Animals crossing road in an unexpected manner at night" ;
+    :hasActor :actor1, :actor2, :actor3 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:actor1 a :AnimalActor ;  # Note: "AnimalActor" is not in the ontology; using closest match (Cyclist/Pedestrian/Vehicle) is not possible. This is a limitation of the ontology.
+    :description "Large animal (e.g., horse) crossing road" .
+:actor2 a :AnimalActor ;  # Same limitation as above
+    :description "Medium-sized animal (e.g., dog) crossing road" .
+:actor3 a :AnimalActor ;  # Same limitation as above
+    :description "Small animal (e.g., cat) crossing road" .
+
+:weather1 a :NightCondition ;
+    :description "Low visibility due to nighttime" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with animals crossing the road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Animals may obscure visibility of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:evidence1 a :RollingBallIndicator ;  # Approximation: Animals moving unpredictably like rolling objects
+    :description "Animals moving erratically across the road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+---
+**Identified Risks for each risk class**
+
+**Risk 1:**
+Description: Potential collision with animals crossing the road
+Severity Score: 0.90
+
+**Risk 2:**
+Description: Animals may obscure visibility of other road users
+Severity Score: 0.75
+
+---
+### **Key Observations and Limitations:**
+1. **Animal Actors Not in Ontology:**
+   The ontology lacks a class for animals, so I approximated them as `AnimalActor` (though this is not a valid class). In a real-world scenario, this would require ontology expansion or alternative modeling (e.g., treating animals as `Obstacle` or `RoadObject`).
+
+2. **Corner Case Classification:**
+   The scene is classified as a **BehaviorAnomaly** because the animals' presence and movement are unexpected and unpredictable in this context.
+
+3. **Evidence Indicator:**
+   Used `RollingBallIndicator` as a proxy for erratic animal movement, though this is not a perfect fit.
+
+4. **Weather Condition:**
+   `NightCondition` is assigned due to low visibility, which exacerbates the risks.
+
+5. **Risks Identified:**
+   - **CollisionRisk** (high severity due to animals crossing the road).
+   - **OcclusionRisk** (medium severity due to animals potentially blocking other road users).
+
+---
+### **Suggested Ontology Improvements (if possible):**
+- Add an `Animal` subclass under `Actor` or `Obstacle`.
+- Include a `WildlifeCrossingIndicator` under `EvidenceIndicator`.
+- Define `AnimalCollisionRisk` as a subclass of `CollisionRisk`.

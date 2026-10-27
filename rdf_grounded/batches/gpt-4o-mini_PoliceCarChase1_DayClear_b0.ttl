@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "Vehicle in Tunnel" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :BehaviorAnomaly ;
+    :hasActor :actor1 ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1 .
+
+:actor1 a :Vehicle .
+
+:weather1 a :ClearCondition .
+
+:obstacle1 a :RoadObject ;
+    :description "A vehicle stopping abruptly in the lane." .
+
+:risk1 a :RearEndCollisionRisk ;
+    :description "Potential for rear-end collision due to unexpected vehicle behavior." ;
+    :hasSeverityScore :sev1 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+### Identified Risks for each risk class
+
+**Risk 1:**  
+**Description:** Potential for rear-end collision due to unexpected vehicle behavior.  
+**Severity Score:** 0.75

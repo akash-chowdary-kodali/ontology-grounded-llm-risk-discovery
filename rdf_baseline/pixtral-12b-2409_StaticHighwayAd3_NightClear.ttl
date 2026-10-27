@@ -1,0 +1,336 @@
+Here is the semantic analysis of the provided scene images:
+
+---
+
+### **1. Identified Entities & Relationships**
+#### **Main Entities:**
+- **Vehicles:** None visible in the scene (empty road).
+- **Pedestrians:** None visible.
+- **Cyclists:** None visible.
+- **Road Infrastructure:**
+  - Traffic lights (green for the ego vehicle, red for cross traffic).
+  - Road markings (solid white lines, dashed white lines, and a pedestrian crosswalk).
+  - Traffic signs (no-entry sign, speed limit sign, and an advertisement billboard).
+  - Streetlights (illuminated).
+- **Obstacles:** None visible (clear road).
+- **Weather Conditions:** Nighttime, no visible precipitation, but low visibility due to darkness.
+
+#### **Relationships:**
+- The **ego vehicle** is at a **traffic light** with a **green signal** (proceeding straight).
+- The **cross traffic** (not visible) has a **red signal** (potential unseen vehicles).
+- The **road markings** indicate a **two-way intersection** with a **pedestrian crossing**.
+- The **streetlights** provide illumination, but visibility is reduced due to nighttime.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :TrafficScene ;
+    :hasLightCondition :Nighttime ;
+    :hasWeatherCondition :Clear ;
+    :hasTrafficLight [
+        a :TrafficLight ;
+        :hasSignalColor :Green ;
+        :controlsDirection :Forward ;
+        :controlsCrossTraffic :Red
+    ] ;
+    :hasRoadMarking [
+        a :RoadMarking ;
+        :type :SolidWhiteLine ;
+        :location :LeftLaneBoundary
+    ],
+    [
+        a :RoadMarking ;
+        :type :DashedWhiteLine ;
+        :location :CenterLine
+    ],
+    [
+        a :RoadMarking ;
+        :type :PedestrianCrosswalk ;
+        :location :Intersection
+    ] ;
+    :hasTrafficSign [
+        a :TrafficSign ;
+        :type :NoEntry ;
+        :location :RightSide
+    ],
+    [
+        a :TrafficSign ;
+        :type :SpeedLimit ;
+        :value "50"^^xsd:int ;
+        :unit "km/h" ;
+        :location :RightSide
+    ] ;
+    :hasStreetLight [
+        a :StreetLight ;
+        :status :On ;
+        :illuminationLevel :Low
+    ] ;
+    :hasVehicle [
+        a :EgoVehicle ;
+        :position :Front ;
+        :trafficLightStatus :Green
+    ] ;
+    :hasPotentialRisk [
+        a :Risk ;
+        :riskType :UnseenCrossTraffic ;
+        :severity 0.7
+    ],
+    [
+        a :Risk ;
+        :riskType :PedestrianCrossing ;
+        :severity 0.6
+    ],
+    [
+        a :Risk ;
+        :riskType :LowVisibility ;
+        :severity 0.5
+    ] .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+**Description:**
+Unseen cross traffic due to the **red light** for perpendicular lanes. Although no vehicles are visible, the ego vehicle must assume potential unseen vehicles may violate the red light or be obscured by darkness.
+**Severity Score:** **0.7**
+
+#### **Risk 2:**
+**Description:**
+Potential **pedestrian crossing** at the intersection. Even though no pedestrians are visible, the crosswalk indicates a high-risk area where pedestrians may suddenly appear.
+**Severity Score:** **0.6**
+
+#### **Risk 3:**
+**Description:**
+**Low visibility** due to nighttime conditions. While streetlights are on, the darkness may obscure distant objects, signs, or sudden movements.
+**Severity Score:** **0.5**
+
+#### **Risk 4:**
+**Description:**
+**Traffic sign misinterpretation** (e.g., no-entry sign on the right). If the ego vehicle is turning right, it may misread the sign in low light, leading to an incorrect maneuver.
+**Severity Score:** **0.4**
+
+---
+### **Summary of Risks**
+| **Risk Class**               | **Severity Score** |
+|------------------------------|-------------------|
+| Unseen Cross Traffic         | 0.7               |
+| Pedestrian Crossing          | 0.6               |
+| Low Visibility               | 0.5               |
+| Traffic Sign Misinterpretation | 0.4           |
+
+---
+### **Key Observations:**
+- The scene is a **high-risk intersection** due to **nighttime conditions** and **potential unseen traffic**.
+- The **ego vehicle must prioritize caution** when proceeding through the green light.
+- **Sensor limitations** (e.g., camera, radar) may struggle with **low-light detection**, increasing the need for **defensive driving strategies**.
+
+Would you like additional details on mitigation strategies for these risks? Below is the structured analysis of the provided scene images, which depict a nighttime urban road intersection with minimal traffic and infrastructure elements.
+
+---
+
+### **1. Identified Entities and Relationships**
+#### **Main Entities:**
+- **Road Infrastructure:**
+  - Road markings (double white lines, dashed lines)
+  - Traffic signs (speed limit 90 km/h, no entry, pedestrian crossing)
+  - Traffic lights (green for the ego vehicle's direction)
+  - Overhead electronic signboard (advertisement or dynamic info)
+  - Streetlights (illuminating the road)
+  - Sidewalk and brick wall (right side)
+  - Trees (partially occluding the right side)
+
+- **Vehicles:**
+  - Ego vehicle (red car, front view)
+  - No other vehicles visible in the immediate scene (potential occluded vehicles beyond the curve)
+
+- **Pedestrians/Cyclists:**
+  - None visible in the immediate scene
+
+- **Weather/Occlusions:**
+  - Nighttime (low visibility)
+  - No rain/snow, but potential glare from streetlights
+
+#### **Relationships:**
+- The ego vehicle is **approaching** the intersection with a **green traffic light**.
+- The road markings indicate a **lane merge** or **intersection ahead**.
+- The **no-entry sign** suggests restricted entry from the opposite direction.
+- The **speed limit (90 km/h)** applies to the current road.
+- The **electronic signboard** is positioned above the road, likely for dynamic traffic info.
+- The **trees and brick wall** partially occlude the right side of the road.
+
+---
+
+### **2. Scene Description in RDF Triples (Turtle Format)**
+```turtle
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasWeatherCondition :Nighttime ;
+    :hasLightingCondition :StreetlightIllumination ;
+    :hasRoadMarking :DoubleWhiteLines ;
+    :hasRoadMarking :DashedLines ;
+    :hasTrafficLight :GreenLight .
+
+:EgoVehicle a :Vehicle ;
+    :hasColor "Red" ;
+    :isApproaching :Intersection ;
+    :hasSpeedLimitConstraint 90 ;
+    :hasSpeedLimitUnit "km/h" .
+
+:Intersection a :RoadInfrastructure ;
+    :hasTrafficSign :NoEntrySign ;
+    :hasTrafficSign :PedestrianCrossingSign ;
+    :hasSpeedLimitSign 90 ;
+    :hasElectronicSignboard :DynamicInfoDisplay ;
+    :hasOcclusion :Trees ;
+    :hasOcclusion :BrickWall .
+
+:Risk1 a :SafetyRisk ;
+    :riskType :LowVisibility ;
+    :riskDescription "Nighttime conditions reduce visibility of potential obstacles or pedestrians." ;
+    :severityScore 0.6 .
+
+:Risk2 a :SafetyRisk ;
+    :riskType :OccludedVehicles ;
+    :riskDescription "Potential unseen vehicles around the curve due to limited visibility." ;
+    :severityScore 0.7 .
+
+:Risk3 a :SafetyRisk ;
+    :riskType :MisinterpretedSigns ;
+    :riskDescription "Misinterpretation of dynamic electronic signboard or traffic signs under low light." ;
+    :severityScore 0.5 .
+```
+
+---
+
+### **3. Identified Risks for Each Risk Class**
+
+#### **Risk 1:**
+- **Description:** Nighttime conditions reduce visibility of potential obstacles, pedestrians, or cyclists.
+- **Severity Score:** **0.6** (Moderate)
+  - Justification: Low lighting increases the chance of missing non-illuminated objects or pedestrians.
+
+#### **Risk 2:**
+- **Description:** Potential unseen vehicles around the curve due to limited visibility.
+- **Severity Score:** **0.7** (High)
+  - Justification: The curve occludes the view, making it difficult to detect vehicles or obstacles in time.
+
+#### **Risk 3:**
+- **Description:** Misinterpretation of dynamic electronic signboard or traffic signs under low light.
+- **Severity Score:** **0.5** (Moderate)
+  - Justification: Poor lighting may cause confusion with traffic signs or electronic displays.
+
+#### **Risk 4 (Additional):**
+- **Description:** Glare from streetlights or oncoming headlights may temporarily blind the driver.
+- **Severity Score:** **0.4** (Low)
+  - Justification: While glare is a concern, modern vehicles have glare reduction features.
+
+---
+### **Summary of Key Observations:**
+- The scene is **low-risk in terms of immediate collisions** due to no visible traffic.
+- **Primary concerns** are **visibility-related risks** (nighttime, occlusions, glare).
+- **Dynamic signboards** and **traffic signs** must be clearly interpreted to avoid misrouting.
+- **Future risk:** If a vehicle emerges from the curve, the ego vehicle may have insufficient reaction time.
+
+Would you like additional details on any specific aspect? ```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/autonomousDriving#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:timeStamp "2023-10-05T23:45:00"^^xsd:dateTime ;
+    ex:location "Urban Road" ;
+    ex:weatherCondition ex:Night .
+
+ex:Road ex:partOf ex:Scene1 ;
+    ex:hasLaneMarkings ex:DoubleSolidWhite ;
+    ex:hasCurve ex:GentleCurve ;
+    ex:hasSpeedLimit "60"^^xsd:integer ;
+    ex:hasLighting ex:StreetLights .
+
+ex:Vehicle1 a ex:AutonomousVehicle ;
+    ex:positionedOn ex:Road ;
+    ex:direction ex:Forward ;
+    ex:hasHeadlights ex:On .
+
+ex:Billboard1 a ex:RoadSign ;
+    ex:positionedOn ex:Road ;
+    ex:location ex:RightSide ;
+    ex:content "Advertisement" .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:positionedOn ex:Sidewalk ;
+    ex:location ex:FarRight ;
+    ex:distanceFromVehicle ex:Far .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:positionedOn ex:Road ;
+    ex:status ex:On ;
+    ex:illuminationLevel ex:Low .
+
+ex:Obstacle1 a ex:PotentialObstacle ;
+    ex:positionedOn ex:Road ;
+    ex:type ex:UnknownObject ;
+    ex:distanceFromVehicle ex:Far .
+
+ex:Vehicle1 ex:approaching ex:Billboard1 .
+ex:Vehicle1 ex:near ex:StreetLight1 .
+ex:Vehicle1 ex:notNear ex:Pedestrian1 .
+ex:Obstacle1 ex:occludedBy ex:Billboard1 .
+ex:Pedestrian1 ex:crossingPotential ex:Road .
+```
+
+---
+
+```plaintext
+Identified Risks for each risk class
+```
+
+**Risk 1:**
+Description:
+The scene is captured during nighttime with low street lighting, which can reduce visibility for the autonomous vehicle. The potential unknown object on the road, occluded by the billboard, poses a risk of collision if not detected in time.
+
+Severity Score: 0.7
+
+**Risk 2:**
+Description:
+The gentle curve in the road combined with low visibility can lead to misjudgment of distances and speeds by the autonomous vehicle, increasing the risk of losing control or drifting out of lane.
+
+Severity Score: 0.6
+
+**Risk 3:**
+Description:
+The presence of a pedestrian on the sidewalk, although far from the vehicle, indicates that the autonomous vehicle must be prepared for potential pedestrian crossing into the roadway, especially in low-visibility conditions.
+
+Severity Score: 0.5
+
+**Risk 4:**
+Description:
+The billboard and other potential occlusions on the road can obstruct the vehicle's sensors and cameras, leading to missed detection of obstacles or other vehicles.
+
+Severity Score: 0.8
+
+**Risk 5:**
+Description:
+The autonomous vehicle's headlights being on is crucial, but if they are not sufficiently powerful or if there are glare issues, it can further reduce visibility and increase the risk of accidents.
+
+Severity Score: 0.6
+
+---
+This analysis provides a comprehensive understanding of the potential risks and their severity in the given nighttime driving scenario.

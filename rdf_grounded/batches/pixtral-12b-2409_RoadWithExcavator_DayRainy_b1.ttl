@@ -1,0 +1,77 @@
+Here is the semantic interpretation of the provided scene images using the given OWL ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "ConstructionEquipmentInRoadway" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Construction bucket attached to crane arm obstructing road" .
+
+:weather1 a :FoggyCondition ;
+    :description "Low visibility due to fog" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Bucket swinging over roadway" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Obstruction of road by construction equipment with swinging bucket" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Potential debris or unstable road conditions due to construction activity" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.95"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Obstruction of road by construction equipment with swinging bucket
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.95
+- **Evidence:** FallingObjectIndicator (swinging bucket)
+
+**Risk 2:**
+- **Description:** Potential debris or unstable road conditions due to construction activity
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Construction bucket attached to crane arm (classified as `:RoadObject`).
+   - **WeatherCondition:** Foggy conditions (`:FoggyCondition`), reducing visibility.
+   - No actors (pedestrians, cyclists, or vehicles) are visible in the scene.
+
+2. **Corner Case Classification:**
+   - The scene is classified as a **`StateAnomaly`** because the anomalous state is the presence of an unexpected obstacle (construction equipment) in the roadway, which is not a behavioral or evidence-based anomaly.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to the swinging bucket obstructing the road and posing an immediate collision hazard.
+   - **RoadConditionRisk:** Moderate severity due to potential debris or unstable road conditions from construction activity.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.95) is assigned the highest score due to the immediate danger of the swinging bucket.
+   - RoadConditionRisk (0.80) is slightly lower but still significant due to the long-term instability of the roadway.

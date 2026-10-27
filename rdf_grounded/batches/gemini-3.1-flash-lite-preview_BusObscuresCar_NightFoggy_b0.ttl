@@ -1,0 +1,33 @@
+Scene Description in RDF Triples (Turtle Format)
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyNightParking" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :StateAnomaly ;
+    :hasWeatherCondition :weather1 ;
+    :hasActor :actor1, :actor2 ;
+    :hasRisk :risk1 .
+
+:weather1 a :FoggyCondition, :NightCondition .
+
+:actor1 a :Vehicle ;
+    :description "Parked vehicle on the side" .
+
+:actor2 a :Vehicle ;
+    :description "Black vehicle with open door" .
+
+:risk1 a :OcclusionRisk ;
+    :description "Limited visibility due to fog and night, combined with potentially opening vehicle door near traffic" ;
+    :hasSeverityScore :sev1 ;
+    :confidenceScore "0.75"^^xsd:float .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.65"^^xsd:float .
+
+Identified Risks for each risk class
+Risk 1:
+Description: Occlusion risk caused by heavy fog and night conditions, exacerbating the danger of parked vehicles (potential open door).
+Severity Score: 0.65

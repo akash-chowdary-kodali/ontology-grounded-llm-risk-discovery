@@ -1,0 +1,36 @@
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle .
+ex:ParkedVehicle rdf:type ex:Vehicle ;
+    ex:position "right" ;
+    ex:status "stationary" .
+
+ex:Ambulance rdf:type ex:Vehicle ;
+    ex:activity "emergency_response" ;
+    ex:position "left_distance" .
+
+ex:BusStop rdf:type ex:Infrastructure .
+
+ex:EgoVehicle ex:near ex:ParkedVehicle .
+ex:ParkedVehicle ex:occludes ex:BusStop .
+ex:Ambulance ex:approaching ex:EgoVehicle .
+```
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Potential for pedestrian emergence from behind the occluding parked vehicle/bus stop area. The field of view to the right side of the road is significantly restricted by the parked car at the bus stop, creating a "blind spot" where a pedestrian could step into the ego vehicle's path.
+**Severity Score:** 0.75
+
+**Risk 2:**
+**Description:** Emergency vehicle (ambulance) interaction. The presence of an ambulance at a distance suggests an active emergency scenario. The ego vehicle must be prepared to yield or maneuver if the ambulance crosses its path or requires an emergency corridor, adding complexity to current navigation.
+**Severity Score:** 0.60
+
+**Risk 3:**
+**Description:** Lateral proximity risk. The ego vehicle is driving in close lateral proximity to the parked vehicle on the right. Any sudden opening of a door by an occupant of the parked vehicle or a slight swerve could result in a collision.
+**Severity Score:** 0.55

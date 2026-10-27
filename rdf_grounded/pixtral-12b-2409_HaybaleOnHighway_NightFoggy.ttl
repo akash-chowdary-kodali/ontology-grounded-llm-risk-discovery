@@ -1,0 +1,215 @@
+Here is the semantic interpretation of the provided scene images using the given ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "NighttimeIntersectionWithFogAndObstacle" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasEvidence :evidence1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Debris on road surface" .
+
+:weather1 a :FoggyCondition ;
+    :description "Foggy visibility at night" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Debris on road indicating potential falling object" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :OcclusionRisk ;
+    :description "Fog reduces visibility of road obstacles" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :RoadConditionRisk ;
+    :description "Debris on road surface poses hazard" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.85"^^xsd:float .
+```
+
+---
+
+### Identified Risks for Each Risk Class
+
+**Risk 1:**
+- **Description:** Fog reduces visibility of road obstacles
+- **Risk Type:** OcclusionRisk
+- **Severity Score:** 0.90
+- **Evidence:** FallingObjectIndicator (debris on road)
+
+**Risk 2:**
+- **Description:** Debris on road surface poses hazard
+- **Risk Type:** RoadConditionRisk
+- **Severity Score:** 0.85
+- **Evidence:** Implied by the presence of debris (RoadObject)
+
+---
+
+### Analysis Justification:
+1. **Entities Identified:**
+   - **Obstacle:** Debris on the road (typed as `RoadObject`).
+   - **WeatherCondition:** Foggy visibility at night (typed as `FoggyCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting with the debris in these images, so no `Actor` instances are included.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an **EvidenceBasedAnomaly** because the debris (evidence) suggests a potential hazard (falling object) that isn't actively interacting with traffic but could cause issues.
+
+3. **Risks Identified:**
+   - **OcclusionRisk:** High severity due to fog reducing visibility of the debris.
+   - **RoadConditionRisk:** High severity due to the debris itself posing a hazard.
+
+4. **Severity Scores:**
+   - OcclusionRisk (0.90) is higher because fog is a dynamic, environment-related hazard that affects perception.
+   - RoadConditionRisk (0.85) is slightly lower but still critical due to the physical presence of debris. Here is the semantic interpretation of the scene using the provided ontology:
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FoggyRoadWithFallingObject" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Falling sandbag on road" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Sandbag rolling into vehicle path" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :FoggyCondition ;
+    :description "Heavy fog reducing visibility" .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision with falling road object" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Fog obscuring visibility of road ahead" ;
+    :hasSeverityScore :sev2 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.90"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+```
+
+---
+
+### Identified Risks for each risk class
+
+**Risk 1:**
+- **Description:** Potential collision with falling road object (sandbag)
+- **Severity Score:** 0.90
+
+**Risk 2:**
+- **Description:** Fog obscuring visibility of road ahead
+- **Severity Score:** 0.80
+
+---
+
+### Analysis:
+1. **Entities Identified:**
+   - **Obstacle:** Sandbag (classified as `:RoadObject`).
+   - **Weather Condition:** Fog (classified as `:FoggyCondition`).
+   - No actors (pedestrians, cyclists, or vehicles) are directly interacting in this scene, so no `:Actor` subclass is used.
+
+2. **Corner Case Classification:**
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the primary issue is the **evidence of a falling object** (sandbag) and its potential impact on safety.
+
+3. **Risks Identified:**
+   - **CollisionRisk:** High severity due to the sandbag falling directly into the vehicle's path.
+   - **OcclusionRisk:** High severity due to fog reducing visibility, which could exacerbate the collision risk.
+
+4. **Severity Scores:**
+   - Collision risk is assigned a higher score (0.90) because the sandbag is an immediate hazard.
+   - Occlusion risk is slightly lower (0.80) but still critical due to the foggy conditions. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "FallingObjectOnRoadAtNight" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasObstacle :obstacle1 ;
+    :hasEvidence :evidence1 ;
+    :hasRisk :risk1, :risk2 ;
+    :hasWeatherCondition :weather1 .
+
+:obstacle1 a :RoadObject ;
+    :description "Large falling object (debris) on road surface" .
+
+:evidence1 a :FallingObjectIndicator ;
+    :description "Object appears to be falling or lying on the road" ;
+    :indicatesPotentialRisk :risk1 .
+
+:risk1 a :CollisionRisk ;
+    :description "Potential collision risk due to debris on road" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Debris may obstruct driver's view of other road users" ;
+    :hasSeverityScore :sev2 .
+
+:weather1 a :NightCondition ;
+    :description "Scene captured during nighttime" .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.9"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Potential collision risk due to debris on road
+Severity Score: 0.9
+
+**Risk 2:**
+Description: Debris may obstruct driver's view of other road users
+Severity Score: 0.75
+
+---
+### Explanation:
+1. **Entities Identified**:
+   - **Obstacle**: The large falling object (debris) on the road is classified as a `:RoadObject`.
+   - **WeatherCondition**: The scene is under `:NightCondition`.
+   - **EvidenceIndicator**: The falling object is identified as a `:FallingObjectIndicator`.
+
+2. **Corner Case Classification**:
+   - The scene is classified as an `:EvidenceBasedAnomaly` because the risk is inferred from observable evidence (the debris on the road).
+
+3. **Risks Identified**:
+   - **CollisionRisk**: High severity (0.9) due to the debris lying directly in the path of vehicles.
+   - **OcclusionRisk**: Moderate severity (0.75) because the debris may partially obscure visibility of other road users or objects.
+
+This RDF representation adheres strictly to the provided ontology vocabulary and rules.

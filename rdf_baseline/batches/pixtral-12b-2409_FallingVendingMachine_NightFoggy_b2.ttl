@@ -1,0 +1,79 @@
+```
+@prefix : <http://example.org/autonomous-driving#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Scene1 a :AutonomousDrivingScene ;
+    :hasLightingCondition :LowLighting ;
+    :hasWeatherCondition :Clear ;
+    :hasTimeOfDay :Night .
+
+:Road1 a :Road ;
+    :hasSurfaceType :Asphalt ;
+    :hasMarking :RoadMarking ;
+    :hasLane :Lane1 .
+
+:Lane1 a :Lane ;
+    :hasPosition :Straight ;
+    :hasDirection :Forward .
+
+:Building1 a :Building ;
+    :hasPosition :Left ;
+    :hasDistance :Far .
+
+:Building2 a :Building ;
+    :hasPosition :Right ;
+    :hasDistance :Far .
+
+:Vehicle1 a :Vehicle ;
+    :hasType :AutonomousVehicle ;
+    :hasPosition :Foreground ;
+    :hasOrientation :Forward ;
+    :hasLighting :HeadlightsOn .
+
+:Obstacle1 a :Obstacle ;
+    :hasType :RedReflectiveSurface ;
+    :hasPosition :Foreground ;
+    :hasRelation :Occluding .
+
+:StreetLight1 a :StreetLight ;
+    :hasPosition :Background ;
+    :hasState :On .
+
+# Relationships
+:Vehicle1 :isOn :Road1 .
+:Obstacle1 :isOn :Road1 .
+:Obstacle1 :isNear :Vehicle1 .
+:Building1 :isAdjacentTo :Road1 .
+:Building2 :isAdjacentTo :Road1 .
+:StreetLight1 :illuminates :Road1 .
+
+# Sensor Data
+:Vehicle1 :hasSensorData :RedReflectiveSurfaceDetected .
+:Vehicle1 :hasSensorData :LowLightingCondition .
+```
+
+### Identified Risks for each risk class:
+
+**Risk 1:**
+Description: The red reflective surface (likely a temporary or unexpected obstacle) on the road ahead may cause the autonomous vehicle's sensors to misinterpret the environment, leading to incorrect object detection or false positives.
+Severity Score: 0.7
+
+**Risk 2:**
+Description: Low lighting conditions at night can reduce the visibility of non-reflective objects and pedestrians, increasing the risk of collision with objects not detected by the vehicle's sensors.
+Severity Score: 0.8
+
+**Risk 3:**
+Description: The presence of buildings on both sides of the road may cause shadows and reflections that interfere with the vehicle’s camera and sensor systems, leading to misinterpretation of the environment.
+Severity Score: 0.6
+
+**Risk 4:**
+Description: The potential for sensor occlusion due to the reflective surface and low lighting conditions may lead to the autonomous vehicle failing to detect other vehicles, pedestrians, or cyclists in the vicinity.
+Severity Score: 0.85
+
+**Risk 5:**
+Description: The autonomous vehicle's reliance on headlights may not be sufficient to illuminate the entire road, particularly if there are sudden changes in road conditions or unexpected obstacles.
+Severity Score: 0.75
+
+These risks highlight the importance of robust sensor fusion, adaptive lighting systems, and advanced object detection algorithms in autonomous vehicles to handle low-light and reflective surface scenarios safely.

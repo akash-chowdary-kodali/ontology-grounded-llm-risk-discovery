@@ -1,0 +1,47 @@
+### Scene Interpretation
+
+#### 1. Main Entities
+*   **Vehicles:** Ego-vehicle (red, camera position), Cyclist.
+*   **Vulnerable Road Users:** Cyclist.
+*   **Road Infrastructure:** Asphalt road, street lighting, road markings (lane divider, stop line), sidewalk.
+*   **Environment:** Urban setting, wet road surface (rainy conditions), nighttime.
+
+#### 2. Relationships
+*   **Cyclist** is **crossing** the path of the **Ego-vehicle**.
+*   **Cyclist** is **near** the **Ego-vehicle**.
+*   **Ego-vehicle** is **approaching** an intersection.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle a ex:Vehicle ;
+    ex:isAt ex:Intersection .
+
+ex:Cyclist a ex:VulnerableRoadUser ;
+    ex:isCrossing ex:Path_of_EgoVehicle ;
+    ex:isNear ex:EgoVehicle .
+
+ex:RoadSurface a ex:EnvironmentCondition ;
+    ex:state "wet" ;
+    ex:hasWeather "rainy" .
+
+ex:Intersection a ex:Infrastructure ;
+    ex:lighting "low_light" .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+*   **Description:** Collision risk due to the cyclist crossing directly in the path of the ego-vehicle in low-light, rainy conditions. The wet surface further reduces the ego-vehicle's braking efficiency and increases stopping distance.
+*   **Severity Score:** 0.95
+
+**Risk 2:**
+*   **Description:** Visibility impairment. The combination of nighttime, rain, and limited street lighting creates a high risk of the perception system failing to detect the cyclist in time, particularly due to low contrast.
+*   **Severity Score:** 0.85

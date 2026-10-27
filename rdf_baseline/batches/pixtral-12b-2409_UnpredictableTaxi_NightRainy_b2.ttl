@@ -1,0 +1,139 @@
+```plaintext
+Scene Description in RDF Triples (Turtle Format)
+```
+
+```turtle
+@prefix ex: <http://example.org/ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ex:Scene1 a ex:DrivingScene ;
+    ex:hasWeatherCondition ex:Rainy ;
+    ex:hasLightCondition ex:Night .
+
+ex:Rainy a ex:WeatherCondition ;
+    rdfs:label "Rainy" .
+
+ex:Night a ex:LightCondition ;
+    rdfs:label "Night" .
+
+ex:Vehicle1 a ex:Vehicle ;
+    ex:hasColor "Yellow" ;
+    ex:hasPosition ex:FrontPosition ;
+    ex:hasSpeed "Moderate" ;
+    ex:hasVehicleType ex:Car ;
+    ex:isFollowing ex:Vehicle2 .
+
+ex:Vehicle2 a ex:Vehicle ;
+    ex:hasColor "Red" ;
+    ex:hasPosition ex:CurrentPosition ;
+    ex:hasSpeed "Slow" ;
+    ex:hasVehicleType ex:Car .
+
+ex:Road a ex:RoadInfrastructure ;
+    ex:hasSurfaceCondition ex:Wet ;
+    ex:hasLaneMarkings ex:DoubleYellowLines ;
+    ex:hasTrafficSigns ex:NoneVisible .
+
+ex:DoubleYellowLines a ex:LaneMarking ;
+    rdfs:label "Double Yellow Lines" .
+
+ex:Wet a ex:SurfaceCondition ;
+    rdfs:label "Wet" .
+
+ex:Building1 a ex:Building ;
+    ex:hasPosition ex:RightSide .
+
+ex:StreetLight1 a ex:StreetLight ;
+    ex:hasPosition ex:MultiplePositions ;
+    ex:hasLightCondition ex:On .
+
+ex:Pedestrian1 a ex:Pedestrian ;
+    ex:hasVisibility ex:Low ;
+    ex:hasPosition ex:FarRight .
+
+ex:Obstacle1 a ex:Obstacle ;
+    ex:hasType ex:Debris ;
+    ex:hasPosition ex:ScatteredOnRoad .
+
+ex:Vehicle1 ex:isApproaching ex:Intersection .
+ex:Vehicle1 ex:isOccludedBy ex:Debris .
+ex:Vehicle2 ex:isFollowing ex:Vehicle1 .
+ex:Vehicle2 ex:hasFrontPosition ex:CurrentPosition .
+ex:Vehicle1 ex:hasFrontPosition ex:FrontPosition .
+ex:Vehicle1 ex:hasReflection ex:HeadlightReflectionOnWetSurface .
+```
+
+---
+
+**Identified Risks for each risk class:**
+
+**Risk 1:**
+Description: Reduced visibility due to rain and nighttime conditions, increasing the risk of misidentifying obstacles or other vehicles.
+Severity Score: 0.85
+
+**Risk 2:**
+Description: Wet road surface leading to decreased traction and increased risk of skidding or hydroplaning.
+Severity Score: 0.80
+
+**Risk 3:**
+Description: Potential for headlight glare and reflections on wet surfaces, obscuring the view of other vehicles and pedestrians.
+Severity Score: 0.75
+
+**Risk 4:**
+Description: Presence of scattered debris on the road, posing a risk of vehicle damage or loss of control.
+Severity Score: 0.70
+
+**Risk 5:**
+Description: Low visibility of pedestrians due to darkness and rain, increasing the risk of pedestrian-vehicle collisions.
+Severity Score: 0.80
+
+**Risk 6:**
+Description: Following too closely (tailgating) by Vehicle2, reducing the reaction time for Vehicle1 in case of sudden braking.
+Severity Score: 0.75
+
+**Risk 7:**
+Description: Potential for misjudging distances and speeds due to the combined effects of rain and nighttime, leading to unsafe driving maneuvers.
+Severity Score: 0.85
+
+```plaintext
+Risk Classifications in RDF format (additional triples)
+```
+
+```turtle
+ex:Risk1 a ex:Risk ;
+    ex:riskDescription "Reduced visibility due to rain and nighttime conditions" ;
+    ex:severityScore "0.85" ;
+    ex:riskClass ex:VisibilityRisk .
+
+ex:Risk2 a ex:Risk ;
+    ex:riskDescription "Wet road surface leading to decreased traction" ;
+    ex:severityScore "0.80" ;
+    ex:riskClass ex:RoadConditionRisk .
+
+ex:Risk3 a ex:Risk ;
+    ex:riskDescription "Headlight glare and reflections on wet surfaces" ;
+    ex:severityScore "0.75" ;
+    ex:riskClass ex:LightingRisk .
+
+ex:Risk4 a ex:Risk ;
+    ex:riskDescription "Scattered debris on the road" ;
+    ex:severityScore "0.70" ;
+    ex:riskClass ex:ObstacleRisk .
+
+ex:Risk5 a ex:Risk ;
+    ex:riskDescription "Low visibility of pedestrians" ;
+    ex:severityScore "0.80" ;
+    ex:riskClass ex:PedestrianRisk .
+
+ex:Risk6 a ex:Risk ;
+    ex:riskDescription "Following too closely by Vehicle2" ;
+    ex:severityScore "0.75" ;
+    ex:riskClass ex:FollowingRisk .
+
+ex:Risk7 a ex:Risk ;
+    ex:riskDescription "Misjudging distances and speeds" ;
+    ex:severityScore "0.85" ;
+    ex:riskClass ex:JudgmentRisk .
+```

@@ -1,0 +1,56 @@
+### Scene Analysis
+
+#### 1. Main Entities
+*   **Ego Vehicle:** The red vehicle from which the scene is captured.
+*   **Road Infrastructure:** Multi-lane road, stop line markings, traffic lights (overhead), street lamps, brick wall (right side), billboards, bus stop shelter.
+*   **Traffic Signs:** "No entry for trucks/heavy vehicles" sign, "90" speed limit/info sign.
+*   **Weather Conditions:** Nighttime, rainy (wet road surface with reflections), foggy/low visibility.
+
+#### 2. Relationships
+*   **Ego Vehicle:** Positioned at a stop line at an intersection.
+*   **Traffic Lights:** Suspended overhead, facing the ego vehicle.
+*   **Roadside elements:** Bus stop and signs are to the right of the ego vehicle.
+*   **Environmental:** Low visibility condition caused by night and rain.
+
+---
+
+### Scene Description in RDF Triples (Turtle Format)
+
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+             ex:atLocation ex:StopLine .
+
+ex:TrafficLight rdf:type ex:RoadInfrastructure ;
+                ex:positionedAbove ex:Intersection .
+
+ex:WeatherCondition rdf:type ex:Rainy , ex:Night ;
+                    ex:impacts ex:Visibility .
+
+ex:RoadSurface rdf:type ex:Wet ;
+               ex:causes ex:Reflections .
+
+ex:BusStop rdf:type ex:Infrastructure ;
+           ex:locatedNear ex:BrickWall .
+
+ex:HeavyVehicleSign rdf:type ex:TrafficSign ;
+                    ex:locatedOn ex:RoadSide .
+```
+
+---
+
+### Identified Risks
+
+**Risk 1:**
+**Description:** Reduced visibility and traction due to nighttime and heavy rain (wet road surface). The combination of low light and wet pavement increases the risk of hydroplaning and reduces detection range for obstacles or pedestrians.
+**Severity Score:** 0.75
+
+**Risk 2:**
+**Description:** Signal degradation or ambiguity. The traffic light is positioned high above the intersection; in heavy fog/rain, the contrast and visibility of the signal states may be reduced for the autonomous system's sensors.
+**Severity Score:** 0.60
+
+**Risk 3:**
+**Description:** Occluded hazards at the intersection. The combination of fog and nighttime makes it difficult to perceive cross-traffic or pedestrians waiting near the bus stop/sidewalk, as low-contrast objects become hard to distinguish from the background.
+**Severity Score:** 0.85

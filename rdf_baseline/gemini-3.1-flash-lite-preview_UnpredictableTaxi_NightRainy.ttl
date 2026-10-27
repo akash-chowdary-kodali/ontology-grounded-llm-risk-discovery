@@ -1,0 +1,49 @@
+### 1. Main Entities
+*   **Ego Vehicle:** Red car (from whose perspective the images are captured).
+*   **Lead Vehicle:** Yellow sedan (Taxi).
+*   **Other Vehicles:** A red van in the distant background.
+*   **Road Infrastructure:** Multi-lane road, street lamps, sidewalk/curb, a billboard/sign on the right.
+*   **Weather Conditions:** Nighttime, heavy rain, wet road surface (creating reflections).
+
+### 2. Entity Relationships
+*   **Ego Vehicle** is **following** the **Lead Vehicle**.
+*   **Ego Vehicle** is **approaching** the **Lead Vehicle**.
+*   **Lead Vehicle** is **occupying** the same lane as the **Ego Vehicle**.
+*   **Road Infrastructure** is **surrounding** the vehicles.
+
+### 3. Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix ex: <http://example.org/driving-scene#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+ex:EgoVehicle rdf:type ex:Vehicle ;
+    ex:color "red" ;
+    ex:following ex:LeadVehicle .
+
+ex:LeadVehicle rdf:type ex:Vehicle ;
+    ex:color "yellow" ;
+    ex:isLocatedIn ex:SameLaneAsEgo .
+
+ex:Environment rdf:type ex:Context ;
+    ex:time "night" ;
+    ex:weather "rainy" ;
+    ex:roadCondition "wet" .
+
+ex:RiskClass_01 rdf:type ex:Risk ;
+    ex:description "Reduced visibility and traction due to heavy rain and night conditions." ;
+    ex:severity 0.6 .
+
+ex:RiskClass_02 rdf:type ex:Risk ;
+    ex:description "Rear-end collision risk with lead vehicle in low-friction environment." ;
+    ex:severity 0.7 .
+```
+
+### 4. Identified Risks
+
+**Risk 1:**
+*   **Description:** Environmental hazards (heavy rain at night). The combination of darkness, precipitation, and light reflections on the wet road significantly impairs sensor (camera/LiDAR) performance and reduces the driver's/system's reaction time.
+*   **Severity Score:** 0.6
+
+**Risk 2:**
+*   **Description:** Longitudinal collision risk. The ego vehicle is in close proximity to the lead vehicle. Given the slick road conditions, the braking distance is extended, increasing the likelihood of a rear-end collision if the lead vehicle decelerates suddenly.
+*   **Severity Score:** 0.7

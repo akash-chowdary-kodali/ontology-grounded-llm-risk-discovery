@@ -1,0 +1,67 @@
+Scene Description in RDF Triples (Turtle Format)
+```turtle
+@prefix : <http://cecs571.csulb.edu/ontology/cornercase#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:scene1 a :Scene ;
+    :scenarioName "WetRoadNightScene" ;
+    :hasCornerCaseType :cc1 .
+
+:cc1 a :EvidenceBasedAnomaly ;
+    :hasEvidence :evidence1 ;
+    :hasWeatherCondition :weather1 ;
+    :hasRisk :risk1, :risk2, :risk3 .
+
+:evidence1 a :RollingBallIndicator ;
+    :description "Reflective water on road surface indicating wet conditions" ;
+    :indicatesPotentialRisk :risk1 .
+
+:weather1 a :RainyCondition ;
+    :description "Nighttime scene with wet road surface" .
+
+:risk1 a :RoadConditionRisk ;
+    :description "Reduced traction due to wet road surface" ;
+    :hasSeverityScore :sev1 .
+
+:risk2 a :OcclusionRisk ;
+    :description "Limited visibility due to nighttime and potential rain" ;
+    :hasSeverityScore :sev2 .
+
+:risk3 a :CollisionRisk ;
+    :description "Potential rear-end collision due to reduced visibility and braking distance" ;
+    :hasSeverityScore :sev3 .
+
+:sev1 a :SeverityScore ;
+    :severityValue "0.75"^^xsd:float .
+
+:sev2 a :SeverityScore ;
+    :severityValue "0.60"^^xsd:float .
+
+:sev3 a :SeverityScore ;
+    :severityValue "0.80"^^xsd:float .
+
+:trafficLight1 a :TrafficLight ;
+    :description "Visible traffic light showing red" ;
+    :occursInScene :scene1 .
+
+:trafficSign1 a :TrafficSign ;
+    :description "No entry sign visible on the right" ;
+    :occursInScene :scene1 .
+```
+
+Identified Risks for each risk class:
+
+**Risk 1:**
+Description: Reduced traction due to wet road surface
+Severity Score: 0.75
+
+**Risk 2:**
+Description: Limited visibility due to nighttime and potential rain
+Severity Score: 0.60
+
+**Risk 3:**
+Description: Potential rear-end collision due to reduced visibility and braking distance
+Severity Score: 0.80
+
+---
+The scene was classified as an **EvidenceBasedAnomaly** due to the rolling ball indicator (reflective water on the road surface) suggesting wet conditions. The identified risks include **RoadConditionRisk** (wet road), **OcclusionRisk** (limited visibility), and **CollisionRisk** (rear-end collision). The severity scores reflect the potential danger of these conditions in a nighttime driving scenario.
